@@ -1,0 +1,52 @@
+#icons {
+	margin-top:-5px;
+	float:left;
+	margin-right: 15px;
+
+}
+
+.social-icon
+{
+	width:25px;
+	height: 25px;
+	background: #FF6700;
+	display: block;
+	font-size: 15px;
+	margin: 0 10px;
+	text-align: center;
+	color: white;
+	border-radius:50%;
+	line-height: 25px;
+	position: relative;
+	overflow: hidden;
+	border: 0px solid #fff;
+}
+
+.social-icon:hover {
+	width:30px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+
+.fa{
+	position: relative;
+	color: #FFFFFF;
+	transition: .5s;
+}
+
+#icon-facebook:hover {
+	background: #3B5998;
+	transition: 0.3s;
+}
+
+#icon-instagram:hover {
+	background: #cd486b;
+	transition: 0.3s;
+}
+
+#icon-linkedin:hover {
+	background: #0D77B7;
+	transition: 0.3s;
+}
