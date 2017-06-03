@@ -312,7 +312,8 @@ header .header-content .header-content-inner p {
   margin-top: 0;
 }
 .service-box {
-  max-width: 530px;
+  max-width: 100%;
+    background-color: yellow;
   margin: 10px auto 0;
 }
 
