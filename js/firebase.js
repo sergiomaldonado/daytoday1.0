@@ -1,4 +1,4 @@
-  var db = firebase.database();
+  const db = firebase.database();
   var tipousuario;
 
   function login() {
@@ -29,11 +29,14 @@
 
           if(tipousuario == privilegio) {
             if(privilegio == 'Administrador') {
-
+              $(location).attr("href", "admin.html");
             }
             if(privilegio == 'Usuario') {
-                $(location).attr("href", "user.html");
+              $(location).attr("href", "user.html");
             }
+          }
+          else {
+
           }
         })
 
