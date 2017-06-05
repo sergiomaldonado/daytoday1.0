@@ -1,0 +1,58 @@
+@import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
+
+@font-face {
+  font-family: intelo;
+  src: url(../Intelo/Intelo-Light.ttf);
+}
+@font-face {
+  font-family: intelobold;
+  src: url(../Intelo/Intelo-Medium.ttf);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'intelobold';
+  background-color: #e4ebf9;
+
+}
+body {
+font-family: 'intelo';
+max-width: 100%;
+overflow-x: hidden;
+}
+
+section {
+  padding: 20px 0;
+}
+
+#head-blog{
+  position: relative;
+  height: 600px;
+  width: 100%;
+  min-height: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: url('../assets/bg1.png');
+}
+
+form{
+
+  margin-top: 30px;
+  padding:30px 30px 30px;
+  background-color: white;
+  border: solid 1px #478AE2;
+  border-radius: 10px;
+}
+
+input, select {
+  border: solid 1px #478AE2 !important;
+}
+
+input,select, button{
+  display: block !important;
+}

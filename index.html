@@ -1,119 +1,59 @@
 <!DOCTYPE html>
-<html lang="<?php bloginfo('language'); ?>">
+<html lang="ES">
   <head>
-      <meta charset="<?php bloginfo('charset'); ?>">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <title><?php bloginfo('title'); ?></title>
-
-      <?php wp_head(); ?>
-      <!-- Bootstrap Core CSS -->
-      <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-      <!-- Custom Fonts -->
-      <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-      <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-      <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
-      <!-- Plugin CSS -->
-      <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-      <!-- Theme CSS -->
-      <link href="css/creative.min.css" rel="stylesheet">
-      <link href="css/creative.css" rel="stylesheet">
-
-      <link href="css/social.css" rel="stylesheet">
-      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-      <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Daytoday</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body id="page-top">
-      <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="nav-ventas">
-          <p style="font-size:14px;color:gray; margin-left:20px; padding-top:8px; width:100%;">
-            Ventas: &nbsp   <i style="color:#FC5810;" class="glyphicon glyphicon-phone-alt">
-            </i> &nbsp(834) 151 0629   &nbsp&nbsp&nbsp
-            <img  width="14" style="margin-top:-5px;" src="<?php bloginfo('template_url') ?>/img/lwa.svg"> Whatsapp (831) 123 9023
-            <div style="float:right; margin-top:-40px; margin-right:50px;">
-              <object id="icons" width="25" height="25">
-                  <a id="icon-facebook" class="social-icon" href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
-              </object>&nbsp&nbsp&nbsp
-              <object id="icons" width="25" height="25">
-                  <a id="icon-instagram" class="social-icon" href=""><i class="fa fa-instagram" aria-hidden="true"></i></a>
-              </object>&nbsp&nbsp&nbsp
-              <object id="icons" width="25" height="25">
-                  <a id="icon-linkedin" class="social-icon" href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-              </object>
-            </div>
-          </p>
-        </div>
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div  class="navbar-header">
-            <button style="border:solid 1px #FF6700;" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span class="sr-only">Toggle navigation</span> Menu <i class="glyphicon glyphicon-triangle-bottom"></i>
-            </button>
-            <a href="<?php echo get_site_url(); ?>"><img id="logo" class="navbar-brand page-scroll" src="<?php bloginfo('template_url') ?>/logosv.svg"></a>
-          </div>
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <li id="icons2">
-                <img  width="25" style="margin-top:-5px;" src="<?php bloginfo('template_url') ?>/img/fb.svg"></img>&nbsp&nbsp&nbsp
-                <img width="25" style="margin-top:-5px;" src="<?php bloginfo('template_url') ?>/img/insta.svg"></img>&nbsp&nbsp&nbsp
-                <img width="25" style="margin-top:-5px;" src="<?php bloginfo('template_url') ?>/img/in.svg"></img>
-              </li>
-              <li><a class="page-scroll" href="#service">Servicios</a></li>
-              <li><a class="page-scroll" href="<?php echo get_permalink(47); ?>">Blog</a></li>
-              <li><a class="page-scroll" href="<?php echo get_permalink(get_page_by_path( 'live' )) ?>">Axios Live</a></li>
-              <li><a id="noseparador" class="page-scroll" href="#contact">Contacto</a></li>
-            </ul>
-          </div>
-          <!-- /.navbar-collapse -->
-        </div>
-          <!-- /.container-fluid -->
-      </nav>
-      <header>
-        <div style="margin-top:40px;" class="header-content">
-        <!-- Button trigger modal -->
-        <!-- Modal -->
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 ">
-                <div class="service-box">
-                  <h1 id="title-head">Somos más que una Agencia Digital.</h1>
-                  <h3 id="sub-title-head">Buscamos conectar a las empresas con sus clientes ideales a través de la estrategia el diseño y la tecnología.</h3>
-                  <hr>
-                  <button type="button" id="btn-contacto" class="btn btn-default btn-lg">CONTACTANOS</button>
-                </div>
+    <header>
+      <section id="head-blog" style="padding-top:100px;">
+        <div style="width:400px;" class="container text-center">
+          <div style="margin-top:0px; " class="header-content">
+            <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
+            <p>El día a día de tu trabajo</p>
+            <form role="form" class="form-signin" action="">
+              <div class="col-md-4" class="form-group">
+                <input id="email" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
               </div>
-              <div style="margin-top:30px;" class="col-lg-6 col-md-6 text-center">
-                <div class="servixte-box">
-                  <a href="" data-toggle="modal" data-target=".modal1" ><img  class="img-responsive" id="img-video" src="<?php bloginfo('template_url') ?>/img/video.png"></a>
-                </div>
+              <div class="col-md-4" class="form-group">
+                <input id="contrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
               </div>
-            </div>
+              <div class="col-md-4" class="form-group">
+                <select id="puesto" class="" name="" class="form-control input-lg" required>
+                  <option disabled selected value="">Puesto</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Usuario">Usuario</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button onclick="login()" id="listo" class="btn btn-default" type="submit" name="">LISTO</button>
+              </div>
+            </form>
           </div>
         </div>
       </header>
-
-  
-    <!-- jQuery -->
-    <script src="<?php bloginfo('template_url') ?>/vendor/jquery/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php bloginfo('template_url') ?>/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="<?php bloginfo('template_url') ?>/vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="<?php bloginfo('template_url') ?>/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <!-- Theme JavaScript -->
-    <script src="<?php bloginfo('template_url') ?>/js/creative.min.js"></script>
-    <script src="<?php bloginfo('template_url') ?>/js/globo.js"></script>
+      <p style="text-align: center;">Un producto de Axios Agencia Digital</p>
+      <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+      <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyCNT5Gp61NyRo5iGQV3P7d51Y_B6lDLl9g",
+          authDomain: "daytoday-21c6d.firebaseapp.com",
+          databaseURL: "https://daytoday-21c6d.firebaseio.com",
+          projectId: "daytoday-21c6d",
+          storageBucket: "daytoday-21c6d.appspot.com",
+          messagingSenderId: "934459413907"
+        };
+        firebase.initializeApp(config);
+      </script>
+      <script type="text/javascript" src="js/firebase.js"></script>
     </body>
   </html>
