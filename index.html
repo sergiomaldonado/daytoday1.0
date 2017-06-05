@@ -1,55 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Daytoday</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/styles.css">
-  </head>
-  <body id="page-top">
-    <header>
-      <section id="head-blog" style="padding-top:100px;">
-        <div id="contenedor" class="container text-center">
-          <div style="margin-top:0px; " class="header-content">
-            <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
-            <p>El día a día de tu trabajo</p>
-            <div id="form">
-              <input id="email" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
-              <input id="contrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required><br>
-              <select id="puesto" name="" class="input-lg form-control" required>
-                <option disabled selected value="">Puesto</option>
-                <option value="Administrador">Administrador</option>
-                <option value="Usuario">Usuario</option>
-              </select><br>
-              <button onclick="login()" id="listo" class="boton boton-default" type="submit" name="">LISTO</button>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Daytoday</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body id="page-top">
+        <header>
+          <section id="head-blog" style="padding-top:100px;">
+            <div id="contenedor" class="container text-center">
+              <div style="margin-top:0px; " class="header-content">
+                <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
+                <p>El día a día de tu trabajo</p>
+                <div id="form">
+                  <input id="email" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
+                    <input id="contrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required><br>
+                    <select id="puesto" name="" class="input-lg form-control" required>
+                      <option disabled selected value="">Puesto</option>
+                      <option value="Administrador">Administrador</option>
+                      <option value="Usuario">Usuario</option>
+                    </select><br>
+                  <button onclick="login()" id="listo" class="boton boton-default" type="submit" name="">LISTO</button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </header>
-    <p style="text-align: center;">Un producto de Axios Agencia Digital S.A.P.I. de C. V.</p>
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyCNT5Gp61NyRo5iGQV3P7d51Y_B6lDLl9g",
-        authDomain: "daytoday-21c6d.firebaseapp.com",
-        databaseURL: "https://daytoday-21c6d.firebaseio.com",
-        projectId: "daytoday-21c6d",
-        storageBucket: "daytoday-21c6d.appspot.com",
-        messagingSenderId: "934459413907"
-      };
-      firebase.initializeApp(config);
-    </script>
-    <script type="text/javascript" src="js/firebase.js"></script>
-  </body>
+          </section>
+        </header>
+        <p style="text-align: center;">Un producto de Axios Agencia Digital S.A.P.I. de C. V.</p>
+        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCNT5Gp61NyRo5iGQV3P7d51Y_B6lDLl9g",
+                authDomain: "daytoday-21c6d.firebaseapp.com",
+                databaseURL: "https://daytoday-21c6d.firebaseio.com",
+                projectId: "daytoday-21c6d",
+                storageBucket: "daytoday-21c6d.appspot.com",
+                messagingSenderId: "934459413907"
+            };
+        firebase.initializeApp(config);
+            </script>
+        <script type="text/javascript" src="js/firebase.js"></script>
+    </body>
 </html>
