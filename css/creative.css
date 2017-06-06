@@ -67,23 +67,28 @@ p {
 
   margin-bottom: 20px;
 }
-.bg-primary {
 
-}
-.bg-dark {
-
-}
-.service-box{
-
-
-}
 #tareas{
   padding-bottom: 200px;
 }
-td{padding-bottom: 100px;}
-.well{
-  border: solid 1px red;
+#tarea{
+  border:solid #478AE2 1px;
+  width: 100%;
+
 }
+
+.well{
+  border: solid 1px #478AE2;
+  background-color: white;
+  padding: 0px;
+  overflow: hidden;
+  width: 100%;
+  height: 70px;
+  max-width: 120px;
+
+}
+p{font-size: 14px; padding:10px; margin-bottom:10px;}
+#category-color{ float: left; height: 100%; width: 5%; background-color: red; margin: 0px;}
 #tarea-lunes{
   background-color: red;
   border-radius: 10px;
