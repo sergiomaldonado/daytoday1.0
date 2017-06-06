@@ -17,99 +17,171 @@
     <link href="css/social.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
-  <body id="page-top">
-    <section>
+  <body>
+    <section  class="no-padding">
       <div style="margin-top:40px;">
         <div class="container">
           <div class="row">
             <div class="col-lg-3 col-md-3">
-              <div class="row">
-                <div class="col-sm-6 col-md-4">
+
+
                   <div style="width:250px;" class="thumbnail">
                     <img src="http://lorempixel.com/400/200/" alt="...">
                     <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                     <div class="caption">
-                      <h3>Sergio Malgonado</h3>
+                      <h3>Sergio Maldonado</h3>
                     </div>
-                  </div>
+
                 </div>
-              </div>
+
             </div>
-            <div style="margin-top:30px;" class="col-lg-9 col-md-9 text-center" style="background-color:blue;">
-              <div class="table-responsive">
-                <table class="table">
-                  <tr>
-                    <td>Lunes</td>
-                    <td>Martes</td>
-                    <td>Miercoles</td>
-                    <td>Jueves</td>
-                    <td>Viernes</td>
-                    <td>Sabado</td>
-                  </tr>
-                  <tr>
-                    <td id="lunes">
-                      <ul>
-                        <li class="no-padding" style="list-style:none;"><div class="well well-sm">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                      </ul>
-                    </td>
-                    <td id="martes">
-                      <ul>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                      </ul>
-                    </td>
-                   <td id="miercoles">
-                     <ul>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                     </ul>
-                   </td>
-                   <td id="jueves">
-                     <ul>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                     </ul>
-                   </td>
-                   <td id="viernes">
-                     <ul>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                     </ul>
-                   </td>
-                   <td id="sabado">
-                     <ul>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
-                     </ul>
-                   </td>
-                 </tr>
-               </table>
+            <div  class="no-padding col-lg-9 col-md-9" style=" background-color:red;">
+              <div style="background-color:white; padding-top:30px;" class="live-box">
+
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#coment" data-toggle="tab">Semana</a></li>
+                    <li ><a href="#recursos" data-toggle="tab">Mi Semana</a></li>
+                      <li ><a href="#recursos" data-toggle="tab">Completado</a></li>
+                  </ul>
+
+
+              <div class="tab-content no-padding" style="padding:20px;">
+                <div class="tab-pane fade in active no-padding" id="coment">
+                  <div style="display: inline;" id="authentication">
+                    <div class="table-responsive no-padding">
+                      <div class="panel panel-default no-padding" style="border:solid 1px white;">
+        <!-- Default panel contents -->
+
+                       <div class="panel-body">
+                         <p>Categorias</p>
+                       </div>
+                      <table class="table">
+                        <tr>
+                          <td><h4>Lunes</h4></td>
+                          <td><h4>Martes</h4></td>
+                          <td><h4>Miercoles</h4></td>
+                          <td><h4>Jueves</h4></td>
+                          <td><h4>Viernes</h4></td>
+                          <td><h4>Sabado</h4></td>
+                        </tr>
+                        <tr>
+                          <td id="lunes">
+                            <ul>
+                              <li style="list-style:none;"><div id="tarea">tarea1 del lunes</div></li>
+                              <li style="list-style:none;"><div >tarea1 del lunes</div></li>
+                            </ul>
+                          </td>
+                          <td id="Martes">
+                            <ul>
+                              <li style="list-style:none; width:100%; margin-left-20px;"><div class="well well-sm">tarea1 del lunes</div></li>
+                              <li style="list-style:none;"><div >tarea1 del lunes</div></li>
+                              <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                            </ul>
+                          </td>
+                          <td id="Miercoles">
+                            <ul>
+                              <li style="list-style:none; width:100%; margin-left-20px;"><div class="well well-sm">tarea1 del lunes</div></li>
+                              <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                            </ul>
+                          </td>
+
+                         <td id="jueves">
+                           <ul>
+                             <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                             <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                             <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                           </ul>
+                         </td>
+                         <td id="viernes">
+                           <ul>
+                             <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                             <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                           </ul>
+                         </td>
+                         <td id="sabado">
+                           <ul>
+                             <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                             <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                           </ul>
+                         </td>
+                       </tr>
+                     </table>
+                   </div></div>
+                  </div>
+
+               </div>
+              <div class="tab-pane fade" id="recursos">
+                <div class="table-responsive no-padding">
+                  <div class="panel panel-default no-padding">
+    <!-- Default panel contents -->
+                   <div class="panel-heading">Panel heading</div>
+                   <div class="panel-body">
+                     <p>...</p>
+                   </div>
+                  <table class="table">
+                    <tr>
+                      <td>Lunes</td>
+                      <td>Martes</td>
+                      <td>Miercoles</td>
+                      <td>Jueves</td>
+                      <td>Viernes</td>
+                      <td>Sabado</td>
+                    </tr>
+                    <tr>
+                      <td id="lunes">
+                        <ul>
+                          <li style="list-style:none; width:100%; margin-left-20px;"><div class="well well-sm">tarea1 del lunes</div></li>
+                          <li style="list-style:none;"><div >tarea1 del lunes</div></li>
+                        </ul>
+                      </td>
+                      <td id="Martes">
+                        <ul>
+                          <li style="list-style:none; width:100%; margin-left-20px;"><div class="well well-sm">tarea1 del lunes</div></li>
+                          <li style="list-style:none;"><div >tarea1 del lunes</div></li>
+                          <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        </ul>
+                      </td>
+                      <td id="Miercoles">
+                        <ul>
+                          <li style="list-style:none; width:100%; margin-left-20px;"><div class="well well-sm">tarea1 del lunes</div></li>
+                          <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        </ul>
+                      </td>
+
+                     <td id="jueves">
+                       <ul>
+                         <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                         <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                         <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       </ul>
+                     </td>
+                     <td id="viernes">
+                       <ul>
+                         <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                         <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       </ul>
+                     </td>
+                     <td id="sabado">
+                       <ul>
+                         <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                         <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       </ul>
+                     </td>
+                   </tr>
+                 </table>
+               </div></div>
+                            </div>
              </div>
            </div>
+          </div>
+
          </div>
        </div>
      </div>
    </section>
   <!-- jQuery -->
-  <script src="<?php bloginfo('template_url') ?>/vendor/jquery/jquery.min.js"></script>
-  <!-- Bootstrap Core JavaScript -->
-  <script src="<?php bloginfo('template_url') ?>/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <!-- Plugin JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <script src="<?php bloginfo('template_url') ?>/vendor/scrollreveal/scrollreveal.min.js"></script>

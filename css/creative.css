@@ -21,6 +21,7 @@ font-family: 'intelobold';
 }
 body {
 font-family: 'intelo';
+
 }
 hr {
   border-color: #F05F40;
@@ -30,6 +31,13 @@ hr {
 }
 hr.light {
   border-color: white;
+}
+tr{
+  border:solid 1px white;
+  text-align: white;
+}
+td{
+  border:solid 1px white;
 }
 a {
   -webkit-transition: all 0.35s;
@@ -251,14 +259,8 @@ body {
   position: relative;
   width: 100%;
   min-height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-  background-position: center;
-  background-image: url('../img/bg1.png');
+
   text-align: center;
-  color: white;
 }
 header .header-content {
   position: relative;
