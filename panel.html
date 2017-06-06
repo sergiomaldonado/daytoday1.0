@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="css/creative.min.css" rel="stylesheet">
+    <link href="css/creative.css" rel="stylesheet">
+    <link href="css/social.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body>
+    <div data-keyboard="false" data-backdrop="static" id="modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" style="color: #137BD6;">Primero inicia sesión</h4>
+          </div>
+          <div class="modal-body">
+            <div style="margin-top:0px; " class="header-content">
+              <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
+              <p>El día a día de tu trabajo</p>
+              <div id="form">
+                <input id="email" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
+                <input id="contrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required><br>
+                <select id="puesto" name="" class="input-lg form-control" required>
+                  <option disabled selected value="">Puesto</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Usuario">Usuario</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!--<button  type="button" class="boton btn-default" data-dismiss="modal">Cerrar</button>-->
+            <button onclick="login()" id="listo" type="button" class="boton btn-primary">Entrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <section id="panel-usuario">
+      <div style="margin-top:40px;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-3">
+              <div class="row">
+                <div class="col-sm-6 col-md-4">
+                  <div style="width:250px;" class="thumbnail">
+                    <img src="http://lorempixel.com/400/200/" alt="...">
+                    <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
+                    <div class="caption">
+                      <h3>Saul vega</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:30px;" class="col-lg-9 col-md-9 text-center" style="background-color:blue;">
+              <div class="table-responsive">
+                <table class="table">
+                  <tr>
+                    <td>Lunes</td>
+                    <td>Martes</td>
+                    <td>Miercoles</td>
+                    <td>Jueves</td>
+                    <td>Viernes</td>
+                    <td>Sabado</td>
+                  </tr>
+                  <tr>
+                    <td id="lunes">
+                      <ul>
+                        <li class="no-padding" style="list-style:none;"><div class="well well-sm">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                      </ul>
+                    </td>
+                    <td id="martes">
+                      <ul>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                      </ul>
+                    </td>
+                   <td id="miercoles">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                   <td id="jueves">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                   <td id="viernes">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                   <td id="sabado">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                 </tr>
+               </table>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+    </section>
+    <section id="panel-admin">
+      <div style="margin-top:40px;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-3">
+              <div class="row">
+                <div class="col-sm-6 col-md-4">
+                  <div style="width:250px;" class="thumbnail">
+                    <img src="http://lorempixel.com/400/200/" alt="...">
+                    <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
+                    <div class="caption">
+                      <h3>Sergio Malgonado</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:30px;" class="col-lg-9 col-md-9 text-center" style="background-color:blue;">
+              <div class="table-responsive">
+                <table class="table">
+                  <tr>
+                    <td>Lunes</td>
+                    <td>Martes</td>
+                    <td>Miercoles</td>
+                    <td>Jueves</td>
+                    <td>Viernes</td>
+                    <td>Sabado</td>
+                  </tr>
+                  <tr>
+                    <td id="lunes">
+                      <ul>
+                        <li class="no-padding" style="list-style:none;"><div class="well well-sm">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                      </ul>
+                    </td>
+                    <td id="martes">
+                      <ul>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                        <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                      </ul>
+                    </td>
+                   <td id="miercoles">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                   <td id="jueves">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                   <td id="viernes">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                   <td id="sabado">
+                     <ul>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                       <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
+                     </ul>
+                   </td>
+                 </tr>
+               </table>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCNT5Gp61NyRo5iGQV3P7d51Y_B6lDLl9g",
+            authDomain: "daytoday-21c6d.firebaseapp.com",
+            databaseURL: "https://daytoday-21c6d.firebaseio.com",
+            projectId: "daytoday-21c6d",
+            storageBucket: "daytoday-21c6d.appspot.com",
+            messagingSenderId: "934459413907"
+        };
+    firebase.initializeApp(config);
+    </script>
+    <script src="js/panel.js"></script>
+  </body>
+</html>
