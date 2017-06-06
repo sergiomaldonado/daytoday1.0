@@ -1,5 +1,6 @@
 var privilegio;
 var db = firebase.database();
+var puesto;
 
 function checar() {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -50,16 +51,22 @@ function mostrarPanelDesdeModal() {
   setTimeout(function() {
     console.log(privilegio);
 
-
-    if(privilegio == "Administrador") {
-      $('#panel-usuario').hide();
-      $("title").html("Panel de administrador");
-      $('#panel-admin').show();
+    if(puesto == privilegio) {
+      if(privilegio == "Administrador") {
+        $('#panel-usuario').hide();
+        $("title").html("Panel de administrador");
+        $('#panel-admin').show();
+        $('#modal').modal('hide');
+      }
+      if(privilegio == "Usuario") {
+        $('#panel-admin').hide();
+        $('#panel-usuario').show();
+        $('title').html("Panel de usuario");
+        $('#modal').modal('hide');
+      }
     }
-    if(privilegio == "Usuario") {
-      $('#panel-admin').hide();
-      $('#panel-usuario').show();
-      $('title').html("Panel de usuario");
+    else {
+      $('#error').html('Tu puesto es incorrecto').show();
     }
   }, 2000);
 }
@@ -67,15 +74,22 @@ function mostrarPanelDesdeModal() {
 function login(){
   let email = $('#email').val();
   let password = $('#contrasena').val();
-  let puesto = $('#puesto').val();
+  puesto = $('#puesto').val();
 
   firebase.auth().signInWithEmailAndPassword(email, password)
+  .then(function() {
+    mostrarPanelDesdeModal();
+  })
   .catch(function(error) {
     console.log(error);
-  });
 
-  $('#modal').modal('hide');
-  mostrarPanelDesdeModal();
+    if(error.code === 'auth/user-not-found') {
+      $('#error').html('El usuario es incorrecto').show();
+    }
+    if(error.code === 'auth/wrong-password') {
+      $('#error').html('La contraseña es incorrecta').show();
+    }
+  });
 }
 
 function mostrarPanel() {

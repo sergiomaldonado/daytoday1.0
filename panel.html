@@ -31,6 +31,7 @@
               <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
               <p>El día a día de tu trabajo</p>
               <div id="form">
+                <div id="error" style="display: none;" class="alert alert-danger" role="alert"></div>
                 <input id="email" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
                 <input id="contrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required><br>
                 <select id="puesto" name="" class="input-lg form-control" required>
@@ -48,7 +49,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <section id="panel-usuario">
+    <section style="display: none;" id="panel-usuario">
       <div style="margin-top:40px;">
         <div class="container">
           <div class="row">
@@ -136,7 +137,7 @@
        </div>
      </div>
     </section>
-    <section id="panel-admin">
+    <section style="display: none;" id="panel-admin">
       <div style="margin-top:40px;">
         <div class="container">
           <div class="row">
