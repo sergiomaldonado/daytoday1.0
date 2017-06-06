@@ -26,16 +26,17 @@
           let usuario = snap.val();
           var privilegio = usuario.puesto;
 
-          if(privilegio == 'Administrador') {
-            $(location).attr("href", "admin.html");
-          }
-          if(privilegio == 'Usuario') {
-            $(location).attr("href", "user.html");
-          }
+          // if(privilegio == 'Administrador') {
+          //   $(location).attr("href", "admin.html");
+          // }
+          // if(privilegio == 'Usuario') {
+          //   $(location).attr("href", "user.html");
+          // }
+          $(location).attr("href", "panel.html");
         })
       }
-      else {
-        //$(location).attr("href", "404.html");
+      else { //Si no hay usuario logeado
+        //$(location).attr("href", "index.html");
       }
     })
   }
@@ -55,17 +56,18 @@
           var privilegio = usuario.puesto;
           //console.log(privilegio);
 
-          if(tipousuario == privilegio) {
-            if(privilegio == 'Administrador') {
-              $(location).attr("href", "admin.html");
-            }
-            if(privilegio == 'Usuario') {
-              $(location).attr("href", "user.html");
-            }
-          }
-          else {
-
-          }
+          // if(tipousuario == privilegio) {
+          //   if(privilegio == 'Administrador') {
+          //     $(location).attr("href", "admin.html");
+          //   }
+          //   if(privilegio == 'Usuario') {
+          //     $(location).attr("href", "user.html");
+          //   }
+          // }
+          // else {
+          //
+          // }
+          $(location).attr("href", "panel.html");
         })
 
       }

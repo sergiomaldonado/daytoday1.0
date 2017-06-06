@@ -10,13 +10,13 @@ firebase.auth().onAuthStateChanged(function (user) {
     db.ref('usuarios/' + uid).on('value', function(snap) {
       let usuario = snap.val();
       var privilegio = usuario.puesto;
-      //console.log(privilegio);
+      console.log(privilegio);
 
       if(privilegio == 'Administrador') {
-        $(location).attr("href", "admin.html");
+        //$(location).attr("href", "admin.html");
       }
       if(privilegio == 'Usuario') {
-        $(location).attr("href", "user.html");
+        //$(location).attr("href", "user.html");
       }
     })
   }
