@@ -117,5 +117,20 @@
   <!-- Theme JavaScript -->
   <script src="<?php bloginfo('template_url') ?>/js/creative.min.js"></script>
   <script src="<?php bloginfo('template_url') ?>/js/globo.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+  <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyCNT5Gp61NyRo5iGQV3P7d51Y_B6lDLl9g",
+          authDomain: "daytoday-21c6d.firebaseapp.com",
+          databaseURL: "https://daytoday-21c6d.firebaseio.com",
+          projectId: "daytoday-21c6d",
+          storageBucket: "daytoday-21c6d.appspot.com",
+          messagingSenderId: "934459413907"
+      };
+  firebase.initializeApp(config);
+  </script>
+  <script src="js/user.js" type="text/javascript"></script>
   </body>
 </html>
