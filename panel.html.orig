@@ -18,7 +18,6 @@
     <link href="css/social.css" rel="stylesheet">
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   </head>
   <body>
     <div data-keyboard="false" data-backdrop="static" id="modal" class="modal fade" tabindex="-1" role="dialog">
@@ -32,10 +31,10 @@
               <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
               <p>El día a día de tu trabajo</p>
               <div id="form">
-                <div id="error" class="alert alert-danger" role="alert">Rellena todos los campos</div>
-                <input required data-tooltip="Aún no ingresas tu usuario" data-position="right" id="email" type="text" name="" class="form-control input-lg tooltipped" value="" placeholder="Correo electrónico" required><br>
-                <input required data-tooltip="Aún no ingresas tu contraseña" data-position="right" id="contrasena" type="password" name="" class="form-control input-lg tooltipped" value="" placeholder="Contraseña" required><br>
-                <select required data-tooltip="Aún no ingresas tu puesto" data-position="right" id="puesto" name="" class="input-lg form-control tooltipped" required>
+                <div id="error" style="display: none;" class="alert alert-danger" role="alert"></div>
+                <input id="email" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
+                <input id="contrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required><br>
+                <select id="puesto" name="" class="input-lg form-control" required>
                   <option disabled selected value="">Puesto</option>
                   <option value="Administrador">Administrador</option>
                   <option value="Usuario">Usuario</option>
@@ -332,7 +331,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
     <script>
         // Initialize Firebase
