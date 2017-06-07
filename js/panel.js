@@ -139,3 +139,5 @@ function logOut() {
 }
 
 mostrarPanel();
+
+$("#agregarUsuario").modal();
