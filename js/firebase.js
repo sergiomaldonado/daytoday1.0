@@ -6,12 +6,18 @@
     var contrasena = $('#contrasena').val();
     tipousuario = $('#puesto').val();
 
-    firebase.auth().signInWithEmailAndPassword(email, contrasena)
-    .catch(function(error) {
-      console.log(error);
-    });
+    if(email.length != 0 && contrasena.length != 0 && tipousuario.length != 0) {
+      firebase.auth().signInWithEmailAndPassword(email, contrasena)
+      .then(function() {
+        getUser();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    }
+    else {
 
-    getUser();
+    }
   }
 
   function haySesion() {
