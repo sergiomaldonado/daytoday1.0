@@ -140,4 +140,4 @@ function logOut() {
 
 mostrarPanel();
 
-$("#agregarUsuario").modal();
+//$("#agregarUsuario").modal();
