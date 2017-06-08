@@ -140,4 +140,20 @@ function logOut() {
 
 mostrarPanel();
 
-//$("#agregarUsuario").modal();
+function modalUsuario() {
+  $("#agregarUsuario").modal();
+}
+
+function modalOrden() {
+  $("#agregarOrden").modal();
+}
+
+function modalProyecto() {
+  
+}
+
+$('#datetimepicker1').datepicker({
+  startDate: "Today",
+  autoclose: true,
+  todayHighlight: true
+});
