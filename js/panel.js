@@ -149,11 +149,35 @@ function modalOrden() {
 }
 
 function modalProyecto() {
-  
+
 }
+
+$('#agregarProyecto').modal();
 
 $('#datetimepicker1').datepicker({
   startDate: "Today",
   autoclose: true,
   todayHighlight: true
 });
+
+$('#datetimepickerFechaInicio').datepicker({
+  startDate: "Today",
+  autoclose: true,
+  todayHighlight: true
+});
+
+$('#datetimepickerFechaEntrega').datepicker({
+  startDate: "Today",
+  autoclose: true,
+  todayHighlight: true
+});
+
+function volver() {
+  $('#carousel-proyecto').carousel('prev');
+  $('#carousel-proyecto').carousel('pause');
+}
+
+function siguiente() {
+  $('#carousel-proyecto').carousel('next');
+  $('#carousel-proyecto').carousel('pause');
+}
