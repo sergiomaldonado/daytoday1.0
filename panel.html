@@ -163,9 +163,6 @@
                       <textarea id="descripcion" class="form-control input-lg" rows="5" placeholder="¿De qué trata esta orden?"></textarea>
                     </div>
                     <div class="form-group">
-                      <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required>
-                    </div>
-                    <div class="form-group">
                       <div class="input-group date" id='datetimepicker1'>
                         <input id="fechaEntrega" type="text" class="form-control input-lg" placeholder="¿Que día tenemos que entregar esta orden?">
                         <div class="input-group-addon">
@@ -190,7 +187,7 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <!--Modal Agregar Usuario-->
-        <div id="agregarProyecto" class="modal fade" tabindex="-1" role="dialog">
+        <div id="agregarProyecto" data-keyboard="false" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -429,7 +426,7 @@
                           <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
                         </ul>
                       </td>
-                     <td id="miercoles">
+                      <td id="miercoles">
                        <ul>
                          <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
                          <li style="list-style:none;"><div class="well well-lg">tarea1 del lunes</div></li>
@@ -469,6 +466,7 @@
      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>-->
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
      <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+     <script src="http://momentjs.com/downloads/moment.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
      <script>

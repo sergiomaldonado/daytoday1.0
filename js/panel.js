@@ -163,10 +163,146 @@ function modalOrden() {
 
 //muestra la modal para Crear un Proyecto
 function modalProyecto() {
-
+  $('#agregarProyecto').modal();
 }
 
-$('#agregarProyecto').modal();
+//metodo que guarda una nueva orden en Firebase
+function guardarOrden() {
+  let cliente = $('#cliente').val();
+  let descripcion = $('#descripcion').val();
+  let fechaRecep = moment().format('DD/MM/YYYY');
+  let fechaEntrega = $('#fechaEntrega').val();
+  let estado = "Pendiente";
+  let encargado = $('#encargado').val();
+
+  let ordenes = firebase.database().ref('ordenes/');
+  let Orden = {
+    cliente: cliente,
+    descripcion: descripcion,
+    fechaRecep: fechaRecep,
+    fechaEntrega: fechaEntrea,
+    estado: estado,
+    encargado: encargado
+  }
+
+  ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
+}
+
+//guarda un nuevo Usuario en la base de datos de Firebase en el nodo Usuarios
+function guardarUsuario() {
+  let nombre = $('#nombre').val();
+  let apellidos = $('#apellidos').val();
+  let email = $('#email').val();
+  let puesto = $('#puesto').val();
+  var contrasena;
+
+  if($('#contrasena').val() === $('#confirmarcontrasena').val()) {
+    contrasena = $('#contrasena').val();
+  }
+
+  firebase.auth().createUserWithEmailAndPassword(email, contrasena)
+  .then(function(data) {
+    console.log(data);
+    let uid = data.uid;
+    console.log(uid);
+
+    let usuarios = firebase.database().ref('usuarios/'+uid);
+    let Usuario = {
+      nombre: nombre,
+      apellidos: apellido,
+      puesto: puesto
+    }
+    usuarios.set(Usuario); //metodo set para insertar de Firebase
+
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+  $('#agregarUsuario').modal('hide');
+  return false;
+}
+
+var equipo = [];
+
+//introduce los integrantes del equipo a un arreglo
+function agregarIntegrante() {
+  let integrante = $('#ac-demo').val();
+
+  equipo.push(integrante);
+
+  $('#ac-demo').val("").focus();
+}
+
+var numtareas = 0;
+var tareas = [];
+
+//atrapa las tareas que se asignan a un proyecto
+function agregarTarea() {
+  let nombre = $('#tarea').val();
+  let categoria = $('#categoria').val();
+  let asignado = $('#asignado').val();
+  let estado = "Pendiente";
+
+  let tarea = {
+    nombre: nombre,
+    categoria: categoria,
+    asignado: asignado,
+    estado: estado
+  }
+
+  tareas.push(tarea);
+  numtareas++;
+  $('#tarea').val().focus();
+}
+
+//crear un proyecto nuevo en la base de datos de Firebase en el nodo Proyectos
+function guardarProyecto() {
+  let nombreProyecto = $('#nombreProyecto').val();
+  let fechaInicio = $('#fechaInicio').val();
+  let fechaEntrega = $('#fechaEntrega').val();
+  let encargadoProyecto = $('#encargadoProyecto').val();
+  let estructuraProyecto = $('#estructuraProyecto').val();
+  let descripcionProyecto = $('#descripcionProyecto').val();
+  let documentacion = $('#documentacion').val();
+  let indicador1 = $('#indicador1').val();
+  let indicador2 = $('#indicador2').val();
+  let objetivo1 = $('#objetivo1').val();
+  let objetivo2 = $('#objetivo2').val();
+  let objetivo3 = $('#objetivo3').val();
+  let entregables = $('#entregables').val();
+
+  let proyectos = firebase.database().ref('proyectos/');
+  let Proyecto = {
+    nombre: nombreProyecto,
+    equipo: equipo,
+    numtareas: numtareas,
+    tareasCompletadas: 0,
+    fechaInicio: fechaInicio,
+    fechaEntrega: fechaEntrega,
+    encargado: encargadoProyecto,
+    estructura: estructuraProyecto,
+    descripcion: descripcionProyecto,
+    docuementacion: documentacion,
+    objetivos: {
+      objetivo1: objetivo1,
+      objetivo2: objetivo2,
+      objetivo3: objetivo3
+    },
+    indicadores: {
+      indicador1: indicador1,
+      indicador2: indicador2
+    },
+    entregables: entregables
+  }
+  proyectos.push().set(Proyecto);
+
+  let tareasRef = firebase.database().ref('proyectos/tareas');
+
+  for(tarea in tareas) {
+    tareas.push().set(tarea);
+  }
+  $('#agregarProyecto').modal('hide');
+}
 
 $('#datetimepicker1').datepicker({
   startDate: "Today",
@@ -177,12 +313,14 @@ $('#datetimepicker1').datepicker({
 $('#datetimepickerFechaInicio').datepicker({ //Inicializa el datepicker de FechaInico
   startDate: "Today",
   autoclose: true,
+  format: "dd/mm/yyyy",
   todayHighlight: true
 });
 
 $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de FechaEntrega
   startDate: "Today",
   autoclose: true,
+  format: "dd/mm/yyyy",
   todayHighlight: true
 });
 
