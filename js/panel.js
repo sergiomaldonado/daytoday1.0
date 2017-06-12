@@ -17,6 +17,10 @@ function checar() {
         let usuario = snap.val();
         privilegio = usuario.puesto;
         console.log(privilegio);
+
+        if(privilegio === "Administrador") {
+          $('#mainNav').show();
+        }
       })
     }
     else {
@@ -25,6 +29,7 @@ function checar() {
       */
       $('#panel-admin').hide();
       $('#panel-usuario').hide();
+      $('#mainNav').hide();
       $("#modal").modal();
       $('#email').val("");
       $('#contrasena').val("");
@@ -49,6 +54,7 @@ function checarDesdeModal() {
       })
     }
     else {
+      $('#mainNav').hide();
       $('#panel-admin').hide();
       $('#panel-usuario').hide();
     }
@@ -65,6 +71,7 @@ function mostrarPanelDesdeModal() {
     if(puesto == privilegio) { //si el puesto es igual, significa que ingresaste bien tu puesto
       if(privilegio == "Administrador") { //si el privilegio es Administrador te muestra el panel de admin
         $('#panel-usuario').hide();
+        $('#mainNav').show();
         $("title").html("Panel de administrador");
         $('#panel-admin').show();
         $('#modal').modal('hide');
@@ -128,11 +135,11 @@ function mostrarPanel() {
   setTimeout(function() {
     console.log(privilegio);
 
-
     if(privilegio == "Administrador") {
       $('#panel-usuario').hide();
       $("title").html("Panel de administrador");
       $('#panel-admin').show();
+      $('#mainNav').show();
     }
     if(privilegio == "Usuario") {
       $('#panel-admin').hide();
