@@ -21,6 +21,7 @@
     <link rel="icon" href="http://www.templatemonster.com/favicon.ico">
     <link rel="stylesheet" type="text/css" media="all" href="css/jquery.minicolors.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/proyecto.css">
     <link rel="stylesheet" href="css/autocomplete.css">
 
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">-->
@@ -392,7 +393,7 @@
             <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px;">
               <div style="background-color:white; padding-top:30px;" class="live-box">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#m1" data-toggle="tab">Semana</a></li>
+                  <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab">Semana</a></li>
                   <li><a id="tabordenes" href="#m2" data-toggle="tab">Ordenes</a></li>
                   <li><a id="tabproyectos" href="#m3" data-toggle="tab">Proyectos</a></li>
                   <li><a id="tabreporte" href="#m4" data-toggle="tab">Reporte</a></li>
@@ -473,32 +474,55 @@
                   </div>
                   <!-- Tab Ordenes-->
                   <div class="tab-pane fade" id="m2">
-                    <div style="margin-top:30px;" class="media">
-                      <div class="media-left media-middle">
-                        <a href="http://agenciaaxios.com/entrada-2/">
-                          <img style="max-width:100px;" class="media-object" src="http://agenciaaxios.com/wp-content/uploads/2017/04/bg1-1.png" alt="...">
-                        </a>
+                    <table class="table">
+                      <thead>
+                        <th>Id</th>
+                        <th>Cliente</th>
+                        <th>descripción del pedido</th>
+                        <th>Recepción</th>
+                        <th>Entrega</th>
+                        <th>Estado</th>
+                        <th>Cliente Encargado</th>
+                      </thead>
+                      <tbody id="cuerpoTablaOrdenes">
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tab-pane fade" id="m3">
+                    <div class="container">
+                      <div class="row">
+                        <div class='col-sm-6'>
+                          <div id="proyecto">
+                            <div id="nombreproyecto"><p>Plan de Marketing Xico</p></div>
+                            <div id="fecha"><p>Tareas: 28          Entrega: 15/06/2017</p></div>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
+                                85%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='col-sm-6'>
+                          <div id="proyecto">
+                            <div id="nombreproyecto"><p>Plan de Comunicacion de Axios</p></div>
+                            <div id="fecha"><p>Tareas: 25          Entrega: 28/07/2017</p></div>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
+                                70%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="media-body">
-                        <a href="http://agenciaaxios.com/entrada-2/"><p class="media-heading">Entrada 2</p></a>
-                      </div>
-                    </div>
-                    <div style="margin-top:30px;" class="media">
-                      <div class="media-left media-middle">
-                        <a href="http://agenciaaxios.com/entrada-1/">
-                          <img style="max-width:100px;" class="media-object" src="http://agenciaaxios.com/wp-content/uploads/2017/04/bg1.png" alt="...">
-                        </a>
-                      </div>
-                      <div class="media-body">
-                        <a href="http://agenciaaxios.com/entrada-1/"><p class="media-heading">Entrada 1</p></a>
-                      </div>
-                    </div>
+                  	</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       </section>
       <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
       <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>-->
