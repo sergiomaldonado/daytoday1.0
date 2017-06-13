@@ -22,13 +22,35 @@ function checar() {
           $('#mainNav').show();
           $('[data-toggle="tooltip"]').tooltip();
 
-          $('a[data-toggle="ordenes"]').on('shown.bs.tab', function (e) {
+          $('#tabordenes').on('shown.bs.tab', function (e) {
             e.target // newly activated tab
             e.relatedTarget // previous active tab
 
            let ordenes = firebase.database().ref('ordenes/');
-            db.on('value', function(snapshot) {
+            ordenes.on('value', function(snapshot) {
+              let ordenes = snapshot.val();
+              $('#tablaordenes tbody').empty();
 
+              let row = "";
+              let i=1;
+              for (orden in ordenes) {
+                row += '<tr>' +
+                         '<td class="idOrden">' + i + '</td>' +
+                         '<td class="clienteOrden">' + ordenes[orden].cliente + '</td>' +
+                         '<td class="descripcionOrden">' + ordenes[orden].descripcion + '</td>' +
+                         '<td class="fechaRecepOrden">' + ordenes[orden].fechaRecep + '</td>' +
+                         '<td class="fechaEntregaOrden">' + ordenes[orden].fechaEntrega + '</td>' +
+                         '<td class="estadoOrden">' + ordenes[orden].estado + '</td>' +
+                         '<td class="encargadoOrden">' + ordenes[orden].encargado + '</td>' +
+                       '</tr>';
+                i++;
+              }
+
+              $('#tablaordenes tbody').append(row);
+              row = "";
+              i=1;
+            }, function(errorObject) {
+              console.log("La lectura de las ordenes falló: " + errorObject.code);
             })
           })
 
