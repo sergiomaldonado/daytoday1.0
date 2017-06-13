@@ -26,7 +26,10 @@ function checar() {
             e.target // newly activated tab
             e.relatedTarget // previous active tab
 
-            
+           let ordenes = firebase.database().ref('ordenes/');
+            db.on('value', function(snapshot) {
+              
+            })
           })
 
           $('a[data-toggle="proyectos"]').on('shown.bs.tab', function (e) {
