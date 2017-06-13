@@ -203,12 +203,13 @@ function guardarOrden() {
     cliente: cliente,
     descripcion: descripcion,
     fechaRecep: fechaRecep,
-    fechaEntrega: fechaEntrea,
+    fechaEntrega: fechaEntrega,
     estado: estado,
     encargado: encargado
   }
 
   ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
+  $('#agregarOrden').modal('hide');
 }
 
 //guarda un nuevo Usuario en la base de datos de Firebase en el nodo Usuarios
