@@ -36,9 +36,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
-            <li><a onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
-            <li><a onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Agregar orden"><a onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Agregar proyecto"><a onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
+            <li data-toggle="tooltip" data-placement="bottom" title="Agregar usuario"><a onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
             <li><a class="page-scroll" href="http://agenciaaxios.com/live/"><span style="margin-top:10px;"  class="glyphicon glyphicon-menu-hamburger"></span></a></li>
           </ul>
           <!-- HTML to write -->
@@ -387,10 +387,10 @@
               <div style="background-color:white; padding-top:30px;" class="live-box">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#m1" data-toggle="tab">Semana</a></li>
-                  <li ><a href="#m2" data-toggle="tab">Ordenes</a></li>
-                  <li ><a href="#m2" data-toggle="tab">Proyectos</a></li>
-                  <li ><a href="#m2" data-toggle="tab">Reporte</a></li>
-                  <li ><a href="#m2" data-toggle="tab">Historial</a></li>
+                  <li><a href="#m2" data-toggle="ordenes">Ordenes</a></li>
+                  <li><a href="#m2" data-toggle="proyectos">Proyectos</a></li>
+                  <li><a href="#m2" data-toggle="reportes">Reporte</a></li>
+                  <li><a href="#m2" data-toggle="historial">Historial</a></li>
                   <button id="salir" onClick="cerrarSesion()" class="btn btn-small" style="display:none;  width:auto; height:40px; font-size:13px; border-radius:4px; margin-left:1px;" type="submit">Salir</button>
                 </ul>
                 <div class="tab-content" style="padding:20px;">
@@ -498,7 +498,8 @@
       <script src="vendor/bootstrap/js/bootstrap.js" type="text/javascript"> </script>
       <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
       <script src="http://momentjs.com/downloads/moment.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
+      <script src="js/bootstrap-tooltip.js"></script>
       <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
       <script>
       // Initialize Firebase

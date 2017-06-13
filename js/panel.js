@@ -20,6 +20,19 @@ function checar() {
 
         if(privilegio === "Administrador") {
           $('#mainNav').show();
+          $('[data-toggle="tooltip"]').tooltip();
+
+          $('a[data-toggle="ordenes"]').on('shown.bs.tab', function (e) {
+            e.target // newly activated tab
+            e.relatedTarget // previous active tab
+
+            
+          })
+
+          $('a[data-toggle="proyectos"]').on('shown.bs.tab', function (e) {
+            e.target // newly activated tab
+            e.relatedTarget // previous active tab
+          })
         }
       })
     }
@@ -254,7 +267,8 @@ function agregarTarea() {
     nombre: nombre,
     categoria: categoria,
     asignado: asignado,
-    estado: estado
+    estado: estado,
+    dias: []
   }
 
   tareas.push(tarea);
