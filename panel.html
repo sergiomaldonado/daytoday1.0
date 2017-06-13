@@ -17,6 +17,9 @@
     <link href="css/social.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.css">
+    <link rel="shortcut icon" href="http://www.templatemonster.com/favicon.ico">
+    <link rel="icon" href="http://www.templatemonster.com/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="all" href="css/jquery.minicolors.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/autocomplete.css">
 
@@ -304,8 +307,11 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                           <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                        </div>
+                        <div class="col-md-3">
+                          <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
                         </div>
                         <div class="col-md-6">
                           <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
@@ -383,14 +389,14 @@
                 </div>
               </div>
             </div>
-            <div  class="no-padding col-lg-9 col-md-9" style="margin-top:-30px;">
+            <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px;">
               <div style="background-color:white; padding-top:30px;" class="live-box">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#m1" data-toggle="tab">Semana</a></li>
-                  <li><a href="#m2" data-toggle="ordenes">Ordenes</a></li>
-                  <li><a href="#m2" data-toggle="proyectos">Proyectos</a></li>
-                  <li><a href="#m2" data-toggle="reportes">Reporte</a></li>
-                  <li><a href="#m2" data-toggle="historial">Historial</a></li>
+                  <li><a id="tabordenes" href="#m2" data-toggle="tab">Ordenes</a></li>
+                  <li><a id="tabproyectos" href="#m3" data-toggle="tab">Proyectos</a></li>
+                  <li><a id="tabreporte" href="#m4" data-toggle="tab">Reporte</a></li>
+                  <li><a id="tabhistorial" href="#m5" data-toggle="tab">Historial</a></li>
                   <button id="salir" onClick="cerrarSesion()" class="btn btn-small" style="display:none;  width:auto; height:40px; font-size:13px; border-radius:4px; margin-left:1px;" type="submit">Salir</button>
                 </ul>
                 <!-- Tab Semana-->
@@ -398,7 +404,7 @@
                   <div class="tab-pane fade in active" id="m1">
                     <div class="table-responsive no-padding">
                       <div class="panel panel-default no-padding" style="border:solid 1px white;">
-                        <!-- Default panel contents -->
+                        <!-- Contenido a pintar por javascript -->
                         <div class="panel-body no-padding">
                           <ul>
                             <li style="display:inline; padding:20px;"><span style="color:#50E3C2;" class="glyphicon glyphicon-asterisk"></span>Home</li>
@@ -499,6 +505,7 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <script src="vendor/bootstrap/js/bootstrap.js" type="text/javascript"> </script>
       <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+      <script type="text/javascript" src="js/jquery.minicolors.min.js"></script>
       <script src="http://momentjs.com/downloads/moment.min.js"></script>
       <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
       <script src="js/bootstrap-tooltip.js"></script>
@@ -514,6 +521,37 @@
         messagingSenderId: "934459413907"
       };
       firebase.initializeApp(config);
+      </script>
+      <script type="text/javascript">
+      $(function(){
+        var colpick = $('.demo').each( function() {
+          $(this).minicolors({
+            control: $(this).attr('data-control') || 'hue',
+            inline: $(this).attr('data-inline') === 'true',
+            letterCase: 'lowercase',
+            opacity: false,
+            change: function(hex, opacity) {
+              if(!hex) return;
+              if(opacity) hex += ', ' + opacity;
+              try {
+                console.log(hex);
+              } catch(e) {}
+              $(this).select();
+            },
+            theme: 'bootstrap'
+          });
+        });
+
+        var $inlinehex = $('#inlinecolorhex h3 small');
+        $('#inlinecolors').minicolors({
+          inline: true,
+          theme: 'bootstrap',
+          change: function(hex) {
+            if(!hex) return;
+            $inlinehex.html(hex);
+          }
+        });
+      });
       </script>
       <script src="js/panel.js"></script>
       <script src="js/autocomplete.js"></script>
