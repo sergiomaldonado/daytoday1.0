@@ -28,7 +28,7 @@ function checar() {
 
            let ordenes = firebase.database().ref('ordenes/');
             db.on('value', function(snapshot) {
-              
+
             })
           })
 
@@ -263,12 +263,16 @@ var tareas = [];
 function agregarTarea() {
   let nombre = $('#tarea').val();
   let categoria = $('#categoria').val();
+  let color = $('#color').val();
   let asignado = $('#asignado').val();
   let estado = "Pendiente";
 
   let tarea = {
     nombre: nombre,
-    categoria: categoria,
+    categoria: {
+      nombre: categoria,
+      color: color
+    },
     asignado: asignado,
     estado: estado,
     dias: []
