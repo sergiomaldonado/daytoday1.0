@@ -190,3 +190,10 @@ fieldset[disabled] .boton-default.active {
   border-color: rgba(173, 173, 173, 1);
   color: rgba(51, 51, 51, 1);
 }
+
+.estadoOrden {
+  border-radius: 4px;
+  background-color: red;
+  width: 10px;
+  height: 5px;
+}

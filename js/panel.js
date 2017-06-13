@@ -2,6 +2,52 @@ var privilegio;
 var db = firebase.database();
 var puesto;
 
+function mostrarOrdenes() {
+  $('#tabordenes').on('shown.bs.tab', function (e) {
+    e.target // newly activated tab
+    e.relatedTarget // previous active tab
+
+   let ordenes = firebase.database().ref('ordenes/');
+    ordenes.on('value', function(snapshot) {
+      let ordenes = snapshot.val();
+      $('#tablaordenes tbody').empty();
+
+      let row = "";
+      let i=1;
+      for (orden in ordenes) {
+        var state;
+        if(ordenes[orden].estado==="Pendiente"){
+          state='<span style="background-color: red; width: 30px; height: 20px;" class="badge">   <span>';
+        }
+        if(ordenes[orden].estado==="En proceso"){
+          state='<span style="background-color: yellow; width: 30px; height: 20px;" class="badge">   <span>';
+        }
+        if(ordenes[orden].estado==="Listo"){
+          state='<span style="background-color: #31FF2D; width: 30px; height: 20px;" class="badge">   <span>';
+        }
+
+        row += '<tr>' +
+                 '<td>' + i + '</td>' +
+                 '<td>' + ordenes[orden].cliente + '</td>' +
+                 '<td>' + ordenes[orden].descripcion + '</td>' +
+                 '<td>' + ordenes[orden].fechaRecep + '</td>' +
+                 '<td>' + ordenes[orden].fechaEntrega + '</td>' +
+                 '<td>' + state + '</td>' +
+                 '<td>' + ordenes[orden].encargado + '</td>' +
+               '</tr>';
+        i++;
+      }
+
+      $('#tablaordenes tbody').append(row);
+      row = "";
+      i=1;
+      state="";
+    }, function(errorObject) {
+      console.log("La lectura de las ordenes falló: " + errorObject.code);
+    })
+  })
+}
+
 //checa si hay un usuario actualmente logeado
 function checar() {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -22,37 +68,7 @@ function checar() {
           $('#mainNav').show();
           $('[data-toggle="tooltip"]').tooltip();
 
-          $('#tabordenes').on('shown.bs.tab', function (e) {
-            e.target // newly activated tab
-            e.relatedTarget // previous active tab
-
-           let ordenes = firebase.database().ref('ordenes/');
-            ordenes.on('value', function(snapshot) {
-              let ordenes = snapshot.val();
-              $('#tablaordenes tbody').empty();
-
-              let row = "";
-              let i=1;
-              for (orden in ordenes) {
-                row += '<tr>' +
-                         '<td class="idOrden">' + i + '</td>' +
-                         '<td class="clienteOrden">' + ordenes[orden].cliente + '</td>' +
-                         '<td class="descripcionOrden">' + ordenes[orden].descripcion + '</td>' +
-                         '<td class="fechaRecepOrden">' + ordenes[orden].fechaRecep + '</td>' +
-                         '<td class="fechaEntregaOrden">' + ordenes[orden].fechaEntrega + '</td>' +
-                         '<td class="estadoOrden">' + ordenes[orden].estado + '</td>' +
-                         '<td class="encargadoOrden">' + ordenes[orden].encargado + '</td>' +
-                       '</tr>';
-                i++;
-              }
-
-              $('#tablaordenes tbody').append(row);
-              row = "";
-              i=1;
-            }, function(errorObject) {
-              console.log("La lectura de las ordenes falló: " + errorObject.code);
-            })
-          })
+          mostrarOrdenes();
 
           $('a[data-toggle="proyectos"]').on('shown.bs.tab', function (e) {
             e.target // newly activated tab
