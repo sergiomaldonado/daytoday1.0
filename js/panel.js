@@ -2,6 +2,17 @@ var privilegio;
 var db = firebase.database();
 var puesto;
 
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+        defaultView: 'agendaWeek',
+        editable: true
+    })
+
+});
+
 function mostrarOrdenes() {
   $('#tabordenes').on('shown.bs.tab', function (e) {
     e.target // newly activated tab
