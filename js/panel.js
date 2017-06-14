@@ -402,6 +402,23 @@ $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de Fech
   todayHighlight: true
 });
 
+function verProyecto() {
+  let datos = {
+
+  }
+
+
+  $.ajax({
+    type: "POST",
+    url: "proyecto.php",
+    data: datos,
+    success: function(data)
+    {
+      $('#resp').html(data);
+    }
+  });
+}
+
 //Te regresa un paso en el carousel de la modal Crear Proyecto
 function volver() {
   $('#carousel-proyecto').carousel('prev');
