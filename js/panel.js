@@ -51,10 +51,47 @@ function mostrarOrdenes() {
 
       $('#tablaordenes tbody').append(row);
       row = "";
-      i=1;
-      state="";
+      i = 1;
+      state = "";
     }, function(errorObject) {
       console.log("La lectura de las ordenes falló: " + errorObject.code);
+    })
+  })
+}
+
+function mostrarProyectos() {
+  $('#tabordenes').on('shown.bs.tab', function (e) {
+    e.target // newly activated tab
+    e.relatedTarget // previous active tab
+
+    let proyectos = firebase.database().ref('proyectos/');
+    proyectos.on('value', function(snapshot) {
+      let proyecto = snapshot.val();
+
+      $('#ContenedorProyectos').empty();
+      let row = "";
+
+      for (proyecto in proyectos) {
+        let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 )/ proyectos[proyecto].numTareas
+        row =+ '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
+                  '<a href="proyecto.php?id=' + proyecto + '">' +
+                    '<div id="proyecto">' +
+                      '<div><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
+                        '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas +          'Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
+                          '<div class="progress">' +
+                            '<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">' +
+                              + porcentaje + '%' +
+                      '</div>' +
+                    '</div>' +
+                  '</a>' +
+                '</div>' +
+              '</div>';
+      }
+
+      $('#ContenedorProyectos').append(row);
+      row = "";
+    }, function(errorObject) {
+      console.log("La lectura de proyectos falló: " + errorObject.code);
     })
   })
 }
@@ -85,6 +122,11 @@ function checar() {
             e.target // newly activated tab
             e.relatedTarget // previous active tab
           })
+        }
+        if(privilegio === "Usuario") {
+          $('#panel-admin').hide();
+          $('#mainNav').hide();
+          $('#panel-usuario').show();
         }
       })
     }
@@ -265,34 +307,38 @@ function guardarOrden() {
 function guardarUsuario() {
   let nombre = $('#nombre').val();
   let apellidos = $('#apellidos').val();
-  let email = $('#email').val();
-  let puesto = $('#puesto').val();
-  var contrasena;
+  let agregarUsuarioEmail = $('#agregarUsuarioEmail').val();
+  let agregarUsuarioPuesto = $('#agregarUsuarioPuesto').val();
+  var agregarUsuarioContrasena;
 
-  if($('#contrasena').val() === $('#confirmarcontrasena').val()) {
-    contrasena = $('#contrasena').val();
+  if($('#nuevacontrasena').val() == $('#confirmarcontrasena').val()) {
+    agregarUsuarioContrasena = $('#nuevacontrasena').val();
+
+    firebase.auth().createUserWithEmailAndPassword(agregarUsuarioEmail, agregarUsuarioContrasena)
+    .then(function(data) {
+      console.log(data);
+      let uid = data.uid;
+      console.log(uid);
+
+      let usuarios = firebase.database().ref('usuarios/'+uid);
+      let Usuario = {
+        nombre: nombre,
+        apellidos: apellidos,
+        puesto: agregarUsuarioPuesto
+      }
+      usuarios.set(Usuario); //metodo set para insertar de Firebase
+
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+    $('#agregarUsuario').modal('hide');
+
+    logOut();
   }
-
-  firebase.auth().createUserWithEmailAndPassword(email, contrasena)
-  .then(function(data) {
-    console.log(data);
-    let uid = data.uid;
-    console.log(uid);
-
-    let usuarios = firebase.database().ref('usuarios/'+uid);
-    let Usuario = {
-      nombre: nombre,
-      apellidos: apellido,
-      puesto: puesto
-    }
-    usuarios.set(Usuario); //metodo set para insertar de Firebase
-
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
-  $('#agregarUsuario').modal('hide');
-  return false;
+  else {
+    console.log("Las contraseñas no coinciden");
+  }
 }
 
 var equipo = [];
@@ -377,7 +423,7 @@ function guardarProyecto() {
   let tareasRef = firebase.database().ref('proyectos/tareas');
 
   for(tarea in tareas) {
-    tareas.push().set(tarea);
+    tareasRef.push().set(tarea);
   }
   $('#agregarProyecto').modal('hide');
 }
