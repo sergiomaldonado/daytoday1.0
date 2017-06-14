@@ -40,9 +40,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li data-toggle="tooltip" data-placement="bottom" title="Agregar orden"><a onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
-            <li data-toggle="tooltip" data-placement="bottom" title="Agregar proyecto"><a onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
-            <li data-toggle="tooltip" data-placement="bottom" title="Agregar usuario"><a onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
+            <li><a style="height:55px; width:40px; margin-right:10px;" data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
+            <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
+            <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
             <li><a class="page-scroll" href="http://agenciaaxios.com/live/"><span style="margin-top:10px;"  class="glyphicon glyphicon-menu-hamburger"></span></a></li>
           </ul>
           <!-- HTML to write -->
@@ -398,7 +398,6 @@
                   <li><a id="tabproyectos" href="#m3" data-toggle="tab">Proyectos</a></li>
                   <li><a id="tabreporte" href="#m4" data-toggle="tab">Reporte</a></li>
                   <li><a id="tabhistorial" href="#m5" data-toggle="tab">Historial</a></li>
-                  <button id="salir" onClick="cerrarSesion()" class="btn btn-small" style="display:none;  width:auto; height:40px; font-size:13px; border-radius:4px; margin-left:1px;" type="submit">Salir</button>
                 </ul>
                 <!-- Tab Semana-->
                 <div class="tab-content" style="padding:20px;">
@@ -475,8 +474,8 @@
                   <!-- Tab Ordenes-->
                   <div class="tab-pane fade" id="m2">
                     <form role="form">
-                      <div class="form-group has-feedback">
-                        <input type="text" class="form-control" placeholder="" />
+                      <div style="width:30%; float:right;" class="form-group has-feedback">
+                        <input  type="text" class="form-control" placeholder="" />
                         <i style="color: #4388E5;" class="form-control-feedback glyphicon glyphicon-search rota-horizontal"></i>
                       </div>
                     </form>
