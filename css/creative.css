@@ -40,14 +40,11 @@ td{
   border:solid 1px white;
 }
 a {
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  transition: all 0.35s;
-  color: #F05F40;
+  
 }
 a:hover,
 a:focus {
-  color: #eb3812;
+
 }
 
 h2,
