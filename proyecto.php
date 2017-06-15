@@ -95,6 +95,7 @@
     <link rel="stylesheet" href="css/proyecto.css">
     <link rel="stylesheet" href="css/autocomplete.css">
     <link rel="stylesheet" href="css/calendar.css">
+
     <!--<script src="components/jquery/dist/jquery.min.js"></script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script
     <script src="components/jquery-ui/jquery-ui.min.js"></script>
@@ -180,8 +181,8 @@
                         </form>
                       </div>
                     </div>
-                    <div ng-controller="oneCtrl">
-                      <div class='contentWrapper ng-cloak'>
+                    <div id="redips-drag">
+                      <div class='contentWrapper'>
                         <div id="ContenedorTareasProyecto" style="" class="col-xs-8 col-sm-6">
 
                         </div>
@@ -219,8 +220,207 @@
             </div>
           </div>
         </div>
+        <!-- Modal agregar Orden -->
+        <div data-keyboard="false" data-backdrop="static" id="agregarOrden" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Agregar una orden</h4>
+              </div>
+              <div class="modal-body">
+                <form role="form" id="form">
+                  <div class="form-group">
+                    <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required>
+                  </div>
+                  <div class="form-group">
+                    <textarea id="descripcion" class="form-control input-lg" rows="5" placeholder="¿De qué trata esta orden?"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group date" id='datetimepicker1'>
+                      <input id="fechaEntrega" type="text" class="form-control input-lg" placeholder="¿Que día tenemos que entregar esta orden?">
+                      <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input id="encargado" type="text" name="" class="form-control input-lg" value="" placeholder="¿Quién se encarga esta orden?" required>
+                  </div>
+                </form>
+                  <!-- <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required><br>
+                  <textarea id="descripcion" class="form-control input-lg" rows="5" placeholder="¿De qué trata esta orden?"></textarea><br>
+                  <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required><br>
+                  <input id="fechaEntrega" type="text" class="form-control input-lg" placeholder="¿Que día tenemos que entregar esta orden?" data-provide="datepicker"><br>
+                  <input id="encargado" type="text" name="" class="form-control input-lg" value="" placeholder="¿Quién se encarga esta orden?" required><br> -->
+              </div>
+              <div class="modal-footer">
+                <button onclick="guardarOrden()" id="guardarOrden" type="button" class="btns btn-siguiente">Guardar</button><br>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--Modal Agregar Proyecto-->
+        <div data-keyboard="false" data-backdrop="static" id="agregarProyecto" data-keyboard="false" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Nuevo proyecto</h3>
+              </div>
+              <div class="modal-body">
+                <div id="carousel-proyecto" class="carousel slide">
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <h3>Brief</h3>
+                      <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <input id="nombreProyecto" type="text" class="form-control input-lg" placeholder="¿Cuál es el nombre de este proyecto?">
+                          </div>
+                          <div class="col-md-3">
+                            <div class="input-group date" id='datetimepickerFechaInicio'>
+                              <input id="fechaInicio" type="text" class="form-control input-lg" placeholder="Inicio">
+                              <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="input-group date" id='datetimepickerFechaEntrega'>
+                              <input id="fechaEntrega" type="text" class="form-control input-lg" placeholder="Entrega">
+                              <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <input id="encargadoProyecto" type="text" class="form-control input-lg" placeholder="¿Quién será el encargado?">
+                          </div>
+                          <div class="col-md-6">
+                            <input id="estructuraProyecto" type="text" class="form-control input-lg" placeholder="Estructura del proyecto">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <textarea id="descripcionProyecto" class="form-control input-lg" rows="4" placeholder="¿De qué trata el proyecto?"></textarea>
+                          </div>
+                          <div class="col-md-6">
+                            <input id="documentacion" type="text" class="form-control input-lg" placeholder="Documentación"><br>
+                            <label>Indicadores</label>
+                            <input id="indicador1" type="text" class="form-control input-lg" placeholder="Indicador 1">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <label>¿Qué se quiere lograr?</label>
+                            <input id="objetivo1" type="text" class="form-control input-lg" placeholder="Objetivo 1">
+                          </div>
+                          <div class="col-md-6">
+                            <br>
+                            <input id="indicador2" type="text" class="form-control input-lg" placeholder="Indicador 2">
+                          </div>
+                        </div>
+                      </form>
+                      <button onclick="siguiente()" type="button" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
+                    </div>
+                    <div class="item">
+                      <h3>Forma el equipo</h3>
+                      <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <div class="input-group">
+                              <input class="form-control bs-autocomplete" id="ac-demo" value="" placeholder="" type="text" data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id" data-item_label="cityName" autocomplete="off">
+                              <span class="input-group-btn">
+                                <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <button onclick="volver()" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
+                      <button onclick="siguiente()" type="button" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
+                    </div>
+                    <div class="item">
+                      <h3>Agrega tareas al proyecto</h3>
+                      <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-3">
+                            <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                          </div>
+                          <div class="col-md-3">
+                            <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
+                          </div>
+                          <div class="col-md-6">
+                            <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <button class="btns" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                      </form>
+                      Tareas
+                      <hr style="">
+                      <button onclick="volver()" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
+                      <button onclick="guardar()" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div data-keyboard="false" data-backdrop="static" id="agregarUsuario" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Agrega un usuario</h4>
+              </div>
+              <div class="modal-body">
+                <form role="form" id="form">
+                  <div class="form-group">
+                    <div class="col-md-6">
+                      <input id="nombre" type="text" name="" class="form-control input-lg" value="" placeholder="Nombre" required>
+                    </div>
+                    <div class="col-md-6">
+                      <input id="apellidos" type="text" name="" class="form-control input-lg" value="" placeholder="Apellidos" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input id="agregarUsuarioEmail" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
+                  </div>
+                  <div class="form-group">
+                    <select id="agregarUsuarioPuesto" name="" class="input-lg form-control" required>
+                      <option disabled selected value="">Puesto</option>
+                      <option value="Administrador">Administrador</option>
+                      <option value="Usuario">Usuario</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input id="nuevacontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
+                  </div>
+                  <div class="form-group">
+                    <input id="confirmarcontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Confirmar contraseña" required>
+                  </div>
+                  <div class="form-group">
+                    <button onclick="guardarUsuario()" type="button" class="btns btn-siguiente">Guardar</button>
+                  </div>
+                </form>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         </section>
-        >
+        
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="vendor/bootstrap/js/bootstrap.js" type="text/javascript"> </script>
         <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
@@ -228,6 +428,9 @@
         <script src='js/moment.min.js'></script>
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
         <script src="js/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="js/header.js"></script>
+		    <script type="text/javascript" src="js/redips-drag-min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
         <script>
         // Initialize Firebase
@@ -242,6 +445,39 @@
         firebase.initializeApp(config);
         </script>
         <script src="js/proyecto.js"></script>
+        <script type="text/javascript">
+          var App = angular.module('drag-and-drop', ['ngDragDrop']);
+
+          App.controller('oneCtrl', function($scope, $timeout) {
+            $scope.list5 = [];
+
+            let tareasdelproyecto = firebase.database().ref("proyectos/"+idProyecto+"tareas");
+
+            tareasdelproyecto.on('value', function(snapshot) {
+              let todasTareas = snapshot.val();
+
+              for(unatarea in todasTareas) {
+                let json = {
+                  'title': todasTareas[unatarea].nombre,
+                  'drag': true
+                }
+
+                $scope.list5.push(json);
+              }
+            })
+
+            // Limit items to be dropped in list1
+            $scope.optionsList1 = {
+              accept: function(dragEl) {
+                if ($scope.list1.length >= 2) {
+                  return false;
+                } else {
+                  return true;
+                }
+              }
+            };
+          });
+        </script>
         <script type="text/javascript">
         $(function(){
           var colpick = $('.demo').each( function() {
