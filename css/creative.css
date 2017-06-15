@@ -49,22 +49,35 @@ a:focus {
 
 h2,
 h3,
-h4,
 h5,
 h6 {
   font-family: 'intelo';
 
 }
-h1{
-font-family: 'intelobold';
 
+h1,
+h3,
+h4{
+font-family: 'intelobold';
+font-size: 20px;
 }
 p {
   font-size: 16px;
 
   margin-bottom: 20px;
 }
+#text-brief{
+  font-family: 'intelo';
+  color: gray;
+  font-size: 14px;
 
+}
+#text-brief-coment{
+  font-family: 'intelo';
+  color: gray;
+  font-size: 14px;
+
+}
 #logo{ height: 60px; margin-left: 60px;}
 #tareas{
   padding-bottom: 200px;
