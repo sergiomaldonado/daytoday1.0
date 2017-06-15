@@ -2,17 +2,6 @@ var privilegio;
 var db = firebase.database();
 var puesto;
 
-$(document).ready(function() {
-
-    // page is now ready, initialize the calendar...
-
-    $('#calendar').fullCalendar({
-        defaultView: 'agendaWeek',
-        editable: true
-    })
-
-});
-
 function mostrarOrdenes() {
   $('#tabordenes').on('shown.bs.tab', function (e) {
     e.target // newly activated tab
@@ -114,7 +103,6 @@ function checar() {
         console.log(privilegio);
 
         if(privilegio === "Administrador") {
-          $('#mainNav').show();
           $('[data-toggle="tooltip"]').tooltip();
 
           mostrarOrdenes();
@@ -243,6 +231,7 @@ function mostrarPanel() {
       $('#panel-usuario').hide();
       $("title").html("Panel de administrador");
       $('#panel-admin').show();
+      $('#mainNav').show();
       $('#mainNav').show();
     }
     if(privilegio == "Usuario") {
