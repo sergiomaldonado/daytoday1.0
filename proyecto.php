@@ -77,10 +77,9 @@
                 <div class="no-padding col-lg-12 col-md-12" style="margin-top:-30px; ">
                   <div style="padding-top:30px;" class="live-box">
 
-                  <h2>Nombre del proyecto</h2><hr></div></div>
-
-
-                <div style="padding-top:30px;" class="live-box">
+                <h2>Titulo del proyecto</h2><hr></div></div>
+<p id="idProyecto" style="display: none;"><?php echo $id; ?></p>
+  <div style="padding-top:30px;" class="live-box">
                   <ul class="nav nav-tabs">
                     <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab">Tareas de Proyecto</a></li>
                     <li><a id="tabordenes" href="#m2" data-toggle="tab">Brief del Proyecto</a></li>
@@ -89,44 +88,44 @@
                   <!-- Tab Semana-->
                   <div class="tab-content" style="padding-top:20px;">
                     <div class="tab-pane fade in active" id="m1">
-                      <div class="row">
-                        <div style="" class="col-xs-8 col-sm-6">
+                                      <div class="row">
+                  <div style="" class="col-xs-8 col-sm-6">
 
-                          <div class="item">
+                    <div class="item">
 
-                            <form role="form" class="form-horizontal">
-                              <div class="form-group">
-                                <div class="col-md-12">
-                                  <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <div class="col-md-6">
-                                  <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
-                                </div>
-                                <div class="col-md-6">
-                                  <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
-                                </div>
-                                <div style="margin-top:15px;" class="col-md-12">
-                                  <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <button class="btn btn-lg" style="background-color: #7BD500; width:auto; color:black; border:none;" type="button" name="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                              </div>
-                            </form>
+                      <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                          </div>
+                          <div class="col-md-6">
+                            <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
+                          </div>
+                          <div style="margin-top:15px;" class="col-md-12">
+                            <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <button  onclick="agregarTarea()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                      </form>
 
                           </div>
 
 
-                        </div>
-                        <div style="" class="col-xs-8 col-sm-6">
+                  </div>
+                  <div id="ContenedorTareasProyecto" style="" class="col-xs-8 col-sm-6">
 
+                    <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                      <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                        <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
                           <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
                             <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                              <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                                <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                                  <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
 
 
 
@@ -331,6 +330,7 @@
         };
         firebase.initializeApp(config);
         </script>
+        <script src="js/proyecto.js"></script>
         <script type="text/javascript">
         $(function(){
           var colpick = $('.demo').each( function() {

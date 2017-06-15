@@ -352,23 +352,23 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <input id="email" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
+                  <input id="agregarUsuarioEmail" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
                 </div>
                 <div class="form-group">
-                  <select id="puesto" name="" class="input-lg form-control" required>
+                  <select id="agregarUsuarioPuesto" name="" class="input-lg form-control" required>
                     <option disabled selected value="">Puesto</option>
                     <option value="Administrador">Administrador</option>
                     <option value="Usuario">Usuario</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <input id="contrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
+                  <input id="nuevacontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
                 </div>
                 <div class="form-group">
                   <input id="confirmarcontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Confirmar contraseña" required>
                 </div>
                 <div class="form-group">
-                  <input id="guardar" class="btns btn-siguiente" type="submit" name="" value="Guardar">
+                  <button onclick="guardarUsuario()" type="button" class="btns btn-siguiente">Guardar</button>
                 </div>
               </form>
             </div>
@@ -498,25 +498,14 @@
                       </tbody>
                     </table>
                   </div>
-<!--  PROYECTOS ---->
-
-
+                  <!--  PROYECTOS ---->
                   <div  style="padding-top:0px;" class="tab-pane fade" id="m3">
+                    <div id="ContenedorProyectos" class="row">
 
-                      <div class="row">
-                        <div style="margin-top:10px;" class='col-xs-6 col-md-4'>
+
+                      <div style="margin-top:10px;" class='col-xs-6 col-md-4'>
+                        <a href="proyecto.php?id=idproyecto">
                           <div id="proyecto">
-                            <div id="nombreproyecto"><h3 style="padding:20px;">Plan de Marketing Xico</h3></div>
-                            <div id="fecha"><p>Tareas: 28          Entrega: 15/06/2017</p></div>
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
-                                85%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div style="margin-top:10px;" class='col-xs-6 col-md-4'>
-                          <a href=""><div id="proyecto">
                             <div id="nombreproyecto"><h3 style="padding:20px;">Plan de Comunicacion de Axios</h3></div>
                             <div id="fecha"><p>Tareas: 25          Entrega: 28/07/2017</p></div>
                             <div class="progress">
@@ -526,32 +515,8 @@
                             </div>
                           </div>
                         </a>
-                        </div>
-                        <div style="margin-top:10px;" class='col-xs-6 col-md-4'>
-                          <div id="proyecto">
-                            <div id="nombreproyecto"><h3 style="padding:20px;">Plan de Comunicacion de Axios</h3></div>
-                            <div id="fecha"><p>Tareas: 25          Entrega: 28/07/2017</p></div>
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
-                                70%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div style="margin-top:10px;" class='col-xs-6 col-md-4'>
-                          <div id="proyecto">
-                            <div id="nombreproyecto"><h3 style="padding:20px;">Plan de Comunicacion de Axios</h3></div>
-                            <div id="fecha"><p>Tareas: 25          Entrega: 28/07/2017</p></div>
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
-                                70%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
                       </div>
-
+                    </div>
                   </div>
                 </div>
               </div>

@@ -87,15 +87,15 @@ p {
   border:solid #478AE2 1px;
   width: 100%;
   background-color:white;
-max-width: 200px;
-margin: 0 auto;
-text-align: center;
-padding: 5px;
-margin-bottom:4px;
-border-radius: 5px;
-overflow: hidden;
-border-left: solid 5px #50E3C2;
-font-size: 13px;
+  max-width: 200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 5px;
+  margin-bottom:4px;
+  border-radius: 5px;
+  overflow: hidden;
+  /*border-left: solid 5px #50E3C2;*/
+  font-size: 13px;
 }
 #text-tarea{
 
