@@ -60,32 +60,33 @@ function mostrarOrdenes() {
 }
 
 function mostrarProyectos() {
-  $('#tabordenes').on('shown.bs.tab', function (e) {
+  $('#tabproyectos').on('shown.bs.tab', function (e) {
     e.target // newly activated tab
     e.relatedTarget // previous active tab
 
     let proyectos = firebase.database().ref('proyectos/');
     proyectos.on('value', function(snapshot) {
-      let proyecto = snapshot.val();
+    let proyectos = snapshot.val();
 
       $('#ContenedorProyectos').empty();
       let row = "";
 
       for (proyecto in proyectos) {
-        let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 )/ proyectos[proyecto].numTareas
-        row =+ '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
+        console.log(proyecto);
+        let porcentaje = ( proyectos[proyecto].tareasCompletas * 100 )/ proyectos[proyecto].numTareas;
+        row += '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
                   '<a href="proyecto.php?id=' + proyecto + '">' +
                     '<div id="proyecto">' +
-                      '<div><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
-                        '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas +          'Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
-                          '<div class="progress">' +
-                            '<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">' +
-                              + porcentaje + '%' +
+                      '<div id="nombreproyecto"><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
+                      '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas +          'Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
+                      '<div class="progress">' +
+                        '<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width:' + porcentaje + '%;">' +
+                          + porcentaje + '%' +
+                        '</div>' +
                       '</div>' +
                     '</div>' +
                   '</a>' +
-                '</div>' +
-              '</div>';
+                '</div>';
       }
 
       $('#ContenedorProyectos').append(row);
@@ -117,11 +118,7 @@ function checar() {
           $('[data-toggle="tooltip"]').tooltip();
 
           mostrarOrdenes();
-
-          $('a[data-toggle="proyectos"]').on('shown.bs.tab', function (e) {
-            e.target // newly activated tab
-            e.relatedTarget // previous active tab
-          })
+          mostrarProyectos();
         }
         if(privilegio === "Usuario") {
           $('#panel-admin').hide();

@@ -77,11 +77,10 @@
                 <div style="padding-top:30px;" class="live-box">
 
                 <h2>Titulo del proyecto</h2><hr>
+                <p id="idProyecto" style="display: none;"><?php echo $id; ?></p>
                 <div class="row">
                   <div style="" class="col-xs-8 col-sm-6">
-
                     <div class="item">
-
                       <form role="form" class="form-horizontal">
                         <div class="form-group">
                           <div class="col-md-12">
@@ -100,7 +99,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <button class="btns" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                          <button onclick="agregarTarea()" class="btns" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                         </div>
                       </form>
 
@@ -108,13 +107,13 @@
 
 
                   </div>
-                  <div style="" class="col-xs-8 col-sm-6">
+                  <div id="ContenedorTareasProyecto" style="" class="col-xs-8 col-sm-6">
 
                     <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                      <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                        <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                          <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                            <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                    <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                    <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                    <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                    <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
 
 
 
@@ -227,6 +226,7 @@
         };
         firebase.initializeApp(config);
         </script>
+        <script src="js/proyecto.js"></script>
         <script type="text/javascript">
         $(function(){
           var colpick = $('.demo').each( function() {
