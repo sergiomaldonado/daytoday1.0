@@ -74,126 +74,230 @@
                 </div>
               </div>
               <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px; ">
+                <div class="no-padding col-lg-12 col-md-12" style="margin-top:-30px; ">
+                  <div style="padding-top:30px;" class="live-box">
+
+                  <h2>Nombre del proyecto</h2><hr></div></div>
+
+
                 <div style="padding-top:30px;" class="live-box">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab">Tareas de Proyecto</a></li>
+                    <li><a id="tabordenes" href="#m2" data-toggle="tab">Brief del Proyecto</a></li>
 
-                <h2>Titulo del proyecto</h2><hr>
-                <div class="row">
-                  <div style="" class="col-xs-8 col-sm-6">
+                  </ul>
+                  <!-- Tab Semana-->
+                  <div class="tab-content" style="padding-top:20px;">
+                    <div class="tab-pane fade in active" id="m1">
+                      <div class="row">
+                        <div style="" class="col-xs-8 col-sm-6">
 
-                    <div class="item">
+                          <div class="item">
 
-                      <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                            <form role="form" class="form-horizontal">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-md-6">
+                                  <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                                </div>
+                                <div class="col-md-6">
+                                  <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
+                                </div>
+                                <div style="margin-top:15px;" class="col-md-12">
+                                  <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <button class="btn btn-lg" style="background-color: #7BD500; width:auto; color:black; border:none;" type="button" name="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                              </div>
+                            </form>
+
                           </div>
+
+
                         </div>
-                        <div class="form-group">
-                          <div class="col-md-3">
-                            <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
-                          </div>
-                          <div class="col-md-3">
-                            <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
-                          </div>
-                          <div class="col-md-6">
-                            <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <button class="btns" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
-                        </div>
-                      </form>
+                        <div style="" class="col-xs-8 col-sm-6">
 
-                    </div>
-
-
-                  </div>
-                  <div style="" class="col-xs-8 col-sm-6">
-
-                    <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                      <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
-                        <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
                           <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
                             <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                              <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                                <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
+                                  <div style="margin-right:-20px;" class="col-md-4">   <div class="tarea">tarea1 del lunes</div></div>
 
 
 
-                  </div>
-
-                  <div style="" class="col-xs-12 col-sm-12">
-
-                    <div class="table-responsive no-padding">
-                      <div class="panel panel-default no-padding" style="border:solid 1px white;">
-                        <!-- Contenido a pintar por javascript -->
-                        <div class="panel-body no-padding">
-                          <ul>
-                            <li style="display:inline; padding:20px;"><span style="color:#50E3C2;" class="glyphicon glyphicon-asterisk"></span>Home</li>
-                            <li style="display:inline; padding:20px;"><span style="color:#FF9B00;" class="glyphicon glyphicon-asterisk"></span> News</li>
-                            <li style="display:inline; padding:20px;"><span style="color:#6FDC25;" class="glyphicon glyphicon-asterisk"></span> Contact</li>
-                            <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
-                          </ul>
                         </div>
-                        <table class="table">
-                          <tr class="no-padding">
-                            <td><h4>Lunes</h4></td>
-                            <td><h4>Martes</h4></td>
-                            <td><h4>Miercoles</h4></td>
-                            <td><h4>Jueves</h4></td>
-                            <td><h4>Viernes</h4></td>
-                            <td><h4>Sabado</h4></td>
-                          </tr>
-                          <tr class="no-padding">
-                            <td id="lunes" style="padding:1px; margin:2px 2px 2px;" class="no-padding">
-                              <ul class="no-padding">
-                                <li style="list-style:none;">
-                                  <div  class="tarea">
-                                    <div id="category-color"></div>
-                                    <div id="text-tarea">Programacion del loggin. Diferenciar entre usuarios</div>
-                                  </div>
-                                </li>
-                                <li style="list-style:none;"><div  class="tarea"><div id="category-color"></div>Maquetar pantalla user</div></li>
-                              </ul>
-                            </td>
-                            <td id="Martes" class="no-padding" style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea"><div id="category-color"></div>Programacion del loggin. Diferenciar entre usuarios</div></li>
-                                <li style="list-style:none;"><div class="tarea"><div id="category-color"></div>tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="Miercoles"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="jueves"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="viernes"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="sabado"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                          </tr>
-                        </table>
+
+                        <div style="" class="col-xs-12 col-sm-12">
+
+                          <div class="table-responsive no-padding">
+                            <div class="panel panel-default no-padding" style="border:solid 1px white;">
+                              <!-- Contenido a pintar por javascript -->
+                              <div class="panel-body no-padding">
+                                <ul>
+                                  <li style="display:inline; padding:20px;"><span style="color:#50E3C2;" class="glyphicon glyphicon-asterisk"></span>Home</li>
+                                  <li style="display:inline; padding:20px;"><span style="color:#FF9B00;" class="glyphicon glyphicon-asterisk"></span> News</li>
+                                  <li style="display:inline; padding:20px;"><span style="color:#6FDC25;" class="glyphicon glyphicon-asterisk"></span> Contact</li>
+                                  <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
+                                </ul>
+                              </div>
+                              <table class="table">
+                                <tr class="no-padding">
+                                  <td><h4>Lunes</h4></td>
+                                  <td><h4>Martes</h4></td>
+                                  <td><h4>Miercoles</h4></td>
+                                  <td><h4>Jueves</h4></td>
+                                  <td><h4>Viernes</h4></td>
+                                  <td><h4>Sabado</h4></td>
+                                </tr>
+                                <tr class="no-padding">
+                                  <td id="lunes" style="padding:1px; margin:2px 2px 2px;" class="no-padding">
+                                    <ul class="no-padding">
+                                      <li style="list-style:none;">
+                                        <div  class="tarea">
+                                          <div id="category-color"></div>
+                                          <div id="text-tarea">Programacion del loggin. Diferenciar entre usuarios</div>
+                                        </div>
+                                      </li>
+                                      <li style="list-style:none;"><div  class="tarea"><div id="category-color"></div>Maquetar pantalla user</div></li>
+                                    </ul>
+                                  </td>
+                                  <td id="Martes" class="no-padding" style="padding:1px; margin:2px 2px 2px;">
+                                    <ul class="no-padding">
+                                      <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea"><div id="category-color"></div>Programacion del loggin. Diferenciar entre usuarios</div></li>
+                                      <li style="list-style:none;"><div class="tarea"><div id="category-color"></div>tarea1 del lunes</div></li>
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                    </ul>
+                                  </td>
+                                  <td id="Miercoles"  style="padding:1px; margin:2px 2px 2px;">
+                                    <ul class="no-padding">
+                                      <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea">tarea1 del lunes</div></li>
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                    </ul>
+                                  </td>
+                                  <td id="jueves"  style="padding:1px; margin:2px 2px 2px;">
+                                    <ul class="no-padding">
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                    </ul>
+                                  </td>
+                                  <td id="viernes"  style="padding:1px; margin:2px 2px 2px;">
+                                    <ul class="no-padding">
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                    </ul>
+                                  </td>
+                                  <td id="sabado"  style="padding:1px; margin:2px 2px 2px;">
+                                    <ul class="no-padding">
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                      <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
+                                    </ul>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+
                       </div>
                     </div>
 
-                  </div>
 
+                    <!-- Tab Ordenes-->
+                    <div class="tab-pane fade" style="padding-top:0px;" id="m2">
+
+                      <div class="row">
+
+                        <div style="" class="col-xs-8 col-sm-6">
+                            <h3 class="text-left">Encargado del Proyecto:<span id="text-brief"> Nombre del encargado</span></h3>
+                        </div>
+                        <div style="" class="col-xs-8 col-sm-6">
+                            <h3 class="text-left" style="font-weight:bold;">Equipo del Proyecto: <span id="text-brief"> Nombre del encargado</span></h3>
+                        </div>
+                        <div style="" class="col-xs-12 col-sm-12">
+                            <h3 class="text-left" style="font-weight:bold;">Descripcion del proyecto: <span id="text-brief-coment">¿De que se trata el proyecto?</span></h3>
+                           <div>
+                             <p class="text-left">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</p>
+
+                           </div>
+                        </div>
+                        <div style="" class="col-xs-12 col-sm-12">
+                            <h3 class="text-left" style="font-weight:bold;">Objetivos del proyecto: <span id="text-brief-coment">¿Que se quiere lograr?</span></h3>
+                           <div>
+                              <ul class="text-left">
+                                <li>Objetivo 1</li>
+                                <li>Objetivo 2</li>
+                                <li>Objetivo 3</li>
+                              </ul>
+                           </div>
+                        </div>
+                        <div style="" class="col-xs-12 col-sm-12">
+                            <h3 class="text-left" style="font-weight:bold;">Estructura del proyecto: <span id="text-brief-coment">¿Como se va a llevar acabo el proyecto? Pasos para realizar el proyecto.</span></h3>
+                           <div>
+
+                           </div>
+                        </div>
+                        <div style="" class="col-xs-12 col-sm-12">
+
+                           <div>
+                            <h3 class="text-left" style="font-weight:bold;">Documentación: <span id="text-brief-coment">Documentos necesarios para el proyecto.</span></h3>
+                           </div>
+                        </div>
+                        <div style="" class="col-xs-12 col-sm-12">
+
+                           <div>
+                            <h3 class="text-left" style="font-weight:bold;">Tiempos de entrega: <span id="text-brief-coment">Fecha de entrega y estimado de duracion del proyecto.</span></h3>
+                            <ul class="text-left">
+                              <li>fecha 1</li>
+                              <li id="hito"><span class="glyphicon glyphicon-star"></span>Fecha 2</li>
+                              <li>fecha 3</li>
+                            </ul>
+                           </div>
+                        </div>
+                        <div style="" class="col-xs-12 col-sm-12">
+
+                           <div>
+                            <h3 class="text-left" style="font-weight:bold;">Entregables: <span id="text-brief-coment">¿Que es lo que vamos a entregar una ves finalizado el proyecto?</span></h3>
+                            <ul class="text-left">
+                              <li>Entregable 1</li>
+                              <li>Entregable 2</li>
+                            </ul>
+                           </div>
+                        </div>
+
+
+
+
+
+                      </div>
+
+
+                    </div>
+
+                  </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+
 
 
 
