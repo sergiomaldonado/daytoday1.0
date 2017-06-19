@@ -2,73 +2,6 @@
 
   $id = $_GET["id"];
 ?>
-
-<?php
-  // Definimos nuestra zona horaria
-  date_default_timezone_set("America/Mexico_City");
-
-  // incluimos el archivo de funciones
-  include 'funciones.php';
-
-  // incluimos el archivo de configuracion
-  include 'config.php';
-
-  // Verificamos si se ha enviado el campo con name from
-  if (isset($_POST['from']))
-  {
-
-      // Si se ha enviado verificamos que no vengan vacios
-      if ($_POST['from']!="" AND $_POST['to']!="")
-      {
-
-          // Recibimos el fecha de inicio y la fecha final desde el form
-
-          $inicio = _formatear($_POST['from']);
-          // y la formateamos con la funcion _formatear
-
-          $final  = _formatear($_POST['to']);
-
-          // Recibimos el fecha de inicio y la fecha final desde el form
-
-          $inicio_normal = $_POST['from'];
-
-          // y la formateamos con la funcion _formatear
-          $final_normal  = $_POST['to'];
-
-          // Recibimos los demas datos desde el form
-          $titulo = evaluar($_POST['title']);
-
-          // y con la funcion evaluar
-          $body   = evaluar($_POST['event']);
-
-          // reemplazamos los caracteres no permitidos
-          $clase  = evaluar($_POST['class']);
-
-          // insertamos el evento
-          $query="INSERT INTO eventos VALUES(null,'$titulo','$body','','$clase','$inicio','$final','$inicio_normal','$final_normal')";
-
-          // Ejecutamos nuestra sentencia sql
-          $conexion->query($query);
-
-          // Obtenemos el ultimo id insetado
-          $im=$conexion->query("SELECT MAX(id) AS id FROM eventos");
-          $row = $im->fetch_row();
-          $id = trim($row[0]);
-
-          // para generar el link del evento
-          $link = "$base_url"."descripcion_evento.php?id=$id";
-
-          // y actualizamos su link
-          $query="UPDATE eventos SET url = '$link' WHERE id = $id";
-
-          // Ejecutamos nuestra sentencia sql
-          $conexion->query($query);
-
-          // redireccionamos a nuestro calendario
-          header("Location:$base_url");
-      }
-  }
- ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -159,7 +92,7 @@
                 <div style="padding-top:30px;" class="live-box">
                   <ul class="nav nav-tabs">
                     <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab">Tareas de Proyecto</a></li>
-                    <li><a id="tabordenes" href="#m2" data-toggle="tab">Brief del Proyecto</a></li>
+                    <li><a id="tabordenes" id="tabbrief" href="#m2" data-toggle="tab">Brief del Proyecto</a></li>
                   </ul>
                   <!-- Tab Semana-->
                   <div class="tab-content" style="padding-top:20px;">
@@ -225,7 +158,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- Tab Ordenes-->
+                    <!-- Tab Brief-->
                     <div class="tab-pane fade" style="padding-top:0px;" id="m2">
                       <div class="row">
                         <div style="" class="col-xs-8 col-sm-6">
@@ -579,113 +512,6 @@
         <script src="js/underscore-min.js"></script>
         <script type="text/javascript" src="js/es-ES.js"></script>
         <script src="js/calendar.js"></script>
-        <script type="text/javascript">
-            (function($){
-                    //creamos la fecha actual
-                    var date = new Date();
-                    var yyyy = date.getFullYear().toString();
-                    var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
-                    var dd  = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
-
-                    //establecemos los valores del calendario
-                    var options = {
-
-                        // definimos que los eventos se mostraran en ventana modal
-                            modal: '#events-modal',
-
-                            // dentro de un iframe
-                            modal_type:'iframe',
-
-                            //obtenemos los eventos de la base de datos
-                            events_source: 'obtener_eventos.php',
-
-                            // mostramos el calendario en el mes
-                            view: 'week',
-
-                            // y dia actual
-                            day: yyyy+"-"+mm+"-"+dd,
-
-
-                            // definimos el idioma por defecto
-                            language: 'es-ES',
-
-                            //Template de nuestro calendario
-                            tmpl_path: 'tmpls/',
-                            tmpl_cache: false,
-
-
-                            // Hora de inicio
-                            time_start: '08:00',
-
-                            // y Hora final de cada dia
-                            time_end: '22:00',
-
-                            // intervalo de tiempo entre las hora, en este caso son 30 minutos
-                            time_split: '30',
-
-                            // Definimos un ancho del 100% a nuestro calendario
-                            width: '100%',
-
-                            onAfterEventsLoad: function(events)
-                            {
-                                    if(!events)
-                                    {
-                                            return;
-                                    }
-                                    var list = $('#eventlist');
-                                    list.html('');
-
-                                    $.each(events, function(key, val)
-                                    {
-                                            $(document.createElement('li'))
-                                                    .html('<a href="' + val.url + '">' + val.title + '</a>')
-                                                    .appendTo(list);
-                                    });
-                            },
-                            onAfterViewLoad: function(view)
-                            {
-                                    $('.page-header h2').text(this.getTitle());
-                                    $('.btn-group button').removeClass('active');
-                                    $('button[data-calendar-view="' + view + '"]').addClass('active');
-                            },
-                            classes: {
-                                    months: {
-                                            general: 'label'
-                                    }
-                            }
-                    };
-
-
-                    // id del div donde se mostrara el calendario
-                    var calendar = $('#calendar').calendar(options);
-
-                    $('.btn-group button[data-calendar-nav]').each(function()
-                    {
-                            var $this = $(this);
-                            $this.click(function()
-                            {
-                                    calendar.navigate($this.data('calendar-nav'));
-                            });
-                    });
-
-                    $('.btn-group button[data-calendar-view]').each(function()
-                    {
-                            var $this = $(this);
-                            $this.click(function()
-                            {
-                                    calendar.view($this.data('calendar-view'));
-                            });
-                    });
-
-                    $('#first_day').change(function()
-                    {
-                            var value = $(this).val();
-                            value = value.length ? parseInt(value) : null;
-                            calendar.setOptions({first_day: value});
-                            calendar.view();
-                    });
-            }(jQuery));
-        </script>
         <script src="js/panel.js"></script>
         <script src="js/autocomplete.js"></script>
     </body>

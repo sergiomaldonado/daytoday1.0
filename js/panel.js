@@ -2,6 +2,14 @@ var privilegio;
 var db = firebase.database();
 var puesto;
 
+function obtenerUsuario(uid) {
+  let usuario = firebase.database().ref('usuarios/'+uid);
+  usuario.on('value', function(snapshot) {
+    let usuarioactual = snapshot.val();
+    $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
+  });
+}
+
 function mostrarOrdenes() {
   $('#tabordenes').on('shown.bs.tab', function (e) {
     e.target // newly activated tab
@@ -16,14 +24,14 @@ function mostrarOrdenes() {
       let i=1;
       for (orden in ordenes) {
         var state;
-        if(ordenes[orden].estado==="Pendiente"){
-          state='<span style="background-color: red; width: 30px; height: 20px;" class="badge">   <span>';
+        if(ordenes[orden].estado === "Pendiente"){
+          state='<span style="background-color: #FF0000; width: 30px; height: 25px; border-radius: 15px;" class="badge"><span>';
         }
-        if(ordenes[orden].estado==="En proceso"){
-          state='<span style="background-color: yellow; width: 30px; height: 20px;" class="badge">   <span>';
+        if(ordenes[orden].estado === "En proceso"){
+          state='<span style="background-color: #FFCC00; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span>';
         }
-        if(ordenes[orden].estado==="Listo"){
-          state='<span style="background-color: #31FF2D; width: 30px; height: 20px;" class="badge">   <span>';
+        if(ordenes[orden].estado === "Listo"){
+          state='<span style="background-color: #31FF2D; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span>';
         }
 
         row += '<tr>' +
@@ -47,6 +55,23 @@ function mostrarOrdenes() {
     })
   })
 }
+
+    var busqueda = document.getElementById('buscarOrden');
+    var table = document.getElementById("tablaordenes").tBodies[0];
+
+    buscaTabla = function(){
+      texto = busqueda.value.toLowerCase();
+      var r=0;
+      while(row = table.rows[r++])
+      {
+        if ( row.innerText.toLowerCase().indexOf(texto) !== -1 )
+          row.style.display = null;
+        else
+          row.style.display = 'none';
+      }
+    }
+
+    busqueda.addEventListener('keyup', buscaTabla);
 
 function mostrarProyectos() {
   $('#tabproyectos').on('shown.bs.tab', function (e) {
@@ -91,28 +116,34 @@ function checar() {
   firebase.auth().onAuthStateChanged(function (user) {
     //si hay un usuario
     if (user) {
-      console.log("Usuario logeado");
+      //console.log("Usuario logeado");
       //obtiene el usuario actual
       var user = firebase.auth().currentUser;
       var uid = user.uid;
-      console.log(uid);
+      //console.log(uid);
+      console.log(user);
+      obtenerUsuario(uid);
+
+      //$('.img-circle').attr('src', );
       //consulta el id del usuario
       db.ref('usuarios/' + uid).on('value', function(snap) {
         let usuario = snap.val();
         privilegio = usuario.puesto;
         console.log(privilegio);
 
-        if(privilegio === "Administrador") {
-          $('[data-toggle="tooltip"]').tooltip();
+        setTimeout(function() {
+          if(privilegio === "Administrador") {
+            $('[data-toggle="tooltip"]').tooltip();
 
-          mostrarOrdenes();
-          mostrarProyectos();
-        }
-        if(privilegio === "Usuario") {
-          $('#panel-admin').hide();
-          $('#mainNav').hide();
-          $('#panel-usuario').show();
-        }
+            mostrarOrdenes();
+            mostrarProyectos();
+          }
+          if(privilegio === "Usuario") {
+            $('#panel-admin').hide();
+            $('#mainNav').hide();
+            $('#panel-usuario').show();
+          }
+        }, 2000);
       })
     }
     else {
@@ -162,6 +193,10 @@ function mostrarPanelDesdeModal() {
 
     if(puesto == privilegio) { //si el puesto es igual, significa que ingresaste bien tu puesto
       if(privilegio == "Administrador") { //si el privilegio es Administrador te muestra el panel de admin
+        let div = '<div id="holder" class="row" ></div>';
+
+        $('#CalendarioUsuario').remove();
+        $('#CalendarioAdmin').append(div);
         $('#panel-usuario').hide();
         $('#mainNav').show();
         $("title").html("Panel de administrador");
@@ -169,6 +204,10 @@ function mostrarPanelDesdeModal() {
         $('#modal').modal('hide');
       }
       if(privilegio == "Usuario") { //si el privilegio es Usuario normal te lleva al panel de usuario
+        let div = '<div id="holder" class="row" ></div>';
+
+        $('#CalendarioAdmin').remove();
+        $('#CalendarioUsuario').append(div);
         $('#panel-admin').hide();
         $('#panel-usuario').show();
         $('title').html("Panel de usuario");
@@ -227,7 +266,13 @@ function mostrarPanel() {
   setTimeout(function() {
     console.log(privilegio);
 
+    $('#nombreDeUsuario').html(obtenerUsuario);
+
     if(privilegio == "Administrador") {
+      let div = '<div id="holder" class="row" ></div>';
+
+      $('#CalendarioUsuario').remove();
+      $('#CalendarioAdmin').append(div);
       $('#panel-usuario').hide();
       $("title").html("Panel de administrador");
       $('#panel-admin').show();
@@ -235,6 +280,10 @@ function mostrarPanel() {
       $('#mainNav').show();
     }
     if(privilegio == "Usuario") {
+      let div = '<div id="holder" class="row" ></div>';
+
+      $('#CalendarioAdmin').remove();
+      $('#CalendarioUsuario').append(div);
       $('#panel-admin').hide();
       $('#panel-usuario').show();
       $('title').html("Panel de usuario");

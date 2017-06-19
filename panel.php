@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -21,11 +20,10 @@
     <link rel="shortcut icon" href="http://www.templatemonster.com/favicon.ico">
     <link rel="icon" href="http://www.templatemonster.com/favicon.ico">
     <link rel="stylesheet" type="text/css" media="all" href="css/jquery.minicolors.css">
-    <link rel='stylesheet' href='css/fullcalendar.css' />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/proyecto.css">
     <link rel="stylesheet" href="css/autocomplete.css">
-    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/stylesCalendar.css">
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
@@ -45,7 +43,7 @@
             <li><a style="height:55px; width:40px; margin-right:10px;" data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
             <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar proyecto" onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
             <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar usuario" onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
-            <li><a class="page-scroll" href="http://agenciaaxios.com/live/"><span style="margin-top:10px;"  class="glyphicon glyphicon-menu-hamburger"></span></a></li>
+            <li><a class="page-scroll"><span style="margin-top:10px;"  class="glyphicon glyphicon-menu-hamburger"></span></a></li>
           </ul>
           <!-- HTML to write -->
           <!-- /.navbar-collapse -->
@@ -91,7 +89,7 @@
                 <img src="assets/bg-panel.png" alt="...">
                 <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                 <div class="caption">
-                  <h3>Saul</h3>
+                  <h3 class="nombreDeUsuario"></h3>
                 </div>
               </div>
             </div>
@@ -106,66 +104,12 @@
                   <div class="tab-pane fade in active no-padding" id="coment">
                     <div style="display: inline;" id="authentication">
                       <div class="table-responsive no-padding">
-                        <div class="panel panel-default no-padding" style="border:solid 1px white;">
+                        <div id="CalendarioUsuario" class="panel panel-default no-padding" style="border:solid 1px white;">
                           <!-- Default panel contents -->
                           <div class="panel-body no-padding">
                             <p>Categorias</p>
                           </div>
-                          <table class="table">
-                            <tr class="no-padding">
-                              <td><h4>Lunes</h4></td>
-                              <td><h4>Martes</h4></td>
-                              <td><h4>Miercoles</h4></td>
-                              <td><h4>Jueves</h4></td>
-                              <td><h4>Viernes</h4></td>
-                              <td><h4>Sabado</h4></td>
-                            </tr>
-                            <tr  class="no-padding">
-                            <td id="lunes" style="padding:1px; margin:2px 2px 2px;" class="no-padding">
-                              <ul class="no-padding">
-                                <li style="list-style:none;">
-                                  <div  class="tarea">
-                                    <div id="category-color"></div>
-                                    <div id="text-tarea">Programacion del loggin. Diferenciar entre usuarios</div>
-                                  </div>
-                                </li>
-                                <li style="list-style:none;"><div  class="tarea"><div id="category-color"></div>Maquetar pantalla user</div></li>
-                              </ul>
-                            </td>
-                            <td id="Martes" class="no-padding" style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea"><div id="category-color"></div>Programacion del loggin. Diferenciar entre usuarios</div></li>
-                                <li style="list-style:none;"><div class="tarea"><div id="category-color"></div>tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="Miercoles"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="jueves"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="viernes"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="sabado"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                          </tr>
-                        </table>
+
                       </div>
                     </div>
                   </div>
@@ -386,7 +330,7 @@
                     <img src="assets/bg-panel.png" alt="...">
                     <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                     <div class="caption">
-                      <h3>Sergio Maldonado</h3>
+                      <h3 class="nombreDeUsuario"></h3>
                     </div>
                   </div>
                 </div>
@@ -405,7 +349,7 @@
                 <div class="tab-content" style="padding-top:20px;">
                   <div class="tab-pane fade in active" id="m1">
                     <div class="table-responsive no-padding">
-                      <div class="panel panel-default no-padding" style="border:solid 1px white;">
+                      <div id="CalendarioAdmin" class="panel panel-default no-padding" style="border:solid 1px white;">
                         <!-- Contenido a pintar por javascript -->
                         <div class="panel-body no-padding">
                           <ul>
@@ -415,72 +359,16 @@
                             <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
                           </ul>
                         </div>
-                        <table class="table">
-                          <tr class="no-padding">
-                            <td><h4>Lunes</h4></td>
-                            <td><h4>Martes</h4></td>
-                            <td><h4>Miercoles</h4></td>
-                            <td><h4>Jueves</h4></td>
-                            <td><h4>Viernes</h4></td>
-                            <td><h4>Sabado</h4></td>
-                          </tr>
-                          <tr class="no-padding">
-                            <td id="lunes" style="padding:1px; margin:2px 2px 2px;" class="no-padding">
-                              <ul class="no-padding">
-                                <li style="list-style:none;">
-                                  <div  class="tarea">
-                                    <div id="category-color"></div>
-                                    <div id="text-tarea">Programacion del loggin. Diferenciar entre usuarios</div>
-                                  </div>
-                                </li>
-                                <li style="list-style:none;"><div  class="tarea"><div id="category-color"></div>Maquetar pantalla user</div></li>
-                              </ul>
-                            </td>
-                            <td id="Martes" class="no-padding" style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea"><div id="category-color"></div>Programacion del loggin. Diferenciar entre usuarios</div></li>
-                                <li style="list-style:none;"><div class="tarea"><div id="category-color"></div>tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="Miercoles"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none; width:100%; margin-left-20px;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="jueves"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="viernes"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                            <td id="sabado"  style="padding:1px; margin:2px 2px 2px;">
-                              <ul class="no-padding">
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                                <li style="list-style:none;"><div class="tarea">tarea1 del lunes</div></li>
-                              </ul>
-                            </td>
-                          </tr>
-                        </table>
+
                       </div>
                     </div>
-
                   </div>
-
-
                   <!-- Tab Ordenes-->
                   <div class="tab-pane fade" style="padding-top:0px;" id="m2">
+                    <h3 style="float: left;">Ordenes de trabajo</h3>
                     <form role="form">
                       <div style="width:30%; float:right;" class="form-group has-feedback">
-                        <input  type="text" class="form-control" placeholder="" />
+                        <input id="buscarOrden"  type="text" class="form-control" placeholder="" />
                         <i style="color: #4388E5;" class="form-control-feedback glyphicon glyphicon-search rota-horizontal"></i>
                       </div>
                     </form>
@@ -503,20 +391,6 @@
                   <div  style="padding-top:0px;" class="tab-pane fade" id="m3">
                     <div id="ContenedorProyectos" class="row">
 
-
-                      <div style="margin-top:10px;" class='col-xs-6 col-md-4'>
-                        <a href="proyecto.php?id=idproyecto">
-                          <div id="proyecto">
-                            <div id="nombreproyecto"><h3 style="padding:20px;">Plan de Comunicacion de Axios</h3></div>
-                            <div id="fecha"><p>Tareas: 25          Entrega: 28/07/2017</p></div>
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
-                                70%
-                              </div>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -534,7 +408,6 @@
       <script type="text/javascript" src="js/jquery.minicolors.min.js"></script>
       <script src="http://momentjs.com/downloads/moment.min.js"></script>
       <script src='js/moment.min.js'></script>
-      <script src='js/fullcalendar.js'></script>
       <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
       <script src="js/bootstrap-tooltip.js"></script>
       <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
@@ -550,6 +423,7 @@
       };
       firebase.initializeApp(config);
       </script>
+      <script src="js/panel.js"></script>
       <script type="text/javascript">
       $(function(){
         var colpick = $('.demo').each( function() {
@@ -581,7 +455,151 @@
         });
       });
       </script>
-      <script src="js/panel.js"></script>
-      <script src="js/autocomplete.js"></script>
+      <script type="text/tmpl" id="tmpl">
+      {{
+      var date = date || new Date(),
+          month = date.getMonth(),
+          year = date.getFullYear(),
+          first = new Date(year, month, 1),
+          last = new Date(year, month + 1, 0),
+          startingDay = first.getDay(),
+          thedate = new Date(year, month, 1 - startingDay),
+          dayclass = lastmonthcss,
+          today = new Date(),
+          i, j;
+      if (mode === 'week') {
+        thedate = new Date(date);
+        thedate.setDate(date.getDate() - date.getDay());
+        first = new Date(thedate);
+        last = new Date(thedate);
+        last.setDate(last.getDate()+6);
+      } else if (mode === 'day') {
+        thedate = new Date(date);
+        first = new Date(thedate);
+        last = new Date(thedate);
+        last.setDate(thedate.getDate() + 1);
+      }
+
+      }}
+      <table class="calendar-table table table-condensed table-tight">
+        <thead>
+          <tr>
+            <td colspan="7" style="text-align: center">
+              <table style="white-space: nowrap; width: 100%">
+                <tr>
+                  <td style="text-align: left;">
+                    <span class="btn-group">
+
+                    </span>
+
+                  </td>
+                  <td>
+                    <span class="btn-group btn-group-lg">
+                      {{ if (mode !== 'day') { }}
+                        {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
+                        {{ if (mode ==='week') { }}
+                          <button class="btn btn-link disabled">{{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }}</button>
+                        {{ } }}
+                        <button class="js-cal-years btn btn-link">{{: year}}</button>
+                      {{ } else { }}
+                        <button class="btn btn-link disabled">{{: date.toDateString() }}</button>
+                      {{ } }}
+                    </span>
+                  </td>
+                  <td style="text-align: right">
+                    <span class="btn-group">
+                    </span>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </thead>
+        {{ if (mode ==='year') {
+          month = 0;
+        }}
+        <tbody>
+          {{ for (j = 0; j < 3; j++) { }}
+          <tr>
+            {{ for (i = 0; i < 4; i++) { }}
+            <td class="calendar-month month-{{:month}} js-cal-option" data-date="{{: new Date(year, month, 1).toISOString() }}" data-mode="month">
+              {{: months[month] }}
+              {{ month++;}}
+            </td>
+            {{ } }}
+          </tr>
+          {{ } }}
+        </tbody>
+        {{ } }}
+        {{ if (mode ==='month' || mode ==='week') { }}
+        <thead>
+          <tr class="c-weeks">
+            {{ for (i = 0; i < 7; i++) { }}
+              <th class="c-name">
+                {{: days[i] }}
+              </th>
+            {{ } }}
+          </tr>
+        </thead>
+        <tbody>
+          {{ for (j = 0; j < 6 && (j < 1 || mode === 'month'); j++) { }}
+          <tr>
+            {{ for (i = 0; i < 7; i++) { }}
+            {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
+            <td class="calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
+              <div class="date">{{: thedate.getDate()}}</div>
+                {{ thedate.setDate(thedate.getDate() + 1);}}
+
+            </td>
+            {{ } }}
+          </tr>
+          {{ } }}
+        </tbody>
+        {{ } }}
+        {{ if (mode ==='day') { }}
+        <tbody>
+          <tr>
+            <td colspan="7">
+              <table class="table table-striped table-condensed table-tight-vert" >
+                <thead>
+                  <tr>
+                    <th> </th>
+                    <th style="text-align: center; width: 100%">{{: days[date.getDay()] }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="timetitle" >All Day</th>
+                    <td class="{{: date.toDateCssClass() }}">  </td>
+                  </tr>
+                  <tr>
+                    <th class="timetitle" >Before 6 AM</th>
+                    <td class="time-0-0"> </td>
+                  </tr>
+                  {{for (i = 6; i < 22; i++) { }}
+                  <tr>
+                    <th class="timetitle" >{{: i <= 12 ? i : i - 12 }} {{: i < 12 ? "AM" : "PM"}}</th>
+                    <td class="time-{{: i}}-0"> </td>
+                  </tr>
+                  <tr>
+                    <th class="timetitle" >{{: i <= 12 ? i : i - 12 }}:30 {{: i < 12 ? "AM" : "PM"}}</th>
+                    <td class="time-{{: i}}-30"> </td>
+                  </tr>
+                  {{ } }}
+                  <tr>
+                    <th class="timetitle" >After 10 PM</th>
+                    <td class="time-22-0"> </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+        {{ } }}
+      </table>
+    </script>
+    <script src="js/calendario.js"></script>
+    <script src="js/autocomplete.js"></script>
   </body>
 </html>

@@ -1,8 +1,7 @@
 var idProyecto = $('#idProyecto').val();
 console.log(idProyecto);
 
-$(document).ready(function() {
-
+function rellenarContenedorDeTareas() {
   let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas');
   tareasProyecto.on('value', function(snapshot) {
     let Tareas = snapshot.val();
@@ -20,6 +19,26 @@ $(document).ready(function() {
   }, function(errorObject) {
     console.log("La lectura de tareas falló: " + errorObject.code)
   });
+}
+
+$(document).ready(function() {
+
+  rellenarContenedorDeTareas();
+
+
+  $('#tabsemana').on('shown.bs.tab', function (e) {
+    e.target // newly activated tab
+    e.relatedTarget // previous active tab
+
+    rellenarContenedorDeTareas();
+  })
+
+  $('#tabbrief').on('shown.bs.tab', function(e) {
+    e.target
+    e.relatedTarget
+
+
+  })
 })
 
 function agregarTareaProyecto() {
