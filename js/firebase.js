@@ -40,7 +40,7 @@
           // if(privilegio == 'Usuario') {
           //   $(location).attr("href", "user.html");
           // }
-          $(location).attr("href", "panel.html");
+          $(location).attr("href", "panel.php");
         })
       }
       else { //Si no hay usuario logeado

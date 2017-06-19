@@ -1,7 +1,7 @@
-$(document).ready(function() {
-  var idProyecto = $('#idProyecto').html();
-  console.log(idProyecto);
+var idProyecto = $('#idProyecto').val();
+console.log(idProyecto);
 
+function rellenarContenedorDeTareas() {
   let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas');
   tareasProyecto.on('value', function(snapshot) {
     let Tareas = snapshot.val();
@@ -9,37 +9,58 @@ $(document).ready(function() {
     let row = "";
     $('#ContenedorTareasProyecto').empty();
     for(tarea in Tareas) {
-      row += '<div style="margin-right:-20px;" class="col-md-4">' +
-              '<div class="tarea" border-left: solid 5px ' + Tareas[tarea].color + ';>' + Tareas[tarea].nombre + '</div>' +
+      row += '<div style="margin-right:-20px;" class="redips-drag t1 col-md-4">' +
+              '<div class="tarea" style="border-left: solid 5px ' + Tareas[tarea].categoria.color + ';">' + Tareas[tarea].nombre + '</div>' +
              '</div>';
-             console.log(Tareas[tarea].categoria.color);
-             console.log(Tareas[tarea].nombre);
-
     }
     $('#ContenedorTareasProyecto').append(row);
     row = "";
+
   }, function(errorObject) {
     console.log("La lectura de tareas falló: " + errorObject.code)
+  });
+}
+
+$(document).ready(function() {
+
+  rellenarContenedorDeTareas();
+
+
+  $('#tabsemana').on('shown.bs.tab', function (e) {
+    e.target // newly activated tab
+    e.relatedTarget // previous active tab
+
+    rellenarContenedorDeTareas();
   })
 
-  function agregarTarea() {
-    let tarea = $('#tarea').val();
-    let categoria = $('#categoria').val();
-    let color = $('#color').val();
-    let asignado = $('#asignado').val();
+  $('#tabbrief').on('shown.bs.tab', function(e) {
+    e.target
+    e.relatedTarget
 
-    let tareas = firebase.database().ref('proyectos/'+idProyecto+'tareas');
 
-    let tarea = {
-      nombre: tarea,
-      categoria: {
-        nombre: categoria,
-        color: color
-      },
-      asignado: asignado,
-      estado: "Pendiente"
-    }
-
-    tareas.push().set(tarea);
-  }
+  })
 })
+
+function agregarTareaProyecto() {
+  let nombreTarea = $('#tarea').val();
+  let categoria = $('#categoria').val();
+  let color = $('#color').val();
+  let asignadoTarea = $('#asignado').val();
+
+  let ruta = "proyectos/"+idProyecto+"/tareas";
+  console.log(ruta);
+
+  let tareas = firebase.database().ref(ruta);
+
+  let Tarea = {
+    nombre: nombreTarea,
+    categoria: {
+      nombre: categoria,
+      color: color
+    },
+    asignado: asignadoTarea,
+    estado: "Pendiente"
+  }
+
+  tareas.push().set(Tarea);
+}
