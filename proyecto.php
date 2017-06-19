@@ -28,8 +28,8 @@
     <link rel="stylesheet" href="css/proyecto.css">
     <link rel="stylesheet" href="css/autocomplete.css">
     <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/stylesCalendar.css">
 
-    <!--<script src="components/jquery/dist/jquery.min.js"></script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script
     <script src="components/jquery-ui/jquery-ui.min.js"></script>
     <script src="components/angular/angular.min.js"></script>
@@ -118,7 +118,7 @@
                                 </div>
                               </div>
                               <div class="form-group">
-                                <button  onclick="agregarTarea()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                               </div>
                             </form>
                           </div>
@@ -140,17 +140,7 @@
                                       <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
                                     </ul>
                                   </div>
-                                  <div class="row">
-                                    <div class="page-header"><h2></h2></div>
-                                    <div class="pull-left form-inline"><br>
-                                      <div class="btn-group">
-                                        <button class="btn btn-primary" data-calendar-nav="prev"><< Anterior</button>
-                                        <!--<button class="btn" data-calendar-nav="today">Hoy</button>-->
-                                        <button class="btn btn-primary" data-calendar-nav="next">Siguiente >></button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div id="calendar"></div>
+                                  <div id="holder" class="row" ></div>
                                 </div>
                               </div>
                             </div>
@@ -509,9 +499,151 @@
           });
         });
         </script>
-        <script src="js/underscore-min.js"></script>
-        <script type="text/javascript" src="js/es-ES.js"></script>
-        <script src="js/calendar.js"></script>
+        <script type="text/tmpl" id="tmpl">
+          {{
+          var date = date || new Date(),
+              month = date.getMonth(),
+              year = date.getFullYear(),
+              first = new Date(year, month, 1),
+              last = new Date(year, month + 1, 0),
+              startingDay = first.getDay(),
+              thedate = new Date(year, month, 1 - startingDay),
+              dayclass = lastmonthcss,
+              today = new Date(),
+              i, j;
+          if (mode === 'week') {
+            thedate = new Date(date);
+            thedate.setDate(date.getDate() - date.getDay());
+            first = new Date(thedate);
+            last = new Date(thedate);
+            last.setDate(last.getDate()+6);
+          } else if (mode === 'day') {
+            thedate = new Date(date);
+            first = new Date(thedate);
+            last = new Date(thedate);
+            last.setDate(thedate.getDate() + 1);
+          }
+
+          }}
+          <table class="calendar-table table table-condensed table-tight">
+            <thead>
+              <tr>
+                <td colspan="7" style="text-align: center">
+                  <table style="white-space: nowrap; width: 100%">
+                    <tr>
+                      <td style="text-align: left;">
+                        <span class="btn-group">
+
+                        </span>
+
+                      </td>
+                      <td>
+                        <span class="btn-group btn-group-lg">
+                          {{ if (mode !== 'day') { }}
+                            {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
+                            {{ if (mode ==='week') { }}
+                              <button class="btn btn-link disabled">{{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }}</button>
+                            {{ } }}
+                            <button class="js-cal-years btn btn-link">{{: year}}</button>
+                          {{ } else { }}
+                            <button class="btn btn-link disabled">{{: date.toDateString() }}</button>
+                          {{ } }}
+                        </span>
+                      </td>
+                      <td style="text-align: right">
+                        <span class="btn-group">
+                        </span>
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+            </thead>
+            {{ if (mode ==='year') {
+              month = 0;
+            }}
+            <tbody>
+              {{ for (j = 0; j < 3; j++) { }}
+              <tr>
+                {{ for (i = 0; i < 4; i++) { }}
+                <td class="calendar-month month-{{:month}} js-cal-option" data-date="{{: new Date(year, month, 1).toISOString() }}" data-mode="month">
+                  {{: months[month] }}
+                  {{ month++;}}
+                </td>
+                {{ } }}
+              </tr>
+              {{ } }}
+            </tbody>
+            {{ } }}
+            {{ if (mode ==='month' || mode ==='week') { }}
+            <thead>
+              <tr class="c-weeks">
+                {{ for (i = 0; i < 7; i++) { }}
+                  <th class="c-name">
+                    {{: days[i] }}
+                  </th>
+                {{ } }}
+              </tr>
+            </thead>
+            <tbody>
+              {{ for (j = 0; j < 6 && (j < 1 || mode === 'month'); j++) { }}
+              <tr>
+                {{ for (i = 0; i < 7; i++) { }}
+                {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
+                <td class="calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
+                  <div class="date">{{: thedate.getDate()}}</div>
+                    {{ thedate.setDate(thedate.getDate() + 1);}}
+
+                </td>
+                {{ } }}
+              </tr>
+              {{ } }}
+            </tbody>
+            {{ } }}
+            {{ if (mode ==='day') { }}
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <table class="table table-striped table-condensed table-tight-vert" >
+                    <thead>
+                      <tr>
+                        <th> </th>
+                        <th style="text-align: center; width: 100%">{{: days[date.getDay()] }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th class="timetitle" >All Day</th>
+                        <td class="{{: date.toDateCssClass() }}">  </td>
+                      </tr>
+                      <tr>
+                        <th class="timetitle" >Before 6 AM</th>
+                        <td class="time-0-0"> </td>
+                      </tr>
+                      {{for (i = 6; i < 22; i++) { }}
+                      <tr>
+                        <th class="timetitle" >{{: i <= 12 ? i : i - 12 }} {{: i < 12 ? "AM" : "PM"}}</th>
+                        <td class="time-{{: i}}-0"> </td>
+                      </tr>
+                      <tr>
+                        <th class="timetitle" >{{: i <= 12 ? i : i - 12 }}:30 {{: i < 12 ? "AM" : "PM"}}</th>
+                        <td class="time-{{: i}}-30"> </td>
+                      </tr>
+                      {{ } }}
+                      <tr>
+                        <th class="timetitle" >After 10 PM</th>
+                        <td class="time-22-0"> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+            {{ } }}
+          </table>
+        </script>
+        <script src="js/calendario.js"></script>
         <script src="js/panel.js"></script>
         <script src="js/autocomplete.js"></script>
     </body>

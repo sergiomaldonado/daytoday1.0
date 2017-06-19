@@ -368,7 +368,7 @@
                     <h3 style="float: left;">Ordenes de trabajo</h3>
                     <form role="form">
                       <div style="width:30%; float:right;" class="form-group has-feedback">
-                        <input id="buscarOrden"  type="text" class="form-control" placeholder="" />
+                        <input id="buscarOrden"  type="text" class="form-control" placeholder="Buscar" />
                         <i style="color: #4388E5;" class="form-control-feedback glyphicon glyphicon-search rota-horizontal"></i>
                       </div>
                     </form>
@@ -601,5 +601,6 @@
     </script>
     <script src="js/calendario.js"></script>
     <script src="js/autocomplete.js"></script>
+    <script src="js/busqueda.js"></script>
   </body>
 </html>

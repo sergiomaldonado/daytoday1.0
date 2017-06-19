@@ -48,7 +48,6 @@ function agregarTareaProyecto() {
   let asignadoTarea = $('#asignado').val();
 
   let ruta = "proyectos/"+idProyecto+"/tareas";
-  console.log(ruta);
 
   let tareas = firebase.database().ref(ruta);
 
@@ -63,4 +62,9 @@ function agregarTareaProyecto() {
   }
 
   tareas.push().set(Tarea);
+  $('#tarea').val('');
+  $('#categoria').val('');
+  $('#color').val('');
+  $('#asignado').val('');
+  $('#tarea').focus();
 }
