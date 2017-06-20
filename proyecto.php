@@ -11,6 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title></title>
+    <link href='css/dragula.css' rel='stylesheet' type='text/css' />
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -27,19 +28,11 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/proyecto.css">
     <link rel="stylesheet" href="css/autocomplete.css">
-    <link rel="stylesheet" href="css/calendar.css">
     <link rel="stylesheet" href="css/stylesCalendar.css">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="components/jquery-ui/jquery-ui.min.js"></script>
-    <script src="components/angular/angular.min.js"></script>
-    <script src="js/angular-dragdrop.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <style>
-      .thumbnail { height: 280px !important; }
-      .btn-droppable { width: 180px; height: 30px; padding-left: 4px; }
-      .btn-draggable { width: 160px; }
-    </style>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=githubcombevacqua" id="_carbonads_js"></script>
   </head>
   <body>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -123,11 +116,9 @@
                             </form>
                           </div>
                         </div>
-                        <div id="redips-drag">
-                          <div class='contentWrapper'>
-                            <div id="ContenedorTareasProyecto" style="" class="col-xs-8 col-sm-6">
-
-                            </div>
+                        <div>
+                          <div>
+                            <div id='left-rollbacks' style="" class="col-xs-8 col-sm-6 container"></div>
                             <div style="" class="col-xs-12 col-sm-12">
                               <div class="table-responsive no-padding">
                                 <div class="panel panel-default no-padding" style="border:solid 1px white;">
@@ -140,7 +131,12 @@
                                       <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
                                     </ul>
                                   </div>
-                                  <div id="holder" class="row" ></div>
+                                  <div class="parent">
+                                    <div class="class='wrapper'">
+
+                                      <div id='holder' class="row" ></div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -419,8 +415,6 @@
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
         <script src="js/bootstrap-tooltip.js"></script>
         <script type="text/javascript" src="js/header.js"></script>
-		    <script type="text/javascript" src="js/redips-drag-min.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
         <script>
         // Initialize Firebase
@@ -435,39 +429,6 @@
         firebase.initializeApp(config);
         </script>
         <script src="js/proyecto.js"></script>
-        <script type="text/javascript">
-          var App = angular.module('drag-and-drop', ['ngDragDrop']);
-
-          App.controller('oneCtrl', function($scope, $timeout) {
-            $scope.list5 = [];
-
-            let tareasdelproyecto = firebase.database().ref("proyectos/"+idProyecto+"tareas");
-
-            tareasdelproyecto.on('value', function(snapshot) {
-              let todasTareas = snapshot.val();
-
-              for(unatarea in todasTareas) {
-                let json = {
-                  'title': todasTareas[unatarea].nombre,
-                  'drag': true
-                }
-
-                $scope.list5.push(json);
-              }
-            })
-
-            // Limit items to be dropped in list1
-            $scope.optionsList1 = {
-              accept: function(dragEl) {
-                if ($scope.list1.length >= 2) {
-                  return false;
-                } else {
-                  return true;
-                }
-              }
-            };
-          });
-        </script>
         <script type="text/javascript">
         $(function(){
           var colpick = $('.demo').each( function() {
@@ -591,9 +552,9 @@
               <tr>
                 {{ for (i = 0; i < 7; i++) { }}
                 {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
-                <td class="calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
+                <td class="right-rollbacks container calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
                   <div class="date">{{: thedate.getDate()}}</div>
-                    {{ thedate.setDate(thedate.getDate() + 1);}}
+                  {{ thedate.setDate(thedate.getDate() + 1);}}
 
                 </td>
                 {{ } }}
@@ -644,6 +605,8 @@
           </table>
         </script>
         <script src="js/calendario.js"></script>
+        <script src='js/dragula.js'></script>
+        <script src='js/example.min.js'></script>
         <script src="js/panel.js"></script>
         <script src="js/autocomplete.js"></script>
     </body>

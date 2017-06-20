@@ -102,8 +102,9 @@
       return;
     }
     //esta variable es la que dibuja el div del evento en el calendario
-    //le pone una clase evento
-    var $event = $('<div/>', {'class': 'event', text: event.title, title: event.title, 'data-index': index}),
+    //le pone una clase evento <div id='left-rollbacks' class="container"></div>
+    //var $drag = $('<div/>', {'id': 'right-rollbacks', 'class': 'container'});
+    var $event = $('<div/>', {'class': 'event', text: event.title, title: event.title, 'data-index': index}), //crea un nuevo div
         start = event.start,
         end = event.end || start,
         time = event.start.toTimeString(),
@@ -125,7 +126,8 @@
     if (hour < 22) {
       timeclass = '.time-' + hour + '-' + (start.getMinutes() < 30 ? '0' : '30');
     }
-    $(timeclass).append($event);
+    $('timeclass').append($event);
+    //$('#right-rollbacks').append($event);
   }
 
   function monthAddEvent(index, event) {
@@ -140,6 +142,7 @@
         checkanyway = new Date(e.getFullYear(), e.getMonth(), e.getDate()+40),
         existing,
         i;
+      //var $drag = ('<div/>', {'id': 'right-rollbacks', 'class': 'container'})
     $event.toggleClass('all-day', !!event.allDay);
     if (!!time) {
       $event.html('<strong>' + time + '</strong> ' + $event.html());
@@ -157,6 +160,8 @@
         for(i = 0; i < numbevents - existing; i++) {
           day.append(empty.clone());
         }
+        day.append($event);
+
         day.append(
           $event.
           toggleClass('begin', dateclass === event.start.toDateCssClass()).
@@ -268,7 +273,6 @@
   $('#holder').calendar({
   data: data
   });
-  console.log(nombres);
 
   nombres = []; //RESETEAR LAS VARIABLES
   starts = [];

@@ -1,5 +1,4 @@
 var idProyecto = $('#idProyecto').val();
-console.log(idProyecto);
 
 function rellenarContenedorDeTareas() {
   let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas');
@@ -7,13 +6,13 @@ function rellenarContenedorDeTareas() {
     let Tareas = snapshot.val();
 
     let row = "";
-    $('#ContenedorTareasProyecto').empty();
+    $('#left-rollbacks').empty();
     for(tarea in Tareas) {
       row += '<div style="margin-right:-20px;" class="redips-drag t1 col-md-4">' +
               '<div class="tarea" style="border-left: solid 5px ' + Tareas[tarea].categoria.color + ';">' + Tareas[tarea].nombre + '</div>' +
              '</div>';
     }
-    $('#ContenedorTareasProyecto').append(row);
+    $('#left-rollbacks').append(row);
     row = "";
 
   }, function(errorObject) {
@@ -36,8 +35,6 @@ $(document).ready(function() {
   $('#tabbrief').on('shown.bs.tab', function(e) {
     e.target
     e.relatedTarget
-
-
   })
 })
 
