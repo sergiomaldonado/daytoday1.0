@@ -18,7 +18,7 @@
     <link rel="icon" href="http://www.templatemonster.com/favicon.ico">
     <link rel="stylesheet" type="text/css" media="all" href="css/jquery.minicolors.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/autocomplete.css">
+    <link href="css/sexyradio.css">
     <link rel="stylesheet" href="css/stylesCalendar.css">
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -52,6 +52,17 @@
                           <!-- Default panel contents -->
                           <div class="panel-body no-padding">
                             <p>Categorias</p>
+                          </div>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                              <input type="radio" name="options" id="option1" autocomplete="off" checked> Semana
+                            </label>
+                            <label class="btn btn-primary">
+                              <input type="radio" name="options" id="option2" autocomplete="off"> Mi Semana
+                            </label>
+                            <label class="btn btn-primary">
+                              <input type="radio" name="options" id="option3" autocomplete="off"> Completadas
+                            </label>
                           </div>
                           <div id="holder"></div>
                       </div>
@@ -240,5 +251,6 @@
       </table>
     </script>
     <script src="js/calendario.js"></script>
+    <script src="js/sexyradio.js"></script>
   </body>
 </html>

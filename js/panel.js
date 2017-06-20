@@ -56,7 +56,6 @@ function mostrarOrdenes() {
   })
 }
 
-
 function mostrarProyectos() {
   $('#tabproyectos').on('shown.bs.tab', function (e) {
     e.target // newly activated tab
