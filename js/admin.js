@@ -26,9 +26,6 @@ function haySesion() {
 haySesion();
 
 function mostrarOrdenes() {
-  $('#tabordenes').on('shown.bs.tab', function (e) {
-    e.target // newly activated tab
-    e.relatedTarget // previous active tab
 
    let ordenes = firebase.database().ref('ordenes/');
     ordenes.on('value', function(snapshot) {
@@ -68,13 +65,9 @@ function mostrarOrdenes() {
     }, function(errorObject) {
       console.log("La lectura de las ordenes falló: " + errorObject.code);
     })
-  })
 }
 
 function mostrarProyectos() {
-  $('#tabproyectos').on('shown.bs.tab', function (e) {
-    e.target // newly activated tab
-    e.relatedTarget // previous active tab
 
     let proyectos = firebase.database().ref('proyectos/');
     proyectos.on('value', function(snapshot) {
@@ -106,8 +99,20 @@ function mostrarProyectos() {
     }, function(errorObject) {
       console.log("La lectura de proyectos falló: " + errorObject.code);
     })
-  })
 }
+
+$('#tabordenes').on('shown.bs.tab', function (e) {
+  e.target // newly activated tab
+  e.relatedTarget // previous active tab
+  mostrarOrdenes();
+});
+
+$('#tabproyectos').on('shown.bs.tab', function (e) {
+  e.target // newly activated tab
+  e.relatedTarget // previous active tab
+
+  mostrarProyectos();
+});
 
 //cierra la sesion de firebase
 function logOut() {

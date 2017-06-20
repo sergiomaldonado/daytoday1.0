@@ -40,15 +40,15 @@
 		        <div  class="no-padding col-lg-9 col-md-9" style=" background-color:red;">
               <div style="background-color:white; padding-top:30px;" class="live-box">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#coment" data-toggle="tab">Semana</a></li>
-                  <li><a href="#recursos" data-toggle="tab">Mi Semana</a></li>
-                  <li><a href="#recursos" data-toggle="tab">Completado</a></li>
+                  <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab">Semana</a></li>
+                  <li><a id="tabmisemana" href="#m2" data-toggle="tab">Mi Semana</a></li>
+                  <li><a id="tabcompletado" href="#m3" data-toggle="tab">Completado</a></li>
                 </ul>
-                <div class="tab-content no-padding" style="padding:20px;">
+                <div class="tab-content no-padding" style="padding:20px;" id="m1">
                   <div class="tab-pane fade in active no-padding" id="coment">
                     <div style="display: inline;" id="authentication">
                       <div class="table-responsive no-padding">
-                        <div class="panel panel-default no-padding" style="border:solid 1px white;">
+                        <div id="Semana" class="panel panel-default no-padding" style="border:solid 1px white;">
                           <!-- Default panel contents -->
                           <div class="panel-body no-padding">
                             <p>Categorias</p>
@@ -57,6 +57,12 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div id="miSemana" class="tab-pane fade" style="padding:20px;" id="m2">
+
+                </div>
+                <div id="Completado" class="tab-pane fade" style="padding:20px;" id="m3">
+
                 </div>
               </div>
             </div>
