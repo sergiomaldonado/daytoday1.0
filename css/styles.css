@@ -205,3 +205,7 @@ fieldset[disabled] .boton-default.active {
   filter: FlipH;
   -ms-filter: "FlipH";
 }
+
+.icons {
+  color: #72A5EC !important;
+}
