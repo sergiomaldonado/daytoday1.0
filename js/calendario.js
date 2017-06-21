@@ -131,7 +131,7 @@
   }
 
   function monthAddEvent(index, event) {
-    var $event = $('<div/>', {'class': 'event', text: event.title, title: event.title, 'data-index': index}),
+    var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
         e = new Date(event.start),
         dateclass = e.toDateCssClass(),
         day = $('.' + e.toDateCssClass()),
@@ -238,7 +238,7 @@
   })(jQuery);
 
   var nombres = [];
-  var starts = [];
+  var comienzos = [];
   var data = [];
   var colores = [];
 
@@ -247,24 +247,25 @@
   let tareas=snapshot.val();
   for(tarea in tareas) {
   nombres.push(String(tareas[tarea].nombre));
-  starts.push(
+  comienzos.push(
     {
       año: tareas[tarea].año,
       mes: tareas[tarea].mes,
       dia: tareas[tarea].dia
     }
   );
-  colores.push(tareas[tarea]).color;
+  colores.push(tareas[tarea].color);
   }
 
-  var names = nombres;
-  var comienzos = starts;
+  //var names = nombres;
+  //var colors = colores;
+  //var comienzos = starts;
   var slipsum = [];
 
   //Recorro el arreglo de titulos de las tareas
-  for(i = 0; i < names.length; i++) {
+  for(i = 0; i < nombres.length; i++) {
     end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: names[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    data.push({ title: nombres[i], color: colores[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -276,18 +277,8 @@
     data: data
   });
 
-  var eventos = $('.event');
-  console.log(eventos);
-
-  for(let i = 0; i < eventos.lenght; i++) {
-    console.log('Hola');
-    if(eventos[i] == nombres[i]){
-      eventos[i].css('border-left', 'solid 5px '+colores[i]);
-      console.log(eventos[i]);
-    }
-  }
-
-  nombres = []; //RESETEAR LAS VARIABLES
+  //RESETEAR LAS VARIABLES
+  nombres = [];
   starts = [];
   data = [];
   })
