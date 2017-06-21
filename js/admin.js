@@ -16,6 +16,7 @@ function haySesion() {
       var uid = user.uid;
 
       obtenerUsuario(uid);
+      $('[data-toggle="tooltip"]').tooltip();
     }
     else {
       $(location).attr("href", "index.html");
