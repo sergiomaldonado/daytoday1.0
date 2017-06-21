@@ -20,12 +20,17 @@
   text-align: right;
 }
 .event {
-  border:solid 1px #66AAE7;
-  background-color: transparent;
+
+  background-color: white;
   margin:5px;
   padding: 5px;
   border-left: solid 5px orange;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.event:hover {
 
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .event.begin {
 
