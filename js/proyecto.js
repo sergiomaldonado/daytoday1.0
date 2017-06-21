@@ -1,5 +1,19 @@
 var idProyecto = $('#idProyecto').val();
 
+function obtenerTituloProyecto(){
+
+  let ref = firebase.database().ref('proyectos/' + idProyecto);
+  ref.on('value', function(snapshot) {
+    let proyecto = snapshot.val();
+
+    var tituloProyecto = proyecto.nombre;
+
+    $('#TituloProyecto').html(tituloProyecto);
+  });
+}
+
+obtenerTituloProyecto();
+
 function rellenarContenedorDeTareas() {
   let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas');
   tareasProyecto.on('value', function(snapshot) {
