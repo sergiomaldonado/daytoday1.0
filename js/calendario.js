@@ -103,7 +103,7 @@
     }
     //esta variable es la que dibuja el div del evento en el calendario
     //le pone una clase evento <div id='left-rollbacks' class="container"></div>
-    //var $drag = $('<div/>', {'id': 'right-rollbacks', 'class': 'container'});
+
     var $event = $('<div/>', {'class': 'event', text: event.title, title: event.title, 'data-index': index}), //crea un nuevo div
         start = event.start,
         end = event.end || start,
@@ -127,7 +127,7 @@
       timeclass = '.time-' + hour + '-' + (start.getMinutes() < 30 ? '0' : '30');
     }
     $('timeclass').append($event);
-    //$('#right-rollbacks').append($event);
+
   }
 
   function monthAddEvent(index, event) {
@@ -142,7 +142,7 @@
         checkanyway = new Date(e.getFullYear(), e.getMonth(), e.getDate()+40),
         existing,
         i;
-      //var $drag = ('<div/>', {'id': 'right-rollbacks', 'class': 'container'})
+
     $event.toggleClass('all-day', !!event.allDay);
     if (!!time) {
       $event.html('<strong>' + time + '</strong> ' + $event.html());
@@ -240,6 +240,7 @@
   var nombres = [];
   var starts = [];
   var data = [];
+  var colores = [];
 
   let semana = firebase.database().ref("/tareas");
   semana.on('value', function(snapshot) {
@@ -253,6 +254,7 @@
       dia: tareas[tarea].dia
     }
   );
+  colores.push(tareas[tarea]).color;
   }
 
   var names = nombres;
@@ -271,8 +273,19 @@
   $('td.calendar-day.current').empty();
   //Actually do everything
   $('#holder').calendar({
-  data: data
+    data: data
   });
+
+  var eventos = $('.event');
+  console.log(eventos);
+
+  for(let i = 0; i < eventos.lenght; i++) {
+    console.log('Hola');
+    if(eventos[i] == nombres[i]){
+      eventos[i].css('border-left', 'solid 5px '+colores[i]);
+      console.log(eventos[i]);
+    }
+  }
 
   nombres = []; //RESETEAR LAS VARIABLES
   starts = [];
