@@ -20,6 +20,7 @@
     <link href="css/sexyradio.css">
     <link rel="stylesheet" href="css/stylesCalendar.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='assets/logo1.ico' rel='shortcut icon' type='image/x-icon'/>
   </head>
   <body>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -68,14 +69,14 @@
                             <p>Categorias</p>
                           </div>
                           <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                              <input type="radio" name="options" id="option1" autocomplete="off" checked> Semana
+                            <label onclick="Semana()" class="btn btn-primary active">
+                              <input type="radio" name="options" autocomplete="off" checked> Semana
                             </label>
-                            <label class="btn btn-primary">
-                              <input type="radio" name="options" id="option2" autocomplete="off"> Mi Semana
+                            <label onclick="miSemana()" class="btn btn-primary">
+                              <input type="radio" name="options" autocomplete="off"> Mi Semana
                             </label>
-                            <label class="btn btn-primary">
-                              <input type="radio" name="options" id="option3" autocomplete="off"> Completadas
+                            <label onclick="Completadas()" class="btn btn-primary">
+                              <input type="radio" name="options" autocomplete="off"> Completadas
                             </label>
                           </div>
                           <div id="holder"></div>
@@ -254,7 +255,7 @@
         {{ } }}
       </table>
     </script>
-    <script src="js/calendario.js"></script>
+    <script src="js/calendarioUsuario.js"></script>
     <script src="js/sexyradio.js"></script>
   </body>
 </html>

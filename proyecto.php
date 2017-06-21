@@ -10,9 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title></title>
+    <title id="titleProyecto"></title>
     <link href='css/dragula.css' rel='stylesheet' type='text/css' />
-    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="css/styleAutocomplete.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
@@ -33,6 +34,7 @@
     <script src="components/jquery-ui/jquery-ui.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=githubcombevacqua" id="_carbonads_js"></script>
+    <link href='assets/logo1.ico' rel='shortcut icon' type='image/x-icon'/>
   </head>
   <body>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -42,23 +44,27 @@
           <button style="border:solid 1px #FF6700;" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span> Menu <i class="glyphicon glyphicon-triangle-bottom"></i>
           </button>
-          <a href="http://agenciaaxios.com"><img id="logo" class="navbar-brand page-scroll" src="assets/logo1.svg"></a>
+          <a ><img id="logo" class="navbar-brand page-scroll" src="assets/logo1.svg"></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a style="height:55px; width:40px; margin-right:10px;" data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
-            <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar proyecto" onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
-            <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar usuario" onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
-            <li><a class="page-scroll" href="http://agenciaaxios.com/live/"><span style="margin-top:10px;"  class="glyphicon glyphicon-menu-hamburger"></span></a></li>
+            <li><a style="height:55px; width:40px; margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar proyecto" onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
+            <li><a style="height:55px; width:40px; margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar usuario" onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"><span style="margin-top:10px;" class="glyphicon glyphicon-menu-hamburger"></span></a>
+              <ul class="dropdown-menu">
+                <li><a ><span class="icons glyphicon glyphicon-user"></span> Mi perfil</a></li>
+                <li><a ><span class="icons glyphicon glyphicon-cog"></span> Ajustes</a></li>
+                <li><a onclick="logOut()"><span class="icons glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
+              </ul>
+            </li>
           </ul>
-          <!-- HTML to write -->
-          <!-- /.navbar-collapse -->
         </div>
       </div>
-    <!-- /.container-fluid -->
     </nav>
-      <section style="display: none;" id="panel-admin">
+      <section id="panel-admin">
         <div style="margin-top:40px;">
           <div class="container">
             <div class="row">
@@ -78,7 +84,7 @@
               <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px; ">
                 <div class="no-padding col-lg-12 col-md-12" style="margin-top:-30px; ">
                   <div style="padding-top:30px;" class="live-box">
-                    <h2>Titulo del proyecto</h2><hr>
+                    <h2 id="TituloProyecto"></h2><hr>
                   </div>
                 </div>
                 <input id="idProyecto" style="display: none;" value="<?php echo $id; ?>"/>
@@ -315,18 +321,20 @@
                     </div>
                     <div class="item">
                       <h3>Forma el equipo</h3>
-                      <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <div class="input-group">
-                              <input class="form-control bs-autocomplete" id="ac-demo" value="" placeholder="" type="text" data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id" data-item_label="cityName" autocomplete="off">
-                              <span class="input-group-btn">
-                                <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                              </span>
+                      <div id="searchfield">
+                        <form role="form" class="form-horizontal">
+                          <div class="form-group">
+                            <div class="col-md-12">
+                              <div class="input-group">
+                                <input type="text" name="currency" class="biginput" id="autocomplete">
+                                <span class="input-group-btn">
+                                  <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </form>
+                        </form>
+                      </div>
                       <button onclick="volver()" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
                       <button onclick="siguiente()" type="button" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
                     </div>
@@ -406,15 +414,13 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         </section>
-
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="vendor/bootstrap/js/bootstrap.js" type="text/javascript"> </script>
         <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
         <script type="text/javascript" src="js/jquery.minicolors.min.js"></script>
         <script src='js/moment.min.js'></script>
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
         <script src="js/bootstrap-tooltip.js"></script>
         <script type="text/javascript" src="js/header.js"></script>
+        <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
         <script>
         // Initialize Firebase
@@ -503,9 +509,9 @@
                           {{ if (mode !== 'day') { }}
                             {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                             {{ if (mode ==='week') { }}
-                              <button class="btn btn-link disabled">{{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }}</button>
+                              <h3>Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
                             {{ } }}
-                            <button class="js-cal-years btn btn-link">{{: year}}</button>
+
                           {{ } else { }}
                             <button class="btn btn-link disabled">{{: date.toDateString() }}</button>
                           {{ } }}
@@ -553,8 +559,8 @@
                 {{ for (i = 0; i < 7; i++) { }}
                 {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
                 <td class="right-rollbacks container calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
-                  <div class="date">{{: thedate.getDate()}}</div>
-                  {{ thedate.setDate(thedate.getDate() + 1);}}
+                  <div class="date"><p id="diaCalendar">{{: thedate.getDate()}}<p></div>
+                    <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
                 </td>
                 {{ } }}
@@ -607,7 +613,8 @@
         <script src="js/calendario.js"></script>
         <script src='js/dragula.js'></script>
         <script src='js/example.min.js'></script>
-        <script src="js/panel.js"></script>
-        <script src="js/autocomplete.js"></script>
+        <script src="js/admin.js"></script>
+        <script src="js/busqueda.js"></script>
+        <script type="text/javascript" src="js/currency-autocomplete.js"></script>
     </body>
   </html>
