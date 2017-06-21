@@ -13,9 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="css/creative.min.css" rel="stylesheet">
     <link href="css/creative.css" rel="stylesheet">
-    <link href="css/social.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.css">
     <link rel="shortcut icon" href="http://www.templatemonster.com/favicon.ico">
@@ -41,10 +39,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a style="height:55px; width:40px; margin-right:10px;" data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
-            <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar proyecto" onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
-            <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar usuario" onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
-            <li><a class="page-scroll"><span style="margin-top:10px;"  class="glyphicon glyphicon-menu-hamburger"></span></a></li>
+            <li><a style="height:45px; width:30px; margin-right:20px" data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
+            <li><a style="height:45px; width:30px;  margin-right:20px " data-toggle="tooltip"  data-placement="bottom" title="Agregar proyecto" onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
+            <li><a style="height:45px; width:30px;  margin-right:20px " data-toggle="tooltip"  data-placement="bottom" title="Agregar usuario" onclick="modalUsuario()" class="page-scroll"><img height="40px" src="assets/ico-3.svg" alt=""></a></li>
+            <li><a class="page-scroll"><span style="margin-top:10px"  class="glyphicon glyphicon-menu-hamburger"></span></a></li>
           </ul>
           <!-- HTML to write -->
           <!-- /.navbar-collapse -->
@@ -58,8 +56,8 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Agregar una orden</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;" >&times</span></button>
+              <h3 class="modal-title text-left">Agregar una orden</h3>
             </div>
             <div class="modal-body">
               <form role="form" id="form">
@@ -257,10 +255,10 @@
       <div style="margin-top:40px;">
         <div class="container">
           <div class="row">
-            <div class="col-lg-3 col-md-4">
+            <div class="col-lg-3 col-md-4" style="float:left;">
               <div class="row">
                 <div class="col-sm-6 col-md-4">
-                  <div style="width:250px; overflow:hidden; border: solid 1px #74A6E9;" class="thumbnail no-padding" >
+                  <div style="width:250px; overflow:hidden;" class="thumbnail no-padding" >
                     <img src="assets/bg-panel.png" alt="...">
                     <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                     <div class="caption">
@@ -270,17 +268,17 @@
                 </div>
               </div>
             </div>
-            <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px; ">
+            <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px; float:right;">
               <div style="padding-top:30px;" class="live-box">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab">Semana</a></li>
-                  <li><a id="tabordenes" href="#m2" data-toggle="tab">Ordenes</a></li>
-                  <li><a id="tabproyectos" href="#m3" data-toggle="tab">Proyectos</a></li>
-                  <li><a id="tabreporte" href="#m4" data-toggle="tab">Reporte</a></li>
-                  <li><a id="tabhistorial" href="#m5" data-toggle="tab">Historial</a></li>
+                  <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab" aria-label="Left Align">  Semana</a></li>
+                  <li><a id="tabordenes" href="#m2" data-toggle="tab">  Ordenes</a></li>
+                  <li><a id="tabproyectos" href="#m3" data-toggle="tab">  Proyectos</a></li>
+                  <li><a id="tabreporte" href="#m4" data-toggle="tab">  Reporte</a></li>
+                  <li><a id="tabhistorial" href="#m5" data-toggle="tab">  Historial</a></li>
                 </ul>
                 <!-- Tab Semana-->
-                <div class="tab-content" style="padding-top:20px;">
+                <div  class="tab-content" style="padding-top:20px;">
                   <div class="tab-pane fade in active" id="m1">
                     <div class="table-responsive no-padding">
                       <div class="panel panel-default no-padding" style="border:solid 1px white;">
@@ -298,7 +296,7 @@
                     </div>
                   </div>
                   <!-- Tab Ordenes-->
-                  <div class="tab-pane fade" style="padding-top:0px;" id="m2">
+                  <div  class="tab-pane fade" style="padding-top:0px;" id="m2">
                     <h3 style="float: left;">Ordenes de trabajo</h3>
                     <form role="form">
                       <div style="width:30%; float:right;" class="form-group has-feedback">
@@ -306,7 +304,7 @@
                         <i style="color: #4388E5;" class="form-control-feedback glyphicon glyphicon-search rota-horizontal"></i>
                       </div>
                     </form>
-                    <table id="tablaordenes" class="table">
+                    <table id="tablaordenes" class="table table-striped table-hover">
                       <thead>
                         <th>Id</th>
                         <th>Cliente</th>
@@ -323,6 +321,7 @@
                   </div>
                   <!--  PROYECTOS ---->
                   <div  style="padding-top:0px;" class="tab-pane fade" id="m3">
+
                     <div id="ContenedorProyectos" class="row">
 
                     </div>
@@ -433,9 +432,9 @@
                       {{ if (mode !== 'day') { }}
                         {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                         {{ if (mode ==='week') { }}
-                          <button class="btn btn-link disabled">{{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }}</button>
+                          <h3>Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
                         {{ } }}
-                        <button class="js-cal-years btn btn-link">{{: year}}</button>
+
                       {{ } else { }}
                         <button class="btn btn-link disabled">{{: date.toDateString() }}</button>
                       {{ } }}
@@ -471,7 +470,7 @@
         <thead>
           <tr class="c-weeks">
             {{ for (i = 0; i < 7; i++) { }}
-              <th class="c-name">
+              <th class="c-name text-center">
                 {{: days[i] }}
               </th>
             {{ } }}
@@ -483,8 +482,8 @@
             {{ for (i = 0; i < 7; i++) { }}
             {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
             <td class="calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
-              <div class="date">{{: thedate.getDate()}}</div>
-                {{ thedate.setDate(thedate.getDate() + 1);}}
+              <div class="date"><p id="diaCalendar">{{: thedate.getDate()}}<p></div>
+                <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
             </td>
             {{ } }}

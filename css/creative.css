@@ -17,12 +17,26 @@ html,
 body {
   height: 100%;
   width: 100%;
-font-family: 'intelobold';
+   font-family: 'intelobold';
 }
 body {
 font-family: 'intelo';
+background-color: #F2F2F2;
 
 }
+.tab-content{
+  background-color: white;
+  padding: 20px;
+  -webkit-box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
+-moz-box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
+box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
+}
+#diaCalendar{
+  -ms-transform: translate(50px, 100px); /* IE 9 */
+   -webkit-transform: translate(50px, 100px); /* Safari */
+   transform: translate(40px,-35px);
+}
+
 hr {
   border-color: #F05F40;
   border-width: 1px;
@@ -66,6 +80,11 @@ p {
 
   margin-bottom: 20px;
 }
+.thumbnail{
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+border: none;
+}
 #text-brief{
   font-family: 'intelo';
   color: gray;
@@ -78,7 +97,7 @@ p {
   font-size: 14px;
 
 }
-#logo{ height: 60px; margin-left: 60px;}
+#logo{ height: 60px; margin-left: 60px; margin-top: -5px;}
 #tareas{
   padding-bottom: 200px;
 }
@@ -106,19 +125,23 @@ table{ margin: 0px;}
 
 /* tab color */
 .nav-tabs{
-  border-bottom: solid 1px #74A6E9;
+
 }
 .nav-tabs>li>a {
-  background-color: white;
-border: solid 1px #74A6E9;
-  color:#ADACAC;
+  background-color:#74A6E9;
+
+  color:white;
 }
 
 /* active tab color */
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
-  color: #fff;
-  background-color: #74A6E9;
-  border-color: #74A6E9;
+  color: #656565;
+  background-color: white;
+  border: solid 1px white;
+  -webkit-box-shadow: 1px -7px 23px -15px rgba(92,92,92,1);
+-moz-box-shadow: 1px -7px 23px -15px rgba(92,92,92,1);
+box-shadow: 1px -7px 23px -15px rgba(92,92,92,1);
+
 }
 
 /* hover tab color */
@@ -127,7 +150,6 @@ border: solid 1px #74A6E9;
   background-color: #000152;
   color: white;
 }
-
 
 
 section {
@@ -151,7 +173,7 @@ aside {
 .navbar-default .nav > li.active > a,
 .navbar-default .nav > li.active > a:focus {
   color: #F05F40 !important;
-  background-color: blue;
+  background-color: transparent;
   color: black;
 }
 .navbar-default .nav > li.active > a:hover,
@@ -164,6 +186,9 @@ aside {
 background-color: white;
     border-color: transparent;
     height: 30px;
+    -webkit-box-shadow: 1px 3px 22px -9px rgba(194,194,194,1);
+  -moz-box-shadow: 1px 3px 22px -9px rgba(194,194,194,1);
+  box-shadow: 1px 3px 22px -9px rgba(194,194,194,1);
 
 
   }
@@ -179,9 +204,9 @@ background-color: white;
   color:gray;
 
 
-  -ms-transform: translate(-50px, 0px); /* IE 9 */
-    -webkit-transform: translate(-50px, 0px); /* Safari */
-    transform: translate(-50px, 0px);
+  -ms-transform: translate(-50px, -10px); /* IE 9 */
+    -webkit-transform: translate(-50px, -10px); /* Safari */
+    transform: translate(-50px, -10px);
     font-size: 15px;
   }
   .navbar-default .nav > li > a:hover,
@@ -189,7 +214,7 @@ background-color: white;
 
   }
   .navbar-default.affix {
-    background-color:green;
+    background-color:transparent;
 
   border: none;
 
@@ -199,7 +224,7 @@ background-color: white;
   }
   .navbar-default.affix .navbar-header .navbar-brand {
     color: white;
-    margin-top: -10px;
+
     font-size: 14px;
     height: 65px;
     -webkit-transition: 0.3s ease-in-out;
