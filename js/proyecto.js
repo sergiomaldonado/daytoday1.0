@@ -9,6 +9,7 @@ function obtenerTituloProyecto(){
     var tituloProyecto = proyecto.nombre;
 
     $('#TituloProyecto').html(tituloProyecto);
+    $('#titleProyecto').html(tituloProyecto);
   });
 }
 

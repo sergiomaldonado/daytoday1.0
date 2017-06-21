@@ -69,14 +69,14 @@
                             <p>Categorias</p>
                           </div>
                           <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                              <input type="radio" name="options" id="option1" autocomplete="off" checked> Semana
+                            <label onclick="Semana()" class="btn btn-primary active">
+                              <input type="radio" name="options" autocomplete="off" checked> Semana
                             </label>
-                            <label class="btn btn-primary">
-                              <input type="radio" name="options" id="option2" autocomplete="off"> Mi Semana
+                            <label onclick="miSemana()" class="btn btn-primary">
+                              <input type="radio" name="options" autocomplete="off"> Mi Semana
                             </label>
-                            <label class="btn btn-primary">
-                              <input type="radio" name="options" id="option3" autocomplete="off"> Completadas
+                            <label onclick="Completadas()" class="btn btn-primary">
+                              <input type="radio" name="options" autocomplete="off"> Completadas
                             </label>
                           </div>
                           <div id="holder"></div>
@@ -255,7 +255,7 @@
         {{ } }}
       </table>
     </script>
-    <script src="js/calendario.js"></script>
+    <script src="js/calendarioUsuario.js"></script>
     <script src="js/sexyradio.js"></script>
   </body>
 </html>
