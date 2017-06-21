@@ -23,8 +23,6 @@
     <link href="css/social.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.css">
-    <link rel="shortcut icon" href="http://www.templatemonster.com/favicon.ico">
-    <link rel="icon" href="http://www.templatemonster.com/favicon.ico">
     <link rel="stylesheet" type="text/css" media="all" href="css/jquery.minicolors.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/proyecto.css">
