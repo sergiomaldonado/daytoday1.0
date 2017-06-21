@@ -12,6 +12,7 @@
     <meta name="author" content="">
     <title></title>
     <link href='css/dragula.css' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" media="all" href="css/styleAutocomplete.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -33,6 +34,7 @@
     <script src="components/jquery-ui/jquery-ui.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=githubcombevacqua" id="_carbonads_js"></script>
+    <link href='assets/logo1.ico' rel='shortcut icon' type='image/x-icon'/>
   </head>
   <body>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -319,18 +321,20 @@
                     </div>
                     <div class="item">
                       <h3>Forma el equipo</h3>
-                      <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <div class="input-group">
-                              <input class="form-control bs-autocomplete" id="ac-demo" value="" placeholder="" type="text" data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id" data-item_label="cityName" autocomplete="off">
-                              <span class="input-group-btn">
-                                <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                              </span>
+                      <div id="searchfield">
+                        <form role="form" class="form-horizontal">
+                          <div class="form-group">
+                            <div class="col-md-12">
+                              <div class="input-group">
+                                <input type="text" name="currency" class="biginput" id="autocomplete">
+                                <span class="input-group-btn">
+                                  <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </form>
+                        </form>
+                      </div>
                       <button onclick="volver()" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
                       <button onclick="siguiente()" type="button" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
                     </div>
@@ -416,6 +420,7 @@
         <script src='js/moment.min.js'></script>
         <script src="js/bootstrap-tooltip.js"></script>
         <script type="text/javascript" src="js/header.js"></script>
+        <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
         <script>
         // Initialize Firebase
@@ -609,6 +614,7 @@
         <script src='js/dragula.js'></script>
         <script src='js/example.min.js'></script>
         <script src="js/admin.js"></script>
-        <script src="js/autocomplete.js"></script>
+        <script src="js/busqueda.js"></script>
+        <script type="text/javascript" src="js/currency-autocomplete.js"></script>
     </body>
   </html>
