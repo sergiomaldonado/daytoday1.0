@@ -132,6 +132,7 @@
 
   function monthAddEvent(index, event) {
     var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
+
         e = new Date(event.start),
         dateclass = e.toDateCssClass(),
         day = $('.' + e.toDateCssClass()),
@@ -142,6 +143,8 @@
         checkanyway = new Date(e.getFullYear(), e.getMonth(), e.getDate()+40),
         existing,
         i;
+        var divInter = $('<div/>', {'class': 'mostramelo'});
+        var botonEditar = $('<button>', {'class': 'editarTarea', 'onclick':'editarTarea();', text: 'botonx'});
 
     $event.toggleClass('all-day', !!event.allDay);
     if (!!time) {
@@ -161,6 +164,8 @@
           day.append(empty.clone());
         }
         day.append($event);
+       $('.event').append(divInter);
+       $('.mostramelo').append(botonEditar);
 
         day.append(
           $event.
