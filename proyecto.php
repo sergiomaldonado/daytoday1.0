@@ -94,6 +94,7 @@
                               <div class="form-group">
                                 <div class="col-md-12">
                                   <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                                  <p style="float: right;" id="contadorTaComentario">0/60</p>
                                 </div>
                               </div>
                               <div class="form-group">
@@ -541,7 +542,7 @@
                 {{ for (i = 0; i < 7; i++) { }}
                 {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
                 <td class="right-rollbacks container calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
-                  <div class="date"><p id="diaCalendar">{{: thedate.getDate()}}<p></div>
+                  <div class="date"><p class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
                     <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
                 </td>
@@ -595,6 +596,7 @@
         <script src="js/calendarioProyecto.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/busqueda.js"></script>
+        <script src="js/contador.js"></script>
         <script type="text/javascript" src="js/currency-autocomplete.js"></script>
     </body>
   </html>
