@@ -11,7 +11,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title id="titleProyecto"></title>
-    <link href='css/dragula.css' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" media="all" href="css/styleAutocomplete.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -20,31 +19,25 @@
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="css/creative.min.css" rel="stylesheet">
     <link href="css/creative.css" rel="stylesheet">
-    <link href="css/social.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.css">
     <link rel="stylesheet" type="text/css" media="all" href="css/jquery.minicolors.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/proyecto.css">
-    <link rel="stylesheet" href="css/autocomplete.css">
     <link rel="stylesheet" href="css/stylesCalendar.css">
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script src="components/jquery-ui/jquery-ui.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=githubcombevacqua" id="_carbonads_js"></script>
     <link href='assets/logo1.ico' rel='shortcut icon' type='image/x-icon'/>
   </head>
   <body>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div  class="navbar-header">
           <button style="border:solid 1px #FF6700;" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span> Menu <i class="glyphicon glyphicon-triangle-bottom"></i>
           </button>
           <a ><img id="logo" class="navbar-brand page-scroll" src="assets/logo1.svg"></a>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a style="height:55px; width:40px; margin-right:10px;" data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
@@ -101,6 +94,7 @@
                               <div class="form-group">
                                 <div class="col-md-12">
                                   <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                                  <p style="float: right;" id="contadorTaComentario">0/60</p>
                                 </div>
                               </div>
                               <div class="form-group">
@@ -111,7 +105,7 @@
                                   <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
                                 </div>
                                 <div style="margin-top:15px;" class="col-md-12">
-                                  <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
+                                  <input type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
                                 </div>
                               </div>
                               <div class="form-group">
@@ -126,7 +120,6 @@
                             <div style="" class="col-xs-12 col-sm-12">
                               <div class="table-responsive no-padding">
                                 <div class="panel panel-default no-padding" style="border:solid 1px white;">
-                                  <!-- Contenido a pintar por javascript -->
                                   <div class="panel-body no-padding">
                                     <ul>
                                       <li style="display:inline; padding:20px;"><span style="color:#50E3C2;" class="glyphicon glyphicon-asterisk"></span>Home</li>
@@ -135,12 +128,7 @@
                                       <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
                                     </ul>
                                   </div>
-                                  <div class="parent">
-                                    <div class="class='wrapper'">
-
-                                      <div id='holder' class="row" ></div>
-                                    </div>
-                                  </div>
+                                  <div id='holder' class="row" ></div>
                                 </div>
                               </div>
                             </div>
@@ -324,10 +312,8 @@
                           <div class="form-group">
                             <div class="col-md-12">
                               <div class="input-group">
-                                <input type="text" name="currency" class="biginput" id="autocomplete">
-                                <span class="input-group-btn">
-                                  <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                                </span>
+                                <input type="text" name="currency" class="biginput" id="integrante">
+                                <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                               </div>
                             </div>
                           </div>
@@ -417,7 +403,6 @@
         <script type="text/javascript" src="js/jquery.minicolors.min.js"></script>
         <script src='js/moment.min.js'></script>
         <script src="js/bootstrap-tooltip.js"></script>
-        <script type="text/javascript" src="js/header.js"></script>
         <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
         <script>
@@ -498,9 +483,9 @@
                     <tr>
                       <td style="text-align: left;">
                         <span class="btn-group">
-
+                          <button class="js-cal-prev btn btn-default"><</button>
+                          <button class="js-cal-next btn btn-default">></button>
                         </span>
-
                       </td>
                       <td>
                         <span class="btn-group btn-group-lg">
@@ -557,7 +542,7 @@
                 {{ for (i = 0; i < 7; i++) { }}
                 {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
                 <td class="right-rollbacks container calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
-                  <div class="date"><p id="diaCalendar">{{: thedate.getDate()}}<p></div>
+                  <div class="date"><p class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
                     <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
                 </td>
@@ -608,11 +593,10 @@
             {{ } }}
           </table>
         </script>
-        <script src="js/calendario.js"></script>
-        <script src='js/dragula.js'></script>
-        <script src='js/example.min.js'></script>
+        <script src="js/calendarioProyecto.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/busqueda.js"></script>
+        <script src="js/contador.js"></script>
         <script type="text/javascript" src="js/currency-autocomplete.js"></script>
     </body>
   </html>

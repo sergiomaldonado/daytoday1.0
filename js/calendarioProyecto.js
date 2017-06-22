@@ -12,7 +12,6 @@ if ($currentPopover && ($currentPopover.get(0) == $target.get(0))) {
 }
 });
 
-
 //quicktmpl is a simple template language I threw together a while ago; it is not remotely secure to xss and probably has plenty of bugs that I haven't considered, but it basically works
 //the design is a function I read in a blog post by John Resig (http://ejohn.org/blog/javascript-micro-templating/) and it is intended to be loosely translateable to a more comprehensive template language like mustache easily
 $.extend({
@@ -132,15 +131,13 @@ function dayAddEvent(index, event) { //asigna el evento al dia
 
 function monthAddEvent(index, event) {
   var $event;
-  if(event.estado == 'Pendiente' || event.completadas == true) {
+  if(event.estado == 'Pendiente') {
     $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
   }
-  else if(event.estado == 'Completada') {
+  if(event.estado == 'Completada') {
     $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
   }
-
-
-  //var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
+  //var $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
   var e = new Date(event.start),
       dateclass = e.toDateCssClass(),
       day = $('.' + e.toDateCssClass()),
@@ -267,76 +264,13 @@ var comienzos = [];
 var data = [];
 var colores = [];
 
-function llenarCalendario(ruta, completadas = "") {
-  let semana = firebase.database().ref(ruta);
-  semana.on('value', function(snapshot) {
-    let tareas=snapshot.val();
-    for(tarea in tareas) {
-    nombres.push(String(tareas[tarea].nombre));
-    estados.push(tareas[tarea].estado);
-    comienzos.push(
-      {
-        año: tareas[tarea].año,
-        mes: tareas[tarea].mes,
-        dia: tareas[tarea].dia
-      }
-    );
-    colores.push(tareas[tarea].color);
-  }
-
-  var slipsum = [];
-
-  if(completadas=="Completadas"){
-    //Recorro el arreglo de titulos de las tareas
-    for(i = 0; i < nombres.length; i++) {
-      end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-      data.push({ title: nombres[i], color: colores[i], completadas: true, estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
-    }
-  }
-  else {
-    //Recorro el arreglo de titulos de las tareas
-    for(i = 0; i < nombres.length; i++) {
-      end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-      data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
-    }
-  }
-
-  data.sort(function(a,b) { return (+a.start) - (+b.start); });
-  //data must be sorted by start date
-
-  $('td.calendar-day.current').empty();
-  //Actually do everything
-  $('#holder').calendar({
-    data: data
-  });
-
-  nombres = [];
-  estados = [];
-  comienzos = [];
-  colores = [];
-  data = [];
-  ids=[];
-  })
-}
-
-function Semana() {
-  llenarCalendario('tareas/');
-}
-
-function miSemana() {
-  let nombreUsuario = $('.nombreDeUsuario').html();
-  llenarCalendario('miSemana/'+nombreUsuario);
-}
-
-function Completadas() {
-  let nombreUsuario = $('.nombreDeUsuario').html();
-  llenarCalendario('miSemana/'+nombreUsuario, "Completadas")
-}
-
-let semana = firebase.database().ref("/tareas");
+//var idProyecto = $('#idProyecto').val();
+//let semana = firebase.database().ref('proyectos/'+idProyecto+'/tareas');
+let semana = firebase.database().ref('tareas');
 semana.on('value', function(snapshot) {
-  let tareas=snapshot.val();
-  for(tarea in tareas) {
+let tareas=snapshot.val();
+for(tarea in tareas) {
+  ids.push(tarea);
   nombres.push(String(tareas[tarea].nombre));
   estados.push(tareas[tarea].estado);
   comienzos.push(
@@ -346,6 +280,7 @@ semana.on('value', function(snapshot) {
       dia: tareas[tarea].dia
     }
   );
+  //colores.push(tareas[tarea].categoria.color);
   colores.push(tareas[tarea].color);
 }
 
@@ -354,7 +289,7 @@ var slipsum = [];
 //Recorro el arreglo de titulos de las tareas
 for(i = 0; i < nombres.length; i++) {
   end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-  data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+  data.push({ title: nombres[i], color: colores[i], id:ids[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
 }
 
 data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -366,10 +301,11 @@ $('#holder').calendar({
   data: data
 });
 
+//RESETEAR LAS VARIABLES
 nombres = [];
 estados = [];
-starts = [];
 comienzos = [];
+colores = [];
 data = [];
 ids=[];
 })

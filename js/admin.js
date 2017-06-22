@@ -6,8 +6,46 @@ function obtenerUsuario(uid) {
   });
 }
 
-function editarTarea() {
+function editarTarea(idTarea) {
+  console.log(idTarea);
 
+  let tareas = firebase.database().ref('/tareas/'+idTarea);
+  let nuevosDatos = {
+
+  }
+
+  //tareas.set(nuevosDatos);
+}
+
+function eliminarTarea(idTarea) {
+  var datos;
+  let tareas = firebase.database().ref('tareas/'+idTarea);
+  tareas.on('value', function(snapshot) {
+    let tareas = snapshot.val();
+    for(tarea in tareas) {
+      datos = {
+        nombre: tareas[tarea].nombre,
+        dia: tareas[tarea].dia,
+        mes: tareas[tarea].mes,
+        año: tareas[tarea].año,
+        color: tareas[tarea].color,
+        estado: tareas[tarea].estado
+      }
+    }
+  });
+
+  let historial = firebase.database().ref('historial/tareas/'+idTarea);
+  let tareaHistorial = {
+
+  }
+  historial.push();
+}
+
+function completarTarea(idTarea) {
+  let tareas = firebase.database().ref('tareas/'+idTarea);
+  tareas.update({
+    estado: "Completada"
+  });
 }
 
 //checa si hay un usuario actualmente logeado
