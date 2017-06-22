@@ -130,13 +130,15 @@
   }
 
   function monthAddEvent(index, event) {
-    var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
-    // var $event = '<div class="event" style="border-left: solid 5px ' + event.color + '!important;" title="' + event.title +'" data-index="' + index +'">' + event.title +
-    //               '<div class="mostramelo">' +
-    //                 '<button class="editarTarea" onclick="editarTarea()"><span class="glyphicon glyphicon-pencil"></span></button>' +
-    //               '</div>' +
-    //              '</div>';
-    e = new Date(event.start),
+    var $event;
+    if(event.estado == 'Pendiente') {
+      $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+    }
+    if(event.estado == 'Completada') {
+      $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+    }
+    //var $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+    var e = new Date(event.start),
         dateclass = e.toDateCssClass(),
         day = $('.' + e.toDateCssClass()),
         empty = $('<div/>', {'class':'clear event', html:' '}),
@@ -164,17 +166,19 @@
         for(i = 0; i < numbevents - existing; i++) {
           day.append(empty.clone());
         }
-        $event.append('<div class="mostramelo">' +
-                        '<button class="editarTarea" onclick="editarTarea()">'+
-                          '<span class="glyphicon glyphicon-pencil"></span>'+
-                        '</button>'+
-                        '<button class="eliminarTarea" onclick="eliminarTarea()">'+
-                          '<span class="glyphicon glyphicon-remove"></span>'+
-                        '</button>'+
-                        '<button class="completarTarea" onclick="completarTarea()">'+
-                          '<span class="glyphicon glyphicon-ok"></span>'+
-                        '</button>'+
-                      '</div>');
+        if(event.estado == "Pendiente") {
+          $event.append('<div id="mostramelo" class="mostramelo">'+
+                          '<button id="btnEditar" class="editarTarea" onclick="editarTarea('+ event.id+')">'+
+                            '<span class="glyphicon glyphicon-pencil"></span>'+
+                          '</button>'+
+                          '<button id="btnEliminar" class="eliminarTarea" onclick="eliminarTarea('+ event.id+')">'+
+                            '<span class="glyphicon glyphicon-remove"></span>'+
+                          '</button>'+
+                          '<button id="btnCompletar" class="completarTarea" onclick="completarTarea('+ event.id+')">'+
+                            '<span class="glyphicon glyphicon-ok"></span>'+
+                          '</button>'+
+                        '</div>');
+        }
         day.append($event);
 
         day.append(
@@ -252,7 +256,9 @@
 
   })(jQuery);
 
+  var ids = [];
   var nombres = [];
+  var estados = [];
   var comienzos = [];
   var data = [];
   var colores = [];
@@ -261,15 +267,17 @@
   semana.on('value', function(snapshot) {
   let tareas=snapshot.val();
   for(tarea in tareas) {
-  nombres.push(String(tareas[tarea].nombre));
-  comienzos.push(
-    {
-      año: tareas[tarea].año,
-      mes: tareas[tarea].mes,
-      dia: tareas[tarea].dia
-    }
-  );
-  colores.push(tareas[tarea].color);
+    ids.push(tarea);
+    nombres.push(String(tareas[tarea].nombre));
+    estados.push(tareas[tarea].estado);
+    comienzos.push(
+      {
+        año: tareas[tarea].año,
+        mes: tareas[tarea].mes,
+        dia: tareas[tarea].dia
+      }
+    );
+    colores.push(tareas[tarea].color);
   }
 
   // var names = nombres;
@@ -280,7 +288,7 @@
   //Recorro el arreglo de titulos de las tareas
   for(i = 0; i < nombres.length; i++) {
     end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    data.push({ title: nombres[i], color: colores[i], id:ids[i], estado: estados[i],start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -294,7 +302,9 @@
 
   //RESETEAR LAS VARIABLES
   nombres = [];
+  estados = [];
   comienzos = [];
   colores = [];
   data = [];
+  ids=[];
   })

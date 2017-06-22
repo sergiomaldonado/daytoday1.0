@@ -160,6 +160,18 @@ function monthAddEvent(index, event) {
       for(i = 0; i < numbevents - existing; i++) {
         day.append(empty.clone());
       }
+
+      $event.append('<div id="mostramelo" class="mostramelo">'+
+                      '<button id="btnEditar" class="editarTarea" onclick="editarTarea('+ event.id+')">'+
+                        '<span class="glyphicon glyphicon-pencil"></span>'+
+                      '</button>'+
+                      '<button id="btnEliminar" class="eliminarTarea" onclick="eliminarTarea('+ event.id+')">'+
+                        '<span class="glyphicon glyphicon-remove"></span>'+
+                      '</button>'+
+                      '<button id="btnCompletar" class="completarTarea" onclick="completarTarea('+ event.id+')">'+
+                        '<span class="glyphicon glyphicon-ok"></span>'+
+                      '</button>'+
+                    '</div>');
       day.append($event);
 
       day.append(
@@ -237,6 +249,7 @@ data: []
 
 })(jQuery);
 
+var ids = [];
 var nombres = [];
 var comienzos = [];
 var data = [];
@@ -276,9 +289,10 @@ function Semana() {
   });
 
   nombres = [];
-  starts = [];
+  comienzos = [];
   colores = [];
   data = [];
+  ids=[];
   })
 }
 
@@ -318,9 +332,10 @@ function miSemana() {
   });
 
   nombres = [];
-  starts = [];
+  comienzos = [];
   colores = [];
   data = [];
+  ids=[];
   });
 }
 
@@ -363,9 +378,10 @@ function Completadas() {
   });
 
   nombres = [];
-  starts = [];
+  comienzos = [];
   colores = [];
   data = [];
+  ids=[];
   });
 }
 
@@ -403,6 +419,7 @@ $('#holder').calendar({
 
 nombres = [];
 starts = [];
-colores = [];
+comienzos = [];
 data = [];
+ids=[];
 })
