@@ -7,7 +7,7 @@ function obtenerUsuario(uid) {
 }
 
 function editarTarea() {
-  
+
 }
 
 //checa si hay un usuario actualmente logeado
@@ -85,9 +85,6 @@ function mostrarProyectos() {
         let fechaEntrega = proyectos[proyecto].fechaEntrega;
         let relativa = moment().endOf('day').fromNow();
         console.log(relativa);
-
-
-
 
         let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 )/ proyectos[proyecto].numTareas;
         row += '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
