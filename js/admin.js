@@ -6,6 +6,10 @@ function obtenerUsuario(uid) {
   });
 }
 
+function editarTarea() {
+  
+}
+
 //checa si hay un usuario actualmente logeado
 function haySesion() {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -82,7 +86,7 @@ function mostrarProyectos() {
         let relativa = moment().endOf('day').fromNow();
         console.log(relativa);
 
-        
+
 
 
         let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 )/ proyectos[proyecto].numTareas;

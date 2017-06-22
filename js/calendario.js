@@ -12,7 +12,6 @@
   }
   });
 
-
   //quicktmpl is a simple template language I threw together a while ago; it is not remotely secure to xss and probably has plenty of bugs that I haven't considered, but it basically works
   //the design is a function I read in a blog post by John Resig (http://ejohn.org/blog/javascript-micro-templating/) and it is intended to be loosely translateable to a more comprehensive template language like mustache easily
   $.extend({
@@ -132,8 +131,12 @@
 
   function monthAddEvent(index, event) {
     var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
-
-        e = new Date(event.start),
+    // var $event = '<div class="event" style="border-left: solid 5px ' + event.color + '!important;" title="' + event.title +'" data-index="' + index +'">' + event.title +
+    //               '<div class="mostramelo">' +
+    //                 '<button class="editarTarea" onclick="editarTarea()"><span class="glyphicon glyphicon-pencil"></span></button>' +
+    //               '</div>' +
+    //              '</div>';
+    e = new Date(event.start),
         dateclass = e.toDateCssClass(),
         day = $('.' + e.toDateCssClass()),
         empty = $('<div/>', {'class':'clear event', html:' '}),
@@ -143,8 +146,6 @@
         checkanyway = new Date(e.getFullYear(), e.getMonth(), e.getDate()+40),
         existing,
         i;
-        var divInter = $('<div/>', {'class': 'mostramelo'});
-        var botonEditar = $('<button>', {'class': 'editarTarea', 'onclick':'editarTarea();', text: 'botonx'});
 
     $event.toggleClass('all-day', !!event.allDay);
     if (!!time) {
@@ -163,9 +164,18 @@
         for(i = 0; i < numbevents - existing; i++) {
           day.append(empty.clone());
         }
+        $event.append('<div class="mostramelo">' +
+                        '<button class="editarTarea" onclick="editarTarea()">'+
+                          '<span class="glyphicon glyphicon-pencil"></span>'+
+                        '</button>'+
+                        '<button class="eliminarTarea" onclick="eliminarTarea()">'+
+                          '<span class="glyphicon glyphicon-remove"></span>'+
+                        '</button>'+
+                        '<button class="completarTarea" onclick="completarTarea()">'+
+                          '<span class="glyphicon glyphicon-ok"></span>'+
+                        '</button>'+
+                      '</div>');
         day.append($event);
-       $('.event').append(divInter);
-       $('.mostramelo').append(botonEditar);
 
         day.append(
           $event.
@@ -262,9 +272,9 @@
   colores.push(tareas[tarea].color);
   }
 
-  //var names = nombres;
-  //var colors = colores;
-  //var comienzos = starts;
+  // var names = nombres;
+  // var colors = colores;
+  // var comienzos = starts;
   var slipsum = [];
 
   //Recorro el arreglo de titulos de las tareas
@@ -284,6 +294,7 @@
 
   //RESETEAR LAS VARIABLES
   nombres = [];
-  starts = [];
+  comienzos = [];
+  colores = [];
   data = [];
   })
