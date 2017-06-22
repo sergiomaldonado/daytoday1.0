@@ -24,6 +24,7 @@ font-family: 'intelo';
 background-color: #F2F2F2;
 
 }
+.modal{background-color: rgba(0,76,131,0.4);}
 .tab-content{
   background-color: white;
   padding: 20px;
@@ -35,6 +36,48 @@ box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
   -ms-transform: translate(50px, 100px); /* IE 9 */
    -webkit-transform: translate(50px, 100px); /* Safari */
    transform: translate(40px,-35px);
+}
+.chip-objetivos{
+  border: solid 1px #E3E1E1;
+  border-radius: 50px;
+  padding: 10px 10px 10px;
+  width: 100%;
+  margin-top: 10px;
+  background-color: #F6F4F4;
+  -webkit-transition: 0.2s; /* Safari 3.1 to 6.0 */
+    transition: 0.2s;
+}
+.chip-objetivos:hover{
+  border: solid 1px #74A6E9;
+  border-radius: 50px;
+  padding: 10px 10px 10px;
+  width: 100%;
+  margin-top: 10px;
+  background-color: #F3F9FF;
+  -webkit-transition: 0.2s; /* Safari 3.1 to 6.0 */
+    transition: 0.2s;
+}
+.chip-hitos{
+  border: solid 1px #E3E1E1;
+  border-radius: 49px;
+  padding: 10px 10px 10px;
+  width: 45%;
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: #F6F4F4;
+  -webkit-transition: 0.2s; /* Safari 3.1 to 6.0 */
+    transition: 0.2s;
+}
+.chip-hitos:hover{
+  border: solid 1px #74A6E9;
+  border-radius: 50px;
+  padding: 10px 10px 10px;
+
+  margin-top: 10px;
+  background-color: #F3F9FF;
+  -webkit-transition: 0.2s; /* Safari 3.1 to 6.0 */
+    transition: 0.2s;
 }
 
 .mostramelo{height: 100px; width: 200px; background-color:#01295E; opacity: 0.0; margin-top:-40px;}
@@ -448,111 +491,8 @@ header .header-content .header-content-inner p {
   padding-right: 0;
   padding-left: 0;
 }
-.btn-default {
-  color: #222222;
-  background-color: red;
-  border-color: white;
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  transition: all 0.35s;
-}
-.btn-default:hover,
-.btn-default:focus,
-.btn-default.focus,
-.btn-default:active,
-.btn-default.active,
-.open > .dropdown-toggle.btn-default {
-  color: white;
-  background-color: #011851;
 
-}
-.btn-default:active,
-.btn-default.active,
-.open > .dropdown-toggle.btn-default {
-  background-image: none;
-}
-.btn-default.disabled,
-.btn-default[disabled],
-fieldset[disabled] .btn-default,
-.btn-default.disabled:hover,
-.btn-default[disabled]:hover,
-fieldset[disabled] .btn-default:hover,
-.btn-default.disabled:focus,
-.btn-default[disabled]:focus,
-fieldset[disabled] .btn-default:focus,
-.btn-default.disabled.focus,
-.btn-default[disabled].focus,
-fieldset[disabled] .btn-default.focus,
-.btn-default.disabled:active,
-.btn-default[disabled]:active,
-fieldset[disabled] .btn-default:active,
-.btn-default.disabled.active,
-.btn-default[disabled].active,
-fieldset[disabled] .btn-default.active {
-  background-color: #FC5810;
-  border-color: white;
-}
-.btn-default .badge {
-  color: white;
-  background-color: #FC5810;
-}
-.btn-primary {
-  color: white;
-  background-color: ##FC5810;
-  border-color: #F05F40;
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  transition: all 0.35s;
-}
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary.focus,
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
-  color: white;
-  background-color: #011851;
 
-}
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
-  background-image: none;
-}
-.btn-primary.disabled,
-.btn-primary[disabled],
-fieldset[disabled] .btn-primary,
-.btn-primary.disabled:hover,
-.btn-primary[disabled]:hover,
-fieldset[disabled] .btn-primary:hover,
-.btn-primary.disabled:focus,
-.btn-primary[disabled]:focus,
-fieldset[disabled] .btn-primary:focus,
-.btn-primary.disabled.focus,
-.btn-primary[disabled].focus,
-fieldset[disabled] .btn-primary.focus,
-.btn-primary.disabled:active,
-.btn-primary[disabled]:active,
-fieldset[disabled] .btn-primary:active,
-.btn-primary.disabled.active,
-.btn-primary[disabled].active,
-fieldset[disabled] .btn-primary.active {
-  background-color: #f4d007;
-  border-color: #FC5810;
-}
-.btn-primary .badge {
-  color: #F05F40;
-  background-color: white;
-}
-.btn {
-  font-family: "intelo";
-  font-size: 20px;
-  border: 1px solid #FC5810;
-  border-radius: 10px;
-  background-color: #ff5a00;
-  width: 350px;
-  color: white;
-}
 .btn-xl {
   padding: 20px 30px;
 }
