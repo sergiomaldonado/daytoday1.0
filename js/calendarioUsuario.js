@@ -131,8 +131,17 @@ function dayAddEvent(index, event) { //asigna el evento al dia
 }
 
 function monthAddEvent(index, event) {
-  var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
-      e = new Date(event.start),
+  var $event;
+  if(event.estado == 'Pendiente' || event.completadas == true) {
+    $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+  }
+  else if(event.estado == 'Completada') {
+    $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+  }
+
+
+  //var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
+  var e = new Date(event.start),
       dateclass = e.toDateCssClass(),
       day = $('.' + e.toDateCssClass()),
       empty = $('<div/>', {'class':'clear event', html:' '}),
@@ -161,17 +170,19 @@ function monthAddEvent(index, event) {
         day.append(empty.clone());
       }
 
-      $event.append('<div id="mostramelo" class="mostramelo">'+
-                      '<button id="btnEditar" class="editarTarea" onclick="editarTarea('+ event.id+')">'+
-                        '<span class="glyphicon glyphicon-pencil"></span>'+
-                      '</button>'+
-                      '<button id="btnEliminar" class="eliminarTarea" onclick="eliminarTarea('+ event.id+')">'+
-                        '<span class="glyphicon glyphicon-remove"></span>'+
-                      '</button>'+
-                      '<button id="btnCompletar" class="completarTarea" onclick="completarTarea('+ event.id+')">'+
-                        '<span class="glyphicon glyphicon-ok"></span>'+
-                      '</button>'+
-                    '</div>');
+      if(event.estado == "Pendiente") {
+        $event.append('<div id="mostramelo" class="mostramelo">'+
+                        '<button id="btnEditar" class="editarTarea" onclick="editarTarea('+ event.id+')">'+
+                          '<span class="glyphicon glyphicon-pencil"></span>'+
+                        '</button>'+
+                        '<button id="btnEliminar" class="eliminarTarea" onclick="eliminarTarea('+ event.id+')">'+
+                          '<span class="glyphicon glyphicon-remove"></span>'+
+                        '</button>'+
+                        '<button id="btnCompletar" class="completarTarea" onclick="completarTarea('+ event.id+')">'+
+                          '<span class="glyphicon glyphicon-ok"></span>'+
+                        '</button>'+
+                      '</div>');
+      }
       day.append($event);
 
       day.append(
@@ -251,16 +262,18 @@ data: []
 
 var ids = [];
 var nombres = [];
+var estados = [];
 var comienzos = [];
 var data = [];
 var colores = [];
 
-function Semana() {
-  let semana = firebase.database().ref("/tareas");
+function llenarCalendario(ruta, completadas = "") {
+  let semana = firebase.database().ref(ruta);
   semana.on('value', function(snapshot) {
     let tareas=snapshot.val();
     for(tarea in tareas) {
     nombres.push(String(tareas[tarea].nombre));
+    estados.push(tareas[tarea].estado);
     comienzos.push(
       {
         año: tareas[tarea].año,
@@ -273,10 +286,19 @@ function Semana() {
 
   var slipsum = [];
 
-  //Recorro el arreglo de titulos de las tareas
-  for(i = 0; i < nombres.length; i++) {
-    end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+  if(completadas=="Completadas"){
+    //Recorro el arreglo de titulos de las tareas
+    for(i = 0; i < nombres.length; i++) {
+      end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
+      data.push({ title: nombres[i], color: colores[i], completadas: true, estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    }
+  }
+  else {
+    //Recorro el arreglo de titulos de las tareas
+    for(i = 0; i < nombres.length; i++) {
+      end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
+      data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    }
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -289,6 +311,7 @@ function Semana() {
   });
 
   nombres = [];
+  estados = [];
   comienzos = [];
   colores = [];
   data = [];
@@ -296,93 +319,18 @@ function Semana() {
   })
 }
 
+function Semana() {
+  llenarCalendario('tareas/');
+}
+
 function miSemana() {
   let nombreUsuario = $('.nombreDeUsuario').html();
-
-  let semana = firebase.database().ref("miSemana/"+nombreUsuario);
-  semana.on('value', function(snapshot) {
-    let tareas=snapshot.val();
-    for(tarea in tareas) {
-    nombres.push(String(tareas[tarea].nombre));
-    comienzos.push(
-      {
-        año: tareas[tarea].año,
-        mes: tareas[tarea].mes,
-        dia: tareas[tarea].dia
-      }
-    );
-    colores.push(tareas[tarea].color);
-  }
-
-  var slipsum = [];
-
-  //Recorro el arreglo de titulos de las tareas
-  for(i = 0; i < nombres.length; i++) {
-    end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
-  }
-
-  data.sort(function(a,b) { return (+a.start) - (+b.start); });
-  //data must be sorted by start date
-
-  $('td.calendar-day.current').empty();
-  //Actually do everything
-  $('#holder').calendar({
-    data: data
-  });
-
-  nombres = [];
-  comienzos = [];
-  colores = [];
-  data = [];
-  ids=[];
-  });
+  llenarCalendario('miSemana/'+nombreUsuario);
 }
 
 function Completadas() {
   let nombreUsuario = $('.nombreDeUsuario').html();
-
-  let semana = firebase.database().ref("miSemana/"+nombreUsuario);
-  semana.on('value', function(snapshot) {
-    let tareas=snapshot.val();
-    for(tarea in tareas) {
-
-      if(tareas[tarea].estado=="Completada") {
-        nombres.push(String(tareas[tarea].nombre));
-        comienzos.push(
-          {
-            año: tareas[tarea].año,
-            mes: tareas[tarea].mes,
-            dia: tareas[tarea].dia
-          }
-        );
-        colores.push(tareas[tarea].color);
-      }
-  }
-
-  var slipsum = [];
-
-  //Recorro el arreglo de titulos de las tareas
-  for(i = 0; i < nombres.length; i++) {
-    end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
-  }
-
-  data.sort(function(a,b) { return (+a.start) - (+b.start); });
-  //data must be sorted by start date
-
-  $('td.calendar-day.current').empty();
-  //Actually do everything
-  $('#holder').calendar({
-    data: data
-  });
-
-  nombres = [];
-  comienzos = [];
-  colores = [];
-  data = [];
-  ids=[];
-  });
+  llenarCalendario('miSemana/'+nombreUsuario, "Completadas")
 }
 
 let semana = firebase.database().ref("/tareas");
@@ -390,6 +338,7 @@ semana.on('value', function(snapshot) {
   let tareas=snapshot.val();
   for(tarea in tareas) {
   nombres.push(String(tareas[tarea].nombre));
+  estados.push(tareas[tarea].estado);
   comienzos.push(
     {
       año: tareas[tarea].año,
@@ -405,7 +354,7 @@ var slipsum = [];
 //Recorro el arreglo de titulos de las tareas
 for(i = 0; i < nombres.length; i++) {
   end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-  data.push({ title: nombres[i], color: colores[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+  data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
 }
 
 data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -418,6 +367,7 @@ $('#holder').calendar({
 });
 
 nombres = [];
+estados = [];
 starts = [];
 comienzos = [];
 data = [];

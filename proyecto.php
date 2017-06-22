@@ -11,7 +11,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title id="titleProyecto"></title>
-    <link href='css/dragula.css' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" media="all" href="css/styleAutocomplete.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -20,18 +19,15 @@
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="css/creative.min.css" rel="stylesheet">
     <link href="css/creative.css" rel="stylesheet">
-    <link href="css/social.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.css">
     <link rel="stylesheet" type="text/css" media="all" href="css/jquery.minicolors.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/proyecto.css">
-    <link rel="stylesheet" href="css/autocomplete.css">
     <link rel="stylesheet" href="css/stylesCalendar.css">
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="components/jquery-ui/jquery-ui.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=githubcombevacqua" id="_carbonads_js"></script>
     <link href='assets/logo1.ico' rel='shortcut icon' type='image/x-icon'/>
   </head>
   <body>
@@ -498,9 +494,9 @@
                     <tr>
                       <td style="text-align: left;">
                         <span class="btn-group">
-
+                          <button class="js-cal-prev btn btn-default"><</button>
+                          <button class="js-cal-next btn btn-default">></button>
                         </span>
-
                       </td>
                       <td>
                         <span class="btn-group btn-group-lg">
@@ -609,8 +605,6 @@
           </table>
         </script>
         <script src="js/calendario.js"></script>
-        <script src='js/dragula.js'></script>
-        <script src='js/example.min.js'></script>
         <script src="js/admin.js"></script>
         <script src="js/busqueda.js"></script>
         <script type="text/javascript" src="js/currency-autocomplete.js"></script>
