@@ -8,7 +8,6 @@
     <meta name="author" content="">
     <title>Panel de administración</title>
     <link rel="stylesheet" type="text/css" media="all" href="css/styleAutocomplete.css">
-    <!--<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -144,157 +143,139 @@
                         </div>
                         <div class="col-md-6" class="text-left">
                           <input id="documentacion" type="text" class="form-control input-lg" placeholder="Documentación"><br>
-
                         </div>
                       </div>
-
                     </form>
                     <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                   </div>
-                        <div class="item">
-                          <form role="form" class="form-horizontal">
-
-                          <div class="form-group">
-                            <div class="col-md-6 text-left">
-                              <label><h3>¿Qué se quiere lograr?</h3></label>
-                              <div class="input-group">
-                                 <input type="text" class="form-control input-lg" placeholder="Agrega objetivos al proyecto">
-                                 <span class="input-group-btn">
-                                  <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                                 </span>
-                               </div>
-
-                               <div class="chip-objetivos" id="objetivo-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                                     Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
-                               </div>
-                               <div class="chip-objetivos" id="objetivo-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                                     Aprender y documentar el proceso de creacion de un sistema
-                               </div>
-                               <div class="chip-objetivos" id="objetivo-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                                     Tener un sistema base para otros desarrollo
-                               </div>
-                            </div>
-                            <div class="col-md-6 text-left">
-                              <label><h3>Indicadores</h3></label>
-                              <div class="input-group">
-                                 <input type="text" class="form-control input-lg" placeholder="Hazlo medible, agrega un indicador">
-                                 <span class="input-group-btn">
-                                  <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                                 </span>
-
-                               </div>
-                               <div class="chip-objetivos" id="indicador-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                                     Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
-                               </div>
-                               <div class="chip-objetivos" id="indicador-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                                     Aprender y documentar el proceso de creacion de un sistema
-                               </div>
-                               <div class="chip-objetivos" id="indicador-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                                     Tener un sistema base para otros desarrollo
-                               </div>
-                            </div>
-
-                          </div>
-
-
-
-                        </form>
-
-                          <div  class="modal-footer">
-                              <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-left"></span>Volver</button>
-
-                              <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
-                        </div>
-                        </div>
-
-                        <div class="item">
-
-<form role="form" class="form-horizontal text-left">
-
-    <label><h3>Hitos</h3></label>
-    <div class="input-group">
-       <input type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
-       <span class="input-group-btn">
-        <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-       </span>
-
-     </div>
-     <div class="chip-hitos" id="hito-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-           Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
-     </div>
-     <div class="chip-hitos" id="hito-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-           Aprender y documentar el proceso de creacion de un sistema
-     </div>
-     <div class="chip-hitos" id="hito-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-           Tener un sistema base para otros desarrollo
-     </div>
-
-</form>
-                          <div style="margin-top:150px;" class="modal-footer">
-                            <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
-                            <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
-
-                        </div>
-                        </div>
                   <div class="item">
-                    <h3>Forma el equipo</h3>
-                    <div id="searchfield">
-                      <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <div class="input-group">
-                              <input type="text" name="currency" class="biginput" id="autocomplete">
-                              <span class="input-group-btn">
-                                <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                              </span>
-                            </div>
+                    <form role="form" class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-md-6 text-left">
+                          <label><h3>¿Qué se quiere lograr?</h3></label>
+                          <div class="input-group">
+                            <input type="text" class="form-control input-lg" placeholder="Agrega objetivos al proyecto">
+                            <span class="input-group-btn">
+                              <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                          </div>
+                          <div class="chip-objetivos" id="objetivo-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                            Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
+                          </div>
+                          <div class="chip-objetivos" id="objetivo-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                            Aprender y documentar el proceso de creacion de un sistema
+                          </div>
+                          <div class="chip-objetivos" id="objetivo-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                            Tener un sistema base para otros desarrollo
                           </div>
                         </div>
-                      </form>
+                        <div class="col-md-6 text-left">
+                          <label><h3>Indicadores</h3></label>
+                          <div class="input-group">
+                            <input type="text" class="form-control input-lg" placeholder="Hazlo medible, agrega un indicador">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                          </span>
+                        </div>
+                        <div class="chip-objetivos" id="indicador-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                          Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
+                        </div>
+                        <div class="chip-objetivos" id="indicador-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                          Aprender y documentar el proceso de creacion de un sistema
+                        </div>
+                        <div class="chip-objetivos" id="indicador-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                          Tener un sistema base para otros desarrollo
+                        </div>
+                      </div>
                     </div>
-                    <div style="margin-top:300px;" class="modal-footer">
-                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
-                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
-
+                  </form>
+                  <div  class="modal-footer">
+                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-left"></span>Volver</button>
+                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                   </div>
+                </div>
+                <div class="item">
+                  <form role="form" class="form-horizontal text-left">
+                    <label><h3>Hitos</h3></label>
+                    <div class="input-group">
+                      <input type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                      </span>
+                    </div>
+                    <div class="chip-hitos" id="hito-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                      Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
+                    </div>
+                    <div class="chip-hitos" id="hito-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                      Aprender y documentar el proceso de creacion de un sistema
+                    </div>
+                    <div class="chip-hitos" id="hito-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                      Tener un sistema base para otros desarrollo
+                    </div>
+                  </form>
+                  <div style="margin-top:150px;" class="modal-footer">
+                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
+                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
                   </div>
-                  <div class="item">
-                    <h3>Agrega tareas al proyecto</h3>
+                </div>
+                <div class="item">
+                  <h3>Forma el equipo</h3>
+                  <div id="searchfield">
                     <form role="form" class="form-horizontal">
                       <div class="form-group">
                         <div class="col-md-12">
-                          <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                          <div class="input-group">
+                            <input type="text" name="currency" class="biginput" id="integrante">
+                            <span class="input-group-btn">
+                              <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-md-3">
-                          <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
-                        </div>
-                        <div class="col-md-3">
-                          <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
-                        </div>
-                        <div class="col-md-6">
-                          <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <button class="btns" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                       </div>
                     </form>
-                    Tareas
-                    <hr style="">
-                    <div style="margin-top:150px;" class="modal-footer">
-                      <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
-                      <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
                   </div>
+                  <div style="margin-top:300px;" class="modal-footer">
+                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
+                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
                   </div>
+                </div>
+                <div class="item">
+                  <h3>Agrega tareas al proyecto</h3>
+                  <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                      <div class="col-md-12">
+                        <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-3">
+                        <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                      </div>
+                      <div class="col-md-3">
+                        <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
+                      </div>
+                      <div class="col-md-6">
+                        <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button class="btns" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                  </form>
+                  Tareas
+                  <hr style="">
+                  <div style="margin-top:150px;" class="modal-footer">
+                    <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
+                    <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
                 </div>
               </div>
             </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-      <div data-keyboard="false" data-backdrop="static" id="agregarUsuario" class="modal fade" tabindex="-1" role="dialog">
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <div data-keyboard="false" data-backdrop="static" id="agregarUsuario" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">

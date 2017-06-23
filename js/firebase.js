@@ -7,7 +7,7 @@
     var contrasena = $('#contrasena').val();
     tipousuario = $('#puesto').val();
 
-    if(email.length != 0 && contrasena.length != 0 && tipousuario.length != 0) {
+    if(email.length > 0 && contrasena.length > 0 && tipousuario.length > 0) {
       firebase.auth().signInWithEmailAndPassword(email, contrasena)
       .then(function() { //en caso de exito se obtiene el usuario
         getUser();
@@ -17,7 +17,11 @@
       });
     }
     else {
-
+      if(email.length == 0) {
+        $('#error-usuario').show();
+      }else {
+        $('#error-usuario').hide();
+      }
     }
   }
 
