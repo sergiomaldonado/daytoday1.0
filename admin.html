@@ -141,9 +141,11 @@
                         </div>
                       </div>
                     </form>
-                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
+                    <div class="modal-footer">
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
+                    </div>
                   </div>
-                  <div class="item">
+                  <div style="margin-top:-20px;" class="item">
                     <form role="form" class="form-horizontal">
                       <div class="form-group">
                         <div id="contenedorModalObjetivos" class="col-md-6 text-left">
@@ -164,32 +166,31 @@
                               <button onclick="agregarIndicador()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                               <p style="" id="contadorIndicador">0/140</p>
                             </span>
+                          </div>
                         </div>
                       </div>
+                    </form>
+                    <div style="margin-top:150px;" class="modal-footer">
+                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-left"></span>Volver</button>
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                     </div>
-                  </form>
-                  <div  class="modal-footer">
-                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-left"></span>Volver</button>
-                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                   </div>
-                </div>
-                <div class="item">
-                  <form id="contenedorModalHitos" role="form" class="form-horizontal text-left">
-                    <label><h3>Hitos</h3></label>
-                    <div class="input-group">
-                      <input id="input-agregarHito" type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
-                      <span class="input-group-btn">
-                        <button onclick="agregarHito()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                        <p style="" id="contadorHito">0/140</p>
-                      </span>
+                  <div class="item">
+                    <form id="contenedorModalHitos" role="form" class="form-horizontal text-left">
+                      <label><h3>Hitos</h3></label>
+                      <div class="input-group">
+                        <input id="input-agregarHito" type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
+                        <span class="input-group-btn">
+                          <button onclick="agregarHito()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                          <p style="" id="contadorHito">0/140</p>
+                        </span>
+                      </div>
+                    </form>
+                    <div style="margin-top:150px;" class="modal-footer">
+                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
                     </div>
-
-                  </form>
-                  <div style="margin-top:150px;" class="modal-footer">
-                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
                   </div>
-                </div>
                 <div class="item"><!--      FORMA EL EQUIPO     -->
                   <h3>Forma el equipo</h3>
                   <div id="searchfield">
@@ -197,7 +198,7 @@
                       <div class="form-group">
                         <div class="col-md-12">
                           <div class="input-group">
-                            <input id="input-agregarIntegrante" type="text" name="currency" id="integrante" class="form-control input-lg" placeholder="Añade un integrante a tu equipo">
+                            <input id="input-agregarIntegrante" type="text" name="currency" class="form-control input-lg" placeholder="Añade un integrante a tu equipo">
                             <span class="input-group-btn">
                               <button onclick="agregarIntegrante()" class="btn btn-default input-lg btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                             </span>
@@ -207,7 +208,7 @@
                       </div>
                     </form>
                   </div>
-                  <div style="margin-top:50px;" class="modal-footer">
+                  <div style="margin-top:150px;" class="modal-footer">
                     <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
                     <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
                   </div>
@@ -222,12 +223,8 @@
                             <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
                             <p style="float: right;" id="contadorTaComentario">0/60</p>
                             <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
-
                           </div>
                         </div>
-
-
-
                       </form>
                     </div>
                   </div>
@@ -236,7 +233,9 @@
                       <form role="form" class="form-horizontal">
                         <div class="form-group">
                           <div class="col-md-12">
-                            <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                            <select id="select-categorias" class="form-control input-lg">
+                              <option disabled selected value="">Categoría</option>
+                            </select>
                             <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicio' >
                               <input id="fechaInicio" type="text" class="form-control input-lg" placeholder="Inicio">
                                <div class="input-group-addon">
@@ -245,36 +244,30 @@
                             </div>
                           </div>
                         </div>
-
-
-
                       </form>
                     </div>
                   </div>
-
-                    <div style="" class="col-xs-8 col-sm-6">
-                     <div class="form-group">
-                       <div class="col-md-6">
-
-                       </div>
-
-                        <div style="margin-top:15px;" class="col-md-6">
-
-                        </div>
+                  <div style="" class="col-xs-8 col-sm-6">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                      </div>
+                      <div style="margin-top:15px;" class="col-md-6">
                       </div>
                     </div>
-
-                    <div stylw="margin-top:10px;" class="form-group">
-                      <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                   </div>
-
+                  <div stylw="margin-top:10px;" class="form-group">
+                    <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                  </div>
                   Tareas
                   <hr style="">
-                  <div class="modal-footer">
+                  <div id="contenedorModaltareas">
+
+                  </div>
+                  <div style="margin-top:150px;" class="modal-footer">
                     <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
                     <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>

@@ -1,16 +1,14 @@
-$(function(){
+$(function() {
     var datos = [];
     var usuarios = firebase.database().ref("/usuarios");
     usuarios.on('value', function(snapshot) {
-        var users = snapshot.val();
-
-        for(user in users) {
-            datos.push({
-                value: users[user].nombre + ' ' + users[user].apellidos,
-                data: users[user].nombre + ' ' + users[user].apellidos
-            }
-            )
-        }
+      var users = snapshot.val();
+      for(user in users) {
+        datos.push({
+          value: users[user].nombre + ' ' + users[user].apellidos,
+          data: users[user].nombre + ' ' + users[user].apellidos
+      })
+    }
     });
 
   var currencies = datos;
@@ -30,5 +28,4 @@ $(function(){
       $('#outputcontent').html(thehtml);
     }
   });
-
 });

@@ -17,6 +17,22 @@ function editarTarea(idTarea) {
   //tareas.set(nuevosDatos);
 }
 
+function llenarCategorias() {
+  let categorias = firebase.database().ref('/categorias');
+
+  categorias.on('value', function(snapshot) {
+    let categorias = snapshot.val();
+
+    let options=""
+    for(categoria in categorias) {
+      options += '<option value="'+categorias[categoria].nombre+'">'+categorias[categoria].nombre+'</option>';
+    }
+    $('#select-categorias').empty().append(options);
+  });
+}
+
+llenarCategorias();
+
 function eliminarTarea(idTarea) {
   var datos;
   let tareas = firebase.database().ref('tareas/'+idTarea);
