@@ -542,7 +542,7 @@
                 {{ for (i = 0; i < 7; i++) { }}
                 {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
                 <td class="right-rollbacks container calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
-                  <div class="date"><p class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
+                  <div class="date"><p style="font-weight: bold;" class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
                     <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
                 </td>
