@@ -19,15 +19,17 @@
               <div style="margin-top:0px; " class="header-content">
                 <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
                 <p>El día a día de tu trabajo</p>
-                <div id="form" class="form-group has-feedback">
-                  <input id="email" type="text" name="usuario" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
-                  <div style="display: none;" id="error-usuario" class="help-block with-errors">El usuario es requerido</div>
+                <div id="form">
+                  <input id="email" type="email" name="usuario" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
+                  <div id="erroremail" style="display: none;" class="alert alert-danger animated" role="alert"></div>
                   <input id="contrasena" type="password" name="password" class="form-control input-lg" value="" placeholder="Contraseña" required><br>
+                  <div id="errorcontraseña" style="display: none;" class="alert alert-danger animated" role="alert"></div>
                   <select id="puesto" name="puesto" class="input-lg form-control" required>
                     <option disabled selected value="">Puesto</option>
                     <option value="Administrador">Administrador</option>
                     <option value="Usuario">Usuario</option>
                   </select><br>
+                  <div id="errorpuesto" style="display: none;" class="alert alert-danger animated" role="alert"></div>
                   <button onclick="login()" id="listo" class="boton boton-default" type="submit" name="">LISTO</button>
                 </div>
               </div>
@@ -37,6 +39,7 @@
         <p style="text-align: center;">Un producto de Axios Agencia Digital S.A.P.I. de C. V.</p>
         <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="js/bootstrapValidator.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
         <script>
             // Initialize Firebase

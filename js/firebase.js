@@ -1,5 +1,5 @@
   const db = firebase.database();
-  var tipousuario;
+  var tipousuario = "";
 
   //inicia sesion en firebase
   function login() {
@@ -7,20 +7,48 @@
     var contrasena = $('#contrasena').val();
     tipousuario = $('#puesto').val();
 
-    if(email.length > 0 && contrasena.length > 0 && tipousuario.length > 0) {
+
+    if(email.length > 0 && contrasena.length > 0 && tipousuario != null) {
       firebase.auth().signInWithEmailAndPassword(email, contrasena)
       .then(function() { //en caso de exito se obtiene el usuario
         getUser();
       })
       .catch(function(error) {
         console.log(error); //en caso de error lo imprime en consola
+
+        if(error.code === 'auth/user-not-found') { //imprime un error si tu usuario es equivocado
+          $('#errorusuario').html('El usuario es incorrecto').fadeIn("slow").show();
+          setTimeout(function() {
+            $('#error').fadeOut("slow").hide();
+          }, 2000);
+        }
+        if(error.code === 'auth/wrong-password') { //imprime un error si te equivocaste en la contraseña
+          $('#errorcontraseña').html('La contraseña es incorrecta').fadeIn("slow").show();
+          setTimeout(function() {
+            $('#error').fadeOut("slow").hide();
+          }, 2000);
+        }
       });
     }
     else {
-      if(email.length == 0) {
-        $('#error-usuario').show();
-      }else {
-        $('#error-usuario').hide();
+      console.log(tipousuario);
+      if(email == "") {
+        $('#erroremail').html("El usuario es requerido").fadeIn("slow").show();
+        setTimeout(function() {
+          $('#erroremail').fadeOut("slow").hide();
+        }, 2000);
+      }
+      if(contrasena == "") {
+        $('#errorcontraseña').html("La contraseña es requerida").fadeIn("slow").show();
+        setTimeout(function() {
+          $('#errorcontraseña').fadeOut("slow").hide();
+        }, 2000);
+      }
+      if(tipousuario == null || tipousuario == "") {
+        $('#errorpuesto').html("El puesto es requerido").fadeIn("slow").show();
+        setTimeout(function() {
+          $('#errorpuesto').fadeOut("slow").hide();
+        }, 2000);
       }
     }
   }
