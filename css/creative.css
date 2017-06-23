@@ -24,6 +24,13 @@ font-family: 'intelo';
 background-color: #F2F2F2;
 
 }
+
+#btn-cal-proy{
+  margin-top: -6px;
+  font-size: 20px;
+  padding-top: 10px;
+  border:none;
+}
 .modal{background-color: rgba(0,76,131,0.4);}
 .tab-content{
   background-color: white;
@@ -33,6 +40,7 @@ background-color: #F2F2F2;
 box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
 }
 #diaCalendar{
+
   -ms-transform: translate(50px, 100px); /* IE 9 */
    -webkit-transform: translate(50px, 100px); /* Safari */
    transform: translate(40px,-35px);
