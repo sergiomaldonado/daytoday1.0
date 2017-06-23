@@ -80,13 +80,13 @@ function mostrarOrdenes() {
       for (orden in ordenes) {
         var state;
         if(ordenes[orden].estado === "Pendiente"){
-          state='<span style="background-color: #FF0000; width: 30px; height: 25px; border-radius: 15px;" class="badge"><span>';
+          state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FF0000; width: 30px; height: 25px; border-radius: 15px;" class="badge"><span></a>';
         }
         if(ordenes[orden].estado === "En proceso"){
-          state='<span style="background-color: #FFCC00; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span>';
+          state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FFCC00; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
         }
         if(ordenes[orden].estado === "Listo"){
-          state='<span style="background-color: #4CDD85; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span>';
+          state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #4CDD85; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
         }
 
         row += '<tr>' +
@@ -95,7 +95,14 @@ function mostrarOrdenes() {
                  '<td>' + ordenes[orden].descripcion + '</td>' +
                  '<td>' + ordenes[orden].fechaRecep + '</td>' +
                  '<td>' + ordenes[orden].fechaEntrega + '</td>' +
-                 '<td>' + state + '</td>' +
+                 '<td class="dropdown">' + state +
+                  '<ul class="dropdown-menu">' +
+                    '<li><a onclick="marcarComoPendiente()"><span style="color: #FF0000;" class="glyphicon glyphicon-exclamation-sign"></span> Marcar como pendiente</a></li>' +
+                    '<li><a onclick="marcarComoEnProceso()"><span style="color: #FFCC00;" class="glyphicon glyphicon-time"></span> Marcar como en proceso</a></li>' +
+                    '<li><a onclick="marcarComoLista()"><span style="color: #4CDD85;" class="glyphicon glyphicon-ok"></span> Marcar como lista</a></li>' +
+                    '<li><a onclick="eliminarOrden()"><span class="icons glyphicon glyphicon-minus-sign"></span> Eliminar orden</a></li>' +
+                  '</ul>' +
+                 '</td>' +
                  '<td>' + ordenes[orden].encargado + '</td>' +
                '</tr>';
         i++;
@@ -130,9 +137,9 @@ function mostrarProyectos() {
                     '<div id="proyecto">' +
                       '<div id="nombreproyecto"><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
                       '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas + '   Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
-                      '<div class="progress">' +
-                        '<div style="font" class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width:' + porcentaje + '%;">' +
-                          + porcentaje + '%' +
+                      '<div style="font-weight: bold;" class="progress">' +
+                        '<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width:' + porcentaje + '%;">' +
+                          + porcentaje + ' %' +
                         '</div>' +
                       '</div>' +
                     '</div>' +
@@ -279,6 +286,86 @@ function agregarTarea() {
   tareas.push(tarea);
   numtareas++;
   $('#tarea').val().focus();
+}
+
+var i = 1;
+function agregarObjetivo() {
+  let objetivo = $('#input-agregarObjetivo').val();
+  let id = 'objetivo-'+i;
+
+  let $div = $('<div/>', {
+    'class': 'chip-objetivos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'eliminarObjetivo("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  })
+  $div.append($span);
+  $div.append(objetivo);
+  $('#contenedorModalObjetivos').append($div);
+  i++;
+
+  $('#input-agregarObjetivo').val('').focus();
+}
+
+function eliminarObjetivo(id) {
+  $('#'+id).remove();
+}
+
+var j = 1;
+function agregarIndicador() {
+  let indicador = $('#input-agregarIndicador').val();
+  let id = 'indicador-'+j;
+
+  let $div = $('<div/>', {
+    'class': 'chip-objetivos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'eliminarIndicador("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  })
+  $div.append($span);
+  $div.append(indicador);
+  $('#contenedorModalIndicadores').append($div);
+  j++;
+
+  $('#input-agregarIndicador').val('').focus();
+}
+
+function eliminarIndicador(id) {
+  $('#'+id).remove();
+}
+
+function agregarHito() {
+  let hito = $('#input-agregarHito').val();
+  let id = 'indicador-'+j;
+
+  let $div = $('<div/>', {
+    'class': 'chip-hitos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'eliminarIndicador("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  })
+  $div.append($span);
+  $div.append(hito);
+  $('#contenedorModalHitos').append($div);
+  j++;
+
+  $('#input-agregarHito').val('').focus();
+}
+
+function eliminarHito(id) {
+  $('#'+id).remove();
 }
 
 //crear un proyecto nuevo en la base de datos de Firebase en el nodo Proyectos

@@ -1,7 +1,6 @@
 var idProyecto = $('#idProyecto').val();
 
-function obtenerTituloProyecto(){
-
+function obtenerTituloProyecto() {
   let ref = firebase.database().ref('proyectos/' + idProyecto);
   ref.on('value', function(snapshot) {
     let proyecto = snapshot.val();
@@ -39,10 +38,9 @@ $(document).ready(function() {
 
   rellenarContenedorDeTareas();
 
-
   $('#tabsemana').on('shown.bs.tab', function (e) {
-    e.target // newly activated tab
-    e.relatedTarget // previous active tab
+    e.target
+    e.relatedTarget
 
     rellenarContenedorDeTareas();
   })
@@ -60,7 +58,6 @@ function agregarTareaProyecto() {
   let asignadoTarea = $('#asignado').val();
 
   let ruta = "proyectos/"+idProyecto+"/tareas";
-
   let tareas = firebase.database().ref(ruta);
 
   let Tarea = {

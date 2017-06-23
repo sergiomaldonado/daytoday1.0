@@ -151,41 +151,25 @@
                   <div class="item">
                     <form role="form" class="form-horizontal">
                       <div class="form-group">
-                        <div class="col-md-6 text-left">
+                        <div id="contenedorModalObjetivos" class="col-md-6 text-left">
                           <label><h3>¿Qué se quiere lograr?</h3></label>
                           <div class="input-group">
-                            <input type="text" class="form-control input-lg" placeholder="Agrega objetivos al proyecto">
+                            <input id="input-agregarObjetivo" type="text" class="form-control input-lg" placeholder="Agrega objetivos al proyecto">
                             <span class="input-group-btn">
-                              <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              <button onclick="agregarObjetivo()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                             </span>
                           </div>
-                          <div class="chip-objetivos" id="objetivo-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                            Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
-                          </div>
-                          <div class="chip-objetivos" id="objetivo-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                            Aprender y documentar el proceso de creacion de un sistema
-                          </div>
-                          <div class="chip-objetivos" id="objetivo-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                            Tener un sistema base para otros desarrollo
-                          </div>
+
                         </div>
-                        <div class="col-md-6 text-left">
+                        <div id="contenedorModalIndicadores" class="col-md-6 text-left">
                           <label><h3>Indicadores</h3></label>
                           <div class="input-group">
-                            <input type="text" class="form-control input-lg" placeholder="Hazlo medible, agrega un indicador">
+                            <input id="input-agregarIndicador" type="text" class="form-control input-lg" placeholder="Hazlo medible, agrega un indicador">
                             <span class="input-group-btn">
-                            <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                            <button onclick="agregarIndicador()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                           </span>
                         </div>
-                        <div class="chip-objetivos" id="indicador-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                          Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
-                        </div>
-                        <div class="chip-objetivos" id="indicador-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                          Aprender y documentar el proceso de creacion de un sistema
-                        </div>
-                        <div class="chip-objetivos" id="indicador-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                          Tener un sistema base para otros desarrollo
-                        </div>
+
                       </div>
                     </div>
                   </form>
@@ -195,23 +179,15 @@
                   </div>
                 </div>
                 <div class="item">
-                  <form role="form" class="form-horizontal text-left">
+                  <form id="contenedorModalHitos" role="form" class="form-horizontal text-left">
                     <label><h3>Hitos</h3></label>
                     <div class="input-group">
-                      <input type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
+                      <input id="input-agregarHito" type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
                       <span class="input-group-btn">
-                        <button class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        <button onclick="agregarHito()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                       </span>
                     </div>
-                    <div class="chip-hitos" id="hito-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                      Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
-                    </div>
-                    <div class="chip-hitos" id="hito-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                      Aprender y documentar el proceso de creacion de un sistema
-                    </div>
-                    <div class="chip-hitos" id="hito-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
-                      Tener un sistema base para otros desarrollo
-                    </div>
+                    
                   </form>
                   <div style="margin-top:150px;" class="modal-footer">
                     <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
@@ -543,7 +519,7 @@
             {{ for (i = 0; i < 7; i++) { }}
             {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
             <td class="calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
-              <div class="date"><p class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
+              <div class="date"><p style="font-weight: bold;" class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
                 <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
             </td>
