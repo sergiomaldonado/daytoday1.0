@@ -185,8 +185,8 @@
 
                   </form>
                   <div style="margin-top:150px;" class="modal-footer">
-                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
-                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
+                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
                   </div>
                 </div>
                 <div class="item"><!--      FORMA EL EQUIPO     -->
@@ -196,18 +196,28 @@
                       <div class="form-group">
                         <div class="col-md-12">
                           <div class="input-group">
-                            <input type="text" name="currency" class="biginput" id="integrante">
+                            <input type="text" name="currency" id="integrante" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
                             <span class="input-group-btn">
-                              <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              <button class="btn btn-default input-lg btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                             </span>
                           </div>
+                          <div class="chip-hitos" id="hito-1"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                            Que el sistema administre los proyectos y gestione efectivamente el flujo de trabajo
+                          </div>
+                          <div class="chip-hitos" id="hito-2"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                            Aprender y documentar el proceso de creacion de un sistema
+                          </div>
+                          <div class="chip-hitos" id="hito-3"> <span style="font-size:15px; float:right; color:#D6D6D6;" class="glyphicon glyphicon-remove"></span>
+                            Tener un sistema base para otros desarrollo
+                          </div>
+
                         </div>
                       </div>
                     </form>
                   </div>
-                  <div style="margin-top:300px;" class="modal-footer">
-                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
-                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
+                  <div style="margin-top:50px;" class="modal-footer">
+                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
                   </div>
                 </div>
                 <div class="item">
@@ -235,8 +245,8 @@
                   </form>
                   Tareas
                   <hr style="">
-                  <div style="margin-top:150px;" class="modal-footer">
-                    <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
+                  <div class="modal-footer">
+                    <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
                     <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
                 </div>
               </div>
