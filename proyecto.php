@@ -55,14 +55,14 @@
         </div>
       </div>
     </nav>
-      <section id="panel-admin">
-        <div style="margin-top:40px;">
+      <section id="panel-admin" style="margin-top:50px;">
+        <div>
           <div class="container">
             <div class="row">
               <div class="col-lg-3 col-md-4">
                 <div class="row">
                   <div class="col-sm-6 col-md-4">
-                    <div style="width:250px; overflow:hidden; border: solid 1px #74A6E9;" class="thumbnail no-padding" >
+                    <div style="width:250px; overflow:hidden;" class="thumbnail no-padding" >
                       <img src="assets/bg-panel.png" alt="...">
                       <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                       <div class="caption">
@@ -72,7 +72,7 @@
                   </div>
                 </div>
               </div>
-              <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px; ">
+              <div class="no-padding col-lg-9 col-md-9" style="margin-top:0px; ">
                 <div class="no-padding col-lg-12 col-md-12" style="margin-top:-30px; ">
                   <div style="padding-top:30px;" class="live-box">
                     <h2 id="TituloProyecto"></h2><hr>
@@ -88,35 +88,10 @@
                   <div class="tab-content" style="padding-top:20px;">
                     <div class="tab-pane fade in active" id="m1">
                       <div class="row">
-                        <div style="" class="col-xs-8 col-sm-6">
-                          <div class="item">
-                            <form role="form" class="form-horizontal">
-                              <div class="form-group">
-                                <div class="col-md-12">
-                                  <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
-                                  <p style="float: right;" id="contadorTaComentario">0/60</p>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <div class="col-md-6">
-                                  <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
-                                </div>
-                                <div class="col-md-6">
-                                  <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
-                                </div>
-                                <div style="margin-top:15px;" class="col-md-12">
-                                  <input type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
+
                         <div>
                           <div>
-                            <div id='left-rollbacks' style="" class="col-xs-8 col-sm-6 container"></div>
+
                             <div style="" class="col-xs-12 col-sm-12">
                               <div class="table-responsive no-padding">
                                 <div class="panel panel-default no-padding" style="border:solid 1px white;">
@@ -131,6 +106,59 @@
                                   <div id='holder' class="row" ></div>
                                 </div>
                               </div>
+                            </div>
+                            <div style="" class="col-xs-8 col-sm-6">
+                              <div class="item">
+                                <form role="form" class="form-horizontal">
+                                  <div class="form-group">
+                                    <div class="col-md-12">
+                                      <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                                      <p style="float: right;" id="contadorTaComentario">0/60</p>
+                                      <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+
+                                    </div>
+                                  </div>
+
+
+
+                                </form>
+                              </div>
+                            </div>
+                            <div style="" class="col-xs-8 col-sm-6">
+                              <div class="item">
+                                <form role="form" class="form-horizontal">
+                                  <div class="form-group">
+                                    <div class="col-md-12">
+                                      <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                                      <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicio' >
+                                        <input id="fechaInicio" type="text" class="form-control input-lg" placeholder="Inicio">
+                                         <div class="input-group-addon">
+                                          <span class="glyphicon glyphicon-calendar"></span>
+                                         </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+
+                                </form>
+                              </div>
+                            </div>
+
+                              <div style="" class="col-xs-8 col-sm-6">
+                               <div class="form-group">
+                                 <div class="col-md-6">
+
+                                 </div>
+
+                                  <div style="margin-top:15px;" class="col-md-6">
+
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div stylw="margin-top:10px;" class="form-group">
+                                <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                             </div>
                           </div>
                         </div>
@@ -481,19 +509,13 @@
                 <td colspan="7" style="text-align: center">
                   <table style="white-space: nowrap; width: 100%">
                     <tr>
-                      <td style="text-align: left;">
-                        <span class="btn-group">
-                          <button class="js-cal-prev btn btn-default"><</button>
-                          <button class="js-cal-next btn btn-default">></button>
-                        </span>
-                      </td>
+
                       <td>
                         <span class="btn-group btn-group-lg">
                           {{ if (mode !== 'day') { }}
                             {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                             {{ if (mode ==='week') { }}
-                              <h3>Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
-                            {{ } }}
+                          <h3> <button id="btn-cal-proy" class="js-cal-prev btn btn-default"><span class=" glyphicon glyphicon-menu-left"></span></button> Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} a {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}} <button id="btn-cal-proy" class="js-cal-next btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button></h3>  {{ } }}
 
                           {{ } else { }}
                             <button class="btn btn-link disabled">{{: date.toDateString() }}</button>
@@ -530,7 +552,8 @@
             <thead>
               <tr class="c-weeks">
                 {{ for (i = 0; i < 7; i++) { }}
-                  <th class="c-name">
+
+                  <th class="c-name text-center">
                     {{: days[i] }}
                   </th>
                 {{ } }}
@@ -541,7 +564,7 @@
               <tr>
                 {{ for (i = 0; i < 7; i++) { }}
                 {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
-                <td class="right-rollbacks container calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
+                <td style="margin-left:200px;" class="right-rollbacks container calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
                   <div class="date"><p style="font-weight: bold;" class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
                     <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
