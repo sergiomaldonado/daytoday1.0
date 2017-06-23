@@ -157,19 +157,19 @@
                             <input id="input-agregarObjetivo" type="text" class="form-control input-lg" placeholder="Agrega objetivos al proyecto">
                             <span class="input-group-btn">
                               <button onclick="agregarObjetivo()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              <p style="" id="contadorObjetivo">0/140</p>
                             </span>
                           </div>
-
                         </div>
                         <div id="contenedorModalIndicadores" class="col-md-6 text-left">
                           <label><h3>Indicadores</h3></label>
                           <div class="input-group">
                             <input id="input-agregarIndicador" type="text" class="form-control input-lg" placeholder="Hazlo medible, agrega un indicador">
                             <span class="input-group-btn">
-                            <button onclick="agregarIndicador()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                          </span>
+                              <button onclick="agregarIndicador()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              <p style="" id="contadorIndicador">0/140</p>
+                            </span>
                         </div>
-
                       </div>
                     </div>
                   </form>
@@ -187,14 +187,14 @@
                         <button onclick="agregarHito()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                       </span>
                     </div>
-                    
+
                   </form>
                   <div style="margin-top:150px;" class="modal-footer">
                     <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
                     <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
                   </div>
                 </div>
-                <div class="item">
+                <div class="item"><!--      FORMA EL EQUIPO     -->
                   <h3>Forma el equipo</h3>
                   <div id="searchfield">
                     <form role="form" class="form-horizontal">
@@ -572,6 +572,7 @@
     </script>
     <script src="js/calendario.js"></script>
     <script src="js/busqueda.js"></script>
+    <script src="js/contador.js"></script>
     <script type="text/javascript" src="js/currency-autocomplete.js"></script>
   </body>
 </html>

@@ -1,4 +1,6 @@
 init_contadorTa("tarea","contadorTaComentario", 60);
+init_contadorTa("input-agregarObjetivo","contadorObjetivo", 140);
+init_contadorTa("input-agregarIndicador","contadorIndicador", 140);
 
 function init_contadorTa(idtextarea, idcontador,max)
 {
@@ -11,7 +13,6 @@ function init_contadorTa(idtextarea, idcontador,max)
     {
             updateContadorTa(idtextarea, idcontador,max);
     });
-
 }
 
 function updateContadorTa(idtextarea, idcontador,max)

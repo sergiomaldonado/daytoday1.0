@@ -309,6 +309,7 @@ function agregarObjetivo() {
   i++;
 
   $('#input-agregarObjetivo').val('').focus();
+  $('#contadorObjetivo').html('0/140');
 }
 
 function eliminarObjetivo(id) {
@@ -336,6 +337,7 @@ function agregarIndicador() {
   j++;
 
   $('#input-agregarIndicador').val('').focus();
+  $('#contadorIndicador').html('0/140');
 }
 
 function eliminarIndicador(id) {
@@ -362,6 +364,7 @@ function agregarHito() {
   j++;
 
   $('#input-agregarHito').val('').focus();
+  $('#contadorHito').html('0/140');
 }
 
 function eliminarHito(id) {
