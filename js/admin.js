@@ -124,14 +124,14 @@ function mostrarProyectos() {
         let relativa = moment().endOf('day').fromNow();
         console.log(relativa);
 
-        let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 )/ proyectos[proyecto].numTareas;
+        let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 ) / proyectos[proyecto].numTareas;
         row += '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
                   '<a href="proyecto.php?id=' + proyecto + '">' +
                     '<div id="proyecto">' +
                       '<div id="nombreproyecto"><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
                       '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas + '   Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
                       '<div class="progress">' +
-                        '<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width:' + porcentaje + '%;">' +
+                        '<div style="font" class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width:' + porcentaje + '%;">' +
                           + porcentaje + '%' +
                         '</div>' +
                       '</div>' +
@@ -189,18 +189,20 @@ function guardarOrden() {
   let estado = "Pendiente";
   let encargado = $('#encargado').val();
 
-  let ordenes = firebase.database().ref('ordenes/');
-  let Orden = {
-    cliente: cliente,
-    descripcion: descripcion,
-    fechaRecep: fechaRecep,
-    fechaEntrega: fechaEntrega,
-    estado: estado,
-    encargado: encargado
-  }
+  if(cliente.lenght > 0 && descripcion.lenght > 0 && fechaRecep.lenght > 0 && fechaEntrega.lenght > 0 && estado.lenght > 0 && encargado.lenght > 0) {
+    let ordenes = firebase.database().ref('ordenes/');
+    let Orden = {
+      cliente: cliente,
+      descripcion: descripcion,
+      fechaRecep: fechaRecep,
+      fechaEntrega: fechaEntrega,
+      estado: estado,
+      encargado: encargado
+    }
 
-  ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
-  $('#agregarOrden').modal('hide');
+    ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
+    $('#agregarOrden').modal('hide');
+  }
 }
 
 //guarda un nuevo Usuario en la base de datos de Firebase en el nodo Usuarios
