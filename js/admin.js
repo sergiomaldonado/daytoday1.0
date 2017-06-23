@@ -333,13 +333,35 @@ function guardarUsuario() {
 
 var equipo = [];
 
+var k = 1;
 //introduce los integrantes del equipo a un arreglo
 function agregarIntegrante() {
-  let integrante = $('#ac-demo').val();
-
+  let integrante = $('#input-agregarIntegrante').val();
+  console.log(integrante);
   equipo.push(integrante);
 
-  $('#ac-demo').val("").focus();
+  let id = 'integrante-'+k;
+
+  let $div = $('<div/>', {
+    'class': 'chip-hitos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'eliminarIntegrante("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  })
+  $div.append($span);
+  $div.append(integrante);
+  $('#contenedorModalIntegrantes').append($div);
+  k++;
+
+  $('#input-agregarIntegrante').val('').focus();
+}
+
+function eliminarIntegrante(id) {
+  $('#'+id).remove();
 }
 
 var numtareas = 0;

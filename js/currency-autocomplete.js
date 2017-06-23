@@ -12,7 +12,7 @@ $(function(){
             )
         }
     });
-    
+
   var currencies = datos;
 
   // setup autocomplete function pulling from currencies[] array
@@ -23,7 +23,7 @@ $(function(){
       $('#outputcontent').html(thehtml);
     }
   });
-  $('#integrante').autocomplete({
+  $('#input-agregarIntegrante').autocomplete({
     lookup: currencies,
     onSelect: function (suggestion) {
       var thehtml = '<strong>Currency Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
