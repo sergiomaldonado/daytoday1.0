@@ -211,6 +211,31 @@ function marcarComoEnProceso(idOrden) {
   });
 }
 
+function eliminarOrden(idOrden) {
+  let ordenes = firebase.database().ref('ordenes/');
+
+  var ordenConsultada;
+
+  let consulta = firebase.database().ref('ordenes/'+idOrden);
+  consulta.on('value', function(snapshot) {
+    let orden = snapshot.val();
+
+    ordenConsultada = {
+      cliente: orden.cliente,
+      descripcion: orden.descripcion,
+      encargado: orden.encargado,
+      estado: orden.estado,
+      fechaEntrega: orden.fechaEntrega,
+      fechaRecep: orden.fechaRecep
+    }
+  });
+
+  let historial = firebase.database().ref('historial/ordenes');
+  historial.push(ordenConsultada);
+
+  ordenes.child(idOrden).remove();
+}
+
 function mostrarProyectos() {
 
     let proyectos = firebase.database().ref('proyectos/');
@@ -267,6 +292,42 @@ function cerrarModalOrden() {
   $('#encargado').val('');
 }
 
+function cerrarModalProyecto() {
+  $('#agregarProyecto').modal('hide');
+  $('#nombreProyecto').val('');
+  $('#fechaInicio').val('');
+  $('#fechaEntrega').val('');
+  $('#encargadoProyecto').val('');
+  $('#estructuraProyecto').val('');
+  $('#descripcionProyecto').val('');
+  $('#documentacion').val('');
+  $('#input-agregarObjetivo').val('');
+  $('#input-agregarIndicador').val('');
+  $('#input-agregarHito').val('');
+  $('#input-agregarIntegrante').val('');
+  $('#input-agregarTarea').val('');
+  $('#select-categorias').val('');
+  $('#asignado').val('');
+  $('#fechaInicioTarea').val('');
+  $('#contenedorModalTareas').empty();
+
+  $('.chip-hitos').remove();
+  $('.chip-objetivos').remove();
+
+  objInc = 1;
+  indInc = 1;
+  hitoInc = 1;
+  intInc = 1;
+  tareaInc = 1;
+  numtareas = 0;
+
+  arrObjetivos = [];
+  arrIndicadores = [];
+  arrHitos = [];
+  arrIntegrantes = [];
+  arrTareas = [];
+}
+
 $('#tabordenes').on('shown.bs.tab', function (e) {
   e.target // newly activated tab
   e.relatedTarget // previous active tab
@@ -309,20 +370,18 @@ function guardarOrden() {
   let estado = "Pendiente";
   let encargado = $('#encargado').val();
 
-  if(cliente.lenght > 0 && descripcion.lenght > 0 && fechaRecep.lenght > 0 && fechaEntrega.lenght > 0 && estado.lenght > 0 && encargado.lenght > 0) {
-    let ordenes = firebase.database().ref('ordenes/');
-    let Orden = {
-      cliente: cliente,
-      descripcion: descripcion,
-      fechaRecep: fechaRecep,
-      fechaEntrega: fechaEntrega,
-      estado: estado,
-      encargado: encargado
-    }
-
-    ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
-    $('#agregarOrden').modal('hide');
+  let ordenes = firebase.database().ref('ordenes/');
+  let Orden = {
+    cliente: cliente,
+    descripcion: descripcion,
+    fechaRecep: fechaRecep,
+    fechaEntrega: fechaEntrega,
+    estado: estado,
+    encargado: encargado
   }
+
+  ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
+  $('#agregarOrden').modal('hide');
 }
 
 //guarda un nuevo Usuario en la base de datos de Firebase en el nodo Usuarios
@@ -363,16 +422,15 @@ function guardarUsuario() {
   }
 }
 
-var equipo = [];
-
-var k = 1;
+var arrIntegrantes = [];
+var intInc = 1;
 //introduce los integrantes del equipo a un arreglo
 function agregarIntegrante() {
   let integrante = $('#input-agregarIntegrante').val();
   console.log(integrante);
   equipo.push(integrante);
 
-  let id = 'integrante-'+k;
+  let id = 'integrante-'+intInc;
 
   let $div = $('<div/>', {
     'class': 'chip-hitos',
@@ -386,8 +444,9 @@ function agregarIntegrante() {
   })
   $div.append($span);
   $div.append(integrante);
+  arrIntegrantes.push(integrante);
   $('#contenedorModalIntegrantes').append($div);
-  k++;
+  intInc++;
 
   $('#input-agregarIntegrante').val('').focus();
 }
@@ -397,36 +456,69 @@ function eliminarIntegrante(id) {
 }
 
 var numtareas = 0;
-var tareas = [];
-
+var arrTareas = [];
+var tareaInc = 1;
 //atrapa las tareas que se asignan a un proyecto
 function agregarTarea() {
-  let nombre = $('#tarea').val();
-  let categoria = $('#categoria').val();
+  let nombre = $('#input-agregarTarea').val();
+  let categoria = $('#select-categorias').val();
   let color = $('#color').val();
   let asignado = $('#asignado').val();
   let estado = "Pendiente";
+  let fecha = $('#fechaInicioTarea').val();
+  let date = new Date(fecha);
+  let dia = date.getDate();
+  let mes = date.getMonth();
+  let año = date.getFullYear();
 
   let tarea = {
     nombre: nombre,
+    año: año,
+    mes: mes,
+    dia: dia,
     categoria: {
-      nombre: categoria,
-      color: color
+      nombre: categoria
     },
     asignado: asignado,
     estado: estado,
-    dias: []
   }
 
-  tareas.push(tarea);
+  arrTareas.push(tarea);
   numtareas++;
-  $('#tarea').val().focus();
+
+  let id = 'tarea-'+tareaInc;
+
+  let $div = $('<div/>', {
+    'class': 'chip-hitos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'eliminarTarea("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  })
+  $div.append($span);
+  $div.append(nombre);
+  $('#contenedorModalTareas').append($div);
+  tareaInc++;
+
+  $('#input-agregarTarea').val('').focus();
+  $('#asignado').val('');
+  $('#select-categorias').val('');
+  $('#fechaInicioTarea').val('');
 }
 
-var i = 1;
+function eliminarTarea(id) {
+  $('#'+id).remove();
+}
+
+var objInc = 1;
+var arrObjetivos = [];
+
 function agregarObjetivo() {
   let objetivo = $('#input-agregarObjetivo').val();
-  let id = 'objetivo-'+i;
+  let id = 'objetivo-'+objInc;
 
   let $div = $('<div/>', {
     'class': 'chip-objetivos',
@@ -440,8 +532,9 @@ function agregarObjetivo() {
   })
   $div.append($span);
   $div.append(objetivo);
+  arrObjetivos.push(objetivo);
   $('#contenedorModalObjetivos').append($div);
-  i++;
+  objInc++;
 
   $('#input-agregarObjetivo').val('').focus();
   $('#contadorObjetivo').html('0/140');
@@ -451,10 +544,12 @@ function eliminarObjetivo(id) {
   $('#'+id).remove();
 }
 
-var j = 1;
+var indInc = 1;
+var arrIndicadores = [];
+
 function agregarIndicador() {
   let indicador = $('#input-agregarIndicador').val();
-  let id = 'indicador-'+j;
+  let id = 'indicador-'+indInc;
 
   let $div = $('<div/>', {
     'class': 'chip-objetivos',
@@ -468,8 +563,9 @@ function agregarIndicador() {
   })
   $div.append($span);
   $div.append(indicador);
+  arrIndicadores.push(indicador);
   $('#contenedorModalIndicadores').append($div);
-  j++;
+  indInc++;
 
   $('#input-agregarIndicador').val('').focus();
   $('#contadorIndicador').html('0/140');
@@ -479,9 +575,12 @@ function eliminarIndicador(id) {
   $('#'+id).remove();
 }
 
+var hitoInc = 1;
+var arrHitos = [];
+
 function agregarHito() {
   let hito = $('#input-agregarHito').val();
-  let id = 'indicador-'+j;
+  let id = 'indicador-'+hitoInc;
 
   let $div = $('<div/>', {
     'class': 'chip-hitos',
@@ -495,8 +594,9 @@ function agregarHito() {
   })
   $div.append($span);
   $div.append(hito);
+  arrHitos.push(hito);
   $('#contenedorModalHitos').append($div);
-  j++;
+  hitoInc++;
 
   $('#input-agregarHito').val('').focus();
   $('#contadorHito').html('0/140');
@@ -515,14 +615,11 @@ function guardarProyecto() {
   let estructuraProyecto = $('#estructuraProyecto').val();
   let descripcionProyecto = $('#descripcionProyecto').val();
   let documentacion = $('#documentacion').val();
-  let indicador1 = $('#indicador1').val();
-  let indicador2 = $('#indicador2').val();
-  let objetivo1 = $('#objetivo1').val();
-  let objetivo2 = $('#objetivo2').val();
-  let objetivo3 = $('#objetivo3').val();
-  let entregables = $('#entregables').val();
+  let objetivos = arrObjetivos;
 
-  let proyectos = firebase.database().ref('proyectos/');
+  console.log(arrObjetivos);
+
+  /*let proyectos = firebase.database().ref('proyectos/');
   let Proyecto = {
     nombre: nombreProyecto,
     equipo: equipo,
@@ -534,16 +631,9 @@ function guardarProyecto() {
     estructura: estructuraProyecto,
     descripcion: descripcionProyecto,
     docuementacion: documentacion,
-    objetivos: {
-      objetivo1: objetivo1,
-      objetivo2: objetivo2,
-      objetivo3: objetivo3
-    },
-    indicadores: {
-      indicador1: indicador1,
-      indicador2: indicador2
-    },
-    entregables: entregables
+    objetivos: ,
+    indicadores: ,
+    hitos:
   }
   proyectos.push().set(Proyecto);
 
@@ -552,11 +642,12 @@ function guardarProyecto() {
   for(tarea in tareas) {
     tareasRef.push().set(tarea);
   }
-  $('#agregarProyecto').modal('hide');
+  $('#agregarProyecto').modal('hide');*/
 }
 
 $('#datetimepicker1').datepicker({
   startDate: "Today",
+  format: "dd/mm/yyyy",
   autoclose: true,
   todayHighlight: true
 });
@@ -574,6 +665,15 @@ $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de Fech
   format: "dd/mm/yyyy",
   todayHighlight: true
 });
+
+$('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
+  startDate: "Today",
+  autoclose: true,
+  format: "mm/dd/yyyy",
+  todayHighlight: true
+});
+
+
 
 //Te regresa un paso en el carousel de la modal Crear Proyecto
 function volver() {

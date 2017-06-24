@@ -93,7 +93,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div style="min-height:400px;" class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
+              <button type="button" class="close" onclick="cerrarModalProyecto()"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
               <h2 class="modal-title text-left">Nuevo proyecto</h2>
             </div>
             <div class="modal-body">
@@ -220,7 +220,7 @@
                       <form role="form" class="form-horizontal">
                         <div class="form-group">
                           <div class="col-md-12">
-                            <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                            <input id="input-agregarTarea" type="text" class="form-control input-lg" required placeholder="Tarea">
                             <p style="float: right;" id="contadorTaComentario">0/60</p>
                             <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
                           </div>
@@ -236,36 +236,29 @@
                             <select id="select-categorias" class="form-control input-lg">
                               <option disabled selected value="">Categoría</option>
                             </select>
-                            <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicio' >
-                              <input id="fechaInicio" type="text" class="form-control input-lg" placeholder="Inicio">
-                               <div class="input-group-addon">
+                            <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTarea'>
+                              <input id="fechaInicioTarea" type="text" class="form-control input-lg" placeholder="Inicio">
+                              <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
-                               </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </form>
                     </div>
                   </div>
-                  <div style="" class="col-xs-8 col-sm-6">
-                    <div class="form-group">
-                      <div class="col-md-6">
-                      </div>
-                      <div style="margin-top:15px;" class="col-md-6">
-                      </div>
-                    </div>
-                  </div>
+
                   <div stylw="margin-top:10px;" class="form-group">
-                    <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button  onclick="agregarTarea()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                   </div>
                   Tareas
-                  <hr style="">
-                  <div id="contenedorModaltareas">
+                  <hr style="max-width:100%; width: 100% !important;">
+                  <div id="contenedorModalTareas">
 
                   </div>
                   <div style="margin-top:150px;" class="modal-footer">
                     <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                    <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    <button onclick="guardarProyecto()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
                   </div>
                 </div>
             </div>
