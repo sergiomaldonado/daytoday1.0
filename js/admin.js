@@ -17,6 +17,38 @@ function editarTarea(idTarea) {
   //tareas.set(nuevosDatos);
 }
 
+function llenarCategorias() {
+  let categorias = firebase.database().ref('/categorias');
+
+  categorias.on('value', function(snapshot) {
+    let categorias = snapshot.val();
+
+    let options=""
+    for(categoria in categorias) {
+      options += '<option value="'+categorias[categoria].nombre+'">'+categorias[categoria].nombre+'</option>';
+    }
+    $('#select-categorias').empty().append(options);
+  });
+}
+
+llenarCategorias();
+
+function mostrarCategorias() {
+  let categorias = firebase.database().ref('/categorias');
+  categorias.on('value', function(snapshot) {
+    let categorias = snapshot.val();
+
+    let lis="";
+    for(categoria in categorias) {
+      lis += '<li style="display:inline; padding:20px;"><span style="color:'+categorias[categoria].color+';" class="glyphicon glyphicon-asterisk"></span>'+categorias[categoria].nombre+'</li>';
+    }
+
+    $('#listaCategorias').empty().append(lis);
+  });
+}
+
+mostrarCategorias();
+
 function eliminarTarea(idTarea) {
   var datos;
   let tareas = firebase.database().ref('tareas/'+idTarea);
@@ -333,13 +365,35 @@ function guardarUsuario() {
 
 var equipo = [];
 
+var k = 1;
 //introduce los integrantes del equipo a un arreglo
 function agregarIntegrante() {
-  let integrante = $('#ac-demo').val();
-
+  let integrante = $('#input-agregarIntegrante').val();
+  console.log(integrante);
   equipo.push(integrante);
 
-  $('#ac-demo').val("").focus();
+  let id = 'integrante-'+k;
+
+  let $div = $('<div/>', {
+    'class': 'chip-hitos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'eliminarIntegrante("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  })
+  $div.append($span);
+  $div.append(integrante);
+  $('#contenedorModalIntegrantes').append($div);
+  k++;
+
+  $('#input-agregarIntegrante').val('').focus();
+}
+
+function eliminarIntegrante(id) {
+  $('#'+id).remove();
 }
 
 var numtareas = 0;

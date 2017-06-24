@@ -115,12 +115,8 @@
                                       <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
                                       <p style="float: right;" id="contadorTaComentario">0/60</p>
                                       <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
-
                                     </div>
                                   </div>
-
-
-
                                 </form>
                               </div>
                             </div>
@@ -138,25 +134,17 @@
                                       </div>
                                     </div>
                                   </div>
-
-
-
                                 </form>
                               </div>
                             </div>
-
                               <div style="" class="col-xs-8 col-sm-6">
                                <div class="form-group">
                                  <div class="col-md-6">
-
                                  </div>
-
                                   <div style="margin-top:15px;" class="col-md-6">
-
                                   </div>
                                 </div>
                               </div>
-
                               <div stylw="margin-top:10px;" class="form-group">
                                 <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                             </div>
@@ -231,7 +219,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
                 <h4 class="modal-title">Agregar una orden</h4>
               </div>
               <div class="modal-body">
@@ -269,17 +257,17 @@
         <!--Modal Agregar Proyecto-->
         <div data-keyboard="false" data-backdrop="static" id="agregarProyecto" data-keyboard="false" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+            <div style="min-height:400px;" class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Nuevo proyecto</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
+                <h2 class="modal-title text-left">Nuevo proyecto</h2>
               </div>
               <div class="modal-body">
                 <div id="carousel-proyecto" class="carousel slide">
                   <!-- Wrapper for slides -->
                   <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <h3>Brief</h3>
+                    <div style="margin-top:-20px;" class="item active">
+                      <h3 class="text-left">Brief del proyecto</h3>
                       <form role="form" class="form-horizontal">
                         <div class="form-group">
                           <div class="col-md-6">
@@ -314,81 +302,143 @@
                           <div class="col-md-6">
                             <textarea id="descripcionProyecto" class="form-control input-lg" rows="4" placeholder="¿De qué trata el proyecto?"></textarea>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6" class="text-left">
                             <input id="documentacion" type="text" class="form-control input-lg" placeholder="Documentación"><br>
-                            <label>Indicadores</label>
-                            <input id="indicador1" type="text" class="form-control input-lg" placeholder="Indicador 1">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-md-6">
-                            <label>¿Qué se quiere lograr?</label>
-                            <input id="objetivo1" type="text" class="form-control input-lg" placeholder="Objetivo 1">
-                          </div>
-                          <div class="col-md-6">
-                            <br>
-                            <input id="indicador2" type="text" class="form-control input-lg" placeholder="Indicador 2">
                           </div>
                         </div>
                       </form>
-                      <button onclick="siguiente()" type="button" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                     </div>
                     <div class="item">
-                      <h3>Forma el equipo</h3>
-                      <div id="searchfield">
+                      <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                          <div id="contenedorModalObjetivos" class="col-md-6 text-left">
+                            <label><h3>¿Qué se quiere lograr?</h3></label>
+                            <div class="input-group">
+                              <input id="input-agregarObjetivo" type="text" class="form-control input-lg" placeholder="Agrega objetivos al proyecto">
+                              <span class="input-group-btn">
+                                <button onclick="agregarObjetivo()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                                <p style="" id="contadorObjetivo">0/140</p>
+                              </span>
+                            </div>
+                          </div>
+                          <div id="contenedorModalIndicadores" class="col-md-6 text-left">
+                            <label><h3>Indicadores</h3></label>
+                            <div class="input-group">
+                              <input id="input-agregarIndicador" type="text" class="form-control input-lg" placeholder="Hazlo medible, agrega un indicador">
+                              <span class="input-group-btn">
+                                <button onclick="agregarIndicador()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                                <p style="" id="contadorIndicador">0/140</p>
+                              </span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <div  class="modal-footer">
+                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-left"></span>Volver</button>
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <form id="contenedorModalHitos" role="form" class="form-horizontal text-left">
+                      <label><h3>Hitos</h3></label>
+                      <div class="input-group">
+                        <input id="input-agregarHito" type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
+                        <span class="input-group-btn">
+                          <button onclick="agregarHito()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                          <p style="" id="contadorHito">0/140</p>
+                        </span>
+                      </div>
+
+                    </form>
+                    <div style="margin-top:150px;" class="modal-footer">
+                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
+                    </div>
+                  </div>
+                  <div class="item"><!--      FORMA EL EQUIPO     -->
+                    <h3>Forma el equipo</h3>
+                    <div id="searchfield">
+                      <form role="form" class="form-horizontal" id="contenedorModalIntegrantes">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <div class="input-group">
+                              <input id="input-agregarIntegrante" type="text" name="currency" id="integrante" class="form-control input-lg" placeholder="Añade un integrante a tu equipo">
+                              <span class="input-group-btn">
+                                <button onclick="agregarIntegrante()" class="btn btn-default input-lg btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              </span>
+                            </div>
+
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div style="margin-top:50px;" class="modal-footer">
+                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <h3>Agrega tareas al proyecto</h3>
+                    <div style="" class="col-xs-8 col-sm-6">
+                      <div class="item">
                         <form role="form" class="form-horizontal">
                           <div class="form-group">
                             <div class="col-md-12">
-                              <div class="input-group">
-                                <input type="text" name="currency" class="biginput" id="integrante">
-                                <button class="btns btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                              <p style="float: right;" id="contadorTaComentario">0/60</p>
+                              <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div style="" class="col-xs-8 col-sm-6">
+                      <div class="item">
+                        <form role="form" class="form-horizontal">
+                          <div class="form-group">
+                            <div class="col-md-12">
+                              <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
+                              <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicio' >
+                                <input id="fechaInicio" type="text" class="form-control input-lg" placeholder="Inicio">
+                                 <div class="input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                                 </div>
                               </div>
                             </div>
                           </div>
                         </form>
                       </div>
-                      <button onclick="volver()" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
-                      <button onclick="siguiente()" type="button" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></button>
                     </div>
-                    <div class="item">
-                      <h3>Agrega tareas al proyecto</h3>
-                      <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
-                          </div>
+                    <div style="" class="col-xs-8 col-sm-6">
+                      <div class="form-group">
+                        <div class="col-md-6">
                         </div>
-                        <div class="form-group">
-                          <div class="col-md-3">
-                            <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
-                          </div>
-                          <div class="col-md-3">
-                            <input type="text" placeholder="Color" id="color" class="form-control input-lg demo" data-control="wheel">
-                          </div>
-                          <div class="col-md-6">
-                            <input id="asignado" type="text" class="form-control input-lg" placeholder="Asignada a">
-                          </div>
+                        <div style="margin-top:15px;" class="col-md-6">
                         </div>
-                        <div class="form-group">
-                          <button class="btns" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
-                        </div>
-                      </form>
-                      Tareas
-                      <hr style="">
-                      <button onclick="volver()" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-arrow-left"></span> Volver</button>
-                      <button onclick="guardar()" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                      </div>
+                    </div>
+                    <div stylw="margin-top:10px;" class="form-group">
+                      <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                    Tareas
+                    <hr style="">
+                    <div class="modal-footer">
+                      <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                      <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
                     </div>
                   </div>
-                </div>
               </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
         <div data-keyboard="false" data-backdrop="static" id="agregarUsuario" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" onclick="cerrarModalUsuario()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" onclick="cerrarModalUsuario()"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
                 <h4 class="modal-title">Agrega un usuario</h4>
               </div>
               <div class="modal-body">
