@@ -248,16 +248,21 @@
                     </div>
                   </div>
 
-                  <div style="margin-top:10px;" class="form-group">
+                  <div stylw="margin-top:10px;" class="form-group">
                     <button  onclick="agregarTarea()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                   </div>
 
                   Tareas
-                  <hr style="max-width: 100%; width: 100% !important;">
+<<<<<<< HEAD
+                  <hr style="max-width:100%; width: 100% !important;">
                   <div id="contenedorModalTareas">
 
                   </div>
                   <div style="margin-top:150px;" class="modal-footer">
+=======
+                  <hr style="">
+                  <div class="modal-footer">
+>>>>>>> 51f469006590253fe2c0e68c87c13deeb4c4f45f
                     <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
                     <button onclick="guardarProyecto()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
                   </div>
