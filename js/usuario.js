@@ -24,3 +24,19 @@ function obtenerUsuario(uid) {
 function logOut() {
   firebase.auth().signOut();
 }
+
+function mostrarCategorias() {
+  let categorias = firebase.database().ref('/categorias');
+  categorias.on('value', function(snapshot) {
+    let categorias = snapshot.val();
+
+    let lis="";
+    for(categoria in categorias) {
+      lis += '<li style="display:inline; padding:20px;"><span style="color:'+categorias[categoria].color+';" class="glyphicon glyphicon-asterisk"></span>'+categorias[categoria].nombre+'</li>';
+    }
+
+    $('#listaCategorias').empty().append(lis);
+  });
+}
+
+mostrarCategorias();
