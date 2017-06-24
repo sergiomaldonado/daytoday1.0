@@ -276,8 +276,21 @@
                       <button  onclick="agregarTareaProyecto()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                   </div>
 
-                  Tareas
-                  <hr style="">
+                  <h1>Tareas</h1>
+                  <hr>
+                  <div id="contenedorDeTareas" class="col-xs-12 col-md-12" style=" height:auto; border:none;  margin-top:-30px; border:none; ">
+                    <div class="row">
+                       <div  id="tareaModal" class="col-xs-2 col-md-2">.col-md-1</div>
+                       <div  id="tareaModal" class="col-xs-2 col-md-2">.col-md-1</div>
+                       <div  id="tareaModal" class="col-xs-2 col-md-2">.col-md-1</div>
+                       <div  id="tareaModal" class="col-xs-2 col-md-2">.col-md-1</div>
+                       <div  id="tareaModal" class="col-xs-2 col-md-2">.col-md-1</div>
+                       <div  id="tareaModal" class="col-xs-2 col-md-2">.col-md-1</div>
+                       <div  id="tareaModal" class="col-xs-2 col-md-2">.col-md-1</div>
+
+
+
+                  </div></div>
                   <div class="modal-footer">
                     <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
                     <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
@@ -333,20 +346,20 @@
       <div style="margin-top:40px;">
         <div class="container">
           <div class="row">
-            <div class="col-lg-3 col-md-4" style="float:left;">
+            <div class="col-lg-2 col-md-2" style="float:left;">
               <div class="row">
                 <div class="col-sm-6 col-md-4">
-                  <div id="imagenUsuario" style="width:250px; overflow:hidden;" class="thumbnail no-padding" >
+                  <div id="imagenUsuario" style="width:150px; overflow:hidden;" class="thumbnail no-padding" >
                     <img src="assets/bg-panel.png" alt="...">
-                    <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
+                    <img style="margin-top:-40px;" width="80px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                     <div class="caption">
-                      <h3 class="nombreDeUsuario"></h3>
+                      <h4 class="nombreDeUsuario"></h4>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="no-padding col-lg-9 col-md-9" style="margin-top:-30px; float:right;">
+            <div class="no-padding col-lg-10 col-md-11" style="margin-top:-30px; float:right;">
               <div style="padding-top:30px;" class="live-box">
                 <ul class="nav nav-tabs">
                   <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab" aria-label="Left Align">  Semana</a></li>

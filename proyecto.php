@@ -59,20 +59,20 @@
         <div>
           <div class="container">
             <div class="row">
-              <div class="col-lg-3 col-md-4">
+              <div class="col-lg-2 col-md-2" style="float:left;">
                 <div class="row">
                   <div class="col-sm-6 col-md-4">
-                    <div style="width:250px; overflow:hidden;" class="thumbnail no-padding" >
+                    <div id="imagenUsuario" style="width:150px; overflow:hidden;" class="thumbnail no-padding" >
                       <img src="assets/bg-panel.png" alt="...">
-                      <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
+                      <img style="margin-top:-40px;" width="80px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                       <div class="caption">
-                        <h3>Sergio Maldonado</h3>
+                        <h4 class="nombreDeUsuario"></h4>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="no-padding col-lg-9 col-md-9" style="margin-top:0px; ">
+              <div class="no-padding col-lg-10 col-md-11" style="margin-top:0px; ">
                 <div class="no-padding col-lg-12 col-md-12" style="margin-top:-30px; ">
                   <div style="padding-top:30px;" class="live-box">
                     <h2 id="TituloProyecto"></h2><hr>
