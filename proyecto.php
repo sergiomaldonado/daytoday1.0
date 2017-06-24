@@ -219,7 +219,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
                 <h4 class="modal-title">Agregar una orden</h4>
               </div>
               <div class="modal-body">
@@ -259,7 +259,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div style="min-height:400px;" class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
                 <h2 class="modal-title text-left">Nuevo proyecto</h2>
               </div>
               <div class="modal-body">
@@ -438,7 +438,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" onclick="cerrarModalUsuario()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" onclick="cerrarModalUsuario()"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
                 <h4 class="modal-title">Agrega un usuario</h4>
               </div>
               <div class="modal-body">

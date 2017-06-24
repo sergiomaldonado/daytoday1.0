@@ -93,7 +93,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div style="min-height:400px;" class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
               <h2 class="modal-title text-left">Nuevo proyecto</h2>
             </div>
             <div class="modal-body">
@@ -278,7 +278,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <button onclick="cerrarModalUsuario()" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+              <button onclick="cerrarModalUsuario()" type="button" class="close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
               <h4 class="modal-title">Agrega un usuario</h4>
             </div>
             <div class="modal-body">
@@ -347,11 +347,9 @@
                       <div class="panel panel-default no-padding" style="border:solid 1px white;">
                         <!-- Contenido a pintar por javascript -->
                         <div class="panel-body no-padding">
-                          <ul>
-                            <li style="display:inline; padding:20px;"><span style="color:#50E3C2;" class="glyphicon glyphicon-asterisk"></span>Home</li>
-                            <li style="display:inline; padding:20px;"><span style="color:#FF9B00;" class="glyphicon glyphicon-asterisk"></span> News</li>
-                            <li style="display:inline; padding:20px;"><span style="color:#6FDC25;" class="glyphicon glyphicon-asterisk"></span> Contact</li>
-                            <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
+                          <p>Categorías</p>
+                          <ul id="listaCategorias">
+
                           </ul>
                         </div>
                         <div id="holder"></div>
