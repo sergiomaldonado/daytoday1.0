@@ -511,6 +511,7 @@ function agregarTarea() {
   $('#asignado').val('');
   $('#select-categorias').val('');
   $('#fechaInicioTarea').val('');
+  $('#contadorTarea').html('0/60');
 }
 
 function eliminarTarea(id) {
@@ -625,7 +626,8 @@ function guardarProyecto() {
   let integrantes = arrIntegrantes;
   let tareas = arrTareas;
 
-  let proyectos = firebase.database().ref('proyectos/');
+  var db = firebase.database();
+  let proyectos = db.ref('proyectos/');
   let Proyecto = {
     nombre: nombreProyecto,
     numtareas: numtareas,
@@ -641,21 +643,18 @@ function guardarProyecto() {
     hitos: hitos,
     equipo: integrantes
   }
-  var proyectoId = proyectos.push(Proyecto);
-
-  var db = firebase.database();
+  var proyectoId = proyectos.push(Proyecto).getKey();
   let tareasRef = db.ref('tareas/');
   let proyectoTareasRef = db.ref('proyectos/'+proyectoId+'/tareas/');
 
   for(let i=0; i<tareas.length; i++) {
-
-    tareas[i].idP = projectId;
+    tareas[i].idP = proyectoId;
     tareasRef.push(tareas[i]);
     proyectoTareasRef.push(tareas[i]);
 
-    for(integrante in integrantes) {
-      if(integrante == tareas[i].asignado) {
-        let miSemana = db.ref('miSemana/'+usuarios[usuario].nombre);
+    for(let j=0; j<integrantes.length; j++) {
+      if(integrantes[j] == tareas[i].asignado) {
+        let miSemana = db.ref('miSemana/'+integrantes[j]);
         miSemana.push(tareas[i]);
       }
     }
