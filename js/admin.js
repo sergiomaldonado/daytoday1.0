@@ -643,8 +643,9 @@ function guardarProyecto() {
   }
   var proyectoId = proyectos.push(Proyecto);
 
-  let tareasRef = firebase.database().ref('tareas/');
-  let proyectoTareasRef = firebase.database().ref('proyectos/'+proyectoId+'/tareas/');
+  var db = firebase.database();
+  let tareasRef = db.ref('tareas/');
+  let proyectoTareasRef = db.ref('proyectos/'+proyectoId+'/tareas/');
 
   for(let i=0; i<tareas.length; i++) {
 
@@ -654,8 +655,8 @@ function guardarProyecto() {
 
     for(integrante in integrantes) {
       if(integrante == tareas[i].asignado) {
-        let miSemana = firebase.database().ref('miSemana/'+usuarios[usuario].nombre);
-        miSemana.push(tareas[i]).getKey();
+        let miSemana = db.ref('miSemana/'+usuarios[usuario].nombre);
+        miSemana.push(tareas[i]);
       }
     }
   }
