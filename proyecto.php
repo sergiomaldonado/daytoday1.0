@@ -88,20 +88,14 @@
                   <div class="tab-content" style="padding-top:20px;">
                     <div class="tab-pane fade in active" id="m1">
                       <div class="row">
-
                         <div>
                           <div>
-
                             <div style="" class="col-xs-12 col-sm-12">
                               <div class="table-responsive no-padding">
                                 <div class="panel panel-default no-padding" style="border:solid 1px white;">
                                   <div class="panel-body no-padding">
-                                    <ul>
-                                      <li style="display:inline; padding:20px;"><span style="color:#50E3C2;" class="glyphicon glyphicon-asterisk"></span>Home</li>
-                                      <li style="display:inline; padding:20px;"><span style="color:#FF9B00;" class="glyphicon glyphicon-asterisk"></span> News</li>
-                                      <li style="display:inline; padding:20px;"><span style="color:#6FDC25;" class="glyphicon glyphicon-asterisk"></span> Contact</li>
-                                      <li style="display:inline; padding:20px;"><span style="color:#B6247F;" class="glyphicon glyphicon-asterisk"></span>  About</li>
-                                    </ul>
+                                    <p>Categorías</p>
+                                    <ul id="listaCategorias">
                                   </div>
                                   <div id='holder' class="row" ></div>
                                 </div>
@@ -527,6 +521,7 @@
           });
         });
         </script>
+        <script src="js/admin.js"></script>
         <script type="text/tmpl" id="tmpl">
           {{
           var date = date || new Date(),
@@ -565,7 +560,7 @@
                           {{ if (mode !== 'day') { }}
                             {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                             {{ if (mode ==='week') { }}
-                          <h3> <button id="btn-cal-proy" class="js-cal-prev btn btn-default"><span class=" glyphicon glyphicon-menu-left"></span></button> Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} a {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}} <button id="btn-cal-proy" class="js-cal-next btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button></h3>  {{ } }}
+                          <h3><button id="btn-cal-proy" class="js-cal-prev btn btn-default"><span class="glyphicon glyphicon-menu-left"></span></button> Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} a {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}} <button id="btn-cal-proy" class="js-cal-next btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button></h3>  {{ } }}
 
                           {{ } else { }}
                             <button class="btn btn-link disabled">{{: date.toDateString() }}</button>
@@ -667,7 +662,6 @@
           </table>
         </script>
         <script src="js/calendarioProyecto.js"></script>
-        <script src="js/admin.js"></script>
         <script src="js/busqueda.js"></script>
         <script src="js/contador.js"></script>
         <script type="text/javascript" src="js/currency-autocomplete.js"></script>

@@ -325,7 +325,7 @@ function cerrarModalProyecto() {
   arrIndicadores = [];
   arrHitos = [];
   arrIntegrantes = [];
-  arrTareas = [];
+  arrTareas = {};
 }
 
 $('#tabordenes').on('shown.bs.tab', function (e) {
@@ -427,8 +427,6 @@ var intInc = 1;
 //introduce los integrantes del equipo a un arreglo
 function agregarIntegrante() {
   let integrante = $('#input-agregarIntegrante').val();
-  console.log(integrante);
-  equipo.push(integrante);
 
   let id = 'integrante-'+intInc;
 
@@ -456,7 +454,7 @@ function eliminarIntegrante(id) {
 }
 
 var numtareas = 0;
-var arrTareas = [];
+var arrTareas = {};
 var tareaInc = 1;
 //atrapa las tareas que se asignan a un proyecto
 function agregarTarea() {
@@ -476,14 +474,12 @@ function agregarTarea() {
     año: año,
     mes: mes,
     dia: dia,
-    categoria: {
-      nombre: categoria
-    },
+    categoria: categoria,
     asignado: asignado,
     estado: estado,
   }
 
-  arrTareas.push(tarea);
+  arrTareas[numtareas]=tarea;
   numtareas++;
 
   let id = 'tarea-'+tareaInc;
@@ -616,10 +612,12 @@ function guardarProyecto() {
   let descripcionProyecto = $('#descripcionProyecto').val();
   let documentacion = $('#documentacion').val();
   let objetivos = arrObjetivos;
+  let indicadores = arrIndicadores;
+  let hitos = arrHitos;
+  let integrantes = arrIntegrantes;
+  let tareas = arrTareas;
 
-  console.log(arrObjetivos);
-
-  /*let proyectos = firebase.database().ref('proyectos/');
+  let proyectos = firebase.database().ref('proyectos/');
   let Proyecto = {
     nombre: nombreProyecto,
     equipo: equipo,
@@ -631,18 +629,19 @@ function guardarProyecto() {
     estructura: estructuraProyecto,
     descripcion: descripcionProyecto,
     docuementacion: documentacion,
-    objetivos: ,
-    indicadores: ,
-    hitos:
+    objetivos: objetivos,
+    indicadores: indicadores,
+    hitos: hitos,
+    equipo: integrantes,
+    tareas : tareas
   }
   proyectos.push().set(Proyecto);
 
-  let tareasRef = firebase.database().ref('proyectos/tareas');
-
-  for(tarea in tareas) {
-    tareasRef.push().set(tarea);
+  let tareasRef = firebase.database().ref('/tareas');
+  for(let i=0; i<tareas.length; i++) {
+    tareasRef.push(tareas[i]);
   }
-  $('#agregarProyecto').modal('hide');*/
+  $('#agregarProyecto').modal('hide');
 }
 
 $('#datetimepicker1').datepicker({

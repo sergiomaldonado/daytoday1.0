@@ -278,7 +278,19 @@
         dia: tareas[tarea].dia
       }
     );
-    colores.push(tareas[tarea].color);
+
+    let cat = firebase.database().ref('/categorias');
+    cat.on('value', function(snapshot) {
+      categorias = snapshot.val();
+
+      for(categoria in categorias) {
+        if(categorias[categoria].nombre == tareas[tarea].categoria){
+          colores.push(categorias[categoria].color);
+          console.log(colores);
+        }
+      }
+    })
+    //colores.push(tareas[tarea].color);
   }
 
   // var names = nombres;

@@ -264,9 +264,8 @@ var comienzos = [];
 var data = [];
 var colores = [];
 
-//var idProyecto = $('#idProyecto').val();
-//let semana = firebase.database().ref('proyectos/'+idProyecto+'/tareas');
-let semana = firebase.database().ref('tareas');
+var idProyecto = $('#idProyecto').val();
+let semana = firebase.database().ref('/tareas');
 semana.on('value', function(snapshot) {
 let tareas=snapshot.val();
 for(tarea in tareas) {
@@ -280,8 +279,18 @@ for(tarea in tareas) {
       dia: tareas[tarea].dia
     }
   );
-  //colores.push(tareas[tarea].categoria.color);
-  colores.push(tareas[tarea].color);
+
+  let cat = firebase.database().ref('/categorias');
+  cat.on('value', function(snapshot) {
+    categorias = snapshot.val();
+
+    for(categoria in categorias) {
+      if(categorias[categoria].nombre == tareas[tarea].categoria){
+        colores.push(categorias[categoria].color);
+      }
+    }
+  })
+  //colores.push(tareas[tarea].color);
 }
 
 var slipsum = [];
