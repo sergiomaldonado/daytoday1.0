@@ -381,7 +381,7 @@ function guardarOrden() {
   }
 
   ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
-  $('#agregarOrden').modal('hide');
+  cerrarModalOrden();
 }
 
 //guarda un nuevo Usuario en la base de datos de Firebase en el nodo Usuarios
@@ -413,7 +413,7 @@ function guardarUsuario() {
     .catch(function(error) {
       console.log(error);
     });
-    $('#agregarUsuario').modal('hide');
+    cerrarModalUsuario();
 
     logOut();
   }
@@ -447,6 +447,14 @@ function agregarIntegrante() {
   intInc++;
 
   $('#input-agregarIntegrante').val('').focus();
+
+  $('#asignado').autocomplete({
+    lookup: arrIntegrantes,
+    onSelect: function (suggestion) {
+      var thehtml = '<strong>Currency Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
+      $('#outputcontent').html(thehtml);
+    }
+  });
 }
 
 function eliminarIntegrante(id) {
@@ -633,29 +641,25 @@ function guardarProyecto() {
     hitos: hitos,
     equipo: integrantes
   }
-  var proyectoId = proyectos.push(Proyecto).getKey();
-  console.log(tareas);
-  console.log(proyectoId);
+  var proyectoId = proyectos.push(Proyecto);
 
   let tareasRef = firebase.database().ref('tareas/');
-
   let proyectoTareasRef = firebase.database().ref('proyectos/'+proyectoId+'/tareas/');
+
   for(let i=0; i<tareas.length; i++) {
-    console.log(tareas[i]);
+
+    tareas[i].idP = projectId;
     tareasRef.push(tareas[i]);
     proyectoTareasRef.push(tareas[i]);
 
-    let Usuarios = firebase.database().ref('usuarios/');
-    Usuarios.on('value', function(snapshot) {
-      usuarios = snapshot.val();
-      for(usuario in usuarios) {
-        if(usuarios[usuario].nombre == tareas[i].asignado) {
-          let miSemana = firebase.database().ref('miSemana/'+usuarios[usuario].nombre);
-          miSemana.push(tareas[i]);
-        }
+    for(integrante in integrantes) {
+      if(integrante == tareas[i].asignado) {
+        let miSemana = firebase.database().ref('miSemana/'+usuarios[usuario].nombre);
+        miSemana.push(tareas[i]).getKey();
       }
-    });
+    }
   }
+
   cerrarModalProyecto();
 }
 
