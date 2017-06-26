@@ -286,7 +286,6 @@
       for(categoria in categorias) {
         if(categorias[categoria].nombre == tareas[tarea].categoria){
           colores.push(categorias[categoria].color);
-          console.log(colores);
         }
       }
     })

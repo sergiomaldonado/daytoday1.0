@@ -620,7 +620,6 @@ function guardarProyecto() {
   let proyectos = firebase.database().ref('proyectos/');
   let Proyecto = {
     nombre: nombreProyecto,
-    equipo: equipo,
     numtareas: numtareas,
     tareasCompletadas: 0,
     fechaInicio: fechaInicio,
