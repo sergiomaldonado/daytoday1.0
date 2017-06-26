@@ -489,6 +489,7 @@
         };
         firebase.initializeApp(config);
         </script>
+        <script src="js/admin.js"></script>
         <script src="js/proyecto.js"></script>
         <script type="text/javascript">
         $(function(){
@@ -521,7 +522,6 @@
           });
         });
         </script>
-        <script src="js/admin.js"></script>
         <script type="text/tmpl" id="tmpl">
           {{
           var date = date || new Date(),

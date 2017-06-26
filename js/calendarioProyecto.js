@@ -264,8 +264,8 @@ var comienzos = [];
 var data = [];
 var colores = [];
 
-var idProyecto = $('#idProyecto').val();
-let semana = firebase.database().ref('/tareas');
+var ruta = $('#idProyecto').val();
+let semana = firebase.database().ref('/proyectos/'+ruta+'/tareas');
 semana.on('value', function(snapshot) {
 let tareas=snapshot.val();
 for(tarea in tareas) {
@@ -287,16 +287,18 @@ for(tarea in tareas) {
     for(categoria in categorias) {
       if(categorias[categoria].nombre == tareas[tarea].categoria){
         colores.push(categorias[categoria].color);
+        console.log(colores);
       }
     }
-  })
+  });
   //colores.push(tareas[tarea].color);
 }
+
 
 var slipsum = [];
 
 //Recorro el arreglo de titulos de las tareas
-for(i = 0; i < nombres.length; i++) {
+for(let i = 0; i < nombres.length; i++) {
   end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
   data.push({ title: nombres[i], color: colores[i], id:ids[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
 }

@@ -50,30 +50,3 @@ $(document).ready(function() {
     e.relatedTarget
   })
 })
-
-function agregarTareaProyecto() {
-  let nombreTarea = $('#tarea').val();
-  let categoria = $('#categoria').val();
-  let color = $('#color').val();
-  let asignadoTarea = $('#asignado').val();
-
-  let ruta = "proyectos/"+idProyecto+"/tareas";
-  let tareas = firebase.database().ref(ruta);
-
-  let Tarea = {
-    nombre: nombreTarea,
-    categoria: {
-      nombre: categoria,
-      color: color
-    },
-    asignado: asignadoTarea,
-    estado: "Pendiente"
-  }
-
-  tareas.push().set(Tarea);
-  $('#tarea').val('');
-  $('#categoria').val('');
-  $('#color').val('');
-  $('#asignado').val('');
-  $('#tarea').focus();
-}

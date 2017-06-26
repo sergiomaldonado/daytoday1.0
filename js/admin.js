@@ -325,7 +325,7 @@ function cerrarModalProyecto() {
   arrIndicadores = [];
   arrHitos = [];
   arrIntegrantes = [];
-  arrTareas = {};
+  arrTareas = [];
 }
 
 $('#tabordenes').on('shown.bs.tab', function (e) {
@@ -454,7 +454,7 @@ function eliminarIntegrante(id) {
 }
 
 var numtareas = 0;
-var arrTareas = {};
+var arrTareas = [];
 var tareaInc = 1;
 //atrapa las tareas que se asignan a un proyecto
 function agregarTarea() {
@@ -479,7 +479,7 @@ function agregarTarea() {
     estado: estado,
   }
 
-  arrTareas[numtareas]=tarea;
+  arrTareas.push(tarea);
   numtareas++;
 
   let id = 'tarea-'+tareaInc;
@@ -631,16 +631,32 @@ function guardarProyecto() {
     objetivos: objetivos,
     indicadores: indicadores,
     hitos: hitos,
-    equipo: integrantes,
-    tareas : tareas
+    equipo: integrantes
   }
-  proyectos.push().set(Proyecto);
+  var proyectoId = proyectos.push(Proyecto).getKey();
+  console.log(tareas);
+  console.log(proyectoId);
 
-  let tareasRef = firebase.database().ref('/tareas');
+  let tareasRef = firebase.database().ref('tareas/');
+
+  let proyectoTareasRef = firebase.database().ref('proyectos/'+proyectoId+'/tareas/');
   for(let i=0; i<tareas.length; i++) {
+    console.log(tareas[i]);
     tareasRef.push(tareas[i]);
+    proyectoTareasRef.push(tareas[i]);
+
+    let Usuarios = firebase.database().ref('usuarios/');
+    Usuarios.on('value', function(snapshot) {
+      usuarios = snapshot.val();
+      for(usuario in usuarios) {
+        if(usuarios[usuario].nombre == tareas[i].asignado) {
+          let miSemana = firebase.database().ref('miSemana/'+usuarios[usuario].nombre);
+          miSemana.push(tareas[i]);
+        }
+      }
+    });
   }
-  $('#agregarProyecto').modal('hide');
+  cerrarModalProyecto();
 }
 
 $('#datetimepicker1').datepicker({
