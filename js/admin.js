@@ -50,37 +50,52 @@ function mostrarCategorias() {
 mostrarCategorias();
 
 function eliminarTarea(idTarea) {
-  let tareas = firebase.database().ref('tareas/'+idTarea);
-  tareas.on('value', function(snapshot) {
-    let tareas = snapshot.val();
-    console.log(tareas);
-    /*let datos = {
-      nombre: tareas.nombre,
-      dia: tareas.dia,
-      mes: tareas.mes,
-      año: tareas.año,
-      categoria: tareas.categoria,
-      estado: tareas.estado,
-      idP: tareas.idP,
-      asignado: tareas.asignado
-    }
+  //Eliminar del nodo Tarea
+  var idTareaEnNodoTareas, idTareaEnNodoMiSemana, datos;
 
-    let historial = firebase.database().ref('historial/tareas/'+idTarea);
-    historial.set(datos);
+  let nodoTareas = firebase.database().ref('tareas/');
+  nodoTareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    idTareaEnNodoTareas = snapshot.key;
 
-    let tareasProyecto = firebase.database().ref('proyectos/'+tareas.idP+'/tareas/');
-    tareasProyecto.remove(idTarea);
-
-    var numTareas;
-    let proyecto = firebase.database().ref('proyectos/'+tareas.idP);
-    proyecto.on('value', function(snapshot) {
-      let proyecto = snapshot.val();
-      numTareas = proyecto.numtareas;
+    let tareasRef = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+    tareasRef.on('value', function(daticos) {
+      let tareas = daticos.val();
+      datos = {
+        nombre: tareas.nombre,
+        dia: tareas.dia,
+        mes: tareas.mes,
+        año: tareas.año,
+        categoria: tareas.categoria,
+        estado: tareas.estado,
+        idP: tareas.idP,
+        asignado: tareas.asignado,
+        idTarea: tareas.idTarea
+      }
     });
-    proyecto.update({numtareas: --numTareas});*/
+
+    let historial = firebase.database().ref('historial/tareas/'+idTarea); //mandar a historial
+    historial.set(datos);
+    nodoTareas.child(snapshot.key).remove();
   });
 
-  //firebase.database().ref('tareas').remove(idTarea);
+  let refMiSemana = firebase.database().ref('miSemana/'+datos.asignado);
+  refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    refMiSemana.child(snapshot.key).remove();
+  });
+
+  let tareasProyecto = firebase.database().ref('proyectos/'+datos.idP+'/tareas/'); //Eliminar del nodo tareas del proyecto
+  tareasProyecto.child(idTarea).remove();
+
+  var numTareas;
+  let proyecto = firebase.database().ref('proyectos/'+datos.idP); //actualizar numero de tareas
+  proyecto.once('value').then( function(snapshot) {
+    let datosProyecto = snapshot.val();
+    numTareas = datosProyecto.numtareas;
+    numTareas = numTareas-1;
+    proyecto.update({numtareas: numTareas});
+  });
+
+
 }
 
 function completarTarea(idTarea) {
@@ -480,7 +495,6 @@ var tareaInc = 1;
 function agregarTarea() {
   let nombre = $('#input-agregarTarea').val();
   let categoria = $('#select-categorias').val();
-  let color = $('#color').val();
   let asignado = $('#asignado').val();
   let estado = "Pendiente";
   let fecha = $('#fechaInicioTarea').val();
@@ -661,9 +675,9 @@ function guardarProyecto() {
 
   for(let i=0; i<tareas.length; i++) {
     tareas[i].idP = proyectoId;
-    let tareaId = tareasRef.push(tareas[i]).getKey();
+    let tareaId = proyectoTareasRef.push(tareas[i]).getKey();
     tareas[i].idTarea = tareaId;
-    proyectoTareasRef.push(tareas[i]);
+    tareasRef.push(tareas[i]);
 
     for(let j=0; j<integrantes.length; j++) {
       if(integrantes[j] == tareas[i].asignado) {
