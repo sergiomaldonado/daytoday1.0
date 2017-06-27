@@ -50,27 +50,27 @@ function mostrarCategorias() {
 mostrarCategorias();
 
 function eliminarTarea(idTarea) {
-  var datos;
   let tareas = firebase.database().ref('tareas/'+idTarea);
   tareas.on('value', function(snapshot) {
     let tareas = snapshot.val();
     for(tarea in tareas) {
-      datos = {
+      let datos = {
         nombre: tareas[tarea].nombre,
         dia: tareas[tarea].dia,
         mes: tareas[tarea].mes,
         año: tareas[tarea].año,
-        color: tareas[tarea].color,
-        estado: tareas[tarea].estado
+        categoria: tareas[tarea].categoria,
+        estado: tareas[tarea].estado,
+        idP: tareas[tarea].idP,
+        asignado: tareas[tarea].asignado
       }
+
+      let historial = firebase.database().ref('historial/tareas/'+idTarea);
+      historial.set(datos);
     }
   });
 
-  let historial = firebase.database().ref('historial/tareas/'+idTarea);
-  let tareaHistorial = {
-
-  }
-  historial.push();
+  firebase.database().ref('tareas').remove(idTarea);
 }
 
 function completarTarea(idTarea) {
