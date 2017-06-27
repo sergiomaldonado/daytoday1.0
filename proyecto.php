@@ -560,8 +560,8 @@
                           {{ if (mode !== 'day') { }}
                             {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                             {{ if (mode ==='week') { }}
-                          <h3><button id="btn-cal-proy" class="js-cal-prev btn btn-default"><span class="glyphicon glyphicon-menu-left"></span></button> Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} a {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}} <button id="btn-cal-proy" class="js-cal-next btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button></h3>  {{ } }}
-
+                          <h3> Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} a {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}} </h3>  {{ } }}
+                          <button id="btn-cal-proy" class="js-cal-prev btn btn-default"><span class="glyphicon glyphicon-menu-left"></span></button><button id="btn-cal-proy" class="js-cal-next btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button>
                           {{ } else { }}
                             <button class="btn btn-link disabled">{{: date.toDateString() }}</button>
                           {{ } }}

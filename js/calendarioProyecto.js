@@ -168,17 +168,24 @@ function monthAddEvent(index, event) {
       }
 
       if(event.estado == "Pendiente") {
-        $event.append('<div id="mostramelo" class="mostramelo">'+
-                        '<button id="btnEditar" class="editarTarea" onclick="editarTarea('+ event.id+')">'+
-                          '<span class="glyphicon glyphicon-pencil"></span>'+
-                        '</button>'+
-                        '<button id="btnEliminar" class="eliminarTarea" onclick="eliminarTarea('+ event.id+')">'+
-                          '<span class="glyphicon glyphicon-remove"></span>'+
-                        '</button>'+
-                        '<button id="btnCompletar" class="completarTarea" onclick="completarTarea('+ event.id+')">'+
-                          '<span class="glyphicon glyphicon-ok"></span>'+
-                        '</button>'+
-                      '</div>');
+
+        let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
+        let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'")'});
+        let $spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
+        let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'")'});
+        let $spanEliminar = $('<span/>', {'class': 'glyphicon glyphicon-remove'});
+        let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
+        let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
+
+        $buttonEditar.append($spanEditar);
+        $buttonEliminar.append($spanEliminar);
+        $buttonCompletar.append($spanCompletar);
+
+        $div.append($buttonEditar);
+        $div.append($buttonEliminar);
+        $div.append($buttonCompletar);
+
+        $event.append($div);
       }
       day.append($event);
 
@@ -287,13 +294,11 @@ for(tarea in tareas) {
     for(categoria in categorias) {
       if(categorias[categoria].nombre == tareas[tarea].categoria){
         colores.push(categorias[categoria].color);
-        console.log(colores);
       }
     }
   });
   //colores.push(tareas[tarea].color);
 }
-
 
 var slipsum = [];
 

@@ -1,7 +1,8 @@
 var idProyecto = $('#idProyecto').val();
+var dbRef = firebase.database();
 
 function obtenerTituloProyecto() {
-  let ref = firebase.database().ref('proyectos/' + idProyecto);
+  let ref = dbRef.ref('proyectos/' + idProyecto);
   ref.on('value', function(snapshot) {
     let proyecto = snapshot.val();
 
@@ -15,7 +16,7 @@ function obtenerTituloProyecto() {
 obtenerTituloProyecto();
 
 function rellenarContenedorDeTareas() {
-  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas');
+  let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
   tareasProyecto.on('value', function(snapshot) {
     let Tareas = snapshot.val();
 
@@ -49,4 +50,50 @@ $(document).ready(function() {
     e.target
     e.relatedTarget
   })
-})
+});
+
+function agregarTareaProyecto() {
+  let nombre = $('#tarea').val();
+  let categoria = $('#categoria').val();
+  let asignado = $('#asignado').val();
+  let fechaInicio = $('#fechaInicio').val();
+  let idP = idProyecto;
+  let date = new Date(fechaInicio);
+  let dia = date.getDate();
+  let mes = date.getMonth();
+  let año = date.getFullYear();
+
+  let tarea = {
+    nombre: nombre,
+    categoria: categoria,
+    asignado: asignado,
+    idP: idP,
+    dia: dia,
+    mes: mes,
+    año: año,
+    estado: "Pendiente"
+  }
+
+  let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
+  tareasProyecto.push(tarea);
+
+  let tareas = dbRef.ref('tareas/');
+  tareas.push(tarea);
+
+  let miSemana = dbRef.ref('miSemana/'+asignado);
+  miSemana.push(tarea);
+
+  var numTareas;
+  let proyecto = dbRef.ref('proyecto/'+idProyecto);
+  proyecto.on('value', function(snapshot) {
+    let proyecto = snapshot.val();
+    numTareas = proyecto.numtareas;
+  });
+  numTareas++;
+  proyecto.update({numtareas: numTareas});
+
+  $('#tarea').val('').focus();
+  $('#categoria').val('');
+  $('#asignado').val('');
+  $('#fechaInicio').val('');
+}

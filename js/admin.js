@@ -53,24 +53,34 @@ function eliminarTarea(idTarea) {
   let tareas = firebase.database().ref('tareas/'+idTarea);
   tareas.on('value', function(snapshot) {
     let tareas = snapshot.val();
-    for(tarea in tareas) {
-      let datos = {
-        nombre: tareas[tarea].nombre,
-        dia: tareas[tarea].dia,
-        mes: tareas[tarea].mes,
-        año: tareas[tarea].año,
-        categoria: tareas[tarea].categoria,
-        estado: tareas[tarea].estado,
-        idP: tareas[tarea].idP,
-        asignado: tareas[tarea].asignado
-      }
-
-      let historial = firebase.database().ref('historial/tareas/'+idTarea);
-      historial.set(datos);
+    console.log(tareas);
+    /*let datos = {
+      nombre: tareas.nombre,
+      dia: tareas.dia,
+      mes: tareas.mes,
+      año: tareas.año,
+      categoria: tareas.categoria,
+      estado: tareas.estado,
+      idP: tareas.idP,
+      asignado: tareas.asignado
     }
+
+    let historial = firebase.database().ref('historial/tareas/'+idTarea);
+    historial.set(datos);
+
+    let tareasProyecto = firebase.database().ref('proyectos/'+tareas.idP+'/tareas/');
+    tareasProyecto.remove(idTarea);
+
+    var numTareas;
+    let proyecto = firebase.database().ref('proyectos/'+tareas.idP);
+    proyecto.on('value', function(snapshot) {
+      let proyecto = snapshot.val();
+      numTareas = proyecto.numtareas;
+    });
+    proyecto.update({numtareas: --numTareas});*/
   });
 
-  firebase.database().ref('tareas').remove(idTarea);
+  //firebase.database().ref('tareas').remove(idTarea);
 }
 
 function completarTarea(idTarea) {
@@ -78,6 +88,8 @@ function completarTarea(idTarea) {
   tareas.update({
     estado: "Completada"
   });
+
+
 }
 
 //checa si hay un usuario actualmente logeado
@@ -499,7 +511,7 @@ function agregarTarea() {
 
   let $span = $('<span/>', {
     'class': 'glyphicon glyphicon-remove',
-    'onclick': 'eliminarTarea("'+id+'")',
+    'onclick': 'borrarTarea("'+id+'")',
     'style': 'font-size: 15px; float: right; color: #D6D6D6;'
   })
   $div.append($span);
@@ -514,7 +526,7 @@ function agregarTarea() {
   $('#contadorTarea').html('0/60');
 }
 
-function eliminarTarea(id) {
+function borrarTarea(id) {
   $('#'+id).remove();
 }
 
@@ -649,7 +661,8 @@ function guardarProyecto() {
 
   for(let i=0; i<tareas.length; i++) {
     tareas[i].idP = proyectoId;
-    tareasRef.push(tareas[i]);
+    let tareaId = tareasRef.push(tareas[i]).getKey();
+    tareas[i].idTarea = tareaId;
     proyectoTareasRef.push(tareas[i]);
 
     for(let j=0; j<integrantes.length; j++) {
