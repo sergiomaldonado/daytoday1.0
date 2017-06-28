@@ -301,9 +301,8 @@ function mostrarProyectos() {
       for (proyecto in proyectos) {
         let fechaEntrega = proyectos[proyecto].fechaEntrega;
         let relativa = moment().endOf('day').fromNow();
-        console.log(relativa);
 
-        let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 ) / proyectos[proyecto].numTareas;
+        let porcentaje = Math.floor(( proyectos[proyecto].tareasCompletadas * 100 ) / proyectos[proyecto].numTareas);
         row += '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
                   '<a href="proyecto.php?id=' + proyecto + '">' +
                     '<div id="proyecto">' +
@@ -667,7 +666,7 @@ function eliminarHito(id) {
 function guardarProyecto() {
   let nombreProyecto = $('#nombreProyecto').val();
   let fechaInicio = $('#fechaInicio').val();
-  let fechaEntrega = $('#fechaEntrega').val();
+  let fechaEntrega = $('#fechaEntregaProyecto').val();
   let encargadoProyecto = $('#encargadoProyecto').val();
   let estructuraProyecto = $('#estructuraProyecto').val();
   let descripcionProyecto = $('#descripcionProyecto').val();
@@ -682,7 +681,7 @@ function guardarProyecto() {
   let proyectos = db.ref('proyectos/');
   let Proyecto = {
     nombre: nombreProyecto,
-    numtareas: numtareas,
+    numTareas: numtareas,
     tareasCompletadas: 0,
     fechaInicio: fechaInicio,
     fechaEntrega: fechaEntrega,

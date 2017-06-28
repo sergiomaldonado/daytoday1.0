@@ -156,179 +156,6 @@ function haySesion() {
 
 haySesion();
 
-function mostrarOrdenes() {
-
-   let ordenes = firebase.database().ref('ordenes/');
-    ordenes.on('value', function(snapshot) {
-      let ordenes = snapshot.val();
-      $('#tablaordenes tbody').empty();
-
-      let i = 1;
-      for (orden in ordenes) {
-        var state;
-        if(ordenes[orden].estado === "Pendiente"){
-          state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FF0000; width: 30px; height: 25px; border-radius: 15px;" class="badge"><span></a>';
-        }
-        if(ordenes[orden].estado === "En proceso"){
-          state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FFCC00; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
-        }
-        if(ordenes[orden].estado === "Listo"){
-          state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #4CDD85; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
-        }
-
-        let tr = $('<tr/>');
-        let td = '<td>' + i + '</td>' +
-                  '<td>' + ordenes[orden].cliente + '</td>' +
-                  '<td>' + ordenes[orden].descripcion + '</td>' +
-                  '<td>' + ordenes[orden].fechaRecep + '</td>' +
-                  '<td>' + ordenes[orden].fechaEntrega + '</td>';
-        tr.append(td);
-        let tdDrop = $('<td/>', {
-          'class': 'dropdown'
-        });
-        tdDrop.append(state);
-        let ul = $('<ul/>', {
-          'class': 'dropdown-menu'
-        });
-        let li1 = $('<li/>');
-        let a1 = $('<a/>', { 'onclick': 'marcarComoPendiente("'+orden+'")'});
-        let span1 = $('<span/>', {
-          'style': 'color: #FF0000;',
-          'class': 'glyphicon glyphicon-exclamation-sign'
-        });
-        a1.append(span1).append(' Marcar como pendiente');
-        li1.append(a1);
-
-        let li2 = $('<li/>');
-        let a2 = $('<a/>', { 'onclick': 'marcarComoEnProceso("'+orden+'")'});
-        let span2 = $('<span/>', {
-          'style': 'color: #FFCC00;',
-          'class': 'glyphicon glyphicon-time'
-        });
-        a2.append(span2).append(' Marcar como en proceso');
-        li2.append(a2);
-
-        let li3 = $('<li/>');
-        let a3 = $('<a/>', { 'onclick': 'marcarComoLista("'+orden+'")'});
-        let span3 = $('<span/>', {
-          'style': 'color: #4CDD85;',
-          'class': 'glyphicon glyphicon-ok'
-        });
-        a3.append(span3).append(' Marcar como lista');
-        li3.append(a3);
-
-        let li4 = $('<li/>');
-        let a4 = $('<a/>', { 'onclick': 'eliminarOrden("'+orden+'")'});
-        let span4 = $('<span/>', {
-          'class': 'icons glyphicon glyphicon-minus-sign'
-        });
-        a4.append(span4).append(' Eliminar orden');
-        li4.append(a4);
-
-        ul.append(li1).append(li2).append(li3).append(li4);
-
-        tdDrop.append(ul);
-        tr.append(tdDrop);
-        tr.append('<td>' + ordenes[orden].encargado + '</td>');
-
-        $('#tablaordenes tbody').append(tr);
-
-        i++;
-      }
-
-      i = 1;
-      state = "";
-    }, function(errorObject) {
-      console.log("La lectura de las ordenes falló: " + errorObject.code);
-    })
-}
-
-function marcarComoPendiente(idOrden) {
-  let ordenes = firebase.database().ref('ordenes/'+idOrden);
-
-  ordenes.update({
-    estado: 'Pendiente'
-  });
-}
-
-function marcarComoLista(idOrden) {
-  let ordenes = firebase.database().ref('ordenes/'+idOrden);
-
-  ordenes.update({
-    estado: 'Listo'
-  });
-}
-
-function marcarComoEnProceso(idOrden) {
-  let ordenes = firebase.database().ref('ordenes/'+idOrden);
-
-  ordenes.update({
-    estado: 'En proceso'
-  });
-}
-
-function eliminarOrden(idOrden) {
-  let ordenes = firebase.database().ref('ordenes/');
-
-  var ordenConsultada;
-
-  let consulta = firebase.database().ref('ordenes/'+idOrden);
-  consulta.on('value', function(snapshot) {
-    let orden = snapshot.val();
-
-    ordenConsultada = {
-      cliente: orden.cliente,
-      descripcion: orden.descripcion,
-      encargado: orden.encargado,
-      estado: orden.estado,
-      fechaEntrega: orden.fechaEntrega,
-      fechaRecep: orden.fechaRecep
-    }
-  });
-
-  let historial = firebase.database().ref('historial/ordenes');
-  historial.push(ordenConsultada);
-
-  ordenes.child(idOrden).remove();
-}
-
-function mostrarProyectos() {
-
-    let proyectos = firebase.database().ref('proyectos/');
-    proyectos.on('value', function(snapshot) {
-    let proyectos = snapshot.val();
-
-      $('#ContenedorProyectos').empty();
-      let row = "";
-
-      for (proyecto in proyectos) {
-        let fechaEntrega = proyectos[proyecto].fechaEntrega;
-        let relativa = moment().endOf('day').fromNow();
-        console.log(relativa);
-
-        let porcentaje = ( proyectos[proyecto].tareasCompletadas * 100 ) / proyectos[proyecto].numTareas;
-        row += '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
-                  '<a href="proyecto.php?id=' + proyecto + '">' +
-                    '<div id="proyecto">' +
-                      '<div id="nombreproyecto"><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
-                      '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas + '   Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
-                      '<div style="font-weight: bold;" class="progress">' +
-                        '<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="' + porcentaje + '" aria-valuemin="0" aria-valuemax="100" style="width:' + porcentaje + '%;">' +
-                          + porcentaje + ' %' +
-                        '</div>' +
-                      '</div>' +
-                    '</div>' +
-                  '</a>' +
-                '</div>';
-      }
-
-      $('#ContenedorProyectos').append(row);
-      row = "";
-    }, function(errorObject) {
-      console.log("La lectura de proyectos falló: " + errorObject.code);
-    })
-}
-
 function cerrarModalUsuario() {
   $('#agregarUsuario').modal('hide');
 
@@ -670,7 +497,7 @@ function eliminarHito(id) {
 function guardarProyecto() {
   let nombreProyecto = $('#nombreProyecto').val();
   let fechaInicio = $('#fechaInicio').val();
-  let fechaEntrega = $('#fechaEntrega').val();
+  let fechaEntrega = $('#fechaEntregaProyecto').val();
   let encargadoProyecto = $('#encargadoProyecto').val();
   let estructuraProyecto = $('#estructuraProyecto').val();
   let descripcionProyecto = $('#descripcionProyecto').val();
@@ -746,8 +573,6 @@ $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de 
   format: "mm/dd/yyyy",
   todayHighlight: true
 });
-
-
 
 //Te regresa un paso en el carousel de la modal Crear Proyecto
 function volver() {
