@@ -82,7 +82,7 @@
                 <div style="padding-top:30px;" class="live-box">
                   <ul class="nav nav-tabs">
                     <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab">Tareas de Proyecto</a></li>
-                    <li><a id="tabordenes" id="tabbrief" href="#m2" data-toggle="tab">Brief del Proyecto</a></li>
+                    <li><a id="tabbrief" id="tabbrief" href="#m2" data-toggle="tab">Brief del Proyecto</a></li>
                   </ul>
                   <!-- Tab Semana-->
                   <div class="tab-content" style="padding-top:20px;">
@@ -148,58 +148,8 @@
                     </div>
                     <!-- Tab Brief-->
                     <div class="tab-pane fade" style="padding-top:0px;" id="m2">
-                      <div class="row">
-                        <div style="" class="col-xs-8 col-sm-6">
-                          <h3 class="text-left">Encargado del Proyecto:<span id="text-brief"> Nombre del encargado</span></h3>
-                        </div>
-                        <div style="" class="col-xs-8 col-sm-6">
-                          <h3 class="text-left" style="font-weight:bold;">Equipo del Proyecto: <span id="text-brief"> Nombre del encargado</span></h3>
-                        </div>
-                        <div style="" class="col-xs-12 col-sm-12">
-                          <h3 class="text-left" style="font-weight:bold;">Descripcion del proyecto: <span id="text-brief-coment">¿De que se trata el proyecto?</span></h3>
-                          <div>
-                            <p class="text-left">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</p>
-                          </div>
-                        </div>
-                        <div style="" class="col-xs-12 col-sm-12">
-                          <h3 class="text-left" style="font-weight:bold;">Objetivos del proyecto: <span id="text-brief-coment">¿Que se quiere lograr?</span></h3>
-                          <div>
-                            <ul class="text-left">
-                              <li>Objetivo 1</li>
-                              <li>Objetivo 2</li>
-                              <li>Objetivo 3</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div style="" class="col-xs-12 col-sm-12">
-                          <h3 class="text-left" style="font-weight:bold;">Estructura del proyecto: <span id="text-brief-coment">¿Como se va a llevar acabo el proyecto? Pasos para realizar el proyecto.</span></h3>
-                          <div>
-                          </div>
-                        </div>
-                        <div style="" class="col-xs-12 col-sm-12">
-                          <div>
-                            <h3 class="text-left" style="font-weight:bold;">Documentación: <span id="text-brief-coment">Documentos necesarios para el proyecto.</span></h3>
-                          </div>
-                        </div>
-                        <div style="" class="col-xs-12 col-sm-12">
-                          <div>
-                            <h3 class="text-left" style="font-weight:bold;">Tiempos de entrega: <span id="text-brief-coment">Fecha de entrega y estimado de duracion del proyecto.</span></h3>
-                            <ul class="text-left">
-                              <li>fecha 1</li>
-                              <li id="hito"><span class="glyphicon glyphicon-star"></span>Fecha 2</li>
-                              <li>fecha 3</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div style="" class="col-xs-12 col-sm-12">
-                          <div>
-                            <h3 class="text-left" style="font-weight:bold;">Entregables: <span id="text-brief-coment">¿Que es lo que vamos a entregar una ves finalizado el proyecto?</span></h3>
-                            <ul class="text-left">
-                              <li>Entregable 1</li>
-                              <li>Entregable 2</li>
-                            </ul>
-                          </div>
-                        </div>
+                      <div id="contenedorBrief" class="row">
+
                       </div>
                     </div>
                   </div>
@@ -489,8 +439,8 @@
         };
         firebase.initializeApp(config);
         </script>
-        <script src="js/admin.js"></script>
-        <script src="js/proyecto.js"></script>
+
+
         <script type="text/javascript">
         $(function(){
           var colpick = $('.demo').each( function() {
@@ -661,8 +611,9 @@
             {{ } }}
           </table>
         </script>
-        <script src="js/calendarioPro.js"></script>
-        <script src="js/busqueda.js"></script>
+        <script src="js/admin.js"></script>
+        <script src="js/proyecto.js"></script>
+        <script src="js/calendarioProyecto.js"></script>
         <script src="js/contador.js"></script>
         <script type="text/javascript" src="js/currency-autocomplete.js"></script>
     </body>

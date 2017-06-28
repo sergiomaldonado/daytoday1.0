@@ -58,7 +58,7 @@ function eliminarTarea(idTarea) {
     idTareaEnNodoTareas = snapshot.key;
 
     let tareasRef = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
-    tareasRef.on('value', function(daticos) {
+    tareasRef.once('value', function(daticos) {
       let tareas = daticos.val();
       datos = {
         nombre: tareas.nombre,
@@ -689,7 +689,7 @@ function guardarProyecto() {
     encargado: encargadoProyecto,
     estructura: estructuraProyecto,
     descripcion: descripcionProyecto,
-    docuementacion: documentacion,
+    documentacion: documentacion,
     objetivos: objetivos,
     indicadores: indicadores,
     hitos: hitos,

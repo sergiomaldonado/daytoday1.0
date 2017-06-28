@@ -51,14 +51,14 @@ mostrarCategorias();
 
 function eliminarTarea(idTarea) {
   //Eliminar del nodo Tarea
-  var idTareaEnNodoTareas, idTareaEnNodoMiSemana, datos;
-
+  var idTareaEnNodoTareas, datos;
+  var refMiSemana;
   let nodoTareas = firebase.database().ref('tareas/');
   nodoTareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
     idTareaEnNodoTareas = snapshot.key;
 
     let tareasRef = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
-    tareasRef.on('value', function(daticos) {
+    tareasRef.once('value', function(daticos) {
       let tareas = daticos.val();
       datos = {
         nombre: tareas.nombre,
@@ -71,14 +71,15 @@ function eliminarTarea(idTarea) {
         asignado: tareas.asignado,
         idTarea: tareas.idTarea
       }
+      refMiSemana = firebase.database().ref('miSemana/'+tareas.asignado);
     });
-    console.log(datos.asignado);
+
     let historial = firebase.database().ref('historial/tareas/'+idTarea); //mandar a historial
     historial.set(datos);
     nodoTareas.child(snapshot.key).remove();
   });
 
-  let refMiSemana = firebase.database().ref('miSemana/'+datos.asignado);
+  //let refMiSemana = firebase.database().ref('miSemana/'+datos.asignado);
   refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
     refMiSemana.child(snapshot.key).remove();
   });
@@ -689,7 +690,7 @@ function guardarProyecto() {
     encargado: encargadoProyecto,
     estructura: estructuraProyecto,
     descripcion: descripcionProyecto,
-    docuementacion: documentacion,
+    documentacion: documentacion,
     objetivos: objetivos,
     indicadores: indicadores,
     hitos: hitos,

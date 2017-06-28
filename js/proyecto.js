@@ -15,7 +15,7 @@ function obtenerTituloProyecto() {
 
 obtenerTituloProyecto();
 
-function rellenarContenedorDeTareas() {
+/*function rellenarContenedorDeTareas() {
   let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
   tareasProyecto.on('value', function(snapshot) {
     let Tareas = snapshot.val();
@@ -33,22 +33,92 @@ function rellenarContenedorDeTareas() {
   }, function(errorObject) {
     console.log("La lectura de tareas falló: " + errorObject.code)
   });
+}*/
+
+function rellenarBrief() {
+  let rutaProyecto = dbRef.ref('proyectos/'+idProyecto);
+  rutaProyecto.on('value', function(snapshot) {
+    let datosProyecto = snapshot.val();
+    $('#contenedorBrief').empty();
+
+    let objectives = "";
+    for(let i=0; i<datosProyecto.objetivos.length; i++) {
+      objectives += '<li>' + datosProyecto.objetivos[i] + '</li>';
+    }
+
+    let hitos = "";
+    for(let i=0; i<datosProyecto.hitos.length; i++) {
+      hitos += '<li><span class="glyphicon glyphicon-star"></span>' + datosProyecto.hitos[i] + '</li>';
+    }
+
+
+    let row = '<div style="" class="col-xs-8 col-sm-6">' +
+                '<h3 class="text-left">Encargado del Proyecto:<span id="text-brief"> '+datosProyecto.encargado+'</span></h3>' +
+              '</div>' +
+              '<div style="" class="col-xs-8 col-sm-6">' +
+                '<h3 class="text-left" style="font-weight:bold;">Equipo del Proyecto: <span id="text-brief"> '+datosProyecto.equipo.join(', ') +'</span></h3>' +
+              '</div>' +
+              '<div style="" class="col-xs-12 col-sm-12">' +
+                '<h3 class="text-left" style="font-weight:bold;">Descripcion del proyecto: <span id="text-brief-coment">¿De que se trata el proyecto?</span></h3>' +
+                '<div>' +
+                  '<p class="text-left">'+datosProyecto.descripcion+'</p>' +
+                '</div>' +
+              '</div>' +
+              '<div style="" class="col-xs-12 col-sm-12">' +
+                '<h3 class="text-left" style="font-weight:bold;">Objetivos del proyecto: <span id="text-brief-coment">¿Que se quiere lograr?</span></h3>' +
+                '<div>' +
+                  '<ul class="text-left">' +
+                    objectives +
+                  '</ul>' +
+                '</div>' +
+              '</div>' +
+              '<div style="" class="col-xs-12 col-sm-12">' +
+                '<h3 class="text-left" style="font-weight:bold;">Estructura del proyecto: <span id="text-brief-coment">'+datosProyecto.estructura+'</span></h3>' +
+                '<div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="" class="col-xs-12 col-sm-12">' +
+                '<div>' +
+                  '<h3 class="text-left" style="font-weight:bold;">Documentación: <span id="text-brief-coment">'+datosProyecto.documentacion+'</span></h3>' +
+                '</div>' +
+              '</div>' +
+              '<div style="" class="col-xs-12 col-sm-12">' +
+                '<div>' +
+                  '<h3 class="text-left" style="font-weight:bold;">Tiempos de entrega: <span id="text-brief-coment">Fecha de entrega y estimado de duracion del proyecto.</span></h3>' +
+                  '<ul class="text-left">' +
+                    hitos +
+                  '</ul>' +
+                '</div>' +
+              '</div>' +
+              '<div style="" class="col-xs-12 col-sm-12">' +
+                '<div>' +
+                  '<h3 class="text-left" style="font-weight:bold;">Entregables: <span id="text-brief-coment">¿Que es lo que vamos a entregar una ves finalizado el proyecto?</span></h3>' +
+                  '<ul class="text-left">' +
+                    '<li>Entregable 1</li>' +
+                    '<li>Entregable 2</li>' +
+                  '</ul>' +
+                '</div>' +
+              '</div>';
+              console.log(row);
+    $('#contenedorBrief').append(row);
+    row = "";
+    objectives = "";
+    hitos = "";
+  })
 }
 
 $(document).ready(function() {
 
-  rellenarContenedorDeTareas();
-
-  $('#tabsemana').on('shown.bs.tab', function (e) {
+  /*$('#tabsemana').on('shown.bs.tab', function (e) {
     e.target
     e.relatedTarget
-
-    rellenarContenedorDeTareas();
-  })
+  })*/
 
   $('#tabbrief').on('shown.bs.tab', function(e) {
     e.target
     e.relatedTarget
+
+    rellenarBrief();
   })
 });
 
