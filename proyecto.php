@@ -661,7 +661,7 @@
             {{ } }}
           </table>
         </script>
-        <script src="js/calendarioProyecto.js"></script>
+        <script src="js/calendarioPro.js"></script>
         <script src="js/busqueda.js"></script>
         <script src="js/contador.js"></script>
         <script type="text/javascript" src="js/currency-autocomplete.js"></script>

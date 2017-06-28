@@ -132,10 +132,10 @@ function dayAddEvent(index, event) { //asigna el evento al dia
 
 function monthAddEvent(index, event) {
   var $event;
-  if(event.estado == 'Pendiente' || event.completadas == true) {
+  if(event.estado == 'Pendiente') {
     $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
   }
-  else if(event.estado == 'Completada') {
+  else if(event.estado == 'Completada' || event.completadas == true) {
     $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
   }
 
@@ -171,17 +171,13 @@ function monthAddEvent(index, event) {
       }
 
       if(event.estado == "Pendiente") {
-        $event.append('<div id="mostramelo" class="mostramelo">'+
-                        '<button id="btnEditar" class="editarTarea" onclick="editarTarea('+ event.id+')">'+
-                          '<span class="glyphicon glyphicon-pencil"></span>'+
-                        '</button>'+
-                        '<button id="btnEliminar" class="eliminarTarea" onclick="eliminarTarea('+ event.id+')">'+
-                          '<span class="glyphicon glyphicon-remove"></span>'+
-                        '</button>'+
-                        '<button id="btnCompletar" class="completarTarea" onclick="completarTarea('+ event.id+')">'+
-                          '<span class="glyphicon glyphicon-ok"></span>'+
-                        '</button>'+
-                      '</div>');
+        let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
+        let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
+        let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
+
+        $buttonCompletar.append($spanCompletar);
+        $div.append($buttonCompletar);
+        $event.append($div);
       }
       day.append($event);
 
@@ -271,45 +267,67 @@ function llenarCalendario(ruta, completadas = "") {
   let semana = firebase.database().ref(ruta);
   semana.on('value', function(snapshot) {
     let tareas=snapshot.val();
-    for(tarea in tareas) {
-    nombres.push(String(tareas[tarea].nombre));
-    estados.push(tareas[tarea].estado);
-    comienzos.push(
-      {
-        año: tareas[tarea].año,
-        mes: tareas[tarea].mes,
-        dia: tareas[tarea].dia
-      }
-    );
 
-    let cat = firebase.database().ref('/categorias');
-    cat.on('value', function(snapshot) {
-      categorias = snapshot.val();
+    if(completadas=="Completadas") {
+      for(tarea in tareas) {
+        if(tareas[tarea].estado == "Completada") {
+          ids.push(tareas[tarea].idTarea);
+          nombres.push(String(tareas[tarea].nombre));
+          estados.push(tareas[tarea].estado);
+          comienzos.push(
+            {
+              año: tareas[tarea].año,
+              mes: tareas[tarea].mes,
+              dia: tareas[tarea].dia
+            }
+          );
 
-      for(categoria in categorias) {
-        if(categorias[categoria].nombre == tareas[tarea].categoria){
-          colores.push(categorias[categoria].color);
+          let cat = firebase.database().ref('/categorias');
+          cat.on('value', function(snapshot) {
+            categorias = snapshot.val();
+
+            for(categoria in categorias) {
+              if(categorias[categoria].nombre == tareas[tarea].categoria){
+                colores.push(categorias[categoria].color);
+              }
+            }
+          })
         }
       }
-    })
-    //colores.push(tareas[tarea].color);
-  }
+    }
+    else {
+      for(tarea in tareas) {
+        ids.push(tareas[tarea].idTarea);
+        nombres.push(String(tareas[tarea].nombre));
+        estados.push(tareas[tarea].estado);
+        comienzos.push(
+          {
+            año: tareas[tarea].año,
+            mes: tareas[tarea].mes,
+            dia: tareas[tarea].dia
+          }
+        );
+
+        let cat = firebase.database().ref('/categorias');
+        cat.on('value', function(snapshot) {
+          categorias = snapshot.val();
+
+          for(categoria in categorias) {
+            if(categorias[categoria].nombre == tareas[tarea].categoria){
+              colores.push(categorias[categoria].color);
+            }
+          }
+        })
+        //colores.push(tareas[tarea].color);
+      }
+    }
 
   var slipsum = [];
 
-  if(completadas=="Completadas"){
-    //Recorro el arreglo de titulos de las tareas
-    for(i = 0; i < nombres.length; i++) {
-      end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-      data.push({ title: nombres[i], color: colores[i], completadas: true, estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
-    }
-  }
-  else {
-    //Recorro el arreglo de titulos de las tareas
-    for(i = 0; i < nombres.length; i++) {
-      end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-      data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
-    }
+  //Recorro el arreglo de titulos de las tareas
+  for(i = 0; i < nombres.length; i++) {
+    end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
+    data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -394,4 +412,5 @@ starts = [];
 comienzos = [];
 data = [];
 ids=[];
+colores = [];
 })

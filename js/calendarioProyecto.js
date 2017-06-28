@@ -170,11 +170,11 @@ function monthAddEvent(index, event) {
       if(event.estado == "Pendiente") {
 
         let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
-        let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'")'});
+        let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
         let $spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
-        let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'")'});
+        let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
         let $spanEliminar = $('<span/>', {'class': 'glyphicon glyphicon-remove'});
-        let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
+        let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
         let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
 
         $buttonEditar.append($spanEditar);
@@ -270,15 +270,19 @@ var estados = [];
 var comienzos = [];
 var data = [];
 var colores = [];
+var asignados = [];
+var idP = [];
 
 var ruta = $('#idProyecto').val();
 let semana = firebase.database().ref('/proyectos/'+ruta+'/tareas');
 semana.on('value', function(snapshot) {
 let tareas=snapshot.val();
 for(tarea in tareas) {
-  ids.push(tarea);
+  ids.push(tareas[tarea].idTarea);
   nombres.push(String(tareas[tarea].nombre));
+  asignados.push(tareas[tarea].asignado);
   estados.push(tareas[tarea].estado);
+  idP.push(tareas[tarea].idP);
   comienzos.push(
     {
       año: tareas[tarea].año,
@@ -305,7 +309,7 @@ var slipsum = [];
 //Recorro el arreglo de titulos de las tareas
 for(let i = 0; i < nombres.length; i++) {
   end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-  data.push({ title: nombres[i], color: colores[i], id:ids[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+  data.push({ title: nombres[i], color: colores[i], id:ids[i], idP: idP[i], asignado:asignados[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
 }
 
 data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -324,4 +328,6 @@ comienzos = [];
 colores = [];
 data = [];
 ids=[];
+asignados = [];
+idP = [];
 })

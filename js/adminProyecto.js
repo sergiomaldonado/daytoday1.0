@@ -72,7 +72,7 @@ function eliminarTarea(idTarea) {
         idTarea: tareas.idTarea
       }
     });
-
+    console.log(datos.asignado);
     let historial = firebase.database().ref('historial/tareas/'+idTarea); //mandar a historial
     historial.set(datos);
     nodoTareas.child(snapshot.key).remove();
