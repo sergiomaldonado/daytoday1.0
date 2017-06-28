@@ -41,34 +41,34 @@ function mostrarCategorias() {
 
 mostrarCategorias();
 
-function completarTarea(idTarea) {
-  var idTareaEnNodoTareas, idTareaEnNodoMiSemana, datos;
-  var Asignado;
-  var idProy;
+function completarTarea(idTarea, idProyecto) {
+  var idTareaEnNodoTareas, datos;
 
   let nodoTareas = firebase.database().ref('tareas/');
   nodoTareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
     idTareaEnNodoTareas = snapshot.key;
 
     let tareasRef = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
-    tareasRef.on('value').then( function(daticos) {
+    tareasRef.on('value', function(daticos) {
       let tareas = daticos.val();
-      idProy = tareas.idP;
-      Asignado = tareas.asignado;
+      datos = {
+        idP: tareas.idP,
+        asignado: tareas.asignado
+      }
+      let refMiSemana = firebase.database().ref('miSemana/'+tareas.asignado);
+      refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+        firebase.database().ref('miSemana/'+datos.asignado+'/'+snapshot.key).update({ estado: "Completada"});
+      });
     });
-    console.log(Asignado);
+
     firebase.database().ref('tareas/'+idTareaEnNodoTareas).update({ estado: "Completada" });
   });
-  let refMiSemana = firebase.database().ref('miSemana/'+Asignado);
-  refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
-    firebase.database().ref('miSemana/'+Asignado+'/'+snapshot.key).update({ estado: "Completada"});
-  });
 
-  let tareasProyecto = firebase.database().ref('proyectos/'+idProy+'/tareas/'); //Eliminar del nodo tareas del proyecto
-  firebase.database().ref('proyectos/'+idProy+'/tareas/'+idTarea).update({ estado: "Completada" });
+  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/');
+  firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea).update({ estado: "Completada" });
 
   var tareasCompletadas;
-  let proyecto = firebase.database().ref('proyectos/'+idProy); //actualizar numero de tareas
+  let proyecto = firebase.database().ref('proyectos/'+idProyecto);
   proyecto.once('value').then( function(snapshot) {
     let datosProyecto = snapshot.val();
     tareasCompletadas = datosProyecto.tareasCompletadas;

@@ -172,7 +172,7 @@ function monthAddEvent(index, event) {
 
       if(event.estado == "Pendiente") {
         let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
-        let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
+        let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'", "'+event.idP+'")'});
         let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
 
         $buttonCompletar.append($spanCompletar);
@@ -258,6 +258,7 @@ data: []
 
 var ids = [];
 var nombres = [];
+var idsP = [];
 var estados = [];
 var comienzos = [];
 var data = [];
@@ -273,6 +274,7 @@ function llenarCalendario(ruta, completadas = "") {
         if(tareas[tarea].estado == "Completada") {
           ids.push(tareas[tarea].idTarea);
           nombres.push(String(tareas[tarea].nombre));
+          idsP.push(tareas[tarea].idP);
           estados.push(tareas[tarea].estado);
           comienzos.push(
             {
@@ -299,6 +301,7 @@ function llenarCalendario(ruta, completadas = "") {
       for(tarea in tareas) {
         ids.push(tareas[tarea].idTarea);
         nombres.push(String(tareas[tarea].nombre));
+        idsP.push(tareas[tarea].idP);
         estados.push(tareas[tarea].estado);
         comienzos.push(
           {
@@ -327,7 +330,7 @@ function llenarCalendario(ruta, completadas = "") {
   //Recorro el arreglo de titulos de las tareas
   for(i = 0; i < nombres.length; i++) {
     end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    data.push({ title: nombres[i], color: colores[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -340,6 +343,7 @@ function llenarCalendario(ruta, completadas = "") {
   });
 
   nombres = [];
+  idsP = [];
   estados = [];
   comienzos = [];
   colores = [];
@@ -366,7 +370,9 @@ let semana = firebase.database().ref("/tareas");
 semana.on('value', function(snapshot) {
   let tareas=snapshot.val();
   for(tarea in tareas) {
+  ids.push(tareas[tarea].idTarea);
   nombres.push(String(tareas[tarea].nombre));
+  idsP.push(tareas[tarea].idP);
   estados.push(tareas[tarea].estado);
   comienzos.push(
     {
@@ -386,7 +392,6 @@ semana.on('value', function(snapshot) {
       }
     }
   })
-  //colores.push(tareas[tarea].color);
 }
 
 var slipsum = [];
@@ -394,7 +399,7 @@ var slipsum = [];
 //Recorro el arreglo de titulos de las tareas
 for(i = 0; i < nombres.length; i++) {
   end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-  data.push({ title: nombres[i], color: colores[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+  data.push({ title: nombres[i], color: colores[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
 }
 
 data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -407,6 +412,7 @@ $('#holder').calendar({
 });
 
 nombres = [];
+idsP = [];
 estados = [];
 starts = [];
 comienzos = [];
