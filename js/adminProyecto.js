@@ -99,7 +99,7 @@ function eliminarTarea(idTarea) {
 }
 
 function completarTarea(idTarea) {
-  var idTareaEnNodoTareas, idTareaEnNodoMiSemana, datos;
+  var idTareaEnNodoTareas, datos;
 
   let nodoTareas = firebase.database().ref('tareas/');
   nodoTareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
@@ -112,21 +112,22 @@ function completarTarea(idTarea) {
         idP: tareas.idP,
         asignado: tareas.asignado
       }
+      let refMiSemana = firebase.database().ref('miSemana/'+tareas.asignado);
+      refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+        firebase.database().ref('miSemana/'+datos.asignado+'/'+snapshot.key).update({ estado: "Completada"});
+      });
     });
 
     firebase.database().ref('tareas/'+idTareaEnNodoTareas).update({ estado: "Completada" });
+
   });
 
-  let refMiSemana = firebase.database().ref('miSemana/'+datos.asignado);
-  refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
-    firebase.database().ref('miSemana/'+datos.asignado+'/'+snapshot.key).update({ estado: "Completada"});
-  });
-
-  let tareasProyecto = firebase.database().ref('proyectos/'+datos.idP+'/tareas/'); //Eliminar del nodo tareas del proyecto
-  firebase.database().ref('proyectos/'+datos.idP+'/tareas/'+idTarea).update({ estado: "Completada" });
+  let idProyecto = $('#idProyecto').val();
+  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'); //Eliminar del nodo tareas del proyecto
+  firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea).update({ estado: "Completada" });
 
   var tareasCompletadas;
-  let proyecto = firebase.database().ref('proyectos/'+datos.idP); //actualizar numero de tareas
+  let proyecto = firebase.database().ref('proyectos/'+idProyecto); //actualizar numero de tareas
   proyecto.once('value').then( function(snapshot) {
     let datosProyecto = snapshot.val();
     tareasCompletadas = datosProyecto.tareasCompletadas;
@@ -684,7 +685,7 @@ function guardarProyecto() {
   let proyectos = db.ref('proyectos/');
   let Proyecto = {
     nombre: nombreProyecto,
-    numtareas: numtareas,
+    numTareas: numtareas,
     tareasCompletadas: 0,
     fechaInicio: fechaInicio,
     fechaEntrega: fechaEntrega,
