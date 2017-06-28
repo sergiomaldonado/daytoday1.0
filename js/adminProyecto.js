@@ -72,6 +72,9 @@ function eliminarTarea(idTarea) {
         idTarea: tareas.idTarea
       }
       refMiSemana = firebase.database().ref('miSemana/'+tareas.asignado);
+      refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+        refMiSemana.child(snapshot.key).remove();
+      });
     });
 
     let historial = firebase.database().ref('historial/tareas/'+idTarea); //mandar a historial
@@ -80,15 +83,13 @@ function eliminarTarea(idTarea) {
   });
 
   //let refMiSemana = firebase.database().ref('miSemana/'+datos.asignado);
-  refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
-    refMiSemana.child(snapshot.key).remove();
-  });
 
-  let tareasProyecto = firebase.database().ref('proyectos/'+datos.idP+'/tareas/'); //Eliminar del nodo tareas del proyecto
+  let idProyecto = $('#idProyecto').val();
+  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'); //Eliminar del nodo tareas del proyecto
   tareasProyecto.child(idTarea).remove();
 
   var numTareas;
-  let proyecto = firebase.database().ref('proyectos/'+datos.idP); //actualizar numero de tareas
+  let proyecto = firebase.database().ref('proyectos/'+idProyecto); //actualizar numero de tareas
   proyecto.once('value').then( function(snapshot) {
     let datosProyecto = snapshot.val();
     numTareas = datosProyecto.numtareas;

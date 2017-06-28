@@ -611,7 +611,7 @@
             {{ } }}
           </table>
         </script>
-        <script src="js/admin.js"></script>
+        <script src="js/adminProyecto.js"></script>
         <script src="js/proyecto.js"></script>
         <script src="js/calendarioProyecto.js"></script>
         <script src="js/contador.js"></script>
