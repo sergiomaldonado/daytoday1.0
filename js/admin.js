@@ -518,8 +518,79 @@ function guardarOrden() {
       $('#helpblockEncargado').hide();
     }
   }
-
 }
+
+$('#nombre').keyup(function () {
+  let nombre = $('#nombre').val();
+  if(nombre.length < 1) {
+    $('#nombre').parent().addClass('has-error');
+    $('#helpblockNombre').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#nombre').parent().removeClass('has-error');
+    $('#helpblockNombre').hide();
+  }
+});
+
+$('#apellidos').keyup(function () {
+  let apellidos = $('#apellidos').val();
+  if(apellidos.length < 1) {
+    $('#apellidos').parent().addClass('has-error');
+    $('#helpblockApellidos').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#apellidos').parent().removeClass('has-error');
+    $('#helpblockApellidos').hide();
+  }
+});
+
+$('#agregarUsuarioEmail').keyup(function () {
+  let agregarUsuarioEmail = $('#agregarUsuarioEmail').val();
+  if(agregarUsuarioEmail.length < 1) {
+    $('#agregarUsuarioEmail').parent().addClass('has-error');
+    $('#helpblockagregarUsuarioEmail').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#agregarUsuarioEmail').parent().removeClass('has-error');
+    $('#helpblockagregarUsuarioEmail').hide();
+  }
+});
+
+$('#agregarUsuarioPuesto').change(function () {
+  let agregarUsuarioPuesto = $('#agregarUsuarioPuesto').val();
+  if(agregarUsuarioPuesto.length < 1) {
+    $('#agregarUsuarioPuesto').parent().addClass('has-error');
+    $('#helpblockagregarUsuarioPuesto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#agregarUsuarioPuesto').parent().removeClass('has-error');
+    $('#helpblockagregarUsuarioPuesto').hide();
+  }
+});
+
+$('#nuevacontraseña').keyup(function () {
+  let nuevacontraseña = $('#nuevacontraseña').val();
+  if(nuevacontraseña.length < 1) {
+    $('#nuevacontraseña').parent().addClass('has-error');
+    $('#helpblockNuevaContraseña').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#nuevacontraseña').parent().removeClass('has-error');
+    $('#helpblockNuevaContraseña').hide();
+  }
+});
+
+$('#confirmarcontraseña').keyup(function () {
+  let confirmarcontraseña = $('#confirmarcontraseña').val();
+  if(confirmarcontraseña.length < 1) {
+    $('#confirmarcontraseña').parent().addClass('has-error');
+    $('#helpblockConfirmarContraseña').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#confirmarcontraseña').parent().removeClass('has-error');
+    $('#helpblockConfirmarContraseña').hide();
+  }
+});
 
 //guarda un nuevo Usuario en la base de datos de Firebase en el nodo Usuarios
 function guardarUsuario() {
@@ -527,35 +598,87 @@ function guardarUsuario() {
   let apellidos = $('#apellidos').val();
   let agregarUsuarioEmail = $('#agregarUsuarioEmail').val();
   let agregarUsuarioPuesto = $('#agregarUsuarioPuesto').val();
-  var agregarUsuarioContrasena;
+  let nuevaContraseña = $('#nuevacontraseña').val()
+  var confirmarContraseña = $('#confirmarcontraseña').val();
 
-  if($('#nuevacontrasena').val() == $('#confirmarcontrasena').val()) {
-    agregarUsuarioContrasena = $('#nuevacontrasena').val();
+  if(nombre.length > 0 && apellidos.length > 0 && agregarUsuarioEmail.length > 0 && agregarUsuarioPuesto.length > 0 && nuevaContrasena.length > 0 && confirmarContrasena.length > 0) {
+    if(nuevaContrasena == confirmarContrasena) {
 
-    firebase.auth().createUserWithEmailAndPassword(agregarUsuarioEmail, agregarUsuarioContrasena)
-    .then(function(data) {
-      console.log(data);
-      let uid = data.uid;
-      console.log(uid);
+      firebase.auth().createUserWithEmailAndPassword(agregarUsuarioEmail, nuevaContrasena)
+      .then(function(data) {
+        console.log(data);
+        let uid = data.uid;
+        console.log(uid);
 
-      let usuarios = firebase.database().ref('usuarios/'+uid);
-      let Usuario = {
-        nombre: nombre,
-        apellidos: apellidos,
-        puesto: agregarUsuarioPuesto
-      }
-      usuarios.set(Usuario); //metodo set para insertar de Firebase
+        let usuarios = firebase.database().ref('usuarios/'+uid);
+        let Usuario = {
+          nombre: nombre,
+          apellidos: apellidos,
+          puesto: agregarUsuarioPuesto
+        }
+        usuarios.set(Usuario); //metodo set para insertar de Firebase
 
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-    cerrarModalUsuario();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+      cerrarModalUsuario();
 
-    logOut();
+      logOut();
+    }
+    else {
+      console.log("Las contraseñas no coinciden");
+    }
   }
   else {
-    console.log("Las contraseñas no coinciden");
+    if(nombre == "") {
+      $('#nombre').parent().addClass('has-error');
+      $('#helpblockNombre').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nombre').parent().removeClass('has-error');
+      $('#helpblockNombre').hide();
+    }
+    if(apellidos == "") {
+      $('#apellidos').parent().addClass('has-error');
+      $('#helpblockApellidos').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#apellidos').parent().removeClass('has-error');
+      $('#helpblockApellidos').hide();
+    }
+    if(agregarUsuarioEmail == "") {
+      $('#agregarUsuarioEmail').parent().addClass('has-error');
+      $('#helpblockagregarUsuarioEmail').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#agregarUsuarioEmail').parent().removeClass('has-error');
+      $('#helpblockagregarUsuarioEmail').hide();
+    }
+    if(agregarUsuarioPuesto == null) {
+      $('#agregarUsuarioPuesto').parent().addClass('has-error');
+      $('#helpblockagregarUsuarioPuesto').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#agregarUsuarioPuesto').parent().removeClass('has-error');
+      $('#helpblockagregarUsuarioPuesto').hide();
+    }
+    if(nuevaContraseña == "") {
+      $('#nuevacontraseña').parent().addClass('has-error');
+      $('#helpblockNuevaContraseña').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nuevacontraseña').parent().removeClass('has-error');
+      $('#helpblockNuevaContraseña').hide();
+    }
+    if(confirmarContraseña == "") {
+      $('#confirmarcontraseña').parent().addClass('has-error');
+      $('#helpblockConfirmarContraseña').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#confirmarcontraseña').parent().removeClass('has-error');
+      $('#helpblockConfirmarContraseña').hide();
+    }
   }
 }
 
@@ -1025,8 +1148,6 @@ $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de 
   format: "mm/dd/yyyy",
   todayHighlight: true
 });
-
-
 
 //Te regresa un paso en el carousel de la modal Crear Proyecto
 function volver() {

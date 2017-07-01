@@ -294,13 +294,16 @@
                 <div class="form-group">
                   <div class="col-md-6">
                     <input id="nombre" type="text" name="" class="form-control input-lg" value="" placeholder="Nombre" required>
+                    <span style="display: none;" id="helpblockNombre" class="help-block"></span>
                   </div>
                   <div class="col-md-6">
                     <input id="apellidos" type="text" name="" class="form-control input-lg" value="" placeholder="Apellidos" required>
+                    <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
                   </div>
                 </div>
                 <div class="form-group">
                   <input id="agregarUsuarioEmail" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
+                  <span style="display: none;" id="helpblockagregarUsuarioEmail" class="help-block"></span>
                 </div>
                 <div class="form-group">
                   <select id="agregarUsuarioPuesto" name="" class="input-lg form-control" required>
@@ -308,12 +311,15 @@
                     <option value="Administrador">Administrador</option>
                     <option value="Usuario">Usuario</option>
                   </select>
+                  <span style="display: none;" id="helpblockagregarUsuarioPuesto" class="help-block"></span>
                 </div>
                 <div class="form-group">
-                  <input id="nuevacontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
+                  <input id="nuevacontraseña" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
+                  <span style="display: none;" id="helpblockNuevaContraseña" class="help-block"></span>
                 </div>
                 <div class="form-group">
-                  <input id="confirmarcontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Confirmar contraseña" required>
+                  <input id="confirmarcontraseña" type="password" name="" class="form-control input-lg" value="" placeholder="Confirmar contraseña" required>
+                  <span style="display: none;" id="helpblockConfirmarContraseña" class="help-block"></span>
                 </div>
                 <div class="form-group">
                   <button onclick="guardarUsuario()" type="button" class="btns btn-siguiente">Guardar</button>
