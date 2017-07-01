@@ -20,16 +20,22 @@
                 <img src="assets/logo.svg" width="250px" heigth="90px" alt="">
                 <p>El día a día de tu trabajo</p>
                 <div id="form">
-                  <input id="email" type="email" name="usuario" class="form-control input-lg" value="" placeholder="Correo electrónico" required><br>
-                  <div id="erroremail" style="display: none;" class="alert alert-danger animated" role="alert"></div>
-                  <input id="contrasena" type="password" name="password" class="form-control input-lg" value="" placeholder="Contraseña" required><br>
-                  <div id="errorcontraseña" style="display: none;" class="alert alert-danger animated" role="alert"></div>
-                  <select id="puesto" name="puesto" class="input-lg form-control" required>
-                    <option disabled selected value="">Puesto</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Usuario">Usuario</option>
-                  </select><br>
-                  <div id="errorpuesto" style="display: none;" class="alert alert-danger animated" role="alert"></div>
+                  <div class="form-group">
+                    <input id="email" type="email" name="usuario" class="form-control input-lg" value="" placeholder="Correo electrónico" required aria-describedby="helpBlockEmail">
+                    <span style="display: none;" id="helpblockEmail" class="help-block">El email es obligatorio</span>
+                  </div>
+                  <div class="form-group">
+                    <input id="contrasena" type="password" name="password" class="form-control input-lg" value="" placeholder="Contraseña" required>
+                    <span style="display: none;" id="helpblockContraseña" class="help-block">La contraseña es obligatoria</span>
+                  </div>
+                  <div class="form-group">
+                    <select id="puesto" name="puesto" class="input-lg form-control" required>
+                      <option disabled selected value="">Puesto</option>
+                      <option value="Administrador">Administrador</option>
+                      <option value="Usuario">Usuario</option>
+                    </select>
+                    <span style="display: none;" id="helpblockPuesto" class="help-block">El puesto es obligatorio</span>
+                  </div>
                   <button onclick="login()" id="listo" class="boton boton-default" type="submit" name="">LISTO</button>
                 </div>
               </div>

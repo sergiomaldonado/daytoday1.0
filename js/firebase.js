@@ -11,44 +11,56 @@
     if(email.length > 0 && contrasena.length > 0 && tipousuario != null) {
       firebase.auth().signInWithEmailAndPassword(email, contrasena)
       .then(function() { //en caso de exito se obtiene el usuario
-        getUser();
+        getUser(tipousuario);
       })
       .catch(function(error) {
         console.log(error); //en caso de error lo imprime en consola
 
         if(error.code === 'auth/user-not-found') { //imprime un error si tu usuario es equivocado
-          $('#errorusuario').html('El usuario es incorrecto').fadeIn("slow").show();
+          /*$('#errorusuario').html('El usuario es incorrecto').fadeIn("slow").show();
           setTimeout(function() {
             $('#error').fadeOut("slow").hide();
-          }, 2000);
+          }, 2000);*/
+
+          $('#email').parent().addClass('has-error');
+          $('#helpblockEmail').empty().html("El usuario es incorrecto").show();
         }
         if(error.code === 'auth/wrong-password') { //imprime un error si te equivocaste en la contraseña
-          $('#errorcontraseña').html('La contraseña es incorrecta').fadeIn("slow").show();
+          /*$('#errorcontraseña').html('La contraseña es incorrecta').fadeIn("slow").show();
           setTimeout(function() {
             $('#error').fadeOut("slow").hide();
-          }, 2000);
+          }, 2000);*/
+
+          $('#contrasena').parent().addClass('has-error');
+          $('#helpblockContraseña').empty().html("La contraseña es incorrecta").show();
         }
       });
     }
     else {
       console.log(tipousuario);
       if(email == "") {
-        $('#erroremail').html("El usuario es requerido").fadeIn("slow").show();
-        setTimeout(function() {
-          $('#erroremail').fadeOut("slow").hide();
-        }, 2000);
+        $('#email').parent().addClass('has-error');
+        $('#helpblockEmail').show();
+      }
+      else {
+        $('#email').parent().removeClass('has-error');
+        $('#helpblockEmail').hide();
       }
       if(contrasena == "") {
-        $('#errorcontraseña').html("La contraseña es requerida").fadeIn("slow").show();
-        setTimeout(function() {
-          $('#errorcontraseña').fadeOut("slow").hide();
-        }, 2000);
+        $('#contrasena').parent().addClass('has-error');
+        $('#helpblockContraseña').show();
+      }
+      else {
+        $('#contrasena').parent().removeClass('has-error');
+        $('#helpblockContraseña').hide();
       }
       if(tipousuario == null || tipousuario == "") {
-        $('#errorpuesto').html("El puesto es requerido").fadeIn("slow").show();
-        setTimeout(function() {
-          $('#errorpuesto').fadeOut("slow").hide();
-        }, 2000);
+        $('#puesto').parent().addClass('has-error');
+        $('#helpblockPuesto').show();
+      }
+      else {
+        $('#puesto').parent().removeClass('has-error');
+        $('#helpblockPuesto').hide();
       }
     }
   }
@@ -81,7 +93,7 @@
   haySesion();
 
   //obtiene el Usuario con sesion actual
-  function getUser() {
+  function getUser(tipousuario) {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) { //si en realidad hay un usuario te redirecciona al panel
         console.log("Usuario logeado");
@@ -92,7 +104,8 @@
         db.ref('usuarios/' + uid).on('value', function(snap) {
           let usuario = snap.val();
           var privilegio = usuario.puesto;
-          //console.log(privilegio);
+          console.log(privilegio);
+          console.log(tipousuario);
 
           if(tipousuario == privilegio) {
              if(privilegio == 'Administrador') {
@@ -101,6 +114,10 @@
              if(privilegio == 'Usuario') {
               $(location).attr("href", "usuario.html");
              }
+           }
+           else {
+             $('#puesto').parent().empty().html("El pusto es incorrecto").addClass('has-error');
+             $('#helpblockPuesto').show();
            }
           //$(location).attr("href", "panel.html");
         })
