@@ -413,6 +413,54 @@ function modalProyecto() {
   $('#agregarProyecto').modal();
 }
 
+$('#cliente').keyup(function () {
+  let cliente = $('#cliente').val();
+  if(cliente.length < 1) {
+    $('#cliente').parent().addClass('has-error');
+    $('#helpblockCliente').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#cliente').parent().removeClass('has-error');
+    $('#helpblockCliente').hide();
+  }
+});
+
+$('#descripcion').keyup(function () {
+  let descripcion = $('#descripcion').val();
+  if(descripcion.length < 1) {
+    $('#descripcion').parent().addClass('has-error');
+    $('#helpblockDescripcion').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#descripcion').parent().removeClass('has-error');
+    $('#helpblockDescripcion').hide();
+  }
+});
+
+$('#fechaEntrega').keyup(function () {
+  let fechaEntrega = $('#fechaEntrega').val();
+  if(fechaEntrega.length < 1) {
+    $('#fechaEntrega').parent().parent().addClass('has-error');
+    $('#helpblockfechaEntrega').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#fechaEntrega').parent().parent().removeClass('has-error');
+    $('#helpblockfechaEntrega').hide();
+  }
+});
+
+$('#encargado').keyup(function () {
+  let encargado = $('#encargado').val();
+  if(encargado.length < 1) {
+    $('#encargado').parent().addClass('has-error');
+    $('#helpblockEncargado').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#encargado').parent().removeClass('has-error');
+    $('#helpblockEncargado').hide();
+  }
+});
+
 //metodo que guarda una nueva orden en Firebase
 function guardarOrden() {
   let cliente = $('#cliente').val();
@@ -422,19 +470,127 @@ function guardarOrden() {
   let estado = "Pendiente";
   let encargado = $('#encargado').val();
 
-  let ordenes = firebase.database().ref('ordenes/');
-  let Orden = {
-    cliente: cliente,
-    descripcion: descripcion,
-    fechaRecep: fechaRecep,
-    fechaEntrega: fechaEntrega,
-    estado: estado,
-    encargado: encargado
-  }
+  if(cliente.length > 0 && descripcion.length > 0 && fechaRecep.length > 0 && fechaEntrega.length > 0 && estado.length > 0 && encargado.length > 0) {
+    let ordenes = firebase.database().ref('ordenes/');
+    let Orden = {
+      cliente: cliente,
+      descripcion: descripcion,
+      fechaRecep: fechaRecep,
+      fechaEntrega: fechaEntrega,
+      estado: estado,
+      encargado: encargado
+    }
 
-  ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
-  cerrarModalOrden();
+    ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
+    cerrarModalOrden();
+  }
+  else {
+    if(cliente == "") {
+      $('#cliente').parent().addClass('has-error');
+      $('#helpblockCliente').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#cliente').parent().removeClass('has-error');
+      $('#helpblockCliente').hide();
+    }
+    if(descripcion == "") {
+      $('#descripcion').parent().addClass('has-error');
+      $('#helpblockDescripcion').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#descripcion').parent().removeClass('has-error');
+      $('#helpblockDescripcion').hide();
+    }
+    if(fechaEntrega == "") {
+      $('#fechaEntrega').parent().parent().addClass('has-error');
+      $('#helpblockfechaEntrega').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaEntrega').parent().parent().removeClass('has-error');
+      $('#helpblockfechaEntrega').hide();
+    }
+    if(encargado == "") {
+      $('#encargado').parent().addClass('has-error');
+      $('#helpblockEncargado').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#encargado').parent().removeClass('has-error');
+      $('#helpblockEncargado').hide();
+    }
+  }
 }
+
+$('#nombre').keyup(function () {
+  let nombre = $('#nombre').val();
+  if(nombre.length < 1) {
+    $('#nombre').parent().addClass('has-error');
+    $('#helpblockNombre').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#nombre').parent().removeClass('has-error');
+    $('#helpblockNombre').hide();
+  }
+});
+
+$('#apellidos').keyup(function () {
+  let apellidos = $('#apellidos').val();
+  if(apellidos.length < 1) {
+    $('#apellidos').parent().addClass('has-error');
+    $('#helpblockApellidos').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#apellidos').parent().removeClass('has-error');
+    $('#helpblockApellidos').hide();
+  }
+});
+
+$('#agregarUsuarioEmail').keyup(function () {
+  let agregarUsuarioEmail = $('#agregarUsuarioEmail').val();
+  if(agregarUsuarioEmail.length < 1) {
+    $('#agregarUsuarioEmail').parent().addClass('has-error');
+    $('#helpblockagregarUsuarioEmail').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#agregarUsuarioEmail').parent().removeClass('has-error');
+    $('#helpblockagregarUsuarioEmail').hide();
+  }
+});
+
+$('#agregarUsuarioPuesto').change(function () {
+  let agregarUsuarioPuesto = $('#agregarUsuarioPuesto').val();
+  if(agregarUsuarioPuesto.length < 1) {
+    $('#agregarUsuarioPuesto').parent().addClass('has-error');
+    $('#helpblockagregarUsuarioPuesto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#agregarUsuarioPuesto').parent().removeClass('has-error');
+    $('#helpblockagregarUsuarioPuesto').hide();
+  }
+});
+
+$('#nuevacontraseña').keyup(function () {
+  let nuevacontraseña = $('#nuevacontraseña').val();
+  if(nuevacontraseña.length < 1) {
+    $('#nuevacontraseña').parent().addClass('has-error');
+    $('#helpblockNuevaContraseña').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#nuevacontraseña').parent().removeClass('has-error');
+    $('#helpblockNuevaContraseña').hide();
+  }
+});
+
+$('#confirmarcontraseña').keyup(function () {
+  let confirmarcontraseña = $('#confirmarcontraseña').val();
+  if(confirmarcontraseña.length < 1) {
+    $('#confirmarcontraseña').parent().addClass('has-error');
+    $('#helpblockConfirmarContraseña').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#confirmarcontraseña').parent().removeClass('has-error');
+    $('#helpblockConfirmarContraseña').hide();
+  }
+});
 
 //guarda un nuevo Usuario en la base de datos de Firebase en el nodo Usuarios
 function guardarUsuario() {
@@ -442,35 +598,87 @@ function guardarUsuario() {
   let apellidos = $('#apellidos').val();
   let agregarUsuarioEmail = $('#agregarUsuarioEmail').val();
   let agregarUsuarioPuesto = $('#agregarUsuarioPuesto').val();
-  var agregarUsuarioContrasena;
+  let nuevaContraseña = $('#nuevacontraseña').val()
+  var confirmarContraseña = $('#confirmarcontraseña').val();
 
-  if($('#nuevacontrasena').val() == $('#confirmarcontrasena').val()) {
-    agregarUsuarioContrasena = $('#nuevacontrasena').val();
+  if(nombre.length > 0 && apellidos.length > 0 && agregarUsuarioEmail.length > 0 && agregarUsuarioPuesto.length > 0 && nuevaContrasena.length > 0 && confirmarContrasena.length > 0) {
+    if(nuevaContrasena == confirmarContrasena) {
 
-    firebase.auth().createUserWithEmailAndPassword(agregarUsuarioEmail, agregarUsuarioContrasena)
-    .then(function(data) {
-      console.log(data);
-      let uid = data.uid;
-      console.log(uid);
+      firebase.auth().createUserWithEmailAndPassword(agregarUsuarioEmail, nuevaContrasena)
+      .then(function(data) {
+        console.log(data);
+        let uid = data.uid;
+        console.log(uid);
 
-      let usuarios = firebase.database().ref('usuarios/'+uid);
-      let Usuario = {
-        nombre: nombre,
-        apellidos: apellidos,
-        puesto: agregarUsuarioPuesto
-      }
-      usuarios.set(Usuario); //metodo set para insertar de Firebase
+        let usuarios = firebase.database().ref('usuarios/'+uid);
+        let Usuario = {
+          nombre: nombre,
+          apellidos: apellidos,
+          puesto: agregarUsuarioPuesto
+        }
+        usuarios.set(Usuario); //metodo set para insertar de Firebase
 
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-    cerrarModalUsuario();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+      cerrarModalUsuario();
 
-    logOut();
+      logOut();
+    }
+    else {
+      console.log("Las contraseñas no coinciden");
+    }
   }
   else {
-    console.log("Las contraseñas no coinciden");
+    if(nombre == "") {
+      $('#nombre').parent().addClass('has-error');
+      $('#helpblockNombre').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nombre').parent().removeClass('has-error');
+      $('#helpblockNombre').hide();
+    }
+    if(apellidos == "") {
+      $('#apellidos').parent().addClass('has-error');
+      $('#helpblockApellidos').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#apellidos').parent().removeClass('has-error');
+      $('#helpblockApellidos').hide();
+    }
+    if(agregarUsuarioEmail == "") {
+      $('#agregarUsuarioEmail').parent().addClass('has-error');
+      $('#helpblockagregarUsuarioEmail').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#agregarUsuarioEmail').parent().removeClass('has-error');
+      $('#helpblockagregarUsuarioEmail').hide();
+    }
+    if(agregarUsuarioPuesto == null) {
+      $('#agregarUsuarioPuesto').parent().addClass('has-error');
+      $('#helpblockagregarUsuarioPuesto').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#agregarUsuarioPuesto').parent().removeClass('has-error');
+      $('#helpblockagregarUsuarioPuesto').hide();
+    }
+    if(nuevaContraseña == "") {
+      $('#nuevacontraseña').parent().addClass('has-error');
+      $('#helpblockNuevaContraseña').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nuevacontraseña').parent().removeClass('has-error');
+      $('#helpblockNuevaContraseña').hide();
+    }
+    if(confirmarContraseña == "") {
+      $('#confirmarcontraseña').parent().addClass('has-error');
+      $('#helpblockConfirmarContraseña').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#confirmarcontraseña').parent().removeClass('has-error');
+      $('#helpblockConfirmarContraseña').hide();
+    }
   }
 }
 
@@ -563,6 +771,9 @@ function agregarTarea() {
   $('#select-categorias').val('');
   $('#fechaInicioTarea').val('');
   $('#contadorTarea').html('0/60');
+
+  $('#contenedorModalTareas').removeClass('has-error');
+  $('#helpblocktareas').hide();
 }
 
 function borrarTarea(id) {
@@ -594,6 +805,9 @@ function agregarObjetivo() {
 
   $('#input-agregarObjetivo').val('').focus();
   $('#contadorObjetivo').html('0/140');
+
+  $('#contenedorModalObjetivos').removeClass('has-error');
+  $('#helpblockobjetivos').hide();
 }
 
 function eliminarObjetivo(id) {
@@ -625,6 +839,9 @@ function agregarIndicador() {
 
   $('#input-agregarIndicador').val('').focus();
   $('#contadorIndicador').html('0/140');
+
+  $('#contenedorModalIndicadores').removeClass('has-error');
+  $('#helpblockindicadores').hide();
 }
 
 function eliminarIndicador(id) {
@@ -656,11 +873,98 @@ function agregarHito() {
 
   $('#input-agregarHito').val('').focus();
   $('#contadorHito').html('0/140');
+
+  $('#contenedorModalHitos').removeClass('has-error');
+  $('#helpblockhitos').hide();
 }
 
 function eliminarHito(id) {
   $('#'+id).remove();
 }
+
+$('#nombreProyecto').keyup(function () {
+  let nombreProyecto = $('#nombreProyecto').val();
+  if(nombreProyecto.length < 1) {
+    $('#nombreProyecto').parent().addClass('has-error');
+    $('#helpblocknombreProyecto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#nombreProyecto').parent().removeClass('has-error');
+    $('#helpblocknombreProyecto').hide();
+  }
+});
+
+$('#fechaInicio').keyup(function () {
+  let fechaInicio = $('#fechaInicio').val();
+  if(fechaInicio.length < 1) {
+    $('#fechaInicio').parent().parent().addClass('has-error');
+    $('#helpblockfechaInicio').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#fechaInicio').parent().parent().removeClass('has-error');
+    $('#helpblockfechaInicio').hide();
+  }
+});
+
+$('#fechaEntregaProyecto').keyup(function () {
+  let fechaEntregaProyecto = $('#fechaEntregaProyecto').val();
+  if(fechaEntregaProyecto.length < 1) {
+    $('#fechaEntregaProyecto').parent().parent().addClass('has-error');
+    $('#helpblockfechaEntregaProyecto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#fechaEntregaProyecto').parent().parent().removeClass('has-error');
+    $('#helpblockfechaEntregaProyecto').hide();
+  }
+});
+
+$('#encargadoProyecto').keyup(function () {
+  let encargadoProyecto = $('#encargadoProyecto').val();
+  if(encargadoProyecto.length < 1) {
+    $('#encargadoProyecto').parent().addClass('has-error');
+    $('#helpblockencargadoProyecto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#encargadoProyecto').parent().removeClass('has-error');
+    $('#helpblockencargadoProyecto').hide();
+  }
+});
+
+$('#estructuraProyecto').keyup(function () {
+  let estructuraProyecto = $('#estructuraProyecto').val();
+  if(estructuraProyecto.length < 1) {
+    $('#estructuraProyecto').parent().addClass('has-error');
+    $('#helpblockestructuraProyecto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#estructuraProyecto').parent().removeClass('has-error');
+    $('#helpblockestructuraProyecto').hide();
+  }
+});
+
+$('#descripcionProyecto').keyup(function () {
+  let descripcionProyecto = $('#descripcionProyecto').val();
+  if(descripcionProyecto.length < 1) {
+    $('#descripcionProyecto').parent().addClass('has-error');
+    $('#helpblockdescripcionProyecto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#descripcionProyecto').parent().removeClass('has-error');
+    $('#helpblockdescripcionProyecto').hide();
+  }
+});
+
+$('#documentacion').keyup(function () {
+  let documentacion = $('#documentacion').val();
+  if(documentacion.length < 1) {
+    $('#documentacion').parent().addClass('has-error');
+    $('#helpblockdocumentacion').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#documentacion').parent().removeClass('has-error');
+    $('#helpblockdocumentacion').hide();
+  }
+});
 
 //crear un proyecto nuevo en la base de datos de Firebase en el nodo Proyectos
 function guardarProyecto() {
@@ -677,42 +981,144 @@ function guardarProyecto() {
   let integrantes = arrIntegrantes;
   let tareas = arrTareas;
 
-  var db = firebase.database();
-  let proyectos = db.ref('proyectos/');
-  let Proyecto = {
-    nombre: nombreProyecto,
-    numTareas: numtareas,
-    tareasCompletadas: 0,
-    fechaInicio: fechaInicio,
-    fechaEntrega: fechaEntrega,
-    encargado: encargadoProyecto,
-    estructura: estructuraProyecto,
-    descripcion: descripcionProyecto,
-    documentacion: documentacion,
-    objetivos: objetivos,
-    indicadores: indicadores,
-    hitos: hitos,
-    equipo: integrantes
-  }
-  var proyectoId = proyectos.push(Proyecto).getKey();
-  let tareasRef = db.ref('tareas/');
-  let proyectoTareasRef = db.ref('proyectos/'+proyectoId+'/tareas/');
+  if(nombreProyecto.length > 0 && fechaInicio.length > 0 && fechaEntrega.length > 0 && encargadoProyecto.length > 0 && estructuraProyecto.length > 0
+    && descripcionProyecto.length > 0 && documentacion.length > 0 && objetivos.length > 0 && indicadores.length > 0 && hitos.length > 0
+    && integrantes.length > 0 && tareas.length > 0) {
+    var db = firebase.database();
+    let proyectos = db.ref('proyectos/');
+    let Proyecto = {
+      nombre: nombreProyecto,
+      numTareas: numtareas,
+      tareasCompletadas: 0,
+      fechaInicio: fechaInicio,
+      fechaEntrega: fechaEntrega,
+      encargado: encargadoProyecto,
+      estructura: estructuraProyecto,
+      descripcion: descripcionProyecto,
+      documentacion: documentacion,
+      objetivos: objetivos,
+      indicadores: indicadores,
+      hitos: hitos,
+      equipo: integrantes
+    }
+    var proyectoId = proyectos.push(Proyecto).getKey();
+    let tareasRef = db.ref('tareas/');
+    let proyectoTareasRef = db.ref('proyectos/'+proyectoId+'/tareas/');
 
-  for(let i=0; i<tareas.length; i++) {
-    tareas[i].idP = proyectoId;
-    let tareaId = proyectoTareasRef.push(tareas[i]).getKey();
-    tareas[i].idTarea = tareaId;
-    tareasRef.push(tareas[i]);
+    for(let i=0; i<tareas.length; i++) {
+      tareas[i].idP = proyectoId;
+      let tareaId = proyectoTareasRef.push(tareas[i]).getKey();
+      tareas[i].idTarea = tareaId;
+      tareasRef.push(tareas[i]);
 
-    for(let j=0; j<integrantes.length; j++) {
-      if(integrantes[j] == tareas[i].asignado) {
-        let miSemana = db.ref('miSemana/'+integrantes[j]);
-        miSemana.push(tareas[i]);
+      for(let j=0; j<integrantes.length; j++) {
+        if(integrantes[j] == tareas[i].asignado) {
+          let miSemana = db.ref('miSemana/'+integrantes[j]);
+          miSemana.push(tareas[i]);
+        }
       }
     }
-  }
 
-  cerrarModalProyecto();
+    cerrarModalProyecto();
+  }
+  else {
+    if(nombreProyecto.length < 1) {
+      $('#nombreProyecto').parent().addClass('has-error');
+      $('#helpblocknombreProyecto').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nombreProyecto').parent().removeClass('has-error');
+      $('#helpblocknombreProyecto').hide();
+    }
+    if(fechaInicio.length < 1) {
+      $('#fechaInicio').parent().parent().addClass('has-error');
+      $('#helpblockfechaInicio').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaInicio').parent().removeClass('has-error');
+      $('#helpblockfechaInicio').hide();
+    }
+    if(fechaEntrega.length < 1) {
+      $('#fechaEntregaProyecto').parent().parent().addClass('has-error');
+      $('#helpblockfechaEntregaProyecto').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaEntregaProyecto').parent().removeClass('has-error');
+      $('#helpblockfechaEntregaProyecto').hide();
+    }
+    if(encargadoProyecto.length < 1) {
+      $('#encargadoProyecto').parent().addClass('has-error');
+      $('#helpblockencargadoProyecto').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#encargadoProyecto').parent().removeClass('has-error');
+      $('#helpblockencargadoProyecto').hide();
+    }
+    if(estructuraProyecto.length < 1) {
+      $('#estructuraProyecto').parent().addClass('has-error');
+      $('#helpblockestructuraProyecto').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#estructuraProyecto').parent().removeClass('has-error');
+      $('#helpblockestructuraProyecto').hide();
+    }
+    if(descripcionProyecto.length < 1) {
+      $('#descripcionProyecto').parent().addClass('has-error');
+      $('#helpblockdescripcionProyecto').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#descripcionProyecto').parent().removeClass('has-error');
+      $('#helpblockdescripcionProyecto').hide();
+    }
+    if(documentacion.length < 1) {
+      $('#documentacion').parent().addClass('has-error');
+      $('#helpblockdocumentacion').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#documentacion').parent().removeClass('has-error');
+      $('#helpblockdocumentacion').hide();
+    }
+    if(objetivos.length < 1) {
+      $('#contenedorModalObjetivos').addClass('has-error');
+      $('#helpblockobjetivos').empty().html("Un proyecto no puede no tener objetivos").show();
+    }
+    else {
+      $('#contenedorModalObjetivos').removeClass('has-error');
+      $('#helpblockobjetivos').hide();
+    }
+    if(indicadores.length < 1) {
+      $('#contenedorModalIndicadores').addClass('has-error');
+      $('#helpblockindicadores').empty().html("Un proyecto no puede no tener indicadores").show();
+    }
+    else {
+      $('#contenedorModalIndicadores').removeClass('has-error');
+      $('#helpblockindicadores').hide();
+    }
+    if(hitos.length < 1) {
+      $('#contenedorModalHitos').addClass('has-error');
+      $('#helpblockhitos').empty().html("Un proyecto no puede no tener hitos").show();
+    }
+    else {
+      $('#contenedorModalHitos').removeClass('has-error');
+      $('#helpblockhitos').hide();
+    }
+    if(integrantes.length < 1) {
+      $('#contenedorModalIntegrantes').addClass('has-error');
+      $('#helpblockintegrantes').empty().html("Un proyecto no puede no tener integrantes").show();
+    }
+    else {
+      $('#contenedorModalIntegrantes').removeClass('has-error');
+      $('#helpblockintegrantes').hide();
+    }
+    if(tareas.length < 1) {
+      $('#contenedorModalTareas').addClass('has-error');
+      $('#helpblocktareas').empty().html("Un proyecto no puede no tener tareas").show();
+    }
+    else {
+      $('#contenedorModalTareas').removeClass('has-error');
+      $('#helpblocktareas').hide();
+    }
+  }
 }
 
 $('#datetimepicker1').datepicker({
@@ -742,8 +1148,6 @@ $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de 
   format: "mm/dd/yyyy",
   todayHighlight: true
 });
-
-
 
 //Te regresa un paso en el carousel de la modal Crear Proyecto
 function volver() {
