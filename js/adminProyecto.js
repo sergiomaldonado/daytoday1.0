@@ -27,7 +27,7 @@ function llenarCategorias() {
     for(categoria in categorias) {
       options += '<option value="'+categorias[categoria].nombre+'">'+categorias[categoria].nombre+'</option>';
     }
-    $('#select-categorias').empty().append(options);
+    $('#categoria').empty().append(options);
   });
 }
 

@@ -87,12 +87,13 @@
         haspop = $t.data('popover'),
         data, time;
 
-    if (haspop || isNaN(index)) { return true; }
+    //if (haspop || isNaN(index)) { return true; }
     data = options.data[index];
-    time = data.start.toTimeString();
-    if (time && data.end) { time = time + ' - ' + data.end.toTimeString(); }
-    $t.data('popover',true);
-    $t.popover({content: '<p><strong>' + time + '</strong></p>'+data.text, html: true, placement: 'auto left'}).popover('toggle');
+    //time = data.start.toTimeString();
+    //if (time && data.end) { time = time + ' - ' + data.end.toTimeString(); }
+    //$t.data('popover',true);
+    //$t.popover({trigger: 'click', content: '<input id="nuevoNombre" class="form-control" type="text" placeholder="Nuevo nombre"><br><button class="btn btn-primary">Enviar</button>', html: true, placement: 'auto right'}).popover('show');
+    //$t.popover({content: '<p><strong>' + time + '</strong></p>'+'<input id="nuevoNombre" class="form-control" type="text" placeholder="Nuevo nombre tarea"/><br><button class="btn btn-primary" type="button">Enviar</button>', html: true, placement: 'auto right'}).popover('toggle');
     return false;
   });
   function dayAddEvent(index, event) { //asigna el evento al dia
@@ -132,7 +133,7 @@
   function monthAddEvent(index, event) {
     var $event;
     if(event.estado == 'Pendiente') {
-      $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+      $event = $('<div/>', {'id': event.id, 'class': 'event dropdown', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
     }
     if(event.estado == 'Completada') {
       $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});

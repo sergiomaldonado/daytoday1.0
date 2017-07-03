@@ -15,6 +15,30 @@ function obtenerTituloProyecto() {
 
 obtenerTituloProyecto();
 
+$(function() {
+  var datos = [];
+  var usuarios = firebase.database().ref("proyectos/"+ idProyecto + "/equipo");
+  usuarios.on('value', function(snapshot) {
+    var users = snapshot.val();
+    for(let i=0; i<users.length; i++) {
+      datos.push({
+        value: users[i],
+        data: users[i]
+      })
+    }
+  });
+
+  var concurrencias = datos;
+
+  $('#asignadoEnProyecto').autocomplete({
+    lookup: concurrencias,
+    onSelect: function (suggestion) {
+      var thehtml = '<strong>Currency Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
+      $('#outputcontent').html(thehtml);
+    }
+  });
+});
+
 /*function rellenarContenedorDeTareas() {
   let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
   tareasProyecto.on('value', function(snapshot) {
@@ -122,11 +146,18 @@ $(document).ready(function() {
   })
 });
 
+$('#datetimepickerFechaInicioTareaProyecto').datepicker({ //Inicializa el datepicker de FechaInico
+  startDate: "Today",
+  autoclose: true,
+  format: "dd/mm/yyyy",
+  todayHighlight: true
+});
+
 function agregarTareaProyecto() {
   let nombre = $('#tarea').val();
   let categoria = $('#categoria').val();
-  let asignado = $('#asignado').val();
-  let fechaInicio = $('#fechaInicio').val();
+  let asignado = $('#asignadoEnProyecto').val();
+  let fechaInicio = $('#fechaInicioTareaProyecto').val();
   let idP = idProyecto;
   let date = new Date(fechaInicio);
   let dia = date.getDate();
@@ -145,25 +176,27 @@ function agregarTareaProyecto() {
   }
 
   let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
-  tareasProyecto.push(tarea);
+  let key = tareasProyecto.push(tarea).getKey();
 
-  let tareas = dbRef.ref('tareas/');
-  tareas.push(tarea);
+  tarea.idTarea = key;
 
-  let miSemana = dbRef.ref('miSemana/'+asignado);
-  miSemana.push(tarea);
+  let tareas = dbRef.ref('tareas/'+key);
+  tareas.set(tarea);
+
+  let miSemana = dbRef.ref('miSemana/'+asignado+'/'+key);
+  miSemana.set(tarea);
 
   var numTareas;
-  let proyecto = dbRef.ref('proyecto/'+idProyecto);
-  proyecto.on('value', function(snapshot) {
-    let proyecto = snapshot.val();
-    numTareas = proyecto.numtareas;
+  let proyecto = dbRef.ref('proyectos/'+idProyecto);
+  proyecto.once('value', function(snapshot) {
+    let datosProyecto = snapshot.val();
+    numTareas = datosProyecto.numTareas;
+    numTareas++;
+    proyecto.update({numTareas: numTareas});
   });
-  numTareas++;
-  proyecto.update({numtareas: numTareas});
 
   $('#tarea').val('').focus();
   $('#categoria').val('');
-  $('#asignado').val('');
-  $('#fechaInicio').val('');
+  $('#asignadoEnProyecto').val('');
+  $('#fechaInicioTareaProyecto').val('');
 }

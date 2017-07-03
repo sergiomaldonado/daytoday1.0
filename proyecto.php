@@ -108,7 +108,7 @@
                                     <div class="col-md-12">
                                       <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
                                       <p style="float: right;" id="contadorTaComentario">0/60</p>
-                                      <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+                                      <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignadoEnProyecto" placeholder="Asignada a">
                                     </div>
                                   </div>
                                 </form>
@@ -119,9 +119,11 @@
                                 <form role="form" class="form-horizontal">
                                   <div class="form-group">
                                     <div class="col-md-12">
-                                      <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
-                                      <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicio' >
-                                        <input id="fechaInicio" type="text" class="form-control input-lg" placeholder="Inicio">
+                                      <select id="categoria" class="form-control input-lg" name="">
+                                        <option disabled selected value="">Categoría</option>
+                                      </select>
+                                      <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTareaProyecto' >
+                                        <input id="fechaInicioTareaProyecto" type="text" class="form-control input-lg" placeholder="Inicio">
                                          <div class="input-group-addon">
                                           <span class="glyphicon glyphicon-calendar"></span>
                                          </div>

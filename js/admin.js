@@ -7,14 +7,23 @@ function obtenerUsuario(uid) {
 }
 
 function editarTarea(idTarea) {
-  console.log(idTarea);
+  $('#btnActualizarTarea').attr({'data-id': idTarea});
+  $('#modalEditarTarea').modal('show');
+}
+
+function actualizarTarea() {
+  let idTarea = $('#btnActualizarTarea').attr('data-id');
+
+  let nombreNuevo = $('#nombreNuevoTarea').val();
+  let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
 
   let tareas = firebase.database().ref('/tareas/'+idTarea);
   let nuevosDatos = {
-
+    nombre: nombreNuevo,
+    fechaInicio: fechaInicioEditarTarea
   }
 
-  //tareas.set(nuevosDatos);
+  tareas.set(nuevosDatos);
 }
 
 function llenarCategorias() {
@@ -1143,6 +1152,13 @@ $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de Fech
 });
 
 $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
+  startDate: "Today",
+  autoclose: true,
+  format: "mm/dd/yyyy",
+  todayHighlight: true
+});
+
+$('#datetimepickerFechaInicioEditarTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
   startDate: "Today",
   autoclose: true,
   format: "mm/dd/yyyy",
