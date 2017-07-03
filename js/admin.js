@@ -10,19 +10,24 @@ function editarTarea(idTarea, asignado) {
   $('#btnActualizarTarea').attr({'data-id': idTarea}, {'data-asignado': asignado});
   $('#modalEditarTarea').modal('show');
 
-  let tareasProyecto = firebase.database().ref('proyectos/tareas/'+idTarea);
-  tareasProyecto.once('value', function(snapshot) {
-    let datos = snapshot.val();
-    let nombre = datos.nombre;
-    let dia = datos.dia;
-    let mes = datos.mes;
-    let año = datos.año;
+  let tareas = firebase.database().ref('tareas/');
+  tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    let idTareaEnNodoTareas = snapshot.key;
 
-    $('#nombreNuevoTarea').val(nombre).focus();
-    $('#fechaInicioEditarTarea').val(mes + '/' + dia +'/' + año);
+    let tareasRuta = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+    tareasRuta.once('value', function(daticos) {
+      let datos = daticos.val();
+      let nombre = datos.nombre;
+      let dia = datos.dia;
+      let mes = datos.mes;
+      let año = datos.año;
+      let date = new Date(año, mes, dia);
+      fecha = moment(date).format('MM/DD/YYYY');
+
+      $('#nombreNuevoTarea').val(nombre).focus();
+      $('#fechaInicioEditarTarea').val(fecha);
+    });
   });
-
-
 }
 
 function actualizarTarea() {
