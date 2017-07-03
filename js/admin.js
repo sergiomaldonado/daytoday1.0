@@ -6,24 +6,52 @@ function obtenerUsuario(uid) {
   });
 }
 
-function editarTarea(idTarea) {
-  $('#btnActualizarTarea').attr({'data-id': idTarea});
+function editarTarea(idTarea, asignado) {
+  $('#btnActualizarTarea').attr({'data-id': idTarea}, {'data-asignado': asignado});
   $('#modalEditarTarea').modal('show');
+
+  let tareasProyecto = firebase.database().ref('proyectos/tareas/'+idTarea);
+  tareasProyecto.once('value', function(snapshot) {
+    let datos = snapshot.val();
+    let nombre = datos.nombre;
+    let dia = datos.dia;
+    let mes = datos.mes;
+    let año = datos.año;
+
+    $('#nombreNuevoTarea').val(nombre).focus();
+    $('#fechaInicioEditarTarea').val(mes + '/' + dia +'/' + año);
+  });
+
+
 }
 
 function actualizarTarea() {
   let idTarea = $('#btnActualizarTarea').attr('data-id');
+  let asignado = $('#btnActualizarTarea').attr('data-asignado');
 
   let nombreNuevo = $('#nombreNuevoTarea').val();
   let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
+  let date = new Date(fechaInicioEditarTarea);
+  let dia = date.getDate();
+  let mes = date.getMonth();
+  let año = date.getFullYear();
 
-  let tareas = firebase.database().ref('/tareas/'+idTarea);
-  let nuevosDatos = {
-    nombre: nombreNuevo,
-    fechaInicio: fechaInicioEditarTarea
-  }
+  let tareasProyecto = firebase.database().ref('proyectos/tareas/'+idTarea);
+  tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
 
-  tareas.set(nuevosDatos);
+  let tareas = firebase.database().ref('tareas/');
+  tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    let idTareaEnNodoTareas = snapshot.key;
+    let rutaTareas = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+    rutaTareas.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+  });
+
+  let miSemana = firebase.database().ref('miSemana/'+asignado);
+  miSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    let idTareaEnMiSemana = snapshot.key;
+    let rutaMiSemana = firebase.database().ref('miSemana/'+asignado+'/'+idTareaEnMiSemana);
+    rutaMiSemana.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+  });
 }
 
 function llenarCategorias() {
