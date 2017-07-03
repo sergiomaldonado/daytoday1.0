@@ -94,7 +94,7 @@
                               <div class="table-responsive no-padding">
                                 <div class="panel panel-default no-padding" style="border:solid 1px white;">
                                   <div class="panel-body no-padding">
-                                    <p>Categorías</p>
+                              
                                     <ul id="listaCategorias">
                                   </div>
                                   <div id='holder' class="row" ></div>

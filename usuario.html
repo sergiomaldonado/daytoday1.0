@@ -46,42 +46,46 @@
         </div>
       </div>
     </nav>
-    <section class="no-padding">
+    <section class="">
       <div style="margin-top:40px;">
         <div class="container">
           <div class="row">
-            <div class="col-lg-3 col-md-4">
-              <div style="width:250px;" class="thumbnail">
+            <div class="col-lg-2 col-md-2">
+              <div style="width:150px; overflow:hidden;" class="thumbnail no-padding">
                 <img src="assets/bg-panel.png" alt="...">
-                <img style="margin-top:-50px;" width="100px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
+                <img style="margin-top:-40px; " width="80px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
                 <div class="caption">
                   <h3 class="nombreDeUsuario"></h3>
                 </div>
               </div>
             </div>
-		        <div  class="no-padding col-lg-9 col-md-9" style=" background-color:red;">
+		        <div  class="no-padding col-lg-10 col-md-11" style=" background-color:transparent;">
+
+                <div class="btn-group text-left" data-toggle="buttons">
+                  <label onclick="Semana()" class="btn btn-primary active">
+                    <input type="radio" name="options" autocomplete="off" checked> Semana
+                  </label>
+                  <label onclick="miSemana()" class="btn btn-primary">
+                    <input type="radio" name="options" autocomplete="off"> Mi Semana
+                  </label>
+                </div>
+
+
+
               <div style="background-color:white; padding-top:30px;" class="live-box">
                     <div style="display: inline;" id="authentication">
                       <div class="table-responsive no-padding">
+
                         <div id="Semana" class="panel panel-default no-padding" style="border:solid 1px white;">
                           <!-- Default panel contents -->
+
                           <div class="panel-body no-padding">
-                            <p>Categorías</p>
+
                             <ul id="listaCategorias">
 
                             </ul>
                           </div>
-                          <div class="btn-group" data-toggle="buttons">
-                            <label onclick="Semana()" class="btn btn-primary active">
-                              <input type="radio" name="options" autocomplete="off" checked> Semana
-                            </label>
-                            <label onclick="miSemana()" class="btn btn-primary">
-                              <input type="radio" name="options" autocomplete="off"> Mi Semana
-                            </label>
-                            <label onclick="Completadas()" class="btn btn-primary">
-                              <input type="radio" name="options" autocomplete="off"> Completadas
-                            </label>
-                          </div>
+
                           <div id="holder"></div>
                         </div>
                       </div>
@@ -195,7 +199,7 @@
         <thead>
           <tr class="c-weeks">
             {{ for (i = 0; i < 7; i++) { }}
-              <th class="c-name">
+              <th class="c-name text-center">
                 {{: days[i] }}
               </th>
             {{ } }}
@@ -206,7 +210,7 @@
           <tr>
             {{ for (i = 0; i < 7; i++) { }}
             {{ if (thedate > last) { dayclass = nextmonthcss; } else if (thedate >= first) { dayclass = thismonthcss; } }}
-            <td class="calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
+            <td class="text-center calendar-day {{: dayclass }} {{: thedate.toDateCssClass() }} {{: date.toDateCssClass() === thedate.toDateCssClass() ? 'selected':'' }} {{: daycss[i] }} js-cal-option" data-date="{{: thedate.toISOString() }}">
               <div class="date"><p style="font-weight: bold;" class="icons" id="diaCalendar">{{: thedate.getDate()}}<p></div>
                 <div style="margin-top:-35px;">{{ thedate.setDate(thedate.getDate() + 1);}}</div>
 
