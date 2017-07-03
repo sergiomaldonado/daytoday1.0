@@ -44,8 +44,8 @@ background-color: #F2F2F2;
   background-color: white;
   padding: 20px;
   -webkit-box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
--moz-box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
-box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
+  -moz-box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
+  box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
 }
 #diaCalendar{
 
@@ -95,12 +95,19 @@ box-shadow: 1px 0px 22px -10px rgba(54,54,54,1);
   -webkit-transition: 0.2s; /* Safari 3.1 to 6.0 */
     transition: 0.2s;
 }
+#semanaTop{
+  transform: translate(0px, -20px);
 
-.mostramelo{ height: 100%; position: absolute; top: 0; bottom: 0;left: 0;right: 0;width: 100%;height: 100%; margin: auto; opacity: 0.0;   transition: all 0.5s ease;}
+}
+#listaCategorias{
+  transform: translate(0px, 65px);
+}
+
+.mostramelo{  position: absolute; top: 0; bottom: 0;left: 0;right: 0;width: 100%; height: 100%; margin: auto; opacity: 0.0; transition: all 0.5s ease;}
 .mostramelo:hover{  width:100%; opacity: 0.8; background-color: #03306C  ;}
-.editarTarea{  margin-top: 15%; background-color: transparent; color: white; border-radius: 5px; border: solid 2px white;}
+.editarTarea{  margin: 10% 0; background-color: transparent; color: white; border-radius: 5px; border: solid 2px white;}
 .eliminarTarea{ margin-left: 2px; background-color: transparent; color: white; border-radius: 5px; border: solid 2px white;}
-.completarTarea{ margin-left: 2px; background-color: transparent; color: white; border-radius: 5px; border: solid 2px white;}
+.completarTarea{ margin: 10% 0; margin-left: 2px; background-color: transparent; color: white; border-radius: 5px; border: solid 2px white;}
 hr {
   border-color: #F05F40;
   border-width: 1px;

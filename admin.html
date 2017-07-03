@@ -35,7 +35,7 @@
           </button>
           <a><img id="logo" class="navbar-brand page-scroll" src="assets/logo1.svg"></a>
         </div>
-        <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a style="height:55px; width:40px; margin-right:10px;" data-toggle="tooltip"  data-placement="bottom" title="Agregar orden" onclick="modalOrden()" class="page-scroll"><img src="assets/ico-1.svg" height="40px" alt=""></a></li>
             <li><a style="height:55px; width:40px;  margin-right:10px; " data-toggle="tooltip"  data-placement="bottom" title="Agregar proyecto" onclick="modalProyecto()" class="page-scroll"><img height="40px" src="assets/ico-2.svg" alt=""></a></li>
@@ -59,10 +59,10 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" onclick="cerrarModalOrden()"><span aria-hidden="true" style="font-size:40px;" >&times</span></button>
-              <h3 class="modal-title text-left">Agregar una orden</h3>
+              <h2 class="modal-title text-left">Agregar una orden</h2>
             </div>
             <div class="modal-body">
-              <form role="form" id="form">
+              <form role="form">
                 <div class="form-group">
                   <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required>
                   <span style="display: none;" id="helpblockCliente" class="help-block"></span>
@@ -287,25 +287,30 @@
           <div class="modal-content">
             <div class="modal-header">
               <button onclick="cerrarModalUsuario()" type="button" class="close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
-              <h4 class="modal-title">Agrega un usuario</h4>
+              <h2 class="modal-title text-left">Agrega un usuario</h2>
             </div>
             <div class="modal-body">
-              <form role="form" id="form">
+              <form role="form" >
                 <div class="form-group">
-                  <div class="col-md-6">
-                    <input id="nombre" type="text" name="" class="form-control input-lg" value="" placeholder="Nombre" required>
-                    <span style="display: none;" id="helpblockNombre" class="help-block"></span>
+                  <div class="col-md-14 no-padding">
+                    <div class="col-md-6" style="margin-left:-15px;">
+                      <input id="nombre" type="text" name="" class="form-control input-lg" value="" placeholder="Nombre" required>
+                      <span style="display: none;" id="helpblockNombre" class="help-block"></span>
+
+                    </div>
+
+                    <div class="col-md-6" style="margin-left:15px;">
+                      <input id="apellidos" type="text" name="" class="form-control input-lg" value="" placeholder="Apellidos" required>
+                      <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <input id="apellidos" type="text" name="" class="form-control input-lg" value="" placeholder="Apellidos" required>
-                    <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
-                  </div>
+
                 </div>
-                <div class="form-group">
+                <div class="form-group" class="col-md-8">
                   <input id="agregarUsuarioEmail" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
                   <span style="display: none;" id="helpblockagregarUsuarioEmail" class="help-block"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" class="col-md-8">
                   <select id="agregarUsuarioPuesto" name="" class="input-lg form-control" required>
                     <option disabled selected value="">Puesto</option>
                     <option value="Administrador">Administrador</option>
@@ -313,11 +318,11 @@
                   </select>
                   <span style="display: none;" id="helpblockagregarUsuarioPuesto" class="help-block"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" class="col-md-8">
                   <input id="nuevacontraseña" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
                   <span style="display: none;" id="helpblockNuevaContraseña" class="help-block"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" class="col-md-8">
                   <input id="confirmarcontraseña" type="password" name="" class="form-control input-lg" value="" placeholder="Confirmar contraseña" required>
                   <span style="display: none;" id="helpblockConfirmarContraseña" class="help-block"></span>
                 </div>
@@ -360,12 +365,12 @@
                     <div class="table-responsive no-padding">
                       <div class="panel panel-default no-padding" style="border:solid 1px white;">
                         <!-- Contenido a pintar por javascript -->
-                        <div class="panel-body no-padding">
-                          <p>Categorías</p>
+
+
                           <ul id="listaCategorias">
 
                           </ul>
-                        </div>
+
                         <div id="holder"></div>
                       </div>
                     </div>
@@ -532,7 +537,7 @@
                       {{ if (mode !== 'day') { }}
                         {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                         {{ if (mode ==='week') { }}
-                          <h3>Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
+                          <h3 id="semanaTop">Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
                         {{ } }}
 
                       {{ } else { }}
@@ -540,7 +545,7 @@
                       {{ } }}
                     </span>
                   </td>
-                  <td style="text-align: right">
+                  <td style="text-align: right border:;">
                     <span class="btn-group">
                     </span>
                   </td>
@@ -570,7 +575,7 @@
         <thead>
           <tr class="c-weeks">
             {{ for (i = 0; i < 7; i++) { }}
-              <th class="c-name text-center">
+              <th class="c-name text-center" style="border:solid 1px white;">
                 {{: days[i] }}
               </th>
             {{ } }}
