@@ -149,7 +149,7 @@ $(document).ready(function() {
 $('#datetimepickerFechaInicioTareaProyecto').datepicker({ //Inicializa el datepicker de FechaInico
   startDate: "Today",
   autoclose: true,
-  format: "dd/mm/yyyy",
+  format: "mm/dd/yyyy",
   todayHighlight: true
 });
 
