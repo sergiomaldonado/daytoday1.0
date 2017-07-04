@@ -525,7 +525,7 @@ $('#descripcion').keyup(function () {
   }
 });
 
-$('#fechaEntrega').keyup(function () {
+$('#fechaEntrega').change(function () {
   let fechaEntrega = $('#fechaEntrega').val();
   if(fechaEntrega.length < 1) {
     $('#fechaEntrega').parent().parent().addClass('has-error');
@@ -546,6 +546,30 @@ $('#encargado').keyup(function () {
   else {
     $('#encargado').parent().removeClass('has-error');
     $('#helpblockEncargado').hide();
+  }
+});
+
+$('#asignadoOrden').keyup(function () {
+  let asignadoOrden = $('#asignadoOrden').val();
+  if(asignadoOrden.length < 1) {
+    $('#asignadoOrden').parent().addClass('has-error');
+    $('#helpblockasignadoOrden').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#asignadoOrden').parent().removeClass('has-error');
+    $('#helpblockasignadoOrden').hide();
+  }
+});
+
+$('#comentarios').keyup(function () {
+  let comentarios = $('#comentarios').val();
+  if(comentarios.length < 1) {
+    $('#comentarios').parent().addClass('has-error');
+    $('#helpblockComentarios').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#comentarios').parent().removeClass('has-error');
+    $('#helpblockComentarios').hide();
   }
 });
 
@@ -573,7 +597,10 @@ function guardarOrden() {
       comentarios: comentarios
     }
 
-    ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
+    let key = ordenes.push(Orden).getKey(); //inserta en firebase asignando un id autogenerado por la plataforma
+    let misOrdenes = firebase.database().ref('misOrdenes/'+asignado+'/'+key);
+    misOrdenes.set(Orden);
+
     cerrarModalOrden();
   }
   else {
