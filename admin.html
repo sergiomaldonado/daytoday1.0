@@ -176,7 +176,7 @@
                               <p style="" id="contadorObjetivo">0/140</p>
                             </span>
                           </div>
-                          <span style="display: none;" id="helpblockobjetivos" class="help-block"></span>
+			  <span style="display: none;" id="helpblockobjetivos" class="help-block"></span>
                         </div>
                         <div id="contenedorModalIndicadores" class="col-md-6 text-left">
                           <label><h3>Indicadores</h3></label>
@@ -219,54 +219,56 @@
                   </div>
                 </div>
                 <div class="item">
-                  <h3>Agrega tareas e hitos al proyecto</h3>
+                   <h3>Agrega tareas e hitos al proyecto</h3>
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#tabTareas" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
                     <li role="presentation"><a href="#tabHitos" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
                   </ul>
                   <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="tabTareas">
-                      <div style="" class="col-xs-8 col-sm-6">
-                        <div class="item">
-                          <form role="form" class="form-horizontal">
-                            <div class="form-group">
-                              <div class="col-md-12">
-                                <input id="input-agregarTarea" type="text" class="form-control input-lg" required placeholder="Tarea">
-                                <p style="float: right;" id="contadorTarea">0/60</p>
-                                <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
-                              </div>
-                            </div>
-                          </form>
+                  <div style="" class="col-xs-8 col-sm-6">
+                    <div class="item">
+                      <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <input id="input-agregarTarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                            <p style="float: right;" id="contadorTarea">0/60</p>
+                            <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+                          </div>
                         </div>
-                      </div>
-                      <div style="" class="col-xs-8 col-sm-6">
-                        <div class="item">
-                          <form role="form" class="form-horizontal">
-                            <div class="form-group">
-                              <div class="col-md-12">
-                                <select id="select-categorias" class="form-control input-lg">
-                                  <option disabled selected value="">Categoría</option>
-                                </select>
-                                <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTarea'>
-                                  <input id="fechaInicioTarea" type="text" class="form-control input-lg" placeholder="Inicio">
-                                  <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div style="margin-top:10px;" class="form-group">
-                        <button  onclick="agregarTarea()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
-                      </div>
-                      Tareas
-                      <hr style="max-width: 100%; width: 100% !important;">
-                      <div id="contenedorModalTareas">
-                        <span style="display: none;" id="helpblocktareas" class="help-block"></span>
-                      </div>
+                      </form>
                     </div>
+                  </div>
+                  <div style="" class="col-xs-8 col-sm-6">
+                    <div class="item">
+                      <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <select id="select-categorias" class="form-control input-lg">
+                              <option disabled selected value="">Categoría</option>
+                            </select>
+                            <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTarea'>
+                              <input id="fechaInicioTarea" type="text" class="form-control input-lg" placeholder="Inicio">
+                              <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div style="margin-top:10px;" class="form-group">
+                    <button  onclick="agregarTarea()" class="btn btn-default btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                  </div>
+
+                  Tareas
+                  <hr style="max-width: 100%; width: 100% !important;">
+                  <div id="contenedorModalTareas">
+                    <span style="display: none;" id="helpblocktareas" class="help-block"></span>
+                  </div>
+ </div>
                     <div role="tabpanel" class="tab-pane" id="tabHitos">
                       <div style="" class="col-xs-8 col-sm-6">
                         <div class="item">
@@ -399,8 +401,12 @@
                   <div class="tab-pane fade in active" id="m1">
                     <div class="table-responsive no-padding">
                       <div class="panel panel-default no-padding" style="border:solid 1px white;">
-                        <ul id="listaCategorias">
-                        </ul>
+
+
+                          <ul id="listaCategorias">
+
+                          </ul>
+
                         <div id="holder"></div>
                       </div>
                     </div>
@@ -569,7 +575,7 @@
                       {{ if (mode !== 'day') { }}
                         {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                         {{ if (mode ==='week') { }}
-                          <h3 id="semanaTop">Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
+                          <h3 id="semanaTop">Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} a {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
                         {{ } }}
 
                       {{ } else { }}
