@@ -196,130 +196,128 @@
                       <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                     </div>
                   </div>
-                <div class="item"><!--      FORMA EL EQUIPO     -->
-                  <h3>Forma el equipo</h3>
-                  <div id="searchfield">
-                    <form role="form" class="form-horizontal" id="contenedorModalIntegrantes">
-                      <div class="form-group">
-                        <div class="col-md-12">
-                          <div class="input-group">
-                            <input id="input-agregarIntegrante" type="text" name="currency" class="form-control input-lg" placeholder="Añade un integrante a tu equipo">
-                            <span class="input-group-btn">
-                              <button onclick="agregarIntegrante()" class="btn btn-default input-lg btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                            </span>
-                          </div>
-                          <span style="display: none;" id="helpblockintegrantes" class="help-block"></span>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div style="margin-top:150px;" class="modal-footer">
-                    <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                    <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
-                  </div>
-                </div>
-                <div class="item">
-                   <h3>Agrega tareas e hitos al proyecto</h3>
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#tabTareas" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-                    <li role="presentation"><a href="#tabHitos" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="tabTareas">
-                  <div style="" class="col-xs-8 col-sm-6">
-                    <div class="item">
-                      <form role="form" class="form-horizontal">
+                  <div class="item"><!--      FORMA EL EQUIPO     -->
+                    <h3>Forma el equipo</h3>
+                    <div id="searchfield">
+                      <form role="form" class="form-horizontal" id="contenedorModalIntegrantes">
                         <div class="form-group">
                           <div class="col-md-12">
-                            <input id="input-agregarTarea" type="text" class="form-control input-lg" required placeholder="Tarea">
-                            <p style="float: right;" id="contadorTarea">0/60</p>
-                            <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+                            <div class="input-group">
+                              <input id="input-agregarIntegrante" type="text" name="currency" class="form-control input-lg" placeholder="Añade un integrante a tu equipo">
+                              <span class="input-group-btn">
+                                <button onclick="agregarIntegrante()" class="btn btn-default input-lg btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                              </span>
+                            </div>
+                            <span style="display: none;" id="helpblockintegrantes" class="help-block"></span>
                           </div>
                         </div>
                       </form>
                     </div>
-                  </div>
-                  <div style="" class="col-xs-8 col-sm-6">
-                    <div class="item">
-                      <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <select id="select-categorias" class="form-control input-lg">
-                              <option disabled selected value="">Categoría</option>
-                            </select>
-                            <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTarea'>
-                              <input id="fechaInicioTarea" type="text" class="form-control input-lg" placeholder="Inicio">
-                              <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
+                    <div style="margin-top:150px;" class="modal-footer">
+                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
                     </div>
                   </div>
-
-                  <div style="margin-top:10px;" class="form-group">
-                    <button  onclick="agregarTarea()" class="btn btn-default btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
-                  </div>
-
-                  Tareas
-                  <hr style="max-width: 100%; width: 100% !important;">
-                  <div id="contenedorModalTareas">
-                    <span style="display: none;" id="helpblocktareas" class="help-block"></span>
-                  </div>
- </div>
-                    <div role="tabpanel" class="tab-pane" id="tabHitos">
-                      <div style="" class="col-xs-8 col-sm-6">
-                        <div class="item">
-                          <form role="form" class="form-horizontal">
-                            <div class="form-group">
-                              <div class="col-md-12">
-                                <input id="input-agregarHito" type="text" class="form-control input-lg" required placeholder="Hito">
-                                <p style="float: right;" id="contadorHito">0/60</p>
+                  <div class="item">
+                     <h3>Agrega tareas e hitos al proyecto</h3>
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li role="presentation" class="active"><a href="#tabTareas" aria-controls="home" role="tab" data-toggle="tab">Tareas</a></li>
+                      <li role="presentation"><a href="#tabHitos" aria-controls="profile" role="tab" data-toggle="tab">Hitos</a></li>
+                    </ul>
+                    <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane active" id="tabTareas">
+                        <div style="" class="col-xs-8 col-sm-6">
+                          <div class="item">
+                            <form role="form" class="form-horizontal">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <input id="input-agregarTarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                                  <p style="float: right;" id="contadorTarea">0/60</p>
+                                  <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+                                </div>
                               </div>
-                            </div>
-                          </form>
+                            </form>
+                          </div>
                         </div>
-                      </div>
-                      <div style="" class="col-xs-8 col-sm-6">
-                        <div class="item">
-                          <form role="form" class="form-horizontal">
-                            <div class="form-group">
-                              <div class="col-md-12">
-                                <div class="input-group date" id='datetimepickerFechaInicioHito'>
-                                  <input id="fechaInicioHito" type="text" class="form-control input-lg" placeholder="Inicio">
-                                  <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
+                        <div style="" class="col-xs-8 col-sm-6">
+                          <div class="item">
+                            <form role="form" class="form-horizontal">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <select id="select-categorias" class="form-control input-lg">
+                                    <option disabled selected value="">Categoría</option>
+                                  </select>
+                                  <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTarea'>
+                                    <input id="fechaInicioTarea" type="text" class="form-control input-lg" placeholder="Inicio">
+                                    <div class="input-group-addon">
+                                      <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </form>
+                            </form>
+                          </div>
+                        </div>
+                        <div style="margin-top:10px;" class="form-group">
+                          <button  onclick="agregarTarea()" class="btn btn-default btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                        Tareas
+                        <hr style="max-width: 100%; width: 100% !important;">
+                        <div id="contenedorModalTareas">
+                          <span style="display: none;" id="helpblocktareas" class="help-block"></span>
                         </div>
                       </div>
-                      <div style="margin-top:10px;" class="form-group">
-                        <button  onclick="agregarHito()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
-                      </div>
-                      Hitos
-                      <hr style="max-width: 100%; width: 100% !important;">
-                      <div id="contenedorModalHitos">
-                        <span style="display: none;" id="helpblockhitos" class="help-block"></span>
+                      <div role="tabpanel" class="tab-pane" id="tabHitos">
+                        <div style="" class="col-xs-8 col-sm-6">
+                          <div class="item">
+                            <form role="form" class="form-horizontal">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <input id="input-agregarHito" type="text" class="form-control input-lg" required placeholder="Hito">
+                                  <p style="float: right;" id="contadorHito">0/60</p>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div style="" class="col-xs-8 col-sm-6">
+                          <div class="item">
+                            <form role="form" class="form-horizontal">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <div class="input-group date" id='datetimepickerFechaInicioHito'>
+                                    <input id="fechaInicioHito" type="text" class="form-control input-lg" placeholder="Inicio">
+                                    <div class="input-group-addon">
+                                      <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div style="margin-top:10px;" class="form-group">
+                          <button  onclick="agregarHito()" class="btn btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                        Hitos
+                        <hr style="max-width: 100%; width: 100% !important;">
+                        <div id="contenedorModalHitos">
+                          <span style="display: none;" id="helpblockhitos" class="help-block"></span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div style="margin-top:150px;" class="modal-footer">
-                    <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                    <button onclick="guardarProyecto()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    <div style="margin-top:150px;" class="modal-footer">
+                      <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                      <button onclick="guardarProyecto()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    </div>
                   </div>
                 </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-  <div data-keyboard="false" data-backdrop="static" id="agregarUsuario" class="modal fade" tabindex="-1" role="dialog">
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      <div data-keyboard="false" data-backdrop="static" id="agregarUsuario" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -401,12 +399,7 @@
                   <div class="tab-pane fade in active" id="m1">
                     <div class="table-responsive no-padding">
                       <div class="panel panel-default no-padding" style="border:solid 1px white;">
-
-
-                          <ul id="listaCategorias">
-
-                          </ul>
-
+                        <ul id="listaCategorias"></ul>
                         <div id="holder"></div>
                       </div>
                     </div>
@@ -437,9 +430,7 @@
                   </div>
                   <!--  PROYECTOS ---->
                   <div  style="padding-top:0px;" class="tab-pane fade" id="m3">
-
                     <div id="ContenedorProyectos" class="row">
-
                     </div>
                   </div>
                 </div>
