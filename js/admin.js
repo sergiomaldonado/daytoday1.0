@@ -6,8 +6,8 @@ function obtenerUsuario(uid) {
   });
 }
 
-function editarTarea(idTarea, asignado) {
-  $('#btnActualizarTarea').attr({'data-id': idTarea}, {'data-asignado': asignado});
+function editarTarea(idTarea, asignado, idP) {
+  $('#btnActualizarTarea').attr({'data-id': idTarea, 'data-asignado': asignado, 'data-idP': idP});
   $('#modalEditarTarea').modal('show');
 
   let tareas = firebase.database().ref('tareas/');
@@ -33,6 +33,8 @@ function editarTarea(idTarea, asignado) {
 function actualizarTarea() {
   let idTarea = $('#btnActualizarTarea').attr('data-id');
   let asignado = $('#btnActualizarTarea').attr('data-asignado');
+  let idProyecto = $('#btnActualizarTarea').attr('data-idP');
+  console.log(asignado);
 
   let nombreNuevo = $('#nombreNuevoTarea').val();
   let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
@@ -41,7 +43,7 @@ function actualizarTarea() {
   let mes = date.getMonth();
   let año = date.getFullYear();
 
-  let tareasProyecto = firebase.database().ref('proyectos/tareas/'+idTarea);
+  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
   tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
 
   let tareas = firebase.database().ref('tareas/');
@@ -346,7 +348,7 @@ function mostrarProyectos() {
 
         let porcentaje = Math.floor(( proyectos[proyecto].tareasCompletadas * 100 ) / proyectos[proyecto].numTareas);
         row += '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
-                  '<a href="proyecto.php?id=' + proyecto + '">' +
+                  '<a href="proyecto.html?id=' + proyecto + '">' +
                     '<div id="proyecto">' +
                       '<div id="nombreproyecto"><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
                       '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas + '   Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
