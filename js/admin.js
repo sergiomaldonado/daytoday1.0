@@ -930,6 +930,53 @@ function agregarIndicador() {
 
   $('#contenedorModalIndicadores').removeClass('has-error');
   $('#helpblockindicadores').hide();
+
+  let nombre = $('#input-agregarHito').val();
+  let categoria = "Hito";
+  let estado = "Pendiente";
+  let fecha = $('#fechaInicioHito').val();
+  let date = new Date(fecha);
+  let dia = date.getDate();
+  let mes = date.getMonth();
+  let año = date.getFullYear();
+
+  let hito = {
+    nombre: nombre,
+    año: año,
+    mes: mes,
+    dia: dia,
+    categoria: categoria,
+    estado: estado,
+  }
+
+  arrTareas.push(hito);
+  numtareas++;
+
+  let id = 'tarea-'+tareaInc;
+
+  let $div = $('<div/>', {
+    'class': 'chip-hitos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'borrarTarea("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  });
+  $div.append($span);
+  $div.append(nombre);
+  $('#contenedorModalTareas').append($div);
+  tareaInc++;
+
+  $('#input-agregarTarea').val('').focus();
+  $('#asignado').val('');
+  $('#select-categorias').val('');
+  $('#fechaInicioTarea').val('');
+  $('#contadorTarea').html('0/60');
+
+  $('#contenedorModalTareas').removeClass('has-error');
+  $('#helpblocktareas').hide();
 }
 
 function eliminarIndicador(id) {
@@ -1231,6 +1278,13 @@ $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de Fech
 });
 
 $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
+  startDate: "Today",
+  autoclose: true,
+  format: "mm/dd/yyyy",
+  todayHighlight: true
+});
+
+$('#datetimepickerFechaInicioHito').datepicker({ //Inicializa el datepicker de FechaEntrega
   startDate: "Today",
   autoclose: true,
   format: "mm/dd/yyyy",

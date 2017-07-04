@@ -1,3 +1,15 @@
+function getQueryVariable(variable) {
+   var query = window.location.search.substring(1);
+   var vars = query.split("&");
+   for (var i=0; i < vars.length; i++) {
+       var pair = vars[i].split("=");
+       if(pair[0] == variable) {
+           return pair[1];
+       }
+   }
+   return false;
+}
+
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.on('value', function(snapshot) {
@@ -84,7 +96,7 @@ function eliminarTarea(idTarea) {
 
   //let refMiSemana = firebase.database().ref('miSemana/'+datos.asignado);
 
-  let idProyecto = $('#idProyecto').val();
+  let idProyecto = getQueryVariable('id');
   let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'); //Eliminar del nodo tareas del proyecto
   tareasProyecto.child(idTarea).remove();
 
@@ -122,7 +134,7 @@ function completarTarea(idTarea) {
 
   });
 
-  let idProyecto = $('#idProyecto').val();
+  let idProyecto = getQueryVariable('id');
   let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'); //Eliminar del nodo tareas del proyecto
   firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea).update({ estado: "Completada" });
 
@@ -662,6 +674,13 @@ $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de Fech
 });
 
 $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
+  startDate: "Today",
+  autoclose: true,
+  format: "mm/dd/yyyy",
+  todayHighlight: true
+});
+
+$('#datetimepickerFechaInicioHito').datepicker({ //Inicializa el datepicker de FechaEntrega
   startDate: "Today",
   autoclose: true,
   format: "mm/dd/yyyy",
