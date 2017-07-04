@@ -272,7 +272,7 @@
   var data = [];
   var colores = [];
 
-  var ruta = $('#idProyecto').val();
+  var ruta = idProyecto;
   let semana = firebase.database().ref('/proyectos/'+ruta+'/tareas');
   semana.on('value', function(snapshot) {
   let tareas=snapshot.val();

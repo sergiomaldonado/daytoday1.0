@@ -1,4 +1,17 @@
-var idProyecto = $('#idProyecto').val();
+function getQueryVariable(variable) {
+   var query = window.location.search.substring(1);
+   var vars = query.split("&");
+   for (var i=0; i < vars.length; i++) {
+       var pair = vars[i].split("=");
+       if(pair[0] == variable) {
+           return pair[1];
+       }
+   }
+   return false;
+}
+
+var idProyecto = getQueryVariable('id');
+console.log(idProyecto);
 var dbRef = firebase.database();
 
 function obtenerTituloProyecto() {
@@ -39,26 +52,6 @@ $(function() {
   });
 });
 
-/*function rellenarContenedorDeTareas() {
-  let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
-  tareasProyecto.on('value', function(snapshot) {
-    let Tareas = snapshot.val();
-
-    let row = "";
-    $('#left-rollbacks').empty();
-    for(tarea in Tareas) {
-      row += '<div style="margin-right:-20px;" class="redips-drag t1 col-md-4">' +
-              '<div class="tarea" style="border-left: solid 5px ' + Tareas[tarea].categoria.color + ';">' + Tareas[tarea].nombre + '</div>' +
-             '</div>';
-    }
-    $('#left-rollbacks').append(row);
-    row = "";
-
-  }, function(errorObject) {
-    console.log("La lectura de tareas falló: " + errorObject.code)
-  });
-}*/
-
 function rellenarBrief() {
   let rutaProyecto = dbRef.ref('proyectos/'+idProyecto);
   rutaProyecto.on('value', function(snapshot) {
@@ -74,7 +67,6 @@ function rellenarBrief() {
     for(let i=0; i<datosProyecto.hitos.length; i++) {
       hitos += '<li><span class="glyphicon glyphicon-star"></span>' + datosProyecto.hitos[i] + '</li>';
     }
-
 
     let row = '<div style="" class="col-xs-8 col-sm-6">' +
                 '<h3 class="text-left">Encargado del Proyecto:<span id="text-brief"> '+datosProyecto.encargado+'</span></h3>' +
@@ -132,12 +124,6 @@ function rellenarBrief() {
 }
 
 $(document).ready(function() {
-
-  /*$('#tabsemana').on('shown.bs.tab', function (e) {
-    e.target
-    e.relatedTarget
-  })*/
-
   $('#tabbrief').on('shown.bs.tab', function(e) {
     e.target
     e.relatedTarget

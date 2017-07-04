@@ -348,7 +348,7 @@ function mostrarProyectos() {
 
         let porcentaje = Math.floor(( proyectos[proyecto].tareasCompletadas * 100 ) / proyectos[proyecto].numTareas);
         row += '<div style="margin-top:10px;" class="col-xs-6 col-md-4">' +
-                  '<a href="proyecto.php?id=' + proyecto + '">' +
+                  '<a href="proyecto.html?id=' + proyecto + '">' +
                     '<div id="proyecto">' +
                       '<div id="nombreproyecto"><h3 style="padding:20px;">' + proyectos[proyecto].nombre + '</h3></div>' +
                       '<div id="fecha"><p>Tareas:' + proyectos[proyecto].numTareas + '   Entrega:' + proyectos[proyecto].fechaEntrega + '</p></div>' +
