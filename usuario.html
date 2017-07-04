@@ -58,41 +58,34 @@
               </div>
             </div>
 		        <div  class="no-padding col-lg-10 col-md-11" style=" background-color:transparent;">
-
-                <div class="btn-group text-left" data-toggle="buttons">
-                  <label onclick="Semana()" class="btn btn-primary active">
-                    <input type="radio" name="options" autocomplete="off" checked> Semana
-                  </label>
-                  <label onclick="miSemana()" class="btn btn-primary">
-                    <input type="radio" name="options" autocomplete="off"> Mi Semana
-                  </label>
-                </div>
-
-
-
+              <div class="btn-group text-left" data-toggle="buttons">
+                <label onclick="Semana()" class="btn btn-primary active">
+                  <input type="radio" name="options" autocomplete="off" checked> Semana
+                </label>
+                <label onclick="miSemana()" class="btn btn-primary">
+                  <input type="radio" name="options" autocomplete="off"> Mi Semana
+                </label>
+                <label onclick="misOrdenes()" class="btn btn-primary">
+                  <input type="radio" name="options" autocomplete="off"> Mis órdenes
+                </label>
+              </div>
               <div style="background-color:white; padding-top:30px;" class="live-box">
-                    <div style="display: inline;" id="authentication">
-                      <div class="table-responsive no-padding">
-
-                        <div id="Semana" class="panel panel-default no-padding" style="border:solid 1px white;">
-                          <!-- Default panel contents -->
-
-                          <div class="panel-body no-padding">
-
-                            <ul id="listaCategorias">
-
-                            </ul>
-                          </div>
-
-                          <div id="holder"></div>
-                        </div>
+                <div style="display: inline;" id="authentication">
+                  <div class="table-responsive no-padding">
+                    <div id="Semana" class="panel panel-default no-padding" style="border:solid 1px white;">
+                      <div class="panel-body no-padding">
+                        <ul id="listaCategorias">
+                        </ul>
                       </div>
+                      <div id="holder"></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
- 	         </div>
+          </div>
+        </div>
+ 	    </div>
     </section>
       <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

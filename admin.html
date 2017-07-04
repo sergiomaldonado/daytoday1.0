@@ -81,8 +81,16 @@
                   <span style="display: none;" id="helpblockfechaEntrega" class="help-block"></span>
                 </div>
                 <div class="form-group">
-                  <input id="encargado" type="text" name="" class="form-control input-lg" value="" placeholder="¿Quién se encarga de esta orden?" required>
+                  <input id="asignadoOrden" type="text" name="currency" class="form-control input-lg" placeholder="Asignada a" required>
+                  <span style="display: none;" id="helpblockasignadoOrden" class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <input id="encargado" type="text" name="" class="form-control input-lg" value="" placeholder="Cliente encargado" required>
                   <span style="display: none;" id="helpblockEncargado" class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <textarea id="comentarios" type="text" rows="3" class="form-control input-lg" placeholder="Comentarios" required></textarea>
+                  <span style="display: none;" id="helpblockComentarios" class="help-block"></span>
                 </div>
               </form>
             </div>
@@ -188,23 +196,6 @@
                       <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                     </div>
                   </div>
-                  <div class="item">
-                    <form id="contenedorModalHitos" role="form" class="form-horizontal text-left">
-                      <label><h3>Hitos</h3></label>
-                      <div class="input-group">
-                        <input id="input-agregarHito" type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
-                        <span class="input-group-btn">
-                          <button onclick="agregarHito()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                          <p style="" id="contadorHito">0/140</p>
-                        </span>
-                      </div>
-                      <span style="display: none;" id="helpblockhitos" class="help-block"></span>
-                    </form>
-                    <div style="margin-top:150px;" class="modal-footer">
-                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
-                    </div>
-                  </div>
                 <div class="item"><!--      FORMA EL EQUIPO     -->
                   <h3>Forma el equipo</h3>
                   <div id="searchfield">
@@ -228,7 +219,14 @@
                   </div>
                 </div>
                 <div class="item">
-                  <h3>Agrega tareas al proyecto</h3>
+                   <h3>Agrega tareas e hitos al proyecto</h3>
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tabTareas" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                    <li role="presentation"><a href="#tabHitos" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="tabTareas">
+                      
                   <div style="" class="col-xs-8 col-sm-6">
                     <div class="item">
                       <form role="form" class="form-horizontal">
@@ -270,6 +268,46 @@
                   <hr style="max-width: 100%; width: 100% !important;">
                   <div id="contenedorModalTareas">
                     <span style="display: none;" id="helpblocktareas" class="help-block"></span>
+                  </div>
+ </div>
+                    <div role="tabpanel" class="tab-pane" id="tabHitos">
+                      <div style="" class="col-xs-8 col-sm-6">
+                        <div class="item">
+                          <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                              <div class="col-md-12">
+                                <input id="input-agregarHito" type="text" class="form-control input-lg" required placeholder="Hito">
+                                <p style="float: right;" id="contadorHito">0/60</p>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div style="" class="col-xs-8 col-sm-6">
+                        <div class="item">
+                          <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                              <div class="col-md-12">
+                                <div class="input-group date" id='datetimepickerFechaInicioHito'>
+                                  <input id="fechaInicioHito" type="text" class="form-control input-lg" placeholder="Inicio">
+                                  <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div style="margin-top:10px;" class="form-group">
+                        <button  onclick="agregarHito()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                      </div>
+                      Hitos
+                      <hr style="max-width: 100%; width: 100% !important;">
+                      <div id="contenedorModalHitos">
+                        <span style="display: none;" id="helpblockhitos" class="help-block"></span>
+                      </div>
+                    </div>
                   </div>
                   <div style="margin-top:150px;" class="modal-footer">
                     <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
@@ -422,6 +460,7 @@
                 <div class="form-group">
                   <div class="col-md-6">
                     <input id="nombreNuevoTarea" class="form-control" type="text" name="" placeholder="Nuevo nombre de la tarea">
+                    <span style="display: none;" id="helpblocknombreNuevoTarea" class="help-block"></span>
                   </div>
                   <div class="col-md-6">
                     <div class="input-group date" id='datetimepickerFechaInicioEditarTarea'>
@@ -430,6 +469,7 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                       </div>
                     </div>
+                    <span style="display: none;" id="helpblockfechaInicioEditarTarea" class="help-block"></span>
                   </div>
                 </div>
             </div>

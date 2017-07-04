@@ -6,6 +6,30 @@ function obtenerUsuario(uid) {
   });
 }
 
+$('#nombreNuevoTarea').keyup(function () {
+  let nombreNuevoTarea = $('#nombreNuevoTarea').val();
+  if(nombreNuevoTarea.length < 1) {
+    $('#nombreNuevoTarea').parent().addClass('has-error');
+    $('#helpblocknombreNuevoTarea').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#nombreNuevoTarea').parent().removeClass('has-error');
+    $('#helpblocknombreNuevoTarea').hide();
+  }
+});
+
+$('#fechaInicioEditarTarea').keyup(function () {
+  let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
+  if(fechaInicioEditarTarea.length < 1) {
+    $('#fechaInicioEditarTarea').parent().parent().addClass('has-error');
+    $('#helpblockfechaInicioEditarTarea').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#fechaInicioEditarTarea').parent().parent().removeClass('has-error');
+    $('#helpblockfechaInicioEditarTarea').hide();
+  }
+});
+
 function editarTarea(idTarea, asignado, idP) {
   $('#btnActualizarTarea').attr({'data-id': idTarea, 'data-asignado': asignado, 'data-idP': idP});
   $('#modalEditarTarea').modal('show');
@@ -34,31 +58,51 @@ function actualizarTarea() {
   let idTarea = $('#btnActualizarTarea').attr('data-id');
   let asignado = $('#btnActualizarTarea').attr('data-asignado');
   let idProyecto = $('#btnActualizarTarea').attr('data-idP');
-  console.log(asignado);
 
   let nombreNuevo = $('#nombreNuevoTarea').val();
   let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
-  let date = new Date(fechaInicioEditarTarea);
-  let dia = date.getDate();
-  let mes = date.getMonth();
-  let año = date.getFullYear();
 
-  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
-  tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+  if(nombreNuevo.length > 0 && fechaInicioEditarTarea.length > 0) {
+    let date = new Date(fechaInicioEditarTarea);
+    let dia = date.getDate();
+    let mes = date.getMonth();
+    let año = date.getFullYear();
 
-  let tareas = firebase.database().ref('tareas/');
-  tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
-    let idTareaEnNodoTareas = snapshot.key;
-    let rutaTareas = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
-    rutaTareas.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
-  });
+    let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
+    tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
 
-  let miSemana = firebase.database().ref('miSemana/'+asignado);
-  miSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
-    let idTareaEnMiSemana = snapshot.key;
-    let rutaMiSemana = firebase.database().ref('miSemana/'+asignado+'/'+idTareaEnMiSemana);
-    rutaMiSemana.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
-  });
+    let tareas = firebase.database().ref('tareas/');
+    tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+      let idTareaEnNodoTareas = snapshot.key;
+      let rutaTareas = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+      rutaTareas.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+    });
+
+    let miSemana = firebase.database().ref('miSemana/'+asignado);
+    miSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+      let idTareaEnMiSemana = snapshot.key;
+      let rutaMiSemana = firebase.database().ref('miSemana/'+asignado+'/'+idTareaEnMiSemana);
+      rutaMiSemana.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+    });
+  }
+  else {
+    if(nombreNuevo.length < 1) {
+      $('#nombreNuevoTarea').parent().addClass('has-error');
+      $('#helpblocknombreNuevoTarea').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nombreNuevoTarea').parent().removeClass('has-error');
+      $('#helpblocknombreNuevoTarea').hide();
+    }
+    if(fechaInicioEditarTarea.length < 1) {
+      $('#fechaInicioEditarTarea').parent().parent().addClass('has-error');
+      $('#helpblockfechaInicioEditarTarea').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaInicioEditarTarea').parent().parent().removeClass('has-error');
+      $('#helpblockfechaInicioEditarTarea').hide();
+    }
+  }
 }
 
 function llenarCategorias() {
@@ -513,8 +557,10 @@ function guardarOrden() {
   let fechaEntrega = $('#fechaEntrega').val();
   let estado = "Pendiente";
   let encargado = $('#encargado').val();
+  let asignado = $('#asignadoOrden').val();
+  let comentarios = $('#comentarios').val();
 
-  if(cliente.length > 0 && descripcion.length > 0 && fechaRecep.length > 0 && fechaEntrega.length > 0 && estado.length > 0 && encargado.length > 0) {
+  if(cliente.length > 0 && descripcion.length > 0 && fechaRecep.length > 0 && fechaEntrega.length > 0 && estado.length > 0 && encargado.length > 0 && asignado.length > 0 && comentarios.length > 0) {
     let ordenes = firebase.database().ref('ordenes/');
     let Orden = {
       cliente: cliente,
@@ -522,7 +568,9 @@ function guardarOrden() {
       fechaRecep: fechaRecep,
       fechaEntrega: fechaEntrega,
       estado: estado,
-      encargado: encargado
+      encargado: encargado,
+      asignado: asignado,
+      comentarios: comentarios
     }
 
     ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
@@ -560,6 +608,22 @@ function guardarOrden() {
     else {
       $('#encargado').parent().removeClass('has-error');
       $('#helpblockEncargado').hide();
+    }
+    if(asignado == "") {
+      $('#asignadoOrden').parent().addClass('has-error');
+      $('#helpblockasignadoOrden').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#asignadoOrden').parent().removeClass('has-error');
+      $('#helpblockasignadoOrden').hide();
+    }
+    if(comentarios == "") {
+      $('#comentarios').parent().addClass('has-error');
+      $('#helpblockComentarios').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#comentarios').parent().removeClass('has-error');
+      $('#helpblockComentarios').hide();
     }
   }
 }
@@ -886,6 +950,53 @@ function agregarIndicador() {
 
   $('#contenedorModalIndicadores').removeClass('has-error');
   $('#helpblockindicadores').hide();
+
+  let nombre = $('#input-agregarHito').val();
+  let categoria = "Hito";
+  let estado = "Pendiente";
+  let fecha = $('#fechaInicioHito').val();
+  let date = new Date(fecha);
+  let dia = date.getDate();
+  let mes = date.getMonth();
+  let año = date.getFullYear();
+
+  let hito = {
+    nombre: nombre,
+    año: año,
+    mes: mes,
+    dia: dia,
+    categoria: categoria,
+    estado: estado,
+  }
+
+  arrTareas.push(hito);
+  numtareas++;
+
+  let id = 'tarea-'+tareaInc;
+
+  let $div = $('<div/>', {
+    'class': 'chip-hitos',
+    'id': id
+  });
+
+  let $span = $('<span/>', {
+    'class': 'glyphicon glyphicon-remove',
+    'onclick': 'borrarTarea("'+id+'")',
+    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
+  });
+  $div.append($span);
+  $div.append(nombre);
+  $('#contenedorModalTareas').append($div);
+  tareaInc++;
+
+  $('#input-agregarTarea').val('').focus();
+  $('#asignado').val('');
+  $('#select-categorias').val('');
+  $('#fechaInicioTarea').val('');
+  $('#contadorTarea').html('0/60');
+
+  $('#contenedorModalTareas').removeClass('has-error');
+  $('#helpblocktareas').hide();
 }
 
 function eliminarIndicador(id) {
@@ -1187,6 +1298,13 @@ $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de Fech
 });
 
 $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
+  startDate: "Today",
+  autoclose: true,
+  format: "mm/dd/yyyy",
+  todayHighlight: true
+});
+
+$('#datetimepickerFechaInicioHito').datepicker({ //Inicializa el datepicker de FechaEntrega
   startDate: "Today",
   autoclose: true,
   format: "mm/dd/yyyy",

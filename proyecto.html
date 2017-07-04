@@ -320,7 +320,7 @@
                     </div>
                   </div>
                   <div class="item">
-                    <h3>Agrega tareas al proyecto</h3>
+                    <h3>Agrega tareas e hitos al proyecto</h3>
                     <div style="" class="col-xs-8 col-sm-6">
                       <div class="item">
                         <form role="form" class="form-horizontal">
@@ -328,7 +328,7 @@
                             <div class="col-md-12">
                               <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
                               <p style="float: right;" id="contadorTaComentario">0/60</p>
-                              <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+                              <!--<input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">-->
                             </div>
                           </div>
                         </form>
@@ -428,6 +428,7 @@
                   <div class="form-group">
                     <div class="col-md-6">
                       <input id="nombreNuevoTarea" class="form-control" type="text" name="" placeholder="Nuevo nombre de la tarea">
+                      <span style="display: none;" id="helpblocknombreNuevoTarea" class="help-block"></span>
                     </div>
                     <div class="col-md-6">
                       <div class="input-group date" id='datetimepickerFechaInicioEditarTarea'>
@@ -436,6 +437,7 @@
                           <span class="glyphicon glyphicon-calendar"></span>
                         </div>
                       </div>
+                      <span style="display: none;" id="helpblockfechaInicioEditarTarea" class="help-block"></span>
                     </div>
                   </div>
               </div>
