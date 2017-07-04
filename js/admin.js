@@ -557,8 +557,10 @@ function guardarOrden() {
   let fechaEntrega = $('#fechaEntrega').val();
   let estado = "Pendiente";
   let encargado = $('#encargado').val();
+  let asignado = $('#asignadoOrden').val();
+  let comentarios = $('#comentarios').val();
 
-  if(cliente.length > 0 && descripcion.length > 0 && fechaRecep.length > 0 && fechaEntrega.length > 0 && estado.length > 0 && encargado.length > 0) {
+  if(cliente.length > 0 && descripcion.length > 0 && fechaRecep.length > 0 && fechaEntrega.length > 0 && estado.length > 0 && encargado.length > 0 && asignado.length > 0 && comentarios.length > 0) {
     let ordenes = firebase.database().ref('ordenes/');
     let Orden = {
       cliente: cliente,
@@ -566,7 +568,9 @@ function guardarOrden() {
       fechaRecep: fechaRecep,
       fechaEntrega: fechaEntrega,
       estado: estado,
-      encargado: encargado
+      encargado: encargado,
+      asignado: asignado,
+      comentarios: comentarios
     }
 
     ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
@@ -604,6 +608,22 @@ function guardarOrden() {
     else {
       $('#encargado').parent().removeClass('has-error');
       $('#helpblockEncargado').hide();
+    }
+    if(asignado == "") {
+      $('#asignadoOrden').parent().addClass('has-error');
+      $('#helpblockasignadoOrden').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#asignadoOrden').parent().removeClass('has-error');
+      $('#helpblockasignadoOrden').hide();
+    }
+    if(comentarios == "") {
+      $('#comentarios').parent().addClass('has-error');
+      $('#helpblockComentarios').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#comentarios').parent().removeClass('has-error');
+      $('#helpblockComentarios').hide();
     }
   }
 }

@@ -238,3 +238,9 @@ fieldset[disabled] .boton-default.active {
   border: solid #AB433F !important;
   border-radius: 5px !important;
 }
+
+#comentarios {
+  resize:none !important;
+  overflow-y: scroll !important;
+  height: 7em !important;
+}
