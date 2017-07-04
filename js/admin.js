@@ -242,7 +242,6 @@ function haySesion() {
 haySesion();
 
 function mostrarOrdenes() {
-
    let ordenes = firebase.database().ref('ordenes/');
     ordenes.on('value', function(snapshot) {
       let ordenes = snapshot.val();

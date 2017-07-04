@@ -79,6 +79,31 @@
                       </div>
                       <div id="holder"></div>
                     </div>
+                    <div style="display: none;" id="misOrdenes" class="panel panel-default no-padding" style="padding-top:0px; border:solid 1px white;">
+                      <div class="panel-body no-padding">
+                        <h3 style="float: left;">Ordenes de trabajo</h3>
+                        <form role="form">
+                          <div style="width:30%; float:right;" class="form-group has-feedback">
+                            <input id="buscarOrden"  type="text" class="form-control" placeholder="Buscar" />
+                            <i style="color: #4388E5;" class="form-control-feedback glyphicon glyphicon-search rota-horizontal"></i>
+                          </div>
+                        </form>
+                        <table id="tablaordenes" class="table table-striped table-hover">
+                          <thead>
+                            <th>Id</th>
+                            <th>Cliente</th>
+                            <th>Descripción del pedido</th>
+                            <th>Recepción</th>
+                            <th>Entrega</th>
+                            <th>Estado</th>
+                            <th>Cliente Encargado</th>
+                          </thead>
+                          <tbody id="cuerpoTablaOrdenes">
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
