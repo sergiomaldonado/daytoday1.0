@@ -168,7 +168,7 @@
                               <p style="" id="contadorObjetivo">0/140</p>
                             </span>
                           </div>
-                          <span style="display: none;" id="helpblockobjetivos" class="help-block"></span>
+
                         </div>
                         <div id="contenedorModalIndicadores" class="col-md-6 text-left">
                           <label><h3>Indicadores</h3></label>
@@ -263,7 +263,7 @@
                   </div>
 
                   <div style="margin-top:10px;" class="form-group">
-                    <button  onclick="agregarTarea()" class="btn btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button  onclick="agregarTarea()" class="btn btn-default btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
                   </div>
 
                   Tareas
@@ -367,9 +367,7 @@
                         <!-- Contenido a pintar por javascript -->
 
 
-                          <ul id="listaCategorias">
-
-                          </ul>
+                          <ul id="listaCategorias"></ul>
 
                         <div id="holder"></div>
                       </div>
@@ -537,7 +535,7 @@
                       {{ if (mode !== 'day') { }}
                         {{ if (mode === 'month') { }}<button class="js-cal-option btn btn-link" data-mode="year">{{: months[month] }}</button>{{ } }}
                         {{ if (mode ==='week') { }}
-                          <h3 id="semanaTop">Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} - {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
+                          <h3 id="semanaTop">Semana {{: shortMonths[first.getMonth()] }} {{: first.getDate() }} a {{: shortMonths[last.getMonth()] }} {{: last.getDate() }} de {{: year}}</h3>
                         {{ } }}
 
                       {{ } else { }}
