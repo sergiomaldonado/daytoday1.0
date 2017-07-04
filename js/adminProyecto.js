@@ -136,6 +136,55 @@ function completarTarea(idTarea) {
   });
 }
 
+function editarTarea(idTarea, asignado, idP) {
+  $('#btnActualizarTarea').attr({'data-id': idTarea, 'data-asignado': asignado, 'data-idP': idP});
+  $('#modalEditarTarea').modal('show');
+
+  let tareas = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
+  tareas.once('value', function(snapshot) {
+    let datos = snapshot.val();
+    let nombre = datos.nombre;
+    let dia = datos.dia;
+    let mes = datos.mes;
+    let año = datos.año;
+    let date = new Date(año, mes, dia);
+    fecha = moment(date).format('MM/DD/YYYY');
+
+    $('#nombreNuevoTarea').val(nombre).focus();
+    $('#fechaInicioEditarTarea').val(fecha);
+  });
+}
+
+function actualizarTarea() {
+  let idTarea = $('#btnActualizarTarea').attr('data-id');
+  let asignado = $('#btnActualizarTarea').attr('data-asignado');
+  let idProyecto = $('#btnActualizarTarea').attr('data-idP');
+
+  let nombreNuevo = $('#nombreNuevoTarea').val();
+  let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
+  let date = new Date(fechaInicioEditarTarea);
+  let dia = date.getDate();
+  let mes = date.getMonth();
+  let año = date.getFullYear();
+
+  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
+  tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+
+  let tareas = firebase.database().ref('tareas/');
+  tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    let idTareaEnNodoTareas = snapshot.key;
+    let rutaTareas = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+    rutaTareas.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+  });
+
+  let miSemana = firebase.database().ref('miSemana/'+asignado);
+  miSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    let idTareaEnMiSemana = snapshot.key;
+    let rutaMiSemana = firebase.database().ref('miSemana/'+asignado+'/'+idTareaEnMiSemana);
+    rutaMiSemana.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+  });
+}
+
 //checa si hay un usuario actualmente logeado
 function haySesion() {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -568,6 +617,13 @@ $('#datetimepickerFechaEntrega').datepicker({ //Inicializa el datepicker de Fech
 });
 
 $('#datetimepickerFechaInicioTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
+  startDate: "Today",
+  autoclose: true,
+  format: "mm/dd/yyyy",
+  todayHighlight: true
+});
+
+$('#datetimepickerFechaInicioEditarTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
   startDate: "Today",
   autoclose: true,
   format: "mm/dd/yyyy",

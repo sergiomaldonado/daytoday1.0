@@ -92,7 +92,7 @@
     time = data.start.toTimeString();
     if (time && data.end) { time = time + ' - ' + data.end.toTimeString(); }
     $t.data('popover',true);
-    $t.popover({content: '<p><strong>' + time + '</strong></p>'+data.text, html: true, placement: 'auto left'}).popover('toggle');
+    //$t.popover({content: '<p><strong>' + time + '</strong></p>'+data.text, html: true, placement: 'auto left'}).popover('toggle');
     return false;
   });
   function dayAddEvent(index, event) { //asigna el evento al dia
@@ -169,7 +169,7 @@
 
         if(event.estado == "Pendiente") {
           let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
-          let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'")'});
+          let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
           let $spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
           let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'")'});
           let $spanEliminar = $('<span/>', {'class': 'glyphicon glyphicon-remove'});
@@ -265,6 +265,8 @@
 
   var ids = [];
   var nombres = [];
+  var asignados = [];
+  var idPs = [];
   var estados = [];
   var comienzos = [];
   var data = [];
@@ -277,6 +279,8 @@
   for(tarea in tareas) {
     ids.push(tarea);
     nombres.push(String(tareas[tarea].nombre));
+    asignados.push(tareas[tarea].asignado);
+    idPs.push(tareas[tarea].idP);
     estados.push(tareas[tarea].estado);
     comienzos.push(
       {
@@ -303,7 +307,7 @@
   //Recorro el arreglo de titulos de las tareas
   for(i = 0; i < nombres.length; i++) {
     end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], id:ids[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    data.push({ title: nombres[i], color: colores[i], idP: idPs[i], id:ids[i], asignado: asignados[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -317,7 +321,9 @@
 
   //RESETEAR LAS VARIABLES
   nombres = [];
+  asignados = [];
   estados = [];
+  idPs = [];
   comienzos = [];
   colores = [];
   data = [];

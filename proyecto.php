@@ -94,7 +94,7 @@
                               <div class="table-responsive no-padding">
                                 <div class="panel panel-default no-padding" style="border:solid 1px white;">
                                   <div class="panel-body no-padding">
-                              
+
                                     <ul id="listaCategorias">
                                   </div>
                                   <div id='holder' class="row" ></div>
@@ -422,6 +422,34 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         </section>
+        <div id="modalEditarTarea" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar tarea</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <div class="col-md-6">
+                      <input id="nombreNuevoTarea" class="form-control" type="text" name="" placeholder="Nuevo nombre de la tarea">
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group date" id='datetimepickerFechaInicioEditarTarea'>
+                        <input id="fechaInicioEditarTarea" type="text" class="form-control" placeholder="Inicio">
+                        <div class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button id="btnActualizarTarea" onclick="actualizarTarea()" type="button" class="btns btn-siguiente" data-dismiss="modal">Guardar</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
         <script type="text/javascript" src="js/jquery.minicolors.min.js"></script>
