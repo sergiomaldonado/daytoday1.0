@@ -6,6 +6,30 @@ function obtenerUsuario(uid) {
   });
 }
 
+$('#nombreNuevoTarea').keyup(function () {
+  let nombreNuevoTarea = $('#nombreNuevoTarea').val();
+  if(nombreNuevoTarea.length < 1) {
+    $('#nombreNuevoTarea').parent().addClass('has-error');
+    $('#helpblocknombreNuevoTarea').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#nombreNuevoTarea').parent().removeClass('has-error');
+    $('#helpblocknombreNuevoTarea').hide();
+  }
+});
+
+$('#fechaInicioEditarTarea').keyup(function () {
+  let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
+  if(fechaInicioEditarTarea.length < 1) {
+    $('#fechaInicioEditarTarea').parent().parent().addClass('has-error');
+    $('#helpblockfechaInicioEditarTarea').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#fechaInicioEditarTarea').parent().parent().removeClass('has-error');
+    $('#helpblockfechaInicioEditarTarea').hide();
+  }
+});
+
 function editarTarea(idTarea, asignado, idP) {
   $('#btnActualizarTarea').attr({'data-id': idTarea, 'data-asignado': asignado, 'data-idP': idP});
   $('#modalEditarTarea').modal('show');
@@ -34,31 +58,51 @@ function actualizarTarea() {
   let idTarea = $('#btnActualizarTarea').attr('data-id');
   let asignado = $('#btnActualizarTarea').attr('data-asignado');
   let idProyecto = $('#btnActualizarTarea').attr('data-idP');
-  console.log(asignado);
 
   let nombreNuevo = $('#nombreNuevoTarea').val();
   let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
-  let date = new Date(fechaInicioEditarTarea);
-  let dia = date.getDate();
-  let mes = date.getMonth();
-  let año = date.getFullYear();
 
-  let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
-  tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+  if(nombreNuevo.length > 0 && fechaInicioEditarTarea.length > 0) {
+    let date = new Date(fechaInicioEditarTarea);
+    let dia = date.getDate();
+    let mes = date.getMonth();
+    let año = date.getFullYear();
 
-  let tareas = firebase.database().ref('tareas/');
-  tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
-    let idTareaEnNodoTareas = snapshot.key;
-    let rutaTareas = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
-    rutaTareas.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
-  });
+    let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
+    tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
 
-  let miSemana = firebase.database().ref('miSemana/'+asignado);
-  miSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
-    let idTareaEnMiSemana = snapshot.key;
-    let rutaMiSemana = firebase.database().ref('miSemana/'+asignado+'/'+idTareaEnMiSemana);
-    rutaMiSemana.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
-  });
+    let tareas = firebase.database().ref('tareas/');
+    tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+      let idTareaEnNodoTareas = snapshot.key;
+      let rutaTareas = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+      rutaTareas.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+    });
+
+    let miSemana = firebase.database().ref('miSemana/'+asignado);
+    miSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+      let idTareaEnMiSemana = snapshot.key;
+      let rutaMiSemana = firebase.database().ref('miSemana/'+asignado+'/'+idTareaEnMiSemana);
+      rutaMiSemana.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+    });
+  }
+  else {
+    if(nombreNuevo.length < 1) {
+      $('#nombreNuevoTarea').parent().addClass('has-error');
+      $('#helpblocknombreNuevoTarea').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nombreNuevoTarea').parent().removeClass('has-error');
+      $('#helpblocknombreNuevoTarea').hide();
+    }
+    if(fechaInicioEditarTarea.length < 1) {
+      $('#fechaInicioEditarTarea').parent().parent().addClass('has-error');
+      $('#helpblockfechaInicioEditarTarea').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaInicioEditarTarea').parent().parent().removeClass('has-error');
+      $('#helpblockfechaInicioEditarTarea').hide();
+    }
+  }
 }
 
 function llenarCategorias() {
