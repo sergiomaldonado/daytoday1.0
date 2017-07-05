@@ -15,6 +15,19 @@ function obtenerUsuario(uid) {
   usuario.on('value', function(snapshot) {
     let usuarioactual = snapshot.val();
     $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
+    let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
+    not.on('value', function(datosNotificacion) {
+      let notis = datosNotificacion.val();
+      console.log(notis);
+      let row = "";
+      for(noti in notis) {
+        row += '<div width="100%">'+notis[noti].mensaje+'</div>';
+      }
+
+      $('#notificaciones').popover({ content: row, html: true});
+      row = "";
+    });
   });
 }
 
@@ -370,6 +383,17 @@ function guardarOrden() {
   }
 
   ordenes.push().set(Orden); //inserta en firebase asignando un id autogenerado por la plataforma
+
+  let misOrdenes = firebase.database().ref('misOrdenes/'+asignado+'/'+key);
+  misOrdenes.set(Orden);
+
+  let notificacion = firebase.database().ref('notificaciones/'+asignado);
+  let datosNotificacion = {
+    mensaje: 'Se te ha asignado la orden ',
+    leida: false,
+    tipo: 'Orden'
+  };
+  notificacion.push();
   cerrarModalOrden();
 }
 
@@ -397,6 +421,10 @@ function guardarUsuario() {
         puesto: agregarUsuarioPuesto
       }
       usuarios.set(Usuario); //metodo set para insertar de Firebase
+
+      let nombreCompleto = nombre + ' ' + apellidos;
+      let notificaciones = firebase.database().ref('notificaciones/'+nombreCompleto);
+      let notificaciones.set( { cont: 0 });
 
     })
     .catch(function(error) {
@@ -647,6 +675,23 @@ function guardarProyecto() {
         miSemana.push(tareas[i]);
       }
     }
+
+    for(let i=0; i<integrantes.length; i++) {
+      let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
+      let datosNotificacion = {
+        mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
+        tipo: 'Proyecto',
+        leida: false
+      }
+      notificaciones.push(datosNotificacion);
+
+      let not = db.ref('notificaciones/'+integrantes[i]);
+      not.once('value', function(snapshot) {
+        let notusuario = snapshot.val();
+        let cont = notusuario.cont + 1;
+
+        not.update({cont: cont});
+      });
   }
 
   cerrarModalProyecto();

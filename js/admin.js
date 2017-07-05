@@ -3,8 +3,27 @@ function obtenerUsuario(uid) {
   usuario.on('value', function(snapshot) {
     let usuarioactual = snapshot.val();
     $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
+    let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
+    not.on('value', function(datosNotificacion) {
+      let notis = datosNotificacion.val();
+      console.log(notis);
+      let row = "";
+      for(noti in notis) {
+        if(notis[noti].leida == false) {
+          row += '<div style="width: 100% !important;">'+notis[noti].mensaje+'</div>';
+        }
+        else {
+          row += '<div style="width: 100% !important;">'+notis[noti].mensaje+'</div>';
+        }
+      }
+
+      $('#notificaciones').popover({ content: row, html: true});
+      row = "";
+    });
   });
 }
+
 
 $('#nombreNuevoTarea').keyup(function () {
   let nombreNuevoTarea = $('#nombreNuevoTarea').val();
@@ -600,6 +619,14 @@ function guardarOrden() {
     let misOrdenes = firebase.database().ref('misOrdenes/'+asignado+'/'+key);
     misOrdenes.set(Orden);
 
+    let notificacion = firebase.database().ref('notificaciones/'+asignado);
+    let datosNotificacion = {
+      mensaje: 'Se te ha asignado la orden ',
+      leida: false,
+      tipo: 'Orden'
+    };
+    notificacion.push();
+
     cerrarModalOrden();
   }
   else {
@@ -976,9 +1003,17 @@ function agregarIndicador() {
 
   $('#contenedorModalIndicadores').removeClass('has-error');
   $('#helpblockindicadores').hide();
+}
 
+function eliminarIndicador(id) {
+  $('#'+id).remove();
+}
+
+var hitoInc = 1;
+var arrHitos = [];
+
+function agregarHito() {
   let nombre = $('#input-agregarHito').val();
-  let categoria = "Hito";
   let estado = "Pendiente";
   let fecha = $('#fechaInicioHito').val();
   let date = new Date(fecha);
@@ -991,7 +1026,7 @@ function agregarIndicador() {
     año: año,
     mes: mes,
     dia: dia,
-    categoria: categoria,
+    categoria: 'Hito',
     estado: estado,
   }
 
@@ -1009,53 +1044,17 @@ function agregarIndicador() {
     'class': 'glyphicon glyphicon-remove',
     'onclick': 'borrarTarea("'+id+'")',
     'style': 'font-size: 15px; float: right; color: #D6D6D6;'
-  });
-  $div.append($span);
-  $div.append(nombre);
-  $('#contenedorModalTareas').append($div);
-  tareaInc++;
-
-  $('#input-agregarTarea').val('').focus();
-  $('#asignado').val('');
-  $('#select-categorias').val('');
-  $('#fechaInicioTarea').val('');
-  $('#contadorTarea').html('0/60');
-
-  $('#contenedorModalTareas').removeClass('has-error');
-  $('#helpblocktareas').hide();
-}
-
-function eliminarIndicador(id) {
-  $('#'+id).remove();
-}
-
-var hitoInc = 1;
-var arrHitos = [];
-
-function agregarHito() {
-  let hito = $('#input-agregarHito').val();
-  let id = 'indicador-'+hitoInc;
-
-  let $div = $('<div/>', {
-    'class': 'chip-hitos',
-    'id': id
-  });
-
-  let $span = $('<span/>', {
-    'class': 'glyphicon glyphicon-remove',
-    'onclick': 'eliminarIndicador("'+id+'")',
-    'style': 'font-size: 15px; float: right; color: #D6D6D6;'
   })
   $div.append($span);
-  $div.append(hito);
-  arrHitos.push(hito);
+  $div.append(nombre);
   $('#contenedorModalHitos').append($div);
-  hitoInc++;
+  tareaInc++;
 
   $('#input-agregarHito').val('').focus();
-  $('#contadorHito').html('0/140');
+  $('#fechaInicioHito').val('');
+  $('#contadorHito').html('0/60');
 
-  $('#contenedorModalHitos').removeClass('has-error');
+  $('#contenedorModalHito').removeClass('has-error');
   $('#helpblockhitos').hide();
 }
 
@@ -1158,13 +1157,12 @@ function guardarProyecto() {
   let documentacion = $('#documentacion').val();
   let objetivos = arrObjetivos;
   let indicadores = arrIndicadores;
-  let hitos = arrHitos;
+  //let hitos = arrHitos;
   let integrantes = arrIntegrantes;
   let tareas = arrTareas;
 
   if(nombreProyecto.length > 0 && fechaInicio.length > 0 && fechaEntrega.length > 0 && encargadoProyecto.length > 0 && estructuraProyecto.length > 0
-    && descripcionProyecto.length > 0 && documentacion.length > 0 && objetivos.length > 0 && indicadores.length > 0 && hitos.length > 0
-    && integrantes.length > 0 && tareas.length > 0) {
+    && descripcionProyecto.length > 0 && documentacion.length > 0 && objetivos.length > 0 && indicadores.length > 0 && integrantes.length > 0 && tareas.length > 0) {
     var db = firebase.database();
     let proyectos = db.ref('proyectos/');
     let Proyecto = {
@@ -1179,7 +1177,7 @@ function guardarProyecto() {
       documentacion: documentacion,
       objetivos: objetivos,
       indicadores: indicadores,
-      hitos: hitos,
+      //hitos: hitos,
       equipo: integrantes
     }
     var proyectoId = proyectos.push(Proyecto).getKey();
@@ -1198,6 +1196,24 @@ function guardarProyecto() {
           miSemana.push(tareas[i]);
         }
       }
+    }
+
+    for(let i=0; i<integrantes.length; i++) {
+      let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
+      let datosNotificacion = {
+        mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
+        tipo: 'Proyecto',
+        leida: false
+      }
+      notificaciones.push(datosNotificacion);
+
+      let not = db.ref('notificaciones/'+integrantes[i]);
+      not.once('value', function(snapshot) {
+        let notusuario = snapshot.val();
+        let cont = notusuario.cont + 1;
+
+        not.update({cont: cont});
+      });
     }
 
     cerrarModalProyecto();
@@ -1275,7 +1291,7 @@ function guardarProyecto() {
       $('#contenedorModalIndicadores').removeClass('has-error');
       $('#helpblockindicadores').hide();
     }
-    if(hitos.length < 1) {
+    if($('contenedorModalHitos').html() == "") {
       $('#contenedorModalHitos').addClass('has-error');
       $('#helpblockhitos').empty().html("Un proyecto no puede no tener hitos").show();
     }
