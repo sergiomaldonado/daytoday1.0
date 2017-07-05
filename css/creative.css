@@ -12,6 +12,10 @@
   font-family: intelobold;
   src: url(../Intelo/Intelo-Medium.ttf);
 }
+@font-face {
+  font-family: intelo-bold;
+  src: url(../Intelo/Intelo-Bold.ttf);
+}
 
 html,
 body {
@@ -107,10 +111,10 @@ background-color: #F2F2F2;
 .eliminarTarea{ margin-left: 2px; background-color: transparent; color: white; border-radius: 5px; border: solid 2px white;}
 .completarTarea{ margin: 10% 0; margin-left: 2px; background-color: transparent; color: white; border-radius: 5px; border: solid 2px white;}
 hr {
-  border-color: #F05F40;
+  border-color: #CBCBCB;
   border-width: 1px;
   max-width: 50px;
-  height: 20px;
+
 }
 hr.light {
   border-color: white;
