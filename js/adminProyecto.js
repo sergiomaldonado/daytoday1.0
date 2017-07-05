@@ -22,11 +22,18 @@ function obtenerUsuario(uid) {
       console.log(notis);
       let row = "";
       for(noti in notis) {
-        row += '<div width="100%">'+notis[noti].mensaje+'</div>';
+        row += '<div class="notification">'+notis[noti].mensaje+'</div>';
       }
 
       $('#notificaciones').popover({ content: row, html: true});
       row = "";
+    });
+
+    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
+    rutanot.on('value', function(datosNotUsuario) {
+      let NotUsuario = datosNotUsuario.val();
+
+      $('#spanNotificaciones').html(NotUsuario.cont);
     });
   });
 }
@@ -424,7 +431,7 @@ function guardarUsuario() {
 
       let nombreCompleto = nombre + ' ' + apellidos;
       let notificaciones = firebase.database().ref('notificaciones/'+nombreCompleto);
-      let notificaciones.set( { cont: 0 });
+      notificaciones.set( { cont: 0 });
 
     })
     .catch(function(error) {
@@ -675,23 +682,24 @@ function guardarProyecto() {
         miSemana.push(tareas[i]);
       }
     }
+  }
 
-    for(let i=0; i<integrantes.length; i++) {
-      let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
-      let datosNotificacion = {
-        mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
-        tipo: 'Proyecto',
-        leida: false
-      }
-      notificaciones.push(datosNotificacion);
+  for(let i=0; i<integrantes.length; i++) {
+    let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
+    let datosNotificacion = {
+      mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
+      tipo: 'Proyecto',
+      leida: false
+    }
+    notificaciones.push(datosNotificacion);
 
-      let not = db.ref('notificaciones/'+integrantes[i]);
-      not.once('value', function(snapshot) {
-        let notusuario = snapshot.val();
-        let cont = notusuario.cont + 1;
+    let not = db.ref('notificaciones/'+integrantes[i]);
+    not.once('value', function(snapshot) {
+      let notusuario = snapshot.val();
+      let cont = notusuario.cont + 1;
 
-        not.update({cont: cont});
-      });
+      not.update({cont: cont});
+    });
   }
 
   cerrarModalProyecto();
