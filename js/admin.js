@@ -21,6 +21,13 @@ function obtenerUsuario(uid) {
       $('#notificaciones').popover({ content: row, html: true});
       row = "";
     });
+
+    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
+    rutanot.on('value', function(datosNotUsuario) {
+      let NotUsuario = datosNotUsuario.val();
+
+      $('#spanNotificaciones').html(NotUsuario.cont);
+    });
   });
 }
 
