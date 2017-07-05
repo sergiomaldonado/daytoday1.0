@@ -132,13 +132,17 @@ function dayAddEvent(index, event) { //asigna el evento al dia
 
 function monthAddEvent(index, event) {
   var $event;
-  if(event.estado == 'Pendiente') {
-    $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+  if(event.categoria == 'Hito') {
+    $event = $('<div/>', {'id': event.id, 'class': 'event-hito', style: 'border-left: solid 5px ' + event.color +' !important; ' , text: event.title, title: event.title, 'data-index': index});
   }
-  else if(event.estado == 'Completada' || event.completadas == true) {
-    $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+  else {
+    if(event.estado == 'Pendiente') {
+      $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+    }
+    if(event.estado == 'Completada') {
+      $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+    }
   }
-
 
   //var $event = $('<div/>', {'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index}),
   var e = new Date(event.start),
@@ -170,14 +174,22 @@ function monthAddEvent(index, event) {
         day.append(empty.clone());
       }
 
-      if(event.estado == "Pendiente") {
-        let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
-        let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'", "'+event.idP+'")'});
-        let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
+      if(event.categoria == 'Hito') {
+        let span = $('<span/>', {'style': 'color: #78DD00; float: right; font-size: 15px; margin-top: 10px; margin-right: 5px;', 'class': 'glyphicon glyphicon-star'});
+        $event.append(span);
+      }
+      else {
+        if(event.estado == "Pendiente") {
+          if(event.asignado == usuarioLogeado) {
+            let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
+            let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'", "'+event.idP+'")'});
+            let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
 
-        $buttonCompletar.append($spanCompletar);
-        $div.append($buttonCompletar);
-        $event.append($div);
+            $buttonCompletar.append($spanCompletar);
+            $div.append($buttonCompletar);
+            $event.append($div);
+          }
+        }
       }
       day.append($event);
 
@@ -258,6 +270,8 @@ data: []
 
 var ids = [];
 var nombres = [];
+var asignados = [];
+var categorias = [];
 var idsP = [];
 var estados = [];
 var comienzos = [];
@@ -274,6 +288,7 @@ function llenarCalendario(ruta, completadas = "") {
         if(tareas[tarea].estado == "Completada") {
           ids.push(tareas[tarea].idTarea);
           nombres.push(String(tareas[tarea].nombre));
+          categorias.push(tareas[tarea].categoria);
           idsP.push(tareas[tarea].idP);
           estados.push(tareas[tarea].estado);
           comienzos.push(
@@ -286,7 +301,7 @@ function llenarCalendario(ruta, completadas = "") {
 
           let cat = firebase.database().ref('/categorias');
           cat.on('value', function(snapshot) {
-            categorias = snapshot.val();
+            let categorias = snapshot.val();
 
             for(categoria in categorias) {
               if(categorias[categoria].nombre == tareas[tarea].categoria){
@@ -301,6 +316,8 @@ function llenarCalendario(ruta, completadas = "") {
       for(tarea in tareas) {
         ids.push(tareas[tarea].idTarea);
         nombres.push(String(tareas[tarea].nombre));
+        asignados.push(tareas[tarea]);
+        categorias.push(tareas[tarea].categoria);
         idsP.push(tareas[tarea].idP);
         estados.push(tareas[tarea].estado);
         comienzos.push(
@@ -313,7 +330,7 @@ function llenarCalendario(ruta, completadas = "") {
 
         let cat = firebase.database().ref('/categorias');
         cat.on('value', function(snapshot) {
-          categorias = snapshot.val();
+          let categorias = snapshot.val();
 
           for(categoria in categorias) {
             if(categorias[categoria].nombre == tareas[tarea].categoria){
@@ -321,7 +338,6 @@ function llenarCalendario(ruta, completadas = "") {
             }
           }
         })
-        //colores.push(tareas[tarea].color);
       }
     }
 
@@ -330,7 +346,7 @@ function llenarCalendario(ruta, completadas = "") {
   //Recorro el arreglo de titulos de las tareas
   for(i = 0; i < nombres.length; i++) {
     end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    data.push({ title: nombres[i], color: colores[i], asignado: asignados[i], categoria:categorias[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -344,6 +360,8 @@ function llenarCalendario(ruta, completadas = "") {
 
   nombres = [];
   idsP = [];
+  asignados = [];
+  categorias = [];
   estados = [];
   comienzos = [];
   colores = [];
@@ -375,6 +393,7 @@ semana.on('value', function(snapshot) {
   let tareas=snapshot.val();
   for(tarea in tareas) {
   ids.push(tareas[tarea].idTarea);
+  categorias.push(tareas[tarea].categoria);
   nombres.push(String(tareas[tarea].nombre));
   idsP.push(tareas[tarea].idP);
   estados.push(tareas[tarea].estado);
@@ -388,7 +407,7 @@ semana.on('value', function(snapshot) {
 
   let cat = firebase.database().ref('/categorias');
   cat.on('value', function(snapshot) {
-    categorias = snapshot.val();
+    let categorias = snapshot.val();
 
     for(categoria in categorias) {
       if(categorias[categoria].nombre == tareas[tarea].categoria){
@@ -403,7 +422,7 @@ var slipsum = [];
 //Recorro el arreglo de titulos de las tareas
 for(i = 0; i < nombres.length; i++) {
   end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-  data.push({ title: nombres[i], color: colores[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+  data.push({ title: nombres[i], color: colores[i], categoria:categorias[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
 }
 
 data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -417,6 +436,7 @@ $('#holder').calendar({
 
 nombres = [];
 idsP = [];
+categorias = [];
 estados = [];
 starts = [];
 comienzos = [];
