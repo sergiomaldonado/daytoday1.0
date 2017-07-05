@@ -113,7 +113,12 @@ background-color: #F2F2F2;
   border:none;
 
 }
-.arrow{border: none;}
+.arrow{    width: 0;
+     height: 0;
+     border-right: 100px solid transparent;
+     border-top: 100px solid transparent;
+     border-left: 100px solid transparent;
+     border-bottom: 100px solid #f0ad4e;}
 .popover-content{
   padding: 0px;
 }
