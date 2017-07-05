@@ -135,6 +135,8 @@
 
     if(event.categoria == 'Hito') {
       $event = $('<div/>', {'id': event.id, 'class': 'event-hito', style: 'border-left: solid 5px ' + event.color +' !important; ' , text: event.title, title: event.title, 'data-index': index});
+      let span = $('<span/>', {'style': 'color: #78DD00; float: right; font-size: 15px; margin-top: 10px; margin-right: 5px;', 'class': 'glyphicon glyphicon-star'});
+      $event.append(span);
     }
     else {
       if(event.estado == 'Pendiente') {
@@ -173,31 +175,27 @@
         for(i = 0; i < numbevents - existing; i++) {
           day.append(empty.clone());
         }
-        if(event.categoria == 'Hito') {
-          let span = $('<span/>', {'style': 'color: #78DD00; float: right; font-size: 15px; margin-top: 10px; margin-right: 5px;', 'class': 'glyphicon glyphicon-star'});
-          $event.append(span);
+
+        if(event.estado == "Pendiente") {
+          let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
+          let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
+          let $spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
+          let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'")'});
+          let $spanEliminar = $('<span/>', {'class': 'glyphicon glyphicon-remove'});
+          let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
+          let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
+
+          $buttonEditar.append($spanEditar);
+          $buttonEliminar.append($spanEliminar);
+          $buttonCompletar.append($spanCompletar);
+
+          $div.append($buttonEditar);
+          $div.append($buttonEliminar);
+          $div.append($buttonCompletar);
+
+          $event.append($div);
         }
-        else {
-          if(event.estado == "Pendiente") {
-            let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
-            let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
-            let $spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
-            let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'")'});
-            let $spanEliminar = $('<span/>', {'class': 'glyphicon glyphicon-remove'});
-            let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
-            let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
 
-            $buttonEditar.append($spanEditar);
-            $buttonEliminar.append($spanEliminar);
-            $buttonCompletar.append($spanCompletar);
-
-            $div.append($buttonEditar);
-            $div.append($buttonEliminar);
-            $div.append($buttonCompletar);
-
-            $event.append($div);
-          }
-        }
         day.append($event);
 
         day.append(

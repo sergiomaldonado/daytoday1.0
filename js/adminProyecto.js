@@ -16,12 +16,19 @@ function obtenerUsuario(uid) {
     let usuarioactual = snapshot.val();
     $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
     let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    userLogeado = usuarioLogeado;
+
     let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
     not.on('value', function(datosNotificacion) {
       let notis = datosNotificacion.val();
       let row = "";
       for(noti in notis) {
-        row += '<div class="notification">'+notis[noti].mensaje+'</div>';
+        if(notis[noti].leida == false) {
+          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
+        }
+        else {
+          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
+        }
       }
 
       $('#notificaciones').popover({ content: row, html: true});
@@ -34,9 +41,11 @@ function obtenerUsuario(uid) {
       let cont = NotUsuario.cont;
 
       if(cont > 0) {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
         $('#spanNotificaciones').html(NotUsuario.cont).show();
       }
       else {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
         $('#spanNotificaciones').hide();
       }
     });
