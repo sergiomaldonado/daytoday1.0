@@ -11,10 +11,10 @@ function obtenerUsuario(uid) {
       let row = "";
       for(noti in notis) {
         if(notis[noti].leida == false) {
-          row += '<div style="width: 100% !important;">'+notis[noti].mensaje+'</div>';
+          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
         }
         else {
-          row += '<div style="width: 100% !important;">'+notis[noti].mensaje+'</div>';
+          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
         }
       }
 

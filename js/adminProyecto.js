@@ -22,7 +22,7 @@ function obtenerUsuario(uid) {
       console.log(notis);
       let row = "";
       for(noti in notis) {
-        row += '<div width="100%">'+notis[noti].mensaje+'</div>';
+        row += '<div class="notification">'+notis[noti].mensaje+'</div>';
       }
 
       $('#notificaciones').popover({ content: row, html: true});
