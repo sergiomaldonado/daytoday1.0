@@ -141,9 +141,11 @@ function obtenerUsuario(uid) {
       let cont = NotUsuario.cont;
 
       if(cont > 0) {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
         $('#spanNotificaciones').html(NotUsuario.cont).show();
       }
       else {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
         $('#spanNotificaciones').hide();
       }
     });

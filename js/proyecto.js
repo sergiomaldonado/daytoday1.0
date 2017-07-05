@@ -168,15 +168,15 @@ function agregarTareaProyecto() {
     proyecto.update({numTareas: numTareas});
   });
 
-  let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
+  let notificaciones = dbRef.ref('notificaciones/'+asignado+'/notificaciones');
   let datosNotificacion = {
-    mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
-    tipo: 'Proyecto',
+    mensaje: 'Se te ha agregado la tarea de: ' + nombre,
+    tipo: 'Tarea',
     leida: false
   }
   notificaciones.push(datosNotificacion);
 
-  let not = db.ref('notificaciones/'+integrantes[i]);
+  let not = dbRef.ref('notificaciones/'+asignado);
   not.once('value', function(snapshot) {
     let notusuario = snapshot.val();
     let cont = notusuario.cont + 1;
