@@ -9,7 +9,6 @@ function obtenerUsuario(uid) {
     let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
     not.on('value', function(datosNotificacion) {
       let notis = datosNotificacion.val();
-      console.log(notis);
       let row = "";
       for(noti in notis) {
         if(notis[noti].leida == false) {
@@ -43,7 +42,6 @@ function leerNotificaciones() {
   let rutanot = firebase.database().ref('notificaciones/'+userLogeado);
   rutanot.update({cont: 0});
 }
-
 
 $('#nombreNuevoTarea').keyup(function () {
   let nombreNuevoTarea = $('#nombreNuevoTarea').val();

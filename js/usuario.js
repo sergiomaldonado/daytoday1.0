@@ -109,14 +109,52 @@ function misOrdenes() {
 }
 
 var usuarioLogeado;
+
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.on('value', function(snapshot) {
     let usuarioactual = snapshot.val();
     $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
-    usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    userLogeado = usuarioLogeado;
+
+    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
+    not.on('value', function(datosNotificacion) {
+      let notis = datosNotificacion.val();
+      let row = "";
+      for(noti in notis) {
+        if(notis[noti].leida == false) {
+          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
+        }
+        else {
+          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
+        }
+      }
+
+      $('#notificaciones').popover({ content: row, html: true});
+      row = "";
+    });
+
+    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
+    rutanot.on('value', function(datosNotUsuario) {
+      let NotUsuario = datosNotUsuario.val();
+      let cont = NotUsuario.cont;
+
+      if(cont > 0) {
+        $('#spanNotificaciones').html(NotUsuario.cont).show();
+      }
+      else {
+        $('#spanNotificaciones').hide();
+      }
+    });
   });
 }
+
+function leerNotificaciones() {
+  let rutanot = firebase.database().ref('notificaciones/'+userLogeado);
+  rutanot.update({cont: 0});
+}
+
 
 function logOut() {
   firebase.auth().signOut();
