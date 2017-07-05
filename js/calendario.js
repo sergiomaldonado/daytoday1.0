@@ -132,11 +132,17 @@
 
   function monthAddEvent(index, event) {
     var $event;
-    if(event.estado == 'Pendiente') {
-      $event = $('<div/>', {'id': event.id, 'class': 'event dropdown', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+
+    if(event.categoria == 'Hito') {
+      $event = $('<div/>', {'id': event.id, 'class': 'event-hito', style: 'border-left: solid 5px ' + event.color +' !important; ' , text: event.title, title: event.title, 'data-index': index});
     }
-    if(event.estado == 'Completada') {
-      $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+    else {
+      if(event.estado == 'Pendiente') {
+        $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+      }
+      if(event.estado == 'Completada') {
+        $event = $('<div/>', {'id': event.id, 'class': 'event-completada', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
+      }
     }
     //var $event = $('<div/>', {'id': event.id, 'class': 'event', style: 'border-left: solid 5px ' + event.color +' !important;' , text: event.title, title: event.title, 'data-index': index});
     var e = new Date(event.start),
@@ -167,25 +173,30 @@
         for(i = 0; i < numbevents - existing; i++) {
           day.append(empty.clone());
         }
+        if(event.categoria == 'Hito') {
+          let span = $('<span/>', {'style': 'color: #78DD00; float: right; font-size: 15px; margin-top: 10px; margin-right: 5px;', 'class': 'glyphicon glyphicon-star'});
+          $event.append(span);
+        }
+        else {
+          if(event.estado == "Pendiente") {
+            let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
+            let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
+            let $spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
+            let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'")'});
+            let $spanEliminar = $('<span/>', {'class': 'glyphicon glyphicon-remove'});
+            let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
+            let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
 
-        if(event.estado == "Pendiente") {
-          let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
-          let $buttonEditar = $('<button/>', {'id': 'btnEditar', 'class': 'editarTarea', 'onclick': 'editarTarea("'+event.id+'", "'+event.asignado+'", "'+event.idP+'")'});
-          let $spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
-          let $buttonEliminar = $('<button/>', {'id': 'btnEliminar', 'class': 'eliminarTarea', 'onclick': 'eliminarTarea("'+event.id+'")'});
-          let $spanEliminar = $('<span/>', {'class': 'glyphicon glyphicon-remove'});
-          let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'")'});
-          let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
+            $buttonEditar.append($spanEditar);
+            $buttonEliminar.append($spanEliminar);
+            $buttonCompletar.append($spanCompletar);
 
-          $buttonEditar.append($spanEditar);
-          $buttonEliminar.append($spanEliminar);
-          $buttonCompletar.append($spanCompletar);
+            $div.append($buttonEditar);
+            $div.append($buttonEliminar);
+            $div.append($buttonCompletar);
 
-          $div.append($buttonEditar);
-          $div.append($buttonEliminar);
-          $div.append($buttonCompletar);
-
-          $event.append($div);
+            $event.append($div);
+          }
         }
         day.append($event);
 
@@ -266,6 +277,7 @@
 
   var ids = [];
   var nombres = [];
+  var categorias = [];
   var asignados = [];
   var idPs = [];
   var estados = [];
@@ -279,6 +291,7 @@
   for(tarea in tareas) {
     ids.push(tareas[tarea].idTarea);
     nombres.push(String(tareas[tarea].nombre));
+    categorias.push(tareas[tarea].categoria);
     asignados.push(tareas[tarea].asignado);
     idPs.push(tareas[tarea].idP);
     estados.push(tareas[tarea].estado);
@@ -292,7 +305,7 @@
 
     let cat = firebase.database().ref('/categorias');
     cat.on('value', function(snapshot) {
-      categorias = snapshot.val();
+      let categorias = snapshot.val();
 
       for(categoria in categorias) {
         if(categorias[categoria].nombre == tareas[tarea].categoria){
@@ -300,18 +313,14 @@
         }
       }
     })
-    //colores.push(tareas[tarea].color);
   }
 
-  // var names = nombres;
-  // var colors = colores;
-  // var comienzos = starts;
   var slipsum = [];
 
   //Recorro el arreglo de titulos de las tareas
   for(i = 0; i < nombres.length; i++) {
     end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-    data.push({ title: nombres[i], color: colores[i], idP: idPs[i], id:ids[i], asignado: asignados[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+    data.push({ title: nombres[i], color: colores[i], categoria: categorias[i], idP: idPs[i], id:ids[i], asignado: asignados[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
   }
 
   data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -326,6 +335,7 @@
   //RESETEAR LAS VARIABLES
   nombres = [];
   asignados = [];
+  categorias = [];
   estados = [];
   idPs = [];
   comienzos = [];

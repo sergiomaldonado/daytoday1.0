@@ -353,10 +353,14 @@ function llenarCalendario(ruta, completadas = "") {
 }
 
 function Semana() {
+  $('#misOrdenes').hide();
+  $('#Semana').show();
   llenarCalendario('tareas/');
 }
 
 function miSemana() {
+  $('#misOrdenes').hide();
+  $('#Semana').show();
   let nombreUsuario = $('.nombreDeUsuario').html();
   llenarCalendario('miSemana/'+nombreUsuario);
 }
