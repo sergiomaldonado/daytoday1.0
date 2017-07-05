@@ -4,6 +4,8 @@ function obtenerUsuario(uid) {
     let usuarioactual = snapshot.val();
     $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
     let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    userLogeado = usuarioLogeado;
+
     let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
     not.on('value', function(datosNotificacion) {
       let notis = datosNotificacion.val();
@@ -25,10 +27,21 @@ function obtenerUsuario(uid) {
     let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
     rutanot.on('value', function(datosNotUsuario) {
       let NotUsuario = datosNotUsuario.val();
+      let cont = NotUsuario.cont;
 
-      $('#spanNotificaciones').html(NotUsuario.cont);
+      if(cont > 0) {
+        $('#spanNotificaciones').html(NotUsuario.cont).show();
+      }
+      else {
+        $('#spanNotificaciones').hide();
+      }
     });
   });
+}
+
+function leerNotificaciones() {
+  let rutanot = firebase.database().ref('notificaciones/'+userLogeado);
+  rutanot.update({cont: 0});
 }
 
 
