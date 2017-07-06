@@ -12,7 +12,7 @@ function obtenerUsuario(uid) {
       let row = "";
       for(noti in notis) {
         if(notis[noti].leida == false) {
-          row += '<div class="notification"><p id="pNoti">'+notis[noti].mensaje+'<p></div>';
+          row += '<div class="notification"><p id="pNoti">'+notis[noti].mensaje+'</p> <p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span> Hace 5 min</p></div>';
         }
         else {
           row += '<div class="notification"><p id="pNoti">'+notis[noti].mensaje+'</p></div>';
