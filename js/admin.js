@@ -1,41 +1,16 @@
+
+var usuarioLogeado;
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.on('value', function(snapshot) {
     let usuarioactual = snapshot.val();
-    $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
-    let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
-    userLogeado = usuarioLogeado;
+    usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    $('.nombreDeUsuario').html(usuarioLogeado);
 
-    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
-    not.on('value', function(datosNotificacion) {
-      let notis = datosNotificacion.val();
-      let row = "";
-      for(noti in notis) {
-        if(notis[noti].leida == false) {
-          row += '<div class="notification"><p>holax'+notis[noti].mensaje+'<p></div>';
-        }
-        else {
-          row += '<div class="notification"><p>hola'+notis[noti].mensaje+'</p></div>';
-        }
-      }
-
-      $('#notificaciones').popover({ content: row, html: true});
-      row = "";
-    });
-
-    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
-    rutanot.on('value', function(datosNotUsuario) {
-      let NotUsuario = datosNotUsuario.val();
-      let cont = NotUsuario.cont;
-
-      if(cont > 0) {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
-        $('#spanNotificaciones').html(NotUsuario.cont).show();
-      }
-      else {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
-        $('#spanNotificaciones').hide();
-      }
+    let storageRef = firebase.storage().ref(uid+'/fotoPerfil/');
+    storageRef.getDownloadURL().then(function(url) {
+      $('#imgPerfil').attr('src', url);
+      $('#imgPerfilModal').attr('src', url);
     });
   });
 }
@@ -268,17 +243,51 @@ function haySesion() {
       //obtiene el usuario actual
       var user = firebase.auth().currentUser;
       var uid = user.uid;
-
+      userId = uid;
+      $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
       $('[data-toggle="tooltip"]').tooltip();
     }
     else {
       $(location).attr("href", "index.html");
     }
-  })
+  });
 }
 
 haySesion();
+console.log(usuarioLogeado);
+let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
+not.on('value', function(datosNotificacion) {
+  let notis = datosNotificacion.val();
+  let row = "";
+  for(noti in notis) {
+    if(notis[noti].leida == false) {
+      row += '<div class="notification"><p>holax'+notis[noti].mensaje+'<p></div>';
+    }
+    else {
+      row += '<div class="notification"><p>hola'+notis[noti].mensaje+'</p></div>';
+    }
+  }
+
+  $('#notificaciones').popover({ content: row, html: true});
+  row = "";
+});
+
+let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
+rutanot.on('value', function(datosNotUsuario) {
+  let NotUsuario = datosNotUsuario.val();
+  let cont = NotUsuario.cont;
+
+  if(cont > 0) {
+    $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
+    $('#spanNotificaciones').html(NotUsuario.cont).show();
+  }
+  else {
+    $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
+    $('#spanNotificaciones').hide();
+  }
+});
+
 
 function mostrarOrdenes() {
    let ordenes = firebase.database().ref('ordenes/');
@@ -416,7 +425,6 @@ function eliminarOrden(idOrden) {
 }
 
 function mostrarProyectos() {
-
     let proyectos = firebase.database().ref('proyectos/');
     proyectos.on('value', function(snapshot) {
     let proyectos = snapshot.val();
@@ -529,6 +537,10 @@ function modalUsuario() {
   $("#agregarUsuario").modal();
 }
 
+function modalEditarPerfil() {
+  $('#modalEditarPerfil').modal();
+}
+
 //muestra la modal para Crear una Orden
 function modalOrden() {
   $("#agregarOrden").modal();
@@ -550,6 +562,27 @@ $('#cliente').keyup(function () {
     $('#helpblockCliente').hide();
   }
 });
+
+$('#upload-imagen').change(function(e) {
+  if(this.files && this.files[0]) {
+    var archivo = e.target.files[0];
+    var nombre = e.target.files[0].name;
+
+      let user = $('#modalEditarPerfil').attr('data-uid');
+
+      var storageRef = firebase.storage().ref(user+'/');
+      var uploadTask = storageRef.child('fotoPerfil').put(archivo);
+
+      uploadTask.on('state_changed', function(snapshot){
+      }, function(error) {
+
+      }, function() {
+        var downloadURL = uploadTask.snapshot.downloadURL;
+        $('#imgPerfilModal').attr('src', downloadURL);
+      });
+    }
+  }
+);
 
 $('#descripcion').keyup(function () {
   let descripcion = $('#descripcion').val();

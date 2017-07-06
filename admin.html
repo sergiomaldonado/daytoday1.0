@@ -379,11 +379,11 @@
                 <div class="col-sm-6 col-md-4">
                   <div id="imagenUsuario" style="width:150px; overflow:hidden;" class="thumbnail no-padding" >
                     <img src="assets/bg-panel.png" alt="...">
-                    <img style="margin-top:-40px;" width="80px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
+                    <img id="imgPerfil" style="margin-top:-40px; width:80px; height:80px; "alt="..." class="img-circle">
                     <div class="caption">
                       <h4 class="nombreDeUsuario"></h4>
                       <hr>
-                      <button id="botonPerfil" type="button" name="button" class="btn btn-sm">Editar mi perfil</button>
+                      <button id="botonPerfil" onclick="modalEditarPerfil()" type="button" name="button" class="btn btn-sm">Editar mi perfil</button>
                     </div>
                   </div>
                 </div>
@@ -474,19 +474,46 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-      <div class="modal fade" tabindex="-1" role="dialog">
+      <div id="modalEditarPerfil" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Modal title</h4>
+              <h4 class="modal-title">Mi perfil</h4>
             </div>
             <div class="modal-body">
-              <p>One fine body&hellip;</p>
+              <div class="col-md-6">
+                <div class="row text-center">
+                  <img id="imgPerfilModal" width="150px" height="150px" alt="..." class="img-circle">
+                </div><br>
+                <div class="row text-center">
+                  <span id="fileselector">
+                    <label for="upload-imagen" class="btn btn-default">
+                      <input style="float: left;" id="upload-imagen" type="file" name="" accept="image/x-png, image/gif, image/jpeg" class="img-circle">
+                      <i class="fa fa-upload"></i>Cambiar foto
+                    </label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input id="nombreUsuario" class="form-control" type="text" name="">
+                </div>
+                <div class="form-group">
+                  <label for="emaulUsuario">Username</label>
+                  <input id="emailUsuario" name="emailUsuario" class="form-control" type="text" name="">
+                </div>
+                <div class="form-group">
+                  <label for="puestoUsuario">Puesto</label>
+                  <input id="puestoUsuario" name="puestoUsuario" class="form-control" type="text" name="">
+                </div>
+                <div class="form">
+
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar cambios</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

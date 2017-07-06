@@ -10,50 +10,19 @@ function getQueryVariable(variable) {
    return false;
 }
 
+var usuarioLogeado;
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
-  usuario.on('value', function(snapshot) {
+  usuario.once('value', function(snapshot) {
     let usuarioactual = snapshot.val();
     $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
-    let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
-    userLogeado = usuarioLogeado;
-
-    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
-    not.on('value', function(datosNotificacion) {
-      let notis = datosNotificacion.val();
-      let row = "";
-      for(noti in notis) {
-        if(notis[noti].leida == false) {
-          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
-        }
-        else {
-          row += '<div class="notification">'+notis[noti].mensaje+'</div>';
-        }
-      }
-
-      $('#notificaciones').popover({ content: row, html: true});
-      row = "";
-    });
-
-    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
-    rutanot.on('value', function(datosNotUsuario) {
-      let NotUsuario = datosNotUsuario.val();
-      let cont = NotUsuario.cont;
-
-      if(cont > 0) {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
-        $('#spanNotificaciones').html(NotUsuario.cont).show();
-      }
-      else {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
-        $('#spanNotificaciones').hide();
-      }
-    });
+    usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    mostrarNotificaciones(usuarioLogeado);
   });
 }
 
 function leerNotificaciones() {
-  let rutanot = firebase.database().ref('notificaciones/'+userLogeado);
+  let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
   rutanot.update({cont: 0});
 }
 
@@ -64,8 +33,6 @@ function editarTarea(idTarea) {
   let nuevosDatos = {
 
   }
-
-  //tareas.set(nuevosDatos);
 }
 
 function llenarCategorias() {
@@ -296,10 +263,65 @@ function haySesion() {
     else {
       $(location).attr("href", "index.html");
     }
-  })
+  });
 }
 
 haySesion();
+
+$('#notificaciones').on('click', function() {
+  leerNotificaciones();
+  haySesion();
+});
+
+function mostrarNotificaciones(usuarioLogeado) {
+    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
+    not.on('value', function(datosNotificacion) {
+      let notis = datosNotificacion.val();
+      let row = "";
+
+      let arrNotificaciones = [];
+      for(noti in notis) {
+        arrNotificaciones.push(notis[noti]);
+      }
+
+      arrNotificaciones.reverse();
+      for(let i=0; i<arrNotificaciones.length; i++){
+
+        if(arrNotificaciones[i].leida == false) {
+          row += '<div class="notification"><p>holax'+arrNotificaciones[i].mensaje+'<p></div>';
+        }
+        else {
+          row += '<div class="notification"><p>hola'+arrNotificaciones[i].mensaje+'</p></div>';
+        }
+      }
+      $('#notificaciones').attr( {
+        'data-content': row,
+        'id': 'notificaciones',
+        'data-toggle': 'popover',
+        'data-placement': 'bottom',
+        'style': 'font-size:20px; color:#CBCBCB; margin-top:7px;',
+        'class': 'glyphicon glyphicon-bell'
+
+      });
+      $('#notificaciones').popover({ content: row, html: true});
+      row = "";
+    });
+
+    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
+    rutanot.on('value', function(datosNotUsuario) {
+      let NotUsuario = datosNotUsuario.val();
+      let cont = NotUsuario.cont;
+
+      if(cont > 0) {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
+        $('#spanNotificaciones').html(NotUsuario.cont).show();
+      }
+      else {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
+        $('#spanNotificaciones').hide();
+      }
+    });
+}
 
 function cerrarModalUsuario() {
   $('#agregarUsuario').modal('hide');
