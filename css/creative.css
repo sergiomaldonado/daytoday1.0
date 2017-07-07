@@ -108,22 +108,44 @@ background-color: #F2F2F2;
   background-color: #F0F7FF;
   border:solid 1px #74A6E9;
 }
+#horaNoti{font-size:12px; position:relative; bottom:0px; }
+#pNoti{padding:0px; margin:0px; font-size:14px;height:35px;}
 .popover{
-  min-width: 400px;
+  min-width: 450px;
   border:none;
+  min-height: 100px;
+  max-height: 400px;
+  overflow: scroll;
+  margin-left: -100px;
 
 }
-.arrow{border: none;}
+.popover-title{
+  position: fixed;
+  width: 450px;
+  z-index: 999;
+
+}
+.arrow{    width: 0;
+     height: 0;
+     border-right: 100px solid transparent;
+     border-top: 100px solid transparent;
+     border-left: 100px solid transparent;
+     border-bottom: 100px solid #f0ad4e;}
 .popover-content{
-  padding: 0px;
+  padding-top: 30px;
+  padding-left: 0px;
 }
 .notification{
-  background-color: red;
+  background-color:white;
+  border-bottom:solid 1px #EBEBEB;
   padding: 0px;
   width: 100%;
   min-height: 50px;
-  max-height: 50px;
-  padding: 2% 2%;
+  max-height: 65px;
+  padding: 2% ;
+  padding-bottom: 10px;
+
+
 }
 .mostramelo{  position: absolute; top: 0; bottom: 0;left: 0;right: 0;width: 100%; height: 100%; margin: auto; opacity: 0.0; transition: all 0.5s ease;}
 .mostramelo:hover{  width:100%; opacity: 0.8; background-color: #03306C  ;}

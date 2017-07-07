@@ -4,8 +4,13 @@ function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.on('value', function(snapshot) {
     let usuarioactual = snapshot.val();
+<<<<<<< HEAD
     usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
     $('.nombreDeUsuario').html(usuarioLogeado);
+=======
+    $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
+    let usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    userLogeado = usuarioLogeado;
 
     let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
     not.on('value', function(datosNotificacion) {
@@ -13,10 +18,10 @@ function obtenerUsuario(uid) {
       let row = "";
       for(noti in notis) {
         if(notis[noti].leida == false) {
-          row += '<div class="notification"><p>holax'+notis[noti].mensaje+'<p></div>';
+          row += '<div class="notification"><p id="pNoti">'+notis[noti].mensaje+'</p> <p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span> Hace 5 min</p></div>';
         }
         else {
-          row += '<div class="notification"><p>hola'+notis[noti].mensaje+'</p></div>';
+          row += '<div class="notification"><p id="pNoti">'+notis[noti].mensaje+'</p></div>';
         }
       }
 
@@ -28,18 +33,10 @@ function obtenerUsuario(uid) {
     rutanot.on('value', function(datosNotUsuario) {
       let NotUsuario = datosNotUsuario.val();
       let cont = NotUsuario.cont;
+>>>>>>> 8733a53e0431fb200b8765bc6c1b8fd8b4f1cea3
 
-      if(cont > 0) {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
-        $('#spanNotificaciones').html(NotUsuario.cont).show();
-      }
-      else {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
-        $('#spanNotificaciones').hide();
-      }
-    });
-      let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
-      storageRef.getDownloadURL().then(function(url) {
+    let storageRef = firebase.storage().ref(uid+'/fotoPerfil/');
+    storageRef.getDownloadURL().then(function(url) {
       $('#imgPerfil').attr('src', url);
       $('#imgPerfilModal').attr('src', url);
     });
