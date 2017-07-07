@@ -24,16 +24,16 @@ function obtenerUsuario(uid) {
   storageRef.getDownloadURL().then(function(url) {
     //$('.loader').hide();
 
-    let $img = $('<img/>', {
+    /*let $img = $('<img/>', {
         'id': 'imgPerfil',
         'style': 'margin-top: -40px; width: 80px; height: 80px;',
         'src': url,
         'class': 'img-circle'
       }
-    );
+    );*/
 
-    $('#imgPanel').after($img);
-    //$('#imgPerfil').attr('src', url);
+    //$('#imgPanel').after($img);
+    $('#imgPerfil').attr('src', url).show();
     $('#imgPerfilModal').attr('src', url);
   });
 }
@@ -372,10 +372,10 @@ function mostrarNotificaciones(usuarioLogeado) {
       for(let i=0; i<arrNotificaciones.length; i++){
 
         if(arrNotificaciones[i].leida == false) {
-          row += '<div class="notification"><p>holax'+arrNotificaciones[i].mensaje+'<p></div>';
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
         }
         else {
-          row += '<div class="notification"><p>hola'+arrNotificaciones[i].mensaje+'</p></div>';
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
         }
       }
       $('#notificaciones').attr('data-content', row);
@@ -803,10 +803,13 @@ function guardarProyecto() {
 
   for(let i=0; i<integrantes.length; i++) {
     let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
+
+    let fecha = new Date();
     let datosNotificacion = {
       mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
       tipo: 'Proyecto',
-      leida: false
+      leida: false,
+      fecha: fecha
     }
     notificaciones.push(datosNotificacion);
 

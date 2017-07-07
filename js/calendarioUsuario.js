@@ -182,7 +182,7 @@ function monthAddEvent(index, event) {
         if(event.estado == "Pendiente") {
           if(event.asignado == usuarioLogeado) {
             let $div = $('<div/>', {'id': 'mostramelo', 'class': 'mostramelo'});
-            let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'", "'+event.idP+'")'});
+            let $buttonCompletar = $('<button/>', {'id': 'btnCompletar', 'class': 'completarTarea', 'onclick': 'completarTarea("'+event.id+'", "'+event.idP+'", "'+event.asignado+'", "'+event.title+'")'});
             let $spanCompletar = $('<span/>', {'class': 'glyphicon glyphicon-ok'});
 
             $buttonCompletar.append($spanCompletar);
@@ -316,7 +316,7 @@ function llenarCalendario(ruta, completadas = "") {
       for(tarea in tareas) {
         ids.push(tareas[tarea].idTarea);
         nombres.push(String(tareas[tarea].nombre));
-        asignados.push(tareas[tarea]);
+        asignados.push(tareas[tarea].asignado);
         categorias.push(tareas[tarea].categoria);
         idsP.push(tareas[tarea].idP);
         estados.push(tareas[tarea].estado);
@@ -395,6 +395,7 @@ semana.on('value', function(snapshot) {
   ids.push(tareas[tarea].idTarea);
   categorias.push(tareas[tarea].categoria);
   nombres.push(String(tareas[tarea].nombre));
+  asignados.push(tareas[tarea].asignado);
   idsP.push(tareas[tarea].idP);
   estados.push(tareas[tarea].estado);
   comienzos.push(
@@ -422,7 +423,7 @@ var slipsum = [];
 //Recorro el arreglo de titulos de las tareas
 for(i = 0; i < nombres.length; i++) {
   end = new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00);
-  data.push({ title: nombres[i], color: colores[i], categoria:categorias[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
+  data.push({ title: nombres[i], color: colores[i], asignado: asignados[i], categoria:categorias[i], id: ids[i], idP: idsP[i], estado: estados[i], start: new Date(comienzos[i].año, comienzos[i].mes, comienzos[i].dia, 00, 00), end: end, text: ""  });
 }
 
 data.sort(function(a,b) { return (+a.start) - (+b.start); });
@@ -437,6 +438,7 @@ $('#holder').calendar({
 nombres = [];
 idsP = [];
 categorias = [];
+asignados = [];
 estados = [];
 starts = [];
 comienzos = [];

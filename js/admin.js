@@ -7,40 +7,9 @@ function obtenerUsuario(uid) {
     $('.nombreDeUsuario').html(usuarioLogeado);
     mostrarNotificaciones(usuarioLogeado);
 
-    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
-    not.on('value', function(datosNotificacion) {
-      let notis = datosNotificacion.val();
-      let row = "";
-      for(noti in notis) {
-        if(notis[noti].leida == false) {
-          row += '<div class="notification"><p>holax'+notis[noti].mensaje+'<p></div>';
-        }
-        else {
-          row += '<div class="notification"><p>hola'+notis[noti].mensaje+'</p></div>';
-        }
-      }
-
-      $('#notificaciones').popover({ content: row, html: true});
-      row = "";
-    });
-
-    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
-    rutanot.on('value', function(datosNotUsuario) {
-      let NotUsuario = datosNotUsuario.val();
-      let cont = NotUsuario.cont;
-
-      if(cont > 0) {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
-        $('#spanNotificaciones').html(cont).show();
-      }
-      else {
-        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
-        $('#spanNotificaciones').hide();
-      }
-    });
     let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
     storageRef.getDownloadURL().then(function(url) {
-      $('#imgPerfil').attr('src', url);
+      $('#imgPerfil').attr('src', url).show();
       $('#imgPerfilModal').attr('src', url);
     });
   });
@@ -311,10 +280,10 @@ function mostrarNotificaciones(usuarioLogeado) {
       for(let i=0; i<arrNotificaciones.length; i++){
 
         if(arrNotificaciones[i].leida == false) {
-          row += '<div class="notification"><p>holax'+arrNotificaciones[i].mensaje+'<p></div>';
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
         }
         else {
-          row += '<div class="notification"><p>hola'+arrNotificaciones[i].mensaje+'</p></div>';
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
         }
       }
       $('#notificaciones').attr('data-content', row);
@@ -1315,10 +1284,12 @@ function guardarProyecto() {
 
     for(let i=0; i<integrantes.length; i++) {
       let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
+      let fecha = new Date();
       let datosNotificacion = {
         mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
         tipo: 'Proyecto',
-        leida: false
+        leida: false,
+        fecha: fecha
       }
       notificaciones.push(datosNotificacion);
 
