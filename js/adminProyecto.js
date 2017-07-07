@@ -15,9 +15,26 @@ function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.once('value', function(snapshot) {
     let usuarioactual = snapshot.val();
-    $('.nombreDeUsuario').html( usuarioactual.nombre + " " + usuarioactual.apellidos);
     usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
+    $('.nombreDeUsuario').html(usuarioLogeado);
     mostrarNotificaciones(usuarioLogeado);
+  });
+
+  let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
+  storageRef.getDownloadURL().then(function(url) {
+    //$('.loader').hide();
+
+    let $img = $('<img/>', {
+        'id': 'imgPerfil',
+        'style': 'margin-top: -40px; width: 80px; height: 80px;',
+        'src': url,
+        'class': 'img-circle'
+      }
+    );
+
+    $('#imgPanel').after($img);
+    //$('#imgPerfil').attr('src', url);
+    $('#imgPerfilModal').attr('src', url);
   });
 }
 
@@ -26,12 +43,78 @@ function leerNotificaciones() {
   rutanot.update({cont: 0});
 }
 
-function editarTarea(idTarea) {
-  console.log(idTarea);
+function editarTarea(idTarea, asignado, idP) {
+  $('#btnActualizarTarea').attr({'data-id': idTarea, 'data-asignado': asignado, 'data-idP': idP});
+  $('#modalEditarTarea').modal('show');
 
-  let tareas = firebase.database().ref('/tareas/'+idTarea);
-  let nuevosDatos = {
+  let tareas = firebase.database().ref('tareas/');
+  tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+    let idTareaEnNodoTareas = snapshot.key;
 
+    let tareasRuta = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+    tareasRuta.once('value', function(daticos) {
+      let datos = daticos.val();
+      let nombre = datos.nombre;
+      let dia = datos.dia;
+      let mes = datos.mes;
+      let año = datos.año;
+      let date = new Date(año, mes, dia);
+      fecha = moment(date).format('MM/DD/YYYY');
+
+      $('#nombreNuevoTarea').val(nombre).focus();
+      $('#fechaInicioEditarTarea').val(fecha);
+    });
+  });
+}
+
+function actualizarTarea() {
+  let idTarea = $('#btnActualizarTarea').attr('data-id');
+  let asignado = $('#btnActualizarTarea').attr('data-asignado');
+  let idProyecto = $('#btnActualizarTarea').attr('data-idP');
+
+  let nombreNuevo = $('#nombreNuevoTarea').val();
+  let fechaInicioEditarTarea = $('#fechaInicioEditarTarea').val();
+
+  if(nombreNuevo.length > 0 && fechaInicioEditarTarea.length > 0) {
+    let date = new Date(fechaInicioEditarTarea);
+    let dia = date.getDate();
+    let mes = date.getMonth();
+    let año = date.getFullYear();
+
+    let tareasProyecto = firebase.database().ref('proyectos/'+idProyecto+'/tareas/'+idTarea);
+    tareasProyecto.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+
+    let tareas = firebase.database().ref('tareas/');
+    tareas.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+      let idTareaEnNodoTareas = snapshot.key;
+      let rutaTareas = firebase.database().ref('tareas/'+idTareaEnNodoTareas);
+      rutaTareas.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+    });
+
+    let miSemana = firebase.database().ref('miSemana/'+asignado);
+    miSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
+      let idTareaEnMiSemana = snapshot.key;
+      let rutaMiSemana = firebase.database().ref('miSemana/'+asignado+'/'+idTareaEnMiSemana);
+      rutaMiSemana.update({nombre: nombreNuevo, dia:dia, mes:mes, año:año});
+    });
+  }
+  else {
+    if(nombreNuevo.length < 1) {
+      $('#nombreNuevoTarea').parent().addClass('has-error');
+      $('#helpblocknombreNuevoTarea').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#nombreNuevoTarea').parent().removeClass('has-error');
+      $('#helpblocknombreNuevoTarea').hide();
+    }
+    if(fechaInicioEditarTarea.length < 1) {
+      $('#fechaInicioEditarTarea').parent().parent().addClass('has-error');
+      $('#helpblockfechaInicioEditarTarea').empty().html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaInicioEditarTarea').parent().parent().removeClass('has-error');
+      $('#helpblockfechaInicioEditarTarea').hide();
+    }
   }
 }
 
@@ -110,9 +193,9 @@ function eliminarTarea(idTarea) {
   let proyecto = firebase.database().ref('proyectos/'+idProyecto); //actualizar numero de tareas
   proyecto.once('value').then( function(snapshot) {
     let datosProyecto = snapshot.val();
-    numTareas = datosProyecto.numtareas;
+    numTareas = datosProyecto.numTareas;
     numTareas = numTareas-1;
-    proyecto.update({numtareas: numTareas});
+    proyecto.update({numTareas: numTareas});
   });
 }
 
@@ -257,6 +340,7 @@ function haySesion() {
       var user = firebase.auth().currentUser;
       var uid = user.uid;
 
+      $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
       $('[data-toggle="tooltip"]').tooltip();
     }
@@ -294,15 +378,7 @@ function mostrarNotificaciones(usuarioLogeado) {
           row += '<div class="notification"><p>hola'+arrNotificaciones[i].mensaje+'</p></div>';
         }
       }
-      $('#notificaciones').attr( {
-        'data-content': row,
-        'id': 'notificaciones',
-        'data-toggle': 'popover',
-        'data-placement': 'bottom',
-        'style': 'font-size:20px; color:#CBCBCB; margin-top:7px;',
-        'class': 'glyphicon glyphicon-bell'
-
-      });
+      $('#notificaciones').attr('data-content', row);
       $('#notificaciones').popover({ content: row, html: true});
       row = "";
     });
@@ -314,7 +390,7 @@ function mostrarNotificaciones(usuarioLogeado) {
 
       if(cont > 0) {
         $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
-        $('#spanNotificaciones').html(NotUsuario.cont).show();
+        $('#spanNotificaciones').html(cont).show();
       }
       else {
         $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');

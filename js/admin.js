@@ -1,4 +1,3 @@
-
 var usuarioLogeado;
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
@@ -6,6 +5,7 @@ function obtenerUsuario(uid) {
     let usuarioactual = snapshot.val();
     usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
     $('.nombreDeUsuario').html(usuarioLogeado);
+    mostrarNotificaciones(usuarioLogeado);
 
     let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
     not.on('value', function(datosNotificacion) {
@@ -31,23 +31,27 @@ function obtenerUsuario(uid) {
 
       if(cont > 0) {
         $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
-        $('#spanNotificaciones').html(NotUsuario.cont).show();
+        $('#spanNotificaciones').html(cont).show();
       }
       else {
         $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
         $('#spanNotificaciones').hide();
       }
     });
-      let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
-      storageRef.getDownloadURL().then(function(url) {
+    let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
+    storageRef.getDownloadURL().then(function(url) {
       $('#imgPerfil').attr('src', url);
       $('#imgPerfilModal').attr('src', url);
     });
   });
 }
 
+function guardarCambios() {
+
+}
+
 function leerNotificaciones() {
-  let rutanot = firebase.database().ref('notificaciones/'+userLogeado);
+  let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
   rutanot.update({cont: 0});
 }
 
@@ -223,9 +227,9 @@ function eliminarTarea(idTarea) {
   let proyecto = firebase.database().ref('proyectos/'+datos.idP); //actualizar numero de tareas
   proyecto.once('value').then( function(snapshot) {
     let datosProyecto = snapshot.val();
-    numTareas = datosProyecto.numtareas;
+    numTareas = datosProyecto.numTareas;
     numTareas = numTareas-1;
-    proyecto.update({numtareas: numTareas});
+    proyecto.update({numTareas: numTareas});
   });
 }
 
@@ -274,7 +278,7 @@ function haySesion() {
       //obtiene el usuario actual
       var user = firebase.auth().currentUser;
       var uid = user.uid;
-      userId = uid;
+
       $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
       $('[data-toggle="tooltip"]').tooltip();
@@ -286,39 +290,53 @@ function haySesion() {
 }
 
 haySesion();
-console.log(usuarioLogeado);
-let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
-not.on('value', function(datosNotificacion) {
-  let notis = datosNotificacion.val();
-  let row = "";
-  for(noti in notis) {
-    if(notis[noti].leida == false) {
-      row += '<div class="notification"><p>holax'+notis[noti].mensaje+'<p></div>';
-    }
-    else {
-      row += '<div class="notification"><p>hola'+notis[noti].mensaje+'</p></div>';
-    }
-  }
 
-  $('#notificaciones').popover({ content: row, html: true});
-  row = "";
+$('#notificaciones').on('click', function() {
+  leerNotificaciones();
+  haySesion();
 });
 
-let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
-rutanot.on('value', function(datosNotUsuario) {
-  let NotUsuario = datosNotUsuario.val();
-  let cont = NotUsuario.cont;
+function mostrarNotificaciones(usuarioLogeado) {
+    let not = firebase.database().ref('notificaciones/'+usuarioLogeado+'/notificaciones');
+    not.on('value', function(datosNotificacion) {
+      let notis = datosNotificacion.val();
+      let row = "";
 
-  if(cont > 0) {
-    $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
-    $('#spanNotificaciones').html(NotUsuario.cont).show();
-  }
-  else {
-    $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
-    $('#spanNotificaciones').hide();
-  }
-});
+      let arrNotificaciones = [];
+      for(noti in notis) {
+        arrNotificaciones.push(notis[noti]);
+      }
 
+      arrNotificaciones.reverse();
+      for(let i=0; i<arrNotificaciones.length; i++){
+
+        if(arrNotificaciones[i].leida == false) {
+          row += '<div class="notification"><p>holax'+arrNotificaciones[i].mensaje+'<p></div>';
+        }
+        else {
+          row += '<div class="notification"><p>hola'+arrNotificaciones[i].mensaje+'</p></div>';
+        }
+      }
+      $('#notificaciones').attr('data-content', row);
+      $('#notificaciones').popover({ content: row, html: true});
+      row = "";
+    });
+
+    let rutanot = firebase.database().ref('notificaciones/'+usuarioLogeado);
+    rutanot.on('value', function(datosNotUsuario) {
+      let NotUsuario = datosNotUsuario.val();
+      let cont = NotUsuario.cont;
+
+      if(cont > 0) {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #74A6E9; margin-top:7px;');
+        $('#spanNotificaciones').html(NotUsuario.cont).show();
+      }
+      else {
+        $('#notificaciones').attr('style', 'font-size:20px; color: #CBCBCB; margin-top:7px;');
+        $('#spanNotificaciones').hide();
+      }
+    });
+}
 
 function mostrarOrdenes() {
    let ordenes = firebase.database().ref('ordenes/');
@@ -569,7 +587,19 @@ function modalUsuario() {
 }
 
 function modalEditarPerfil() {
+
+  let uid = $('#modalEditarPerfil').attr('data-uid');
+  let usuario = firebase.database().ref('usuarios/'+uid);
+  usuario.once('value').then(function(snapshot) {
+    let datos = snapshot.val();
+     $('#nombreUsuario').val(datos.nombre + ' ' + datos.apellidos);
+     $('#emailUsuario').val(datos.email);
+     $('#puestoUsuario').val(datos.puesto);
+  })
+
   $('#modalEditarPerfil').modal();
+
+
 }
 
 //muestra la modal para Crear una Orden
@@ -610,6 +640,7 @@ $('#upload-imagen').change(function(e) {
       }, function() {
         var downloadURL = uploadTask.snapshot.downloadURL;
         $('#imgPerfilModal').attr('src', downloadURL);
+        $('#imgPerfil').attr('src', downloadURL);
       });
     }
   }
