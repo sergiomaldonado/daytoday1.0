@@ -169,7 +169,9 @@ function agregarTareaProyecto() {
   });
 
   let notificaciones = dbRef.ref('notificaciones/'+asignado+'/notificaciones');
-  let fecha = new Date();
+  moment.locale('es');
+  let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+  let fecha = formato.toString();
   let datosNotificacion = {
     mensaje: 'Se te ha agregado la tarea de: ' + nombre,
     tipo: 'Tarea',

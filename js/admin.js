@@ -6,12 +6,55 @@ function obtenerUsuario(uid) {
     usuarioLogeado = usuarioactual.nombre + " " + usuarioactual.apellidos;
     $('.nombreDeUsuario').html(usuarioLogeado);
     mostrarNotificaciones(usuarioLogeado);
+  });
 
-    let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
-    storageRef.getDownloadURL().then(function(url) {
-      $('#imgPerfil').attr('src', url).show();
-      $('#imgPerfilModal').attr('src', url);
-    });
+  let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
+  storageRef.getDownloadURL().then(function(url) {
+    $('#imgPerfil').attr('src', url).show();
+    $('#imgPerfilModal').attr('src', url);
+  });
+
+  let rutahitos = firebase.database().ref('/tareas');
+  rutahitos.on('value', function(snapshot) {
+    let hitos = snapshot.val();
+    for(hito in hitos) {
+      if(hitos[hito].categoria == "Hito") {
+        let dia = hitos[hito].dia;
+        let mes = hitos[hito].mes;
+        let año = hitos[hito].año;
+        let fechaHito = new Date(año, mes, dia);
+        let hoy = new Date();
+
+        if(fechaHito == hoy) {
+          let rutaUsuarios = firebase.database().ref('usuarios/');
+          rutaUsuarios.on('value', function(snap){
+            let usuarios = snap.val();
+            for(usuario in usuarios) {
+              let nombre = usuarios[usuario].nombre + ' ' + usuarios[usuario].apellidos;
+              let notificaciones = firebase.database().ref('notificaciones/'+nombre+'/notificaciones');
+              moment.locale('es');
+              let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+              let fecha = formato.toString();
+              let datosNotificacion = {
+                mensaje: 'El hito de ' + hitos[hito].nombre " se vence hoy",
+                tipo: 'Orden',
+                leida: false,
+                fecha: fecha
+              }
+              notificaciones.push(datosNotificacion);
+
+              let not = firebase.database().ref('notificaciones/'+nombre);
+              not.once('value', function(snapshot) {
+                let notusuario = snapshot.val();
+                let cont = notusuario.cont + 1;
+
+                not.update({cont: cont});
+              });
+            }
+          });
+        }
+      }
+    }
   });
 }
 
@@ -200,6 +243,26 @@ function eliminarTarea(idTarea) {
     numTareas = numTareas-1;
     proyecto.update({numTareas: numTareas});
   });
+
+  let notificaciones = firebase.database().ref('notificaciones/'+datos.asignado+'/notificaciones');
+  moment.locale('es');
+  let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+  let fecha = formato.toString();
+  let datosNotificacion = {
+    mensaje: 'Se te ha eliminado la tarea ' + datos.nombre,
+    tipo: 'Tarea',
+    leida: false,
+    fecha: fecha
+  }
+  notificaciones.push(datosNotificacion);
+
+  let not = firebase.database().ref('notificaciones/'+datos.asignado);
+  not.once('value', function(snapshot) {
+    let notusuario = snapshot.val();
+    let cont = notusuario.cont + 1;
+
+    not.update({cont: cont});
+  });
 }
 
 function completarTarea(idTarea) {
@@ -280,10 +343,14 @@ function mostrarNotificaciones(usuarioLogeado) {
       for(let i=0; i<arrNotificaciones.length; i++){
 
         if(arrNotificaciones[i].leida == false) {
-          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
+
+          let date = arrNotificaciones[i].fecha;
+          moment.locale('es');
+          let fecha = moment(date, "MMMM DD YYYY, HH:mm:ss").fromNow();
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span> '+fecha+'</p></div>';
         }
         else {
-          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span> '+fecha+'</p></div>';
         }
       }
       $('#notificaciones').attr('data-content', row);
@@ -703,13 +770,25 @@ function guardarOrden() {
     let misOrdenes = firebase.database().ref('misOrdenes/'+asignado+'/'+key);
     misOrdenes.set(Orden);
 
-    let notificacion = firebase.database().ref('notificaciones/'+asignado);
+    let notificaciones = firebase.database().ref('notificaciones/'+asignado+'/notificaciones');
+    moment.locale('es');
+    let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+    let fecha = formato.toString();
     let datosNotificacion = {
-      mensaje: 'Se te ha asignado la orden ',
+      mensaje: 'Se te ha asignado la orden ' + descripcion,
+      tipo: 'Orden',
       leida: false,
-      tipo: 'Orden'
-    };
-    notificacion.push();
+      fecha: fecha
+    }
+    notificaciones.push(datosNotificacion);
+
+    let not = firebase.database().ref('notificaciones/'+asignado);
+    not.once('value', function(snapshot) {
+      let notusuario = snapshot.val();
+      let cont = notusuario.cont + 1;
+
+      not.update({cont: cont});
+    });
 
     cerrarModalOrden();
   }
@@ -1284,7 +1363,9 @@ function guardarProyecto() {
 
     for(let i=0; i<integrantes.length; i++) {
       let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
-      let fecha = new Date();
+      moment.locale('es');
+      let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+      let fecha = formato.toString();
       let datosNotificacion = {
         mensaje: 'Se te ha agregado al proyecto ' + nombreProyecto,
         tipo: 'Proyecto',

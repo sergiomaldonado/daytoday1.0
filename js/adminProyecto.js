@@ -36,6 +36,49 @@ function obtenerUsuario(uid) {
     $('#imgPerfil').attr('src', url).show();
     $('#imgPerfilModal').attr('src', url);
   });
+
+  let rutahitos = firebase.database().ref('/tareas');
+  rutahitos.on('value', function(snapshot) {
+    let hitos = snapshot.val();
+    for(hito in hitos) {
+      if(hitos[hito].categoria == "Hito") {
+        let dia = hitos[hito].dia;
+        let mes = hitos[hito].mes;
+        let año = hitos[hito].año;
+        let fechaHito = new Date(año, mes, dia);
+        let hoy = new Date();
+
+        if(fechaHito == hoy) {
+          let rutaUsuarios = firebase.database().ref('usuarios/');
+          rutaUsuarios.on('value', function(snap){
+            let usuarios = snap.val();
+            for(usuario in usuarios) {
+              let nombre = usuarios[usuario].nombre + ' ' + usuarios[usuario].apellidos;
+              let notificaciones = firebase.database().ref('notificaciones/'+nombre+'/notificaciones');
+              moment.locale('es');
+              let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+              let fecha = formato.toString();
+              let datosNotificacion = {
+                mensaje: 'El hito de ' + hitos[hito].nombre " se vence hoy",
+                tipo: 'Orden',
+                leida: false,
+                fecha: fecha
+              }
+              notificaciones.push(datosNotificacion);
+
+              let not = firebase.database().ref('notificaciones/'+nombre);
+              not.once('value', function(snapshot) {
+                let notusuario = snapshot.val();
+                let cont = notusuario.cont + 1;
+
+                not.update({cont: cont});
+              });
+            }
+          });
+        }
+      }
+    }
+  });
 }
 
 function leerNotificaciones() {
@@ -175,6 +218,26 @@ function eliminarTarea(idTarea) {
       refMiSemana = firebase.database().ref('miSemana/'+tareas.asignado);
       refMiSemana.orderByChild("idTarea").equalTo(idTarea).on("child_added", function(snapshot) {
         refMiSemana.child(snapshot.key).remove();
+      });
+
+      let notificaciones = firebase.database().ref('notificaciones/'+tareas.asignado+'/notificaciones');
+      moment.locale('es');
+      let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+      let fecha = formato.toString();
+      let datosNotificacion = {
+        mensaje: 'Se te ha eliminado la tarea ' + tareas.nombre,
+        tipo: 'Tarea',
+        leida: false,
+        fecha: fecha
+      }
+      notificaciones.push(datosNotificacion);
+
+      let not = firebase.database().ref('notificaciones/'+tareas.asignado);
+      not.once('value', function(snapshot) {
+        let notusuario = snapshot.val();
+        let cont = notusuario.cont + 1;
+
+        not.update({cont: cont});
       });
     });
 
@@ -511,13 +574,26 @@ function guardarOrden() {
   let misOrdenes = firebase.database().ref('misOrdenes/'+asignado+'/'+key);
   misOrdenes.set(Orden);
 
-  let notificacion = firebase.database().ref('notificaciones/'+asignado);
+  let notificaciones = firebase.database().ref('notificaciones/'+asignado+'/notificaciones');
+  moment.locale('es');
+  let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+  let fecha = formato.toString();
   let datosNotificacion = {
-    mensaje: 'Se te ha asignado la orden ',
+    mensaje: 'Se te ha asignado la orden ' + descripcion,
+    tipo: 'Orden',
     leida: false,
-    tipo: 'Orden'
-  };
-  notificacion.push();
+    fecha: fecha
+  }
+  notificaciones.push(datosNotificacion);
+
+  let not = firebase.database().ref('notificaciones/'+asignado);
+  not.once('value', function(snapshot) {
+    let notusuario = snapshot.val();
+    let cont = notusuario.cont + 1;
+
+    not.update({cont: cont});
+  });
+
   cerrarModalOrden();
 }
 

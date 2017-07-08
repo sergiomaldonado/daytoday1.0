@@ -245,6 +245,12 @@ fieldset[disabled] .boton-default.active {
   height: 7em !important;
 }
 
+#sobremi {
+  resize:none !important;
+  overflow-y: scroll !important;
+  height: 7em !important;
+}
+
 .notifications {
 
 }

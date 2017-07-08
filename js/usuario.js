@@ -244,7 +244,9 @@ function completarTarea(idTarea, idProyecto, asignado, nombreTarea) {
         let trozoRuta = usuarios[usuario].nombre + ' ' + usuarios[usuario].apellidos;
 
         let notificaciones = firebase.database().ref('notificaciones/'+trozoRuta+'/notificaciones');
-        let fecha = new Date();
+        moment.locale('es');
+        let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+        let fecha = formato.toString();
         let datosNotificacion = {
           mensaje: asignado + ' ha completado la tarea de ' + nombreTarea,
           tipo: 'Tarea',
