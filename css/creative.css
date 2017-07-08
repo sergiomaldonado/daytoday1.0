@@ -607,3 +607,7 @@ img::-moz-selection {
   line-height: 1.33;
   border-radius: 35px;
 }
+
+#logout:hover {
+  color: #74A6E9 !important;
+}

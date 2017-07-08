@@ -1347,20 +1347,6 @@ function guardarProyecto() {
     let tareasRef = db.ref('tareas/');
     let proyectoTareasRef = db.ref('proyectos/'+proyectoId+'/tareas/');
 
-    for(let i=0; i<tareas.length; i++) {
-      tareas[i].idP = proyectoId;
-      let tareaId = proyectoTareasRef.push(tareas[i]).getKey();
-      tareas[i].idTarea = tareaId;
-      tareasRef.push(tareas[i]);
-
-      for(let j=0; j<integrantes.length; j++) {
-        if(integrantes[j] == tareas[i].asignado) {
-          let miSemana = db.ref('miSemana/'+integrantes[j]);
-          miSemana.push(tareas[i]);
-        }
-      }
-    }
-
     for(let i=0; i<integrantes.length; i++) {
       let notificaciones = db.ref('notificaciones/'+integrantes[i]+'/notificaciones');
       moment.locale('es');
@@ -1375,6 +1361,40 @@ function guardarProyecto() {
       notificaciones.push(datosNotificacion);
 
       let not = db.ref('notificaciones/'+integrantes[i]);
+      not.once('value', function(snapshot) {
+        let notusuario = snapshot.val();
+        let cont = notusuario.cont + 1;
+
+        not.update({cont: cont});
+      });
+    }
+
+    for(let i=0; i<tareas.length; i++) {
+      tareas[i].idP = proyectoId;
+      let tareaId = proyectoTareasRef.push(tareas[i]).getKey();
+      tareas[i].idTarea = tareaId;
+      tareasRef.push(tareas[i]);
+
+      for(let j=0; j<integrantes.length; j++) {
+        if(integrantes[j] == tareas[i].asignado) {
+          let miSemana = db.ref('miSemana/'+integrantes[j]);
+          miSemana.push(tareas[i]);
+        }
+      }
+
+      let notificaciones = db.ref('notificaciones/'+tareas[i].asignado+'/notificaciones');
+      moment.locale('es');
+      let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+      let fecha = formato.toString();
+      let datosNotificacion = {
+        mensaje: 'Se te ha agregado la tarea de ' + tareas[i].nombre,
+        tipo: 'Proyecto',
+        leida: false,
+        fecha: fecha
+      }
+      notificaciones.push(datosNotificacion);
+
+      let not = db.ref('notificaciones/'+tareas[i].asignado);
       not.once('value', function(snapshot) {
         let notusuario = snapshot.val();
         let cont = notusuario.cont + 1;
