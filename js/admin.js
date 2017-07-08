@@ -36,7 +36,7 @@ function obtenerUsuario(uid) {
               let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
               let fecha = formato.toString();
               let datosNotificacion = {
-                mensaje: 'El hito de ' + hitos[hito].nombre " se vence hoy",
+                mensaje: 'El hito de ' + hitos[hito].nombre + " se vence hoy",
                 tipo: 'Orden',
                 leida: false,
                 fecha: fecha
