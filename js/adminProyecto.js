@@ -406,7 +406,6 @@ function haySesion() {
       var uid = user.uid;
       userID = uid;
 
-      $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
       $('[data-toggle="tooltip"]').tooltip();
     }
@@ -519,19 +518,6 @@ function cerrarModalProyecto() {
   arrIntegrantes = [];
   arrTareas = [];
 }
-
-$('#tabordenes').on('shown.bs.tab', function (e) {
-  e.target // newly activated tab
-  e.relatedTarget // previous active tab
-  mostrarOrdenes();
-});
-
-$('#tabproyectos').on('shown.bs.tab', function (e) {
-  e.target // newly activated tab
-  e.relatedTarget // previous active tab
-
-  mostrarProyectos();
-});
 
 //cierra la sesion de firebase
 function logOut() {
@@ -924,6 +910,26 @@ function guardarProyecto() {
   cerrarModalProyecto();
 }
 
+function guardarContraseña() {
+  let contraseñaNueva = $('#contraseñaNuevaUsuario').val();
+
+  let contraseñaActualFirebase = auth.currentUser;
+
+  if(contraseñaNueva.length > 0) {
+    auth.currentUser.updatePassword(contraseñaNueva)
+    .then(function () {
+      $('#contraseñaNuevaUsuario').val('');
+
+      $('#nuevaContraseñaAlertSuccess').fadeIn(2000);
+      $('#nuevaContraseñaAlertSuccess').fadeOut(1000);
+    }, function(error) {
+      $('#contraseñaNuevaUsuario').val('');
+      $('#nuevaContraseñaAlertDanger').fadeIn(2000);
+      $('#nuevaContraseñaAlertDanger').fadeOut(1000);
+    });
+  }
+}
+
 function guardarCambios() {
   let nombre = $('#nombreUsuario').val();
   let apellidos = $('#apellidosUsuario').val();
@@ -944,7 +950,7 @@ $('#upload-imagen').change(function(e) {
     var archivo = e.target.files[0];
     var nombre = e.target.files[0].name;
 
-      let user = $('#modalEditarPerfil').attr('data-uid');
+      let user = firebase.auth().currentUser.uid;
 
       var storageRef = firebase.storage().ref(user+'/');
       var uploadTask = storageRef.child('fotoPerfil').put(archivo);

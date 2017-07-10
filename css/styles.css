@@ -239,7 +239,7 @@ fieldset[disabled] .boton-default.active {
   border-radius: 5px !important;
 }
 
-#comentarios, #descripcionProyecto {
+#comentarios, #descripcionProyecto, #comentariosEditarOrden, #descripcionEditarOrden {
   resize:none !important;
   overflow-y: scroll !important;
   height: 7em !important;

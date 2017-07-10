@@ -1,5 +1,7 @@
 var usuarioLogeado;
 var userID;
+var auth = firebase.auth();
+var db = firebase.database();
 
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
@@ -314,7 +316,6 @@ function haySesion() {
       var uid = user.uid;
       userID = uid;
 
-      $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
       $('[data-toggle="tooltip"]').tooltip();
     }
@@ -377,6 +378,250 @@ function mostrarNotificaciones(usuarioLogeado) {
     });
 }
 
+function editarOrden(idOrden) {
+  $('#modalEditarOrden').attr('data-id-orden', idOrden);
+
+  let rutaorden = firebase.database().ref('ordenes/'+idOrden);
+  rutaorden.once('value').then( function(snapshot) {
+    let orden = snapshot.val();
+    $('#clienteEditarOrden').val(orden.cliente);
+    $('#descripcionEditarOrden').val(orden.descripcion);
+    $('#fechaRecepEditarOrden').val(orden.fechaRecep);
+    $('#fechaEntregaEditarOrden').val(orden.fechaEntrega);
+    $('#clienteEncargadoEditarOrden').val(orden.encargado);
+    $('#asignadoEditarOrden').val(orden.asignado);
+    $('#modalEditarOrden').attr('data-asignado', orden.asignado);
+    $('#comentariosEditarOrden').val(orden.comentarios);
+  });
+
+  $('#modalEditarOrden').modal();
+}
+
+$('#clienteEditarOrden').keyup(function () {
+  let cliente = $('#clienteEditarOrden').val();
+  if(cliente.length < 1) {
+    $('#clienteEditarOrden').parent().addClass('has-error');
+    $('#helpblockclienteEditarOrden').html("Este campo es requerido").show();
+  }
+  else {
+    $('#clienteEditarOrden').parent().removeClass('has-error');
+    $('#helpblockclienteEditarOrden').hide();
+  }
+});
+
+$('#descripcionEditarOrden').keyup(function () {
+  let descripcion = $('#descripcionEditarOrden').val();
+  if(descripcion.length < 1) {
+    $('#descripcionEditarOrden').parent().addClass('has-error');
+    $('#helpblockdescripcionEditarOrden').html("Este campo es requerido").show();
+  }
+  else {
+    $('#descripcionEditarOrden').parent().removeClass('has-error');
+    $('#helpblockdescripcionEditarOrden').hide();
+  }
+});
+
+$('#fechaEntregaEditarOrden').change(function () {
+  let fechaEntrega = $('#fechaEntregaEditarOrden').val();
+  if(fechaEntrega.length < 1) {
+    $('#fechaEntregaEditarOrden').parent().parent().addClass('has-error');
+    $('#helpblockfechaEntregaEditarOrden').html("Este campo es requerido").show();
+  }
+  else {
+    $('#fechaEntregaEditarOrden').parent().parent().removeClass('has-error');
+    $('#helpblockfechaEntregaEditarOrden').hide();
+  }
+});
+
+$('#clienteEncargadoEditarOrden').keyup(function () {
+  let encargado = $('#clienteEncargadoEditarOrden').val();
+  if(encargado.length < 1) {
+    $('#clienteEncargadoEditarOrden').parent().addClass('has-error');
+    $('#helpblockEncargadoEditarOrden').html("Este campo es requerido").show();
+  }
+  else {
+    $('#clienteEncargadoEditarOrden').parent().removeClass('has-error');
+    $('#helpblockEncargadoEditarOrden').hide();
+  }
+});
+
+$('#asignadoEditarOrden').keyup(function () {
+  let asignadoOrden = $('#asignadoEditarOrden').val();
+  if(asignadoOrden.length < 1) {
+    $('#asignadoEditarOrden').parent().addClass('has-error');
+    $('#helpblockasignadoEditarOrden').html("Este campo es requerido").show();
+  }
+  else {
+    $('#asignadoEditarOrden').parent().removeClass('has-error');
+    $('#helpblockasignadoEditarOrden').hide();
+  }
+});
+
+$('#comentariosEditarOrden').keyup(function () {
+  let comentarios = $('#comentariosEditarOrden').val();
+  if(comentarios.length < 1) {
+    $('#comentariosEditarOrden').parent().addClass('has-error');
+    $('#helpblockcomentariosEditarOrden').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#comentariosEditarOrden').parent().removeClass('has-error');
+    $('#helpblockcomentariosEditarOrden').hide();
+  }
+});
+
+function actualizarOrden() {
+  let idOrden = $('#modalEditarOrden').attr('data-id-orden');
+  let asignadoAnterior = $('#modalEditarOrden').attr('data-asignado');
+
+  let cliente = $('#clienteEditarOrden').val();
+  let descripcion = $('#descripcionEditarOrden').val();
+  let fechaRecep = $('#fechaRecepEditarOrden').val();
+  let fechaEntrega = $('#fechaEntregaEditarOrden').val();
+  let encargado = $('#clienteEncargadoEditarOrden').val();
+  let asignado = $('#asignadoEditarOrden').val();
+  let comentarios = $('#comentariosEditarOrden').val();
+
+  if(cliente.length > 0 && descripcion.length > 0 && fechaEntrega.length > 0 && encargado.length > 0 && asignado.length > 0 && comentarios.length > 0) {
+    let rutaOrden = firebase.database().ref('ordenes/'+idOrden);
+    rutaOrden.update({
+      cliente: cliente,
+      descripcion: descripcion,
+      fechaRecep: fechaRecep,
+      fechaEntrega: fechaEntrega,
+      asignado: asignado,
+      encargado: encargado,
+      comentarios: comentarios
+    });
+
+    if(asignado != asignadoAnterior) {
+      let rutamiOrden = firebase.database().ref('misOrdenes/'+asignadoAnterior);
+      rutamiOrden.remove(idOrden);
+
+      let nuevoAsignado = firebase.database().ref('misOrdenes/'+asignado+'/'+idOrden)
+      rutamiOrden.set({
+        cliente: cliente,
+        descripcion: descripcion,
+        fechaRecep: fechaRecep,
+        fechaEntrega: fechaEntrega,
+        asignado: asignado,
+        encargado: encargado,
+        comentarios: comentarios
+      });
+
+      let notificaciones = db.ref('notificaciones/'+asignadoAnterior+'/notificaciones');
+      moment.locale('es');
+      let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+      let fecha = formato.toString();
+      let datosNotificacion = {
+        mensaje: 'Tu orden de ' + descripcion + ' se le ha asignado ahora a:' + asignado,
+        tipo: 'Orden',
+        leida: false,
+        fecha: fecha
+      }
+      notificaciones.push(datosNotificacion);
+
+      let not = db.ref('notificaciones/'+asignadoAnterior);
+      not.once('value', function(snapshot) {
+        let notusuario = snapshot.val();
+        let cont = notusuario.cont + 1;
+
+        not.update({cont: cont});
+      });
+
+      let notificaciones = db.ref('notificaciones/'+asignado+'/notificaciones');
+      moment.locale('es');
+      let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+      let fecha = formato.toString();
+      let datosNotificacion = {
+        mensaje: 'Se te ha asignado ahora la orden de: ' + descripcion,
+        tipo: 'Orden',
+        leida: false,
+        fecha: fecha
+      }
+      notificaciones.push(datosNotificacion);
+
+      let not = db.ref('notificaciones/'+asignado);
+      not.once('value', function(snapshot) {
+        let notusuario = snapshot.val();
+        let cont = notusuario.cont + 1;
+
+        not.update({cont: cont});
+      });
+    }
+  }
+  else {
+    if(cliente == "") {
+      $('#clienteEditarOrden').parent().addClass('has-error');
+      $('#helpblockclienteEditarOrden').html("Este campo es requerido").show();
+    }
+    else {
+      $('#clienteEditarOrden').parent().removeClass('has-error');
+      $('#helpblockclienteEditarOrden').hide();
+    }
+    if(descripcion == "") {
+      $('#descripcionEditarOrden').parent().addClass('has-error');
+      $('#helpblockdescripcionEditarOrden').html("Este campo es requerido").show();
+    }
+    else {
+      $('#descripcion').parent().removeClass('has-error');
+      $('#helpblockdescripcionEditarOrden').hide();
+    }
+    if(fechaEntrega == "") {
+      $('#fechaEntregaEditarOrden').parent().parent().addClass('has-error');
+      $('#helpblockfechaEntregaEditarOrden').html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaEntregaEditarOrden').parent().parent().removeClass('has-error');
+      $('#helpblockfechaEntregaEditarOrden').hide();
+    }
+    if(encargado == "") {
+      $('#clienteEncargadoEditarOrden').parent().addClass('has-error');
+      $('#helpblockclienteEncargadoEditarOrden').html("Este campo es requerido").show();
+    }
+    else {
+      $('#clienteEncargado').parent().removeClass('has-error');
+      $('#helpblockclienteEncargadoEditarOrden').hide();
+    }
+    if(asignado == "") {
+      $('#asignadoEditarOrden').parent().addClass('has-error');
+      $('#helpblockasignadoEditarOrden').html("Este campo es requerido").show();
+    }
+    else {
+      $('#asignadoEditarOrden').parent().removeClass('has-error');
+      $('#helpblockasignadoEditarOrden').hide();
+    }
+    if(comentarios == "") {
+      $('#comentariosEditarOrden').parent().addClass('has-error');
+      $('#helpblockcomentariosEditarOrden').html("Este campo es requerido").show();
+    }
+    else {
+      $('#comentariosEditarOrden').parent().removeClass('has-error');
+      $('#helpblockcomentariosEditarOrden').hide();
+    }
+  }
+}
+
+function cerrarModalEditarPerfil() {
+  $('#modalEditarPerfil').modal('hide');
+}
+
+function cerrarModalEditarOrden() {
+  $('#clienteEditarOrden').parent().removeClass('has-error');
+  $('#helpblockclienteEditarOrden').hide();
+  $('#descripcion').parent().removeClass('has-error');
+  $('#helpblockdescripcionEditarOrden').hide();
+  $('#fechaEntregaEditarOrden').parent().parent().removeClass('has-error');
+  $('#helpblockfechaEntregaEditarOrden').hide();
+  $('#clienteEncargado').parent().removeClass('has-error');
+  $('#helpblockclienteEncargadoEditarOrden').hide();
+  $('#asignadoEditarOrden').parent().removeClass('has-error');
+  $('#helpblockasignadoEditarOrden').hide();
+  $('#comentariosEditarOrden').parent().removeClass('has-error');
+  $('#helpblockcomentariosEditarOrden').hide();
+
+  $('#modalEditarOrden').modal('hide');
+}
+
 function mostrarOrdenes() {
    let ordenes = firebase.database().ref('ordenes/');
     ordenes.on('value', function(snapshot) {
@@ -396,12 +641,28 @@ function mostrarOrdenes() {
           state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #4CDD85; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
         }
 
+        let fechaRecep = ordenes[orden].fechaRecep;
+        let dayRecep = fechaRecep.substr(0,2);
+        let monthRecep = fechaRecep.substr(3,2);
+        let yearRecep = fechaRecep.substr(6,4);
+        let dateRecep = monthRecep + '/' + dayRecep + '/' + yearRecep;
+
+        let fechaEntrega = ordenes[orden].fechaEntrega;
+        let dayEntrega = fechaEntrega.substr(0,2);
+        let monthEntrega = fechaEntrega.substr(3,2);
+        let yearEntrega = fechaEntrega.substr(6,4);
+        let dateEntrega = monthEntrega + '/' + dayEntrega + '/' + yearEntrega;
+
+        let fechaDeEntrega = moment(dateEntrega).endOf('day').fromNow();
+        let fechaDeRecep = moment(dateRecep).startOf('day').fromNow();
+
         let tr = $('<tr/>');
         let td = '<td>' + i + '</td>' +
                   '<td>' + ordenes[orden].cliente + '</td>' +
                   '<td>' + ordenes[orden].descripcion + '</td>' +
-                  '<td>' + ordenes[orden].fechaRecep + '</td>' +
-                  '<td>' + ordenes[orden].fechaEntrega + '</td>';
+                  '<td>' + fechaDeRecep + '</td>' +
+                  '<td>' + fechaDeEntrega + '</td>';
+
         tr.append(td);
         let tdDrop = $('<td/>', {
           'class': 'dropdown'
@@ -450,6 +711,17 @@ function mostrarOrdenes() {
         tdDrop.append(ul);
         tr.append(tdDrop);
         tr.append('<td>' + ordenes[orden].encargado + '</td>');
+
+        let td2 = $('<td/>');
+        let btnEditar = $('<button/>', {
+          'onclick': 'editarOrden("'+orden+'")',
+          'class': 'btn btn-warning'
+        });
+        let spanEditar = $('<span/>', {'class': 'glyphicon glyphicon-pencil'});
+        btnEditar.append(spanEditar);
+
+        td2.append(btnEditar);
+        tr.append(td2);
 
         $('#tablaordenes tbody').append(tr);
 
@@ -627,7 +899,7 @@ function modalUsuario() {
 
 function modalEditarPerfil() {
 
-  let uid = $('#modalEditarPerfil').attr('data-uid');
+  let uid = firebase.auth().currentUser.uid;
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.once('value').then(function(snapshot) {
     let datos = snapshot.val();
@@ -652,18 +924,6 @@ function modalProyecto() {
   $('#agregarProyecto').modal();
 }
 
-$('#cliente').keyup(function () {
-  let cliente = $('#cliente').val();
-  if(cliente.length < 1) {
-    $('#cliente').parent().addClass('has-error');
-    $('#helpblockCliente').empty().html("Este campo es requerido").show();
-  }
-  else {
-    $('#cliente').parent().removeClass('has-error');
-    $('#helpblockCliente').hide();
-  }
-});
-
 $('#upload-imagen').change(function(e) {
   if(this.files && this.files[0]) {
     var archivo = e.target.files[0];
@@ -685,6 +945,18 @@ $('#upload-imagen').change(function(e) {
     }
   }
 );
+
+$('#cliente').keyup(function () {
+  let cliente = $('#cliente').val();
+  if(cliente.length < 1) {
+    $('#cliente').parent().addClass('has-error');
+    $('#helpblockCliente').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#cliente').parent().removeClass('has-error');
+    $('#helpblockCliente').hide();
+  }
+});
 
 $('#descripcion').keyup(function () {
   let descripcion = $('#descripcion').val();
@@ -1509,6 +1781,47 @@ function guardarProyecto() {
   }
 }
 
+$('#contraseñaNuevaUsuario').keyup(function () {
+  let contraseñaNuevaUsuario = $('#contraseñaNuevaUsuario').val();
+  if(contraseñaNuevaUsuario.length < 1) {
+    $('#contraseñaNuevaUsuario').parent().addClass('has-error');
+    $('#helpblockcontraseñaNuevaUsuario').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#contraseñaNuevaUsuario').parent().removeClass('has-error');
+    $('#helpblockcontraseñaNuevaUsuario').hide();
+  }
+});
+
+$('#collapseExample').on('hidden.bs.collapse', function () {
+  $('#contraseñaNuevaUsuario').parent().removeClass('has-error');
+  $('#helpblockcontraseñaNuevaUsuario').hide();
+})
+
+function guardarContraseña() {
+  let contraseñaNueva = $('#contraseñaNuevaUsuario').val();
+
+  let contraseñaActualFirebase = auth.currentUser;
+
+  if(contraseñaNueva.length > 0) {
+    auth.currentUser.updatePassword(contraseñaNueva)
+    .then(function () {
+      $('#contraseñaNuevaUsuario').val('');
+
+      $('#nuevaContraseñaAlertSuccess').fadeIn(2000);
+      $('#nuevaContraseñaAlertSuccess').fadeOut(1000);
+    }, function(error) {
+      $('#contraseñaNuevaUsuario').val('');
+      $('#nuevaContraseñaAlertDanger').fadeIn(2000);
+      $('#nuevaContraseñaAlertDanger').fadeOut(1000);
+    });
+  }
+  else {
+    $('#contraseñaNuevaUsuario').parent().addClass('has-error');
+    $('#helpblockcontraseñaNuevaUsuario').empty().html("La contraseña es obligatoria").show();
+  }
+}
+
 function guardarCambios() {
   let nombre = $('#nombreUsuario').val();
   let apellidos = $('#apellidosUsuario').val();
@@ -1516,12 +1829,21 @@ function guardarCambios() {
   //let puesto = $('#puestoUsuario').val();
   let sobremi = $('#sobremi').val();
 
-  let rutausuario = firebase.database().ref('usuarios/'+userID);
-  rutausuario.update({
-    nombre: nombre,
-    apellidos: apellidos,
-    sobremi: sobremi
-  });
+  let uid = firebase.auth().currentUser.uid;
+
+  if(nombre.length > 0 && apellidos.length > 0 && email.length > 0) {
+    let rutausuario = firebase.database().ref('usuarios/'+userID);
+    rutausuario.update({
+      nombre: nombre,
+      apellidos: apellidos,
+      sobremi: sobremi
+    });
+
+    $('#modalEditarPerfil').modal('hide');
+  }
+  else {
+
+  }
 }
 
 $('#datetimepicker1').datepicker({
@@ -1560,6 +1882,13 @@ $('#datetimepickerFechaInicioHito').datepicker({ //Inicializa el datepicker de F
 });
 
 $('#datetimepickerFechaInicioEditarTarea').datepicker({ //Inicializa el datepicker de FechaEntrega
+  startDate: "Today",
+  autoclose: true,
+  format: "mm/dd/yyyy",
+  todayHighlight: true
+});
+
+$('#datetimepickerFechaEntregaEditarOrden').datepicker({ //Inicializa el datepicker de FechaEntrega
   startDate: "Today",
   autoclose: true,
   format: "mm/dd/yyyy",

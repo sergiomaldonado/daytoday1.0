@@ -23,7 +23,7 @@ function haySesion() {
       var usuario = firebase.auth().currentUser;
       var uid = usuario.uid;
       userID = uid;
-      $('#modalEditarPerfil').attr('data-uid', uid);
+
       obtenerUsuario(uid);
       $('[data-toggle="tooltip"]').tooltip();
     }
@@ -311,7 +311,7 @@ function marcarComoEnProceso(idOrden) {
 
 function modalEditarPerfil() {
 
-  let uid = $('#modalEditarPerfil').attr('data-uid');
+  let uid = firebase.auth().currentUser.uid;
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.once('value').then(function(snapshot) {
     let datos = snapshot.val();
@@ -347,6 +347,26 @@ $('#upload-imagen').change(function(e) {
     }
   }
 );
+
+function guardarContraseña() {
+  let contraseñaNueva = $('#contraseñaNuevaUsuario').val();
+
+  let contraseñaActualFirebase = auth.currentUser;
+
+  if(contraseñaNueva.length > 0) {
+    auth.currentUser.updatePassword(contraseñaNueva)
+    .then(function () {
+      $('#contraseñaNuevaUsuario').val('');
+
+      $('#nuevaContraseñaAlertSuccess').fadeIn(2000);
+      $('#nuevaContraseñaAlertSuccess').fadeOut(1000);
+    }, function(error) {
+      $('#contraseñaNuevaUsuario').val('');
+      $('#nuevaContraseñaAlertDanger').fadeIn(2000);
+      $('#nuevaContraseñaAlertDanger').fadeOut(1000);
+    });
+  }
+}
 
 function guardarCambios() {
   let nombre = $('#nombreUsuario').val();
