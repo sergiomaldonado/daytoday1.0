@@ -468,7 +468,7 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
       <div id="modalEditarPerfil" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -483,7 +483,7 @@
                 <div class="row text-center">
                   <span id="fileselector">
                     <label for="upload-imagen" class="btn btn-default">
-                      <input style="float: left;" id="upload-imagen" type="file" name="" accept="image/x-png, image/gif, image/jpeg" class="img-circle">
+                      <input style="float: left;" id="upload-imagen" type="file" name="" accept="image/x-png, image/gif, image/jpeg">
                       <i class="fa fa-upload"></i>Cambiar foto
                     </label>
                   </span>
@@ -491,10 +491,19 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <input id="nombreUsuario" class="form-control" type="text" name="">
+                  <div class="col-md-14 no-padding" >
+                    <div class="col-md-6" style="margin-left:-15px; margin-bottom:15px;">
+                      <input id="nombreUsuario" type="text" name="" class="form-control" required>
+                      <span style="display: none;" id="helpblockNombre" class="help-block"></span>
+                    </div>
+                    <div class="col-md-6" style="transform:translate(30px, 0px);">
+                      <input id="apellidosUsuario" type="text" name="" class="form-control" required>
+                      <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="emaulUsuario">Username</label>
+                  <label for="emailUsuario">Username</label>
                   <input id="emailUsuario" name="emailUsuario" class="form-control" type="text" name="">
                 </div>
                 <div class="form-group">
@@ -508,7 +517,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar cambios</button>
+              <button type="button" class="btn btn-primary" onclick="guardarCambios()" data-dismiss="modal">Guardar cambios</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

@@ -33,6 +33,7 @@
         <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a style="height:55px; width:40px; margin-right:0px;" class="page-scroll"><span data-toggle="tooltip" data-placement="bottom" title="Notificaciones" onclick="leerNotificaciones()" title="Notificaciones" id="notificaciones" data-placement="bottom" style="font-size:20px; color:#CBCBCB; margin-top:7px;" class="glyphicon glyphicon-bell"><div id="spanNotificaciones" style="display:none; background-color:red; color:white; border-radius:5px; padding:10%;  font-size:10px; font-family: intelo-bold; transform:translate(10px, -22px);"></div></span></a></li>
+            <li><a style="height:55px; width:40px;  margin-right:0px;" data-toggle="tooltip"  data-placement="bottom" title="" class="page-scroll"><span style="font-size:20px; color:#CBCBCB; margin-top:7px;" class="glyphicon glyphicon-cog"></span></a></li>
             <li><a style="height:55px; width:40px;  margin-right:0px;" class="page-scroll" onclick="logOut()"><span data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión" id="logout" style="font-size:20px; color:#CBCBCB; margin-top:7px;" class="glyphicon glyphicon-off"></span></a></li>
           </ul>
         </div>
@@ -45,7 +46,7 @@
             <div class="col-lg-2 col-md-2">
               <div style="width:150px; overflow:hidden;" class="thumbnail no-padding">
                 <img src="assets/bg-panel.png" alt="...">
-                <img style="margin-top:-40px; " width="80px"src="http://lorempixel.com/400/400/" alt="..." class="img-circle">
+                <img id="imgPerfil" style="display: none; margin-top:-40px;" width="80px" alt="..." class="img-circle">
                 <div class="caption">
                   <h4 class="nombreDeUsuario"></h4>
                   <hr>
@@ -67,7 +68,7 @@
               </div>
               <div style="background-color:white; padding-top:30px;" class="live-box">
                 <div style="display: inline;" id="authentication">
-                  <div class="table-responsive no-padding">
+                  <div class="table-responsive no-padding" style="margin: 0px 25px 0px 25px; min-height: 300px">
                     <div id="Semana" class="panel panel-default no-padding" style="border:solid 1px white;">
                       <div class="panel-body no-padding">
                         <ul id="listaCategorias">
@@ -76,7 +77,8 @@
                       <div id="holder"></div>
                     </div>
                     <div style="display: none;" id="misOrdenes" class="panel panel-default no-padding" style="padding-top:0px; border:solid 1px white;">
-                      <div class="panel-body no-padding">
+                      <div style="border: 0px; !important" class="panel-body no-padding">
+
                         <h3 style="float: left;">Ordenes de trabajo</h3>
                         <form role="form">
                           <div style="width:30%; float:right;" class="form-group has-feedback">
@@ -108,6 +110,61 @@
         </div>
  	    </div>
     </section>
+    <div id="modalEditarPerfil" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Mi perfil</h4>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-6">
+              <div class="row text-center">
+                <img id="imgPerfilModal" width="150px" height="150px" alt="..." class="img-circle">
+                <div style="display:none;" class="loader"></div>
+              </div><br>
+              <div class="row text-center">
+                <span id="fileselector">
+                  <label for="upload-imagen" class="btn btn-default">
+                    <input style="float: left;" id="upload-imagen" type="file" name="" accept="image/x-png, image/gif, image/jpeg">
+                    <i class="fa fa-upload"></i>Cambiar foto
+                  </label>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="col-md-14 no-padding" >
+                  <div class="col-md-6" style="margin-left:-15px; margin-bottom:15px;">
+                    <input id="nombreUsuario" type="text" name="" class="form-control" required>
+                    <span style="display: none;" id="helpblockNombre" class="help-block"></span>
+                  </div>
+                  <div class="col-md-6" style="transform:translate(30px, 0px);">
+                    <input id="apellidosUsuario" type="text" name="" class="form-control" required>
+                    <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="emailUsuario">Username</label>
+                <input id="emailUsuario" name="emailUsuario" class="form-control" type="text" name="">
+              </div>
+              <div class="form-group">
+                <label for="puestoUsuario">Puesto</label>
+                <input id="puestoUsuario" name="puestoUsuario" class="form-control" type="text" name="">
+              </div>
+              <div class="form-group">
+                <label for="sobremi">Sobre mi</label>
+                <textarea id="sobremi" class="form-control" name="sobremi"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="guardarCambios()" data-dismiss="modal">Guardar cambios</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
       <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>

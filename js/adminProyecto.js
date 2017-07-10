@@ -1,3 +1,5 @@
+var userID;
+
 function getQueryVariable(variable) {
    var query = window.location.search.substring(1);
    var vars = query.split("&");
@@ -167,7 +169,7 @@ function llenarCategorias() {
   categorias.on('value', function(snapshot) {
     let categorias = snapshot.val();
 
-    let options=""
+    let options='<option disabled selected value="Categoria">Categoría</option>';
     for(categoria in categorias) {
       options += '<option value="'+categorias[categoria].nombre+'">'+categorias[categoria].nombre+'</option>';
     }
@@ -402,6 +404,7 @@ function haySesion() {
       //obtiene el usuario actual
       var user = firebase.auth().currentUser;
       var uid = user.uid;
+      userID = uid;
 
       $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
@@ -920,6 +923,43 @@ function guardarProyecto() {
 
   cerrarModalProyecto();
 }
+
+function guardarCambios() {
+  let nombre = $('#nombreUsuario').val();
+  let apellidos = $('#apellidosUsuario').val();
+  let email = $('#emailUsuario').val();
+  //let puesto = $('#puestoUsuario').val();
+  let sobremi = $('#sobremi').val();
+
+  let rutausuario = firebase.database().ref('usuarios/'+userID);
+  rutausuario.update({
+    nombre: nombre,
+    apellidos: apellidos,
+    sobremi: sobremi
+  });
+}
+
+$('#upload-imagen').change(function(e) {
+  if(this.files && this.files[0]) {
+    var archivo = e.target.files[0];
+    var nombre = e.target.files[0].name;
+
+      let user = $('#modalEditarPerfil').attr('data-uid');
+
+      var storageRef = firebase.storage().ref(user+'/');
+      var uploadTask = storageRef.child('fotoPerfil').put(archivo);
+
+      uploadTask.on('state_changed', function(snapshot){
+      }, function(error) {
+
+      }, function() {
+        var downloadURL = uploadTask.snapshot.downloadURL;
+        $('#imgPerfilModal').attr('src', downloadURL);
+        $('#imgPerfil').attr('src', downloadURL);
+      });
+    }
+  }
+);
 
 $('#datetimepicker1').datepicker({
   startDate: "Today",

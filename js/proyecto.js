@@ -43,6 +43,7 @@ function rellenarBrief() {
   let rutaProyecto = dbRef.ref('proyectos/'+idProyecto);
   rutaProyecto.on('value', function(snapshot) {
     let datosProyecto = snapshot.val();
+    let tareas = datosProyecto.tareas;
     $('#contenedorBrief').empty();
 
     let objectives = "";
@@ -51,8 +52,9 @@ function rellenarBrief() {
     }
 
     let hitos = "";
-    for(let i=0; i<datosProyecto.hitos.length; i++) {
-      hitos += '<li><span class="glyphicon glyphicon-star"></span>' + datosProyecto.hitos[i] + '</li>';
+    for(tarea in tareas) {
+      if(tareas[tarea].categoria == "Hito")
+      hitos += '<li><span class="glyphicon glyphicon-star"></span>' + tareas[tarea].nombre + '</li>';
     }
 
     let row = '<div style="" class="col-xs-8 col-sm-6">' +
@@ -126,6 +128,56 @@ $('#datetimepickerFechaInicioTareaProyecto').datepicker({ //Inicializa el datepi
   todayHighlight: true
 });
 
+$('#tarea').keyup(function () {
+  let tarea = $('#tarea').val();
+  if(tarea.length < 1) {
+    $('#tarea').parent().addClass('has-error');
+    $('#helpblockTarea').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#tarea').parent().removeClass('has-error');
+    $('#helpblockTarea').hide();
+  }
+});
+
+$('#categoria').keyup(function () {
+  let categoria = $('#categoria').val();
+  if(categoria.length == null) {
+    $('#categoria').parent().addClass('has-error');
+    $('#helpblockcategoriaTarea').empty().html("Este campo es requerido").show();
+    $('#datetimepickerFechaInicioTareaProyecto').attr('style', 'margin-top: 46.5px;');
+  }
+  else {
+    $('#categoria').parent().removeClass('has-error');
+    $('#helpblockcategoriaTarea').hide();
+    $('#datetimepickerFechaInicioTareaProyecto').attr('style', 'margin-top: 36px;');
+  }
+});
+
+$('#asignadoEnProyecto').keyup(function () {
+  let asignado = $('#asignadoEnProyecto').val();
+  if(asignado.length < 1) {
+    $('#comentarios').parent().addClass('has-error');
+    $('#helpblockasignadoEnProyecto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#asignado').parent().removeClass('has-error');
+    $('#helpblockasignadoEnProyecto').hide();
+  }
+});
+
+$('#fechaInicioTareaProyecto').keyup(function () {
+  let fechaInicio = $('#fechaInicioTareaProyecto').val();
+  if(fechaInicio.length < 1) {
+    $('#fechaInicioTareaProyecto').parent().parent().addClass('has-error');
+    $('#helpblockfechaInicioTareaProyecto').empty().html("Este campo es requerido").show();
+  }
+  else {
+    $('#fechaInicioTareaProyectos').parent().parent().removeClass('has-error');
+    $('#helpblockfechaInicioTareaProyecto').hide();
+  }
+});
+
 function agregarTareaProyecto() {
   let nombre = $('#tarea').val();
   let categoria = $('#categoria').val();
@@ -137,59 +189,97 @@ function agregarTareaProyecto() {
   let mes = date.getMonth();
   let año = date.getFullYear();
 
-  let tarea = {
-    nombre: nombre,
-    categoria: categoria,
-    asignado: asignado,
-    idP: idP,
-    dia: dia,
-    mes: mes,
-    año: año,
-    estado: "Pendiente"
+  if(nombre.length > 0 && categoria != null && asignado.length > 0 && fechaInicio.length > 0) {
+    let tarea = {
+      nombre: nombre,
+      categoria: categoria,
+      asignado: asignado,
+      idP: idP,
+      dia: dia,
+      mes: mes,
+      año: año,
+      estado: "Pendiente"
+    }
+
+    let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
+    let key = tareasProyecto.push(tarea).getKey();
+
+    tarea.idTarea = key;
+
+    let tareas = dbRef.ref('tareas/'+key);
+    tareas.set(tarea);
+
+    let miSemana = dbRef.ref('miSemana/'+asignado+'/'+key);
+    miSemana.set(tarea);
+
+    var numTareas;
+    let proyecto = dbRef.ref('proyectos/'+idProyecto);
+    proyecto.once('value', function(snapshot) {
+      let datosProyecto = snapshot.val();
+      numTareas = datosProyecto.numTareas;
+      numTareas++;
+      proyecto.update({numTareas: numTareas});
+    });
+
+    let notificaciones = dbRef.ref('notificaciones/'+asignado+'/notificaciones');
+    moment.locale('es');
+    let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
+    let fecha = formato.toString();
+    let datosNotificacion = {
+      mensaje: 'Se te ha agregado la tarea de: ' + nombre,
+      tipo: 'Tarea',
+      leida: false,
+      fecha: fecha
+    }
+    notificaciones.push(datosNotificacion);
+
+    let not = dbRef.ref('notificaciones/'+asignado);
+    not.once('value', function(snapshot) {
+      let notusuario = snapshot.val();
+      let cont = notusuario.cont + 1;
+
+      not.update({cont: cont});
+    });
+
+    $('#tarea').val('').focus();
+    $('#categoria').val('');
+    $('#categoria option[value="Categoria"]').attr("selected",true);
+    $('#asignadoEnProyecto').val('');
+    $('#fechaInicioTareaProyecto').val('');
   }
-
-  let tareasProyecto = dbRef.ref('proyectos/'+idProyecto+'/tareas');
-  let key = tareasProyecto.push(tarea).getKey();
-
-  tarea.idTarea = key;
-
-  let tareas = dbRef.ref('tareas/'+key);
-  tareas.set(tarea);
-
-  let miSemana = dbRef.ref('miSemana/'+asignado+'/'+key);
-  miSemana.set(tarea);
-
-  var numTareas;
-  let proyecto = dbRef.ref('proyectos/'+idProyecto);
-  proyecto.once('value', function(snapshot) {
-    let datosProyecto = snapshot.val();
-    numTareas = datosProyecto.numTareas;
-    numTareas++;
-    proyecto.update({numTareas: numTareas});
-  });
-
-  let notificaciones = dbRef.ref('notificaciones/'+asignado+'/notificaciones');
-  moment.locale('es');
-  let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
-  let fecha = formato.toString();
-  let datosNotificacion = {
-    mensaje: 'Se te ha agregado la tarea de: ' + nombre,
-    tipo: 'Tarea',
-    leida: false,
-    fecha: fecha
+  else {
+    if(nombre == "") {
+      $('#tarea').parent().addClass('has-error');
+      $('#helpblockTarea').html("Este campo es requerido").show();
+    }
+    else {
+      $('#tarea').parent().removeClass('has-error');
+      $('#helpblockTarea').hide();
+    }
+    if(categoria == null) {
+      $('#categoria').parent().addClass('has-error');
+      $('#helpblockcategoriaTarea').html('Este campo es requerido').show();
+      $('#datetimepickerFechaInicioTareaProyecto').attr('style', 'margin-top: 46.5px;');
+    }
+    else {
+      $('#categoria').parent().removeClass('has-error');
+      $('#helpblockcategoriaTarea').hide();
+      $('#datetimepickerFechaInicioTareaProyecto').attr('style', 'margin-top: 36px;');
+    }
+    if(asignado == "") {
+      $('#asignadoEnProyecto').parent().addClass('has-error');
+      $('#helpblockasignadoEnProyecto').html("Este campo es requerido").show();
+    }
+    else {
+      $('#asignadoEnProyecto').parent().removeClass('has-error');
+      $('#helpblockasignadoEnProyecto').hide();
+    }
+    if(fechaInicio == "") {
+      $('#fechaInicioTareaProyecto').parent().parent().addClass('has-error');
+      $('#helpblockfechaInicioTareaProyecto').html("Este campo es requerido").show();
+    }
+    else {
+      $('#fechaInicioTareaProyecto').parent().parent().removeClass('has-error');
+      $('#helpblockfechaInicioTareaProyecto').hide();
+    }
   }
-  notificaciones.push(datosNotificacion);
-
-  let not = dbRef.ref('notificaciones/'+asignado);
-  not.once('value', function(snapshot) {
-    let notusuario = snapshot.val();
-    let cont = notusuario.cont + 1;
-
-    not.update({cont: cont});
-  });
-
-  $('#tarea').val('').focus();
-  $('#categoria').val('');
-  $('#asignadoEnProyecto').val('');
-  $('#fechaInicioTareaProyecto').val('');
-}

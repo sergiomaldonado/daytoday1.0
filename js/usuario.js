@@ -1,4 +1,6 @@
 var usuarioLogeado;
+var userID;
+
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.on('value', function(snapshot) {
@@ -9,7 +11,7 @@ function obtenerUsuario(uid) {
 
     let storageRef = firebase.storage().ref(uid + '/fotoPerfil/');
     storageRef.getDownloadURL().then(function(url) {
-      $('#imgPerfil').attr('src', url);
+      $('#imgPerfil').attr('src', url).show();;
       $('#imgPerfilModal').attr('src', url);
     });
   });
@@ -20,6 +22,7 @@ function haySesion() {
     if (user) {
       var usuario = firebase.auth().currentUser;
       var uid = usuario.uid;
+      userID = uid;
       $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
       $('[data-toggle="tooltip"]').tooltip();
@@ -264,5 +267,59 @@ function completarTarea(idTarea, idProyecto, asignado, nombreTarea) {
         });
       }
     }
+  });
+}
+
+function modalEditarPerfil() {
+
+  let uid = $('#modalEditarPerfil').attr('data-uid');
+  let usuario = firebase.database().ref('usuarios/'+uid);
+  usuario.once('value').then(function(snapshot) {
+    let datos = snapshot.val();
+     $('#nombreUsuario').val(datos.nombre);
+     $('#apellidosUsuario').val(datos.apellidos);
+     $('#emailUsuario').val(datos.email);
+     $('#puestoUsuario').val(datos.puesto);
+  });
+
+  $('#modalEditarPerfil').modal();
+
+
+}
+
+$('#upload-imagen').change(function(e) {
+  if(this.files && this.files[0]) {
+    var archivo = e.target.files[0];
+    var nombre = e.target.files[0].name;
+
+      let user = $('#modalEditarPerfil').attr('data-uid');
+
+      var storageRef = firebase.storage().ref(user+'/');
+      var uploadTask = storageRef.child('fotoPerfil').put(archivo);
+
+      uploadTask.on('state_changed', function(snapshot){
+      }, function(error) {
+
+      }, function() {
+        var downloadURL = uploadTask.snapshot.downloadURL;
+        $('#imgPerfilModal').attr('src', downloadURL);
+        $('#imgPerfil').attr('src', downloadURL);
+      });
+    }
+  }
+);
+
+function guardarCambios() {
+  let nombre = $('#nombreUsuario').val();
+  let apellidos = $('#apellidosUsuario').val();
+  let email = $('#emailUsuario').val();
+  //let puesto = $('#puestoUsuario').val();
+  let sobremi = $('#sobremi').val();
+
+  let rutausuario = firebase.database().ref('usuarios/'+userID);
+  rutausuario.update({
+    nombre: nombre,
+    apellidos: apellidos,
+    sobremi: sobremi
   });
 }

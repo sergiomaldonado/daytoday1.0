@@ -86,21 +86,24 @@
                               <div class="table-responsive no-padding">
                                 <div class="panel panel-default no-padding" style="border:solid 1px white;">
                                   <div class="panel-body no-padding">
-
                                     <ul id="listaCategorias">
                                   </div>
-                                  <div id='holder' class="row" ></div>
+                                  <div id='holder'></div>
                                 </div>
                               </div>
                             </div>
                             <div style="" class="col-xs-8 col-sm-6">
                               <div class="item">
                                 <form role="form" class="form-horizontal">
-                                  <div class="form-group">
-                                    <div class="col-md-12">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
                                       <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                                      <span style="display: none;" id="helpblockTarea" class="help-block"></span>
                                       <p style="float: right;" id="contadorTaComentario">0/60</p>
+                                    </div>
+                                    <div class="form-group">
                                       <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignadoEnProyecto" placeholder="Asignada a">
+                                      <span style="display: none;" id="helpblockasignadoEnProyecto" class="help-block"></span>
                                     </div>
                                   </div>
                                 </form>
@@ -109,18 +112,20 @@
                             <div style="" class="col-xs-8 col-sm-6">
                               <div class="item">
                                 <form role="form" class="form-horizontal">
-                                  <div class="form-group">
-                                    <div class="col-md-12">
+                                  <div class="col-md-12">
+                                    <div class="from-group">
                                       <select id="categoria" class="form-control input-lg" name="">
-                                        <option disabled selected value="">Categoría</option>
+
                                       </select>
-                                      <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTareaProyecto' >
-                                        <input id="fechaInicioTareaProyecto" type="text" class="form-control input-lg" placeholder="Inicio">
-                                         <div class="input-group-addon">
-                                          <span class="glyphicon glyphicon-calendar"></span>
-                                         </div>
+                                      <span style="display: none;" id="helpblockcategoriaTarea" class="help-block"></span>
+                                    </div>
+                                    <div style="margin-top:36px;" class="input-group date" id='datetimepickerFechaInicioTareaProyecto' >
+                                      <input id="fechaInicioTareaProyecto" type="text" class="form-control input-lg" placeholder="Inicio">
+                                      <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
                                       </div>
                                     </div>
+                                    <span style="display: none;" id="helpblockfechaInicioTareaProyecto" class="help-block"></span>
                                   </div>
                                 </form>
                               </div>
@@ -157,16 +162,18 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
-                <h4 class="modal-title">Agregar una orden</h4>
+                <button type="button" class="close" onclick="cerrarModalOrden()"><span aria-hidden="true" style="font-size:40px;" >&times</span></button>
+                <h2 class="modal-title text-left">Agregar una orden</h2>
               </div>
               <div class="modal-body">
-                <form role="form" id="form">
+                <form role="form">
                   <div class="form-group">
                     <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required>
+                    <span style="display: none;" id="helpblockCliente" class="help-block"></span>
                   </div>
                   <div class="form-group">
                     <textarea id="descripcion" class="form-control input-lg" rows="5" placeholder="¿De qué trata esta orden?"></textarea>
+                    <span style="display: none;" id="helpblockDescripcion" class="help-block"></span>
                   </div>
                   <div class="form-group">
                     <div class="input-group date" id='datetimepicker1'>
@@ -175,16 +182,21 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                       </div>
                     </div>
+                    <span style="display: none;" id="helpblockfechaEntrega" class="help-block"></span>
                   </div>
                   <div class="form-group">
-                    <input id="encargado" type="text" name="" class="form-control input-lg" value="" placeholder="¿Quién se encarga esta orden?" required>
+                    <input id="asignadoOrden" type="text" name="currency" class="form-control input-lg" placeholder="Asignada a" required>
+                    <span style="display: none;" id="helpblockasignadoOrden" class="help-block"></span>
+                  </div>
+                  <div class="form-group">
+                    <input id="encargado" type="text" name="" class="form-control input-lg" value="" placeholder="Cliente encargado" required>
+                    <span style="display: none;" id="helpblockEncargado" class="help-block"></span>
+                  </div>
+                  <div class="form-group">
+                    <textarea id="comentarios" type="text" rows="3" class="form-control input-lg" placeholder="Comentarios" required></textarea>
+                    <span style="display: none;" id="helpblockComentarios" class="help-block"></span>
                   </div>
                 </form>
-                  <!-- <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required><br>
-                  <textarea id="descripcion" class="form-control input-lg" rows="5" placeholder="¿De qué trata esta orden?"></textarea><br>
-                  <input id="cliente" type="text" name="" class="form-control input-lg" value="" placeholder="¿Para que cliente es esta orden?" required><br>
-                  <input id="fechaEntrega" type="text" class="form-control input-lg" placeholder="¿Que día tenemos que entregar esta orden?" data-provide="datepicker"><br>
-                  <input id="encargado" type="text" name="" class="form-control input-lg" value="" placeholder="¿Quién se encarga esta orden?" required><br> -->
               </div>
               <div class="modal-footer">
                 <button onclick="guardarOrden()" id="guardarOrden" type="button" class="btns btn-siguiente">Guardar</button><br>
@@ -197,7 +209,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div style="min-height:400px;" class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
+                <button type="button" class="close" onclick="cerrarModalProyecto()"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
                 <h2 class="modal-title text-left">Nuevo proyecto</h2>
               </div>
               <div class="modal-body">
@@ -210,6 +222,7 @@
                         <div class="form-group">
                           <div class="col-md-6">
                             <input id="nombreProyecto" type="text" class="form-control input-lg" placeholder="¿Cuál es el nombre de este proyecto?">
+                            <span style="display: none;" id="helpblocknombreProyecto" class="help-block"></span>
                           </div>
                           <div class="col-md-3">
                             <div class="input-group date" id='datetimepickerFechaInicio'>
@@ -218,36 +231,44 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                               </div>
                             </div>
+                            <span style="display: none;" id="helpblockfechaInicio" class="help-block"></span>
                           </div>
                           <div class="col-md-3">
                             <div class="input-group date" id='datetimepickerFechaEntrega'>
-                              <input id="fechaEntrega" type="text" class="form-control input-lg" placeholder="Entrega">
+                              <input id="fechaEntregaProyecto" type="text" class="form-control input-lg" placeholder="Entrega">
                               <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                               </div>
                             </div>
+                            <span style="display: none;" id="helpblockfechaEntregaProyecto" class="help-block"></span>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="col-md-6">
-                            <input id="encargadoProyecto" type="text" class="form-control input-lg" placeholder="¿Quién será el encargado?">
+                            <input id="encargadoProyecto" type="text" name="currency" class="form-control input-lg" placeholder="¿Quién será el encargado?">
+                            <span style="display: none;" id="helpblockencargadoProyecto" class="help-block"></span>
                           </div>
                           <div class="col-md-6">
                             <input id="estructuraProyecto" type="text" class="form-control input-lg" placeholder="Estructura del proyecto">
+                            <span style="display: none;" id="helpblockestructuraProyecto" class="help-block"></span>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="col-md-6">
                             <textarea id="descripcionProyecto" class="form-control input-lg" rows="4" placeholder="¿De qué trata el proyecto?"></textarea>
+                            <span style="display: none;" id="helpblockdescripcionProyecto" class="help-block"></span>
                           </div>
                           <div class="col-md-6" class="text-left">
-                            <input id="documentacion" type="text" class="form-control input-lg" placeholder="Documentación"><br>
+                            <input id="documentacion" type="text" class="form-control input-lg" placeholder="Documentación">
+                            <span style="display: none;" id="helpblockdocumentacion" class="help-block"></span><br>
                           </div>
                         </div>
                       </form>
-                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
+                      <div class="modal-footer">
+                        <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
+                      </div>
                     </div>
-                    <div class="item">
+                    <div style="margin-top:-20px;" class="item">
                       <form role="form" class="form-horizontal">
                         <div class="form-group">
                           <div id="contenedorModalObjetivos" class="col-md-6 text-left">
@@ -259,6 +280,7 @@
                                 <p style="" id="contadorObjetivo">0/140</p>
                               </span>
                             </div>
+  			                    <span style="display: none;" id="helpblockobjetivos" class="help-block"></span>
                           </div>
                           <div id="contenedorModalIndicadores" class="col-md-6 text-left">
                             <label><h3>Indicadores</h3></label>
@@ -268,142 +290,177 @@
                                 <button onclick="agregarIndicador()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                                 <p style="" id="contadorIndicador">0/140</p>
                               </span>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <div  class="modal-footer">
-                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-left"></span>Volver</button>
-                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <form id="contenedorModalHitos" role="form" class="form-horizontal text-left">
-                      <label><h3>Hitos</h3></label>
-                      <div class="input-group">
-                        <input id="input-agregarHito" type="text" class="form-control input-lg" placeholder="Añade fechas importantes como entregas, reuniones, dead lines etc.">
-                        <span class="input-group-btn">
-                          <button onclick="agregarHito()" class="btn btn-default input-lg" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                          <p style="" id="contadorHito">0/140</p>
-                        </span>
-                      </div>
-
-                    </form>
-                    <div style="margin-top:150px;" class="modal-footer">
-                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
-                    </div>
-                  </div>
-                  <div class="item"><!--      FORMA EL EQUIPO     -->
-                    <h3>Forma el equipo</h3>
-                    <div id="searchfield">
-                      <form role="form" class="form-horizontal" id="contenedorModalIntegrantes">
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <div class="input-group">
-                              <input id="input-agregarIntegrante" type="text" name="currency" id="integrante" class="form-control input-lg" placeholder="Añade un integrante a tu equipo">
-                              <span class="input-group-btn">
-                                <button onclick="agregarIntegrante()" class="btn btn-default input-lg btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-                              </span>
                             </div>
-
+                            <span style="display: none;" id="helpblockindicadores" class="help-block"></span>
                           </div>
                         </div>
                       </form>
-                    </div>
-                    <div style="margin-top:50px;" class="modal-footer">
-                      <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                      <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <h3>Agrega tareas e hitos al proyecto</h3>
-                    <div style="" class="col-xs-8 col-sm-6">
-                      <div class="item">
-                        <form role="form" class="form-horizontal">
-                          <div class="form-group">
-                            <div class="col-md-12">
-                              <input id="tarea" type="text" class="form-control input-lg" required placeholder="Tarea">
-                              <p style="float: right;" id="contadorTaComentario">0/60</p>
-                              <!--<input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">-->
-                            </div>
-                          </div>
-                        </form>
+                      <div style="margin-top:150px;" class="modal-footer">
+                        <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-left"></span>Volver</button>
+                        <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span style="transform:translate(0px, 2px);" aria-hidden="true"class="glyphicon glyphicon-menu-right"></span></button>
                       </div>
                     </div>
-                    <div style="" class="col-xs-8 col-sm-6">
-                      <div class="item">
-                        <form role="form" class="form-horizontal">
+                    <div class="item"><!--      FORMA EL EQUIPO     -->
+                      <h3>Forma el equipo</h3>
+                      <div id="searchfield">
+                        <form role="form" class="form-horizontal" id="contenedorModalIntegrantes">
                           <div class="form-group">
                             <div class="col-md-12">
-                              <input id="categoria" type="text" class="form-control input-lg" placeholder="Categoría">
-                              <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicio' >
-                                <input id="fechaInicio" type="text" class="form-control input-lg" placeholder="Inicio">
-                                 <div class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                 </div>
+                              <div class="input-group">
+                                <input id="input-agregarIntegrante" type="text" name="currency" class="form-control input-lg" placeholder="Añade un integrante a tu equipo">
+                                <span class="input-group-btn">
+                                  <button onclick="agregarIntegrante()" class="btn btn-default input-lg btn-secondary" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                                </span>
                               </div>
+                              <span style="display: none;" id="helpblockintegrantes" class="help-block"></span>
                             </div>
                           </div>
                         </form>
                       </div>
-                    </div>
-                    <div style="" class="col-xs-8 col-sm-6">
-                      <div class="form-group">
-                        <div class="col-md-6">
-                        </div>
-                        <div style="margin-top:15px;" class="col-md-6">
-                        </div>
+                      <div style="margin-top:150px;" class="modal-footer">
+                        <button onclick="volver()" type="button" style="float:left;" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                        <button onclick="siguiente()" type="button" style="float:right;" class="btns btn-siguiente">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>
                       </div>
                     </div>
-                    <div stylw="margin-top:10px;" class="form-group">
-                      <button  onclick="agregarTareaProyecto()" class="btn btn-default btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
-                    Tareas
-                    <hr style="">
-                    <div class="modal-footer">
-                      <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-                      <button onclick="guardar()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    <div class="item">
+                       <h3>Agrega tareas e hitos al proyecto</h3>
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#tabTareas" aria-controls="home" role="tab" data-toggle="tab">Tareas</a></li>
+                        <li role="presentation"><a href="#tabHitos" aria-controls="profile" role="tab" data-toggle="tab">Hitos</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="tabTareas">
+                          <div style="" class="col-xs-8 col-sm-6">
+                            <div class="item">
+                              <form role="form" class="form-horizontal">
+                                <div class="form-group">
+                                  <div class="col-md-12">
+                                    <input id="input-agregarTarea" type="text" class="form-control input-lg" required placeholder="Tarea">
+                                    <p style="float: right;" id="contadorTarea">0/60</p>
+                                    <input style="transform: translate(0px, -22px);" type="text" name="currency" class="form-control input-lg" id="asignado" placeholder="Asignada a">
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div style="" class="col-xs-8 col-sm-6">
+                            <div class="item">
+                              <form role="form" class="form-horizontal">
+                                <div class="form-group">
+                                  <div class="col-md-12">
+                                    <select id="select-categorias" class="form-control input-lg">
+                                      <option disabled selected value="">Categoría</option>
+                                    </select>
+                                    <div style="margin-top:20px;" class="input-group date" id='datetimepickerFechaInicioTarea'>
+                                      <input id="fechaInicioTarea" type="text" class="form-control input-lg" placeholder="Inicio">
+                                      <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div style="margin-top:10px;" class="form-group">
+                            <button  onclick="agregarTarea()" class="btn btn-default btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                          </div>
+                          Tareas
+                          <hr style="max-width: 100%; width: 100% !important;">
+                          <div id="contenedorModalTareas">
+                            <span style="display: none;" id="helpblocktareas" class="help-block"></span>
+                          </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tabHitos">
+                          <div style="" class="col-xs-8 col-sm-6">
+                            <div class="item">
+                              <form role="form" class="form-horizontal">
+                                <div class="form-group">
+                                  <div class="col-md-12">
+                                    <input id="input-agregarHito" type="text" class="form-control input-lg" required placeholder="Hito">
+                                    <p style="float: right;" id="contadorHito">0/60</p>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div style="" class="col-xs-8 col-sm-6">
+                            <div class="item">
+                              <form role="form" class="form-horizontal">
+                                <div class="form-group">
+                                  <div class="col-md-12">
+                                    <div class="input-group date" id='datetimepickerFechaInicioHito'>
+                                      <input id="fechaInicioHito" type="text" class="form-control input-lg" placeholder="Inicio">
+                                      <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div style="margin-top:10px;" class="form-group">
+                            <button  onclick="agregarHito()" class="btn btn-default btn-circle btn-lg" style="background-color: #7BD500;" type="button" name="button"><span class="glyphicon glyphicon-plus"></span></button>
+                          </div>
+                          Hitos
+                          <hr style="max-width: 100%; width: 100% !important;">
+                          <div id="contenedorModalHitos">
+                            <span style="display: none;" id="helpblockhitos" class="help-block"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="margin-top:150px;" class="modal-footer">
+                        <button onclick="volver()" style="float:left;" type="button" class="btns btn-volver"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
+                        <button onclick="guardarProyecto()" style="float:right;" type="button" class="btns btn-siguiente">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                      </div>
                     </div>
                   </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div data-keyboard="false" data-backdrop="static" id="agregarUsuario" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" onclick="cerrarModalUsuario()"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
-                <h4 class="modal-title">Agrega un usuario</h4>
+                <button onclick="cerrarModalUsuario()" type="button" class="close"><span aria-hidden="true" style="font-size:40px;">&times;</span></button>
+                <h2 class="modal-title text-left">Agrega un usuario</h2>
               </div>
               <div class="modal-body">
-                <form role="form" id="form">
+                <form role="form" >
                   <div class="form-group">
-                    <div class="col-md-6">
-                      <input id="nombre" type="text" name="" class="form-control input-lg" value="" placeholder="Nombre" required>
-                    </div>
-                    <div class="col-md-6">
-                      <input id="apellidos" type="text" name="" class="form-control input-lg" value="" placeholder="Apellidos" required>
+                    <div class="col-md-14 no-padding" >
+                      <div class="col-md-6" style="margin-left:-15px; margin-bottom:15px;">
+                        <input id="nombre" type="text" name="" class="form-control input-lg" value="" placeholder="Nombre" required>
+                        <span style="display: none;" id="helpblockNombre" class="help-block"></span>
+                      </div>
+                      <div class="col-md-6" style="transform:translate(30px, 0px);">
+                        <input id="apellidos" type="text" name="" class="form-control input-lg" value="" placeholder="Apellidos" required>
+                        <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
+                      </div>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" class="col-md-8">
                     <input id="agregarUsuarioEmail" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
+                    <span style="display: none;" id="helpblockagregarUsuarioEmail" class="help-block"></span>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" class="col-md-8">
                     <select id="agregarUsuarioPuesto" name="" class="input-lg form-control" required>
                       <option disabled selected value="">Puesto</option>
                       <option value="Administrador">Administrador</option>
                       <option value="Usuario">Usuario</option>
                     </select>
+                    <span style="display: none;" id="helpblockagregarUsuarioPuesto" class="help-block"></span>
                   </div>
-                  <div class="form-group">
-                    <input id="nuevacontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
+                  <div class="form-group" class="col-md-8">
+                    <input id="nuevacontraseña" type="password" name="" class="form-control input-lg" value="" placeholder="Contraseña" required>
+                    <span style="display: none;" id="helpblockNuevaContraseña" class="help-block"></span>
                   </div>
-                  <div class="form-group">
-                    <input id="confirmarcontrasena" type="password" name="" class="form-control input-lg" value="" placeholder="Confirmar contraseña" required>
+                  <div class="form-group" class="col-md-8">
+                    <input id="confirmarcontraseña" type="password" name="" class="form-control input-lg" value="" placeholder="Confirmar contraseña" required>
+                    <span style="display: none;" id="helpblockConfirmarContraseña" class="help-block"></span>
                   </div>
                   <div class="form-group">
                     <button onclick="guardarUsuario()" type="button" class="btns btn-siguiente">Guardar</button>
@@ -440,6 +497,61 @@
               </div>
               <div class="modal-footer">
                 <button id="btnActualizarTarea" onclick="actualizarTarea()" type="button" class="btns btn-siguiente" data-dismiss="modal">Guardar</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div id="modalEditarPerfil" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Mi perfil</h4>
+              </div>
+              <div class="modal-body">
+                <div class="col-md-6">
+                  <div class="row text-center">
+                    <img id="imgPerfilModal" width="150px" height="150px" alt="..." class="img-circle">
+                    <div style="display:none;" class="loader"></div>
+                  </div><br>
+                  <div class="row text-center">
+                    <span id="fileselector">
+                      <label for="upload-imagen" class="btn btn-default">
+                        <input style="float: left;" id="upload-imagen" type="file" name="" accept="image/x-png, image/gif, image/jpeg">
+                        <i class="fa fa-upload"></i>Cambiar foto
+                      </label>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="col-md-14 no-padding" >
+                      <div class="col-md-6" style="margin-left:-15px; margin-bottom:15px;">
+                        <input id="nombreUsuario" type="text" name="" class="form-control" required>
+                        <span style="display: none;" id="helpblockNombre" class="help-block"></span>
+                      </div>
+                      <div class="col-md-6" style="transform:translate(30px, 0px);">
+                        <input id="apellidosUsuario" type="text" name="" class="form-control" required>
+                        <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="emaulUsuario">Username</label>
+                    <input id="emailUsuario" name="emailUsuario" class="form-control" type="text" name="">
+                  </div>
+                  <div class="form-group">
+                    <label for="puestoUsuario">Puesto</label>
+                    <input id="puestoUsuario" name="puestoUsuario" class="form-control" type="text" name="">
+                  </div>
+                  <div class="form-group">
+                    <label for="sobremi">Sobre mi</label>
+                    <textarea id="sobremi" class="form-control" name="sobremi"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="guardarCambios()" data-dismiss="modal">Guardar cambios</button>
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->

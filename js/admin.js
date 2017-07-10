@@ -1,4 +1,6 @@
 var usuarioLogeado;
+var userID;
+
 function obtenerUsuario(uid) {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.on('value', function(snapshot) {
@@ -310,6 +312,7 @@ function haySesion() {
       //obtiene el usuario actual
       var user = firebase.auth().currentUser;
       var uid = user.uid;
+      userID = uid;
 
       $('#modalEditarPerfil').attr('data-uid', uid);
       obtenerUsuario(uid);
@@ -628,7 +631,8 @@ function modalEditarPerfil() {
   let usuario = firebase.database().ref('usuarios/'+uid);
   usuario.once('value').then(function(snapshot) {
     let datos = snapshot.val();
-     $('#nombreUsuario').val(datos.nombre + ' ' + datos.apellidos);
+     $('#nombreUsuario').val(datos.nombre);
+     $('#apellidosUsuario').val(datos.apellidos);
      $('#emailUsuario').val(datos.email);
      $('#puestoUsuario').val(datos.puesto);
   })
@@ -1503,6 +1507,21 @@ function guardarProyecto() {
       $('#helpblocktareas').hide();
     }
   }
+}
+
+function guardarCambios() {
+  let nombre = $('#nombreUsuario').val();
+  let apellidos = $('#apellidosUsuario').val();
+  let email = $('#emailUsuario').val();
+  //let puesto = $('#puestoUsuario').val();
+  let sobremi = $('#sobremi').val();
+
+  let rutausuario = firebase.database().ref('usuarios/'+userID);
+  rutausuario.update({
+    nombre: nombre,
+    apellidos: apellidos,
+    sobremi: sobremi
+  });
 }
 
 $('#datetimepicker1').datepicker({
