@@ -270,6 +270,45 @@ function completarTarea(idTarea, idProyecto, asignado, nombreTarea) {
   });
 }
 
+function marcarComoPendiente(idOrden) {
+  let ordenes = firebase.database().ref('ordenes/'+idOrden);
+
+  ordenes.update({
+    estado: 'Pendiente'
+  });
+  let nombre = $('.nombreDeUsuario');
+  let misOrdenes = firebase.database().ref('misOrdenes/'+nombre+'/'+idOrden);
+  misOrdenes.update({
+    estado: 'Pendiente'
+  });
+}
+
+function marcarComoLista(idOrden) {
+  let ordenes = firebase.database().ref('ordenes/'+idOrden);
+
+  ordenes.update({
+    estado: 'Listo'
+  });
+  let nombre = $('.nombreDeUsuario');
+  let misOrdenes = firebase.database().ref('misOrdenes/'+nombre+'/'+idOrden);
+  misOrdenes.update({
+    estado: 'Pendiente'
+  });
+}
+
+function marcarComoEnProceso(idOrden) {
+  let ordenes = firebase.database().ref('ordenes/'+idOrden);
+
+  ordenes.update({
+    estado: 'En proceso'
+  });
+  let nombre = $('.nombreDeUsuario');
+  let misOrdenes = firebase.database().ref('misOrdenes/'+nombre+'/'+idOrden);
+  misOrdenes.update({
+    estado: 'Pendiente'
+  });
+}
+
 function modalEditarPerfil() {
 
   let uid = $('#modalEditarPerfil').attr('data-uid');
