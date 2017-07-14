@@ -929,7 +929,7 @@ $('#upload-imagen').change(function(e) {
     var archivo = e.target.files[0];
     var nombre = e.target.files[0].name;
 
-      let user = $('#modalEditarPerfil').attr('data-uid');
+      let user = firebase.auth().currentUser.uid;
 
       var storageRef = firebase.storage().ref(user+'/');
       var uploadTask = storageRef.child('fotoPerfil').put(archivo);
@@ -1378,6 +1378,7 @@ function agregarTarea() {
 
 function borrarTarea(id) {
   $('#'+id).remove();
+  
 }
 
 var objInc = 1;
