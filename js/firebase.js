@@ -61,6 +61,10 @@
             $(location).attr("href", "usuario.html");
           }
         });
+      }else {
+        $('#body').attr('style', 'background-color: #E2ECFB;');
+        $('#head-blog').show();
+        $('#p').show();
       }
     });
   }

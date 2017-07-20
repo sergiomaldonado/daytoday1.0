@@ -1378,7 +1378,7 @@ function agregarTarea() {
 
 function borrarTarea(id) {
   $('#'+id).remove();
-  
+
 }
 
 var objInc = 1;
