@@ -326,15 +326,12 @@
                     <div class="col-md-6" style="margin-left:-15px; margin-bottom:15px;">
                       <input id="nombre" type="text" name="" class="form-control input-lg" value="" placeholder="Nombre" required>
                       <span style="display: none;" id="helpblockNombre" class="help-block"></span>
-
                     </div>
-
                     <div class="col-md-6" style="transform:translate(30px, 0px);">
                       <input id="apellidos" type="text" name="" class="form-control input-lg" value="" placeholder="Apellidos" required>
                       <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
                     </div>
                   </div>
-
                 </div>
                 <div class="form-group" class="col-md-8">
                   <input id="agregarUsuarioEmail" type="text" name="" class="form-control input-lg" value="" placeholder="Correo electrónico" required>
@@ -372,7 +369,7 @@
                 <div class="col-sm-6 col-md-4">
                   <div id="imagenUsuario" style="width:150px; overflow:hidden;" class="thumbnail no-padding" >
                     <img src="assets/bg-panel.png" alt="...">
-                    <img id="imgPerfil" style="display: none; margin-top:-40px; width:80px; height:80px;" alt="..." class="img-circle">
+                    <img id="imgPerfil" style="display: none; margin-top:-40px; width:80px; height:80px; min-height: 80px;" alt="..." class="img-circle">
                     <div class="caption">
                       <h4 class="nombreDeUsuario"></h4>
                       <hr>
@@ -388,7 +385,7 @@
                   <li class="active"><a id="tabsemana" href="#m1" data-toggle="tab" aria-label="Left Align">  Semana</a></li>
                   <li><a id="tabordenes" href="#m2" data-toggle="tab">  Ordenes</a></li>
                   <li><a id="tabproyectos" href="#m3" data-toggle="tab">  Proyectos</a></li>
-                  <li><a id="tabreporte" href="#m4" data-toggle="tab">  Reporte</a></li>
+                  <!--<li><a id="tabreporte" href="#m4" data-toggle="tab">  Reporte</a></li>-->
                   <li><a id="tabhistorial" href="#m5" data-toggle="tab">  Historial</a></li>
                 </ul>
                 <!-- Tab Semana-->
@@ -429,6 +426,13 @@
                   <!--  PROYECTOS ---->
                   <div  style="padding-top:0px;" class="tab-pane fade" id="m3">
                     <div id="ContenedorProyectos" class="row">
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="m5">
+                    <div class="table-responsive no-padding">
+                      <div class="panel panel-default no-padding" style="border:solid 1px white;">
+
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -608,7 +612,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-      <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
       <script type="text/javascript" src="js/jquery.minicolors.min.js"></script>

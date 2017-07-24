@@ -47,7 +47,7 @@ function mostrarNotificaciones(usuarioLogeado) {
       let row = "";
 
       let arrNotificaciones = [];
-      for(noti in notis) {
+      for(let noti in notis) {
         arrNotificaciones.push(notis[noti]);
       }
 
@@ -55,10 +55,13 @@ function mostrarNotificaciones(usuarioLogeado) {
       for(let i=0; i<arrNotificaciones.length; i++){
 
         if(arrNotificaciones[i].leida == false) {
-          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
+          let date = arrNotificaciones[i].fecha;
+          moment.locale('es');
+          let fecha = moment(date, "MMMM DD YYYY, HH:mm:ss").fromNow();
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span> '+fecha+'</p></div>';
         }
         else {
-          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span>Hace 3 minutos</p></div>';
+          row += '<div class="notification"><p id="pNoti">'+arrNotificaciones[i].mensaje+'</p><p id="horaNoti"><span class="glyphicon glyphicon-tasks"></span> '+fecha+'</p></div>';
         }
       }
       $('#notificaciones').attr('data-content', row);
@@ -82,94 +85,108 @@ function mostrarNotificaciones(usuarioLogeado) {
     });
 }
 
+function cerrarModalEditarPerfil() {
+  $('#modalEditarPerfil').modal('hide');
+}
+
 function mostrarOrdenes() {
    $('#misOrdenes').show();
-   let ordenes = firebase.database().ref('misOrdenes/'+usuarioLogeado);
-    ordenes.on('value', function(snapshot) {
-      let ordenes = snapshot.val();
-      $('#tablaordenes tbody').empty();
 
-      let i = 1;
-      for (orden in ordenes) {
+   let userLogged = firebase.auth().currentUser.uid;
 
-        if(ordenes[orden].asignado == usuarioLogeado) {
-          var state;
-          if(ordenes[orden].estado === "Pendiente"){
-            state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FF0000; width: 30px; height: 25px; border-radius: 15px;" class="badge"><span></a>';
+   let usuarios = firebase.database().ref('usuarios/'+userLogged);
+   usuarios.on('value', function(snapshot) {
+     let usuario = snapshot.val();
+     let nombreUsuario = usuario.nombre + " " + usuario.apellidos;
+     console.log(nombreUsuario);
+
+     let ordenes = firebase.database().ref('misOrdenes/'+nombreUsuario);
+      ordenes.on('value', function(snapshot) {
+        let ordenes = snapshot.val();
+        $('#tablaordenes tbody').empty();
+
+        let i = 1;
+        for (let orden in ordenes) {
+
+          if(ordenes[orden].asignado == usuarioLogeado) {
+            var state;
+            if(ordenes[orden].estado === "Pendiente"){
+              state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FF0000; width: 30px; height: 25px; border-radius: 15px;" class="badge"><span></a>';
+            }
+            if(ordenes[orden].estado === "En proceso"){
+              state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FFCC00; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
+            }
+            if(ordenes[orden].estado === "Listo"){
+              state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #4CDD85; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
+            }
+
+            let tr = $('<tr/>');
+            let td = '<td>' + i + '</td>' +
+                      '<td>' + ordenes[orden].cliente + '</td>' +
+                      '<td>' + ordenes[orden].descripcion + '</td>' +
+                      '<td>' + ordenes[orden].fechaRecep + '</td>' +
+                      '<td>' + ordenes[orden].fechaEntrega + '</td>';
+            tr.append(td);
+            let tdDrop = $('<td/>', {
+              'class': 'dropdown'
+            });
+            tdDrop.append(state);
+            let ul = $('<ul/>', {
+              'class': 'dropdown-menu'
+            });
+            let li1 = $('<li/>');
+            let a1 = $('<a/>', { 'onclick': 'marcarComoPendiente("'+orden+'")'});
+            let span1 = $('<span/>', {
+              'style': 'color: #FF0000;',
+              'class': 'glyphicon glyphicon-exclamation-sign'
+            });
+            a1.append(span1).append(' Marcar como pendiente');
+            li1.append(a1);
+
+            let li2 = $('<li/>');
+            let a2 = $('<a/>', { 'onclick': 'marcarComoEnProceso("'+orden+'")'});
+            let span2 = $('<span/>', {
+              'style': 'color: #FFCC00;',
+              'class': 'glyphicon glyphicon-time'
+            });
+            a2.append(span2).append(' Marcar como en proceso');
+            li2.append(a2);
+
+            let li3 = $('<li/>');
+            let a3 = $('<a/>', { 'onclick': 'marcarComoLista("'+orden+'")'});
+            let span3 = $('<span/>', {
+              'style': 'color: #4CDD85;',
+              'class': 'glyphicon glyphicon-ok'
+            });
+            a3.append(span3).append(' Marcar como lista');
+            li3.append(a3);
+
+            let li4 = $('<li/>');
+            let a4 = $('<a/>', { 'onclick': 'eliminarOrden("'+orden+'")'});
+            let span4 = $('<span/>', {
+              'class': 'icons glyphicon glyphicon-minus-sign'
+            });
+            a4.append(span4).append(' Eliminar orden');
+            li4.append(a4);
+
+            ul.append(li1).append(li2).append(li3).append(li4);
+
+            tdDrop.append(ul);
+            tr.append(tdDrop);
+            tr.append('<td>' + ordenes[orden].encargado + '</td>');
+
+            $('#tablaordenes tbody').append(tr);
+
+            i++;
           }
-          if(ordenes[orden].estado === "En proceso"){
-            state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FFCC00; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
-          }
-          if(ordenes[orden].estado === "Listo"){
-            state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #4CDD85; width: 30px; height: 25px;" border-radius: 15px; class="badge"><span></a>';
-          }
 
-          let tr = $('<tr/>');
-          let td = '<td>' + i + '</td>' +
-                    '<td>' + ordenes[orden].cliente + '</td>' +
-                    '<td>' + ordenes[orden].descripcion + '</td>' +
-                    '<td>' + ordenes[orden].fechaRecep + '</td>' +
-                    '<td>' + ordenes[orden].fechaEntrega + '</td>';
-          tr.append(td);
-          let tdDrop = $('<td/>', {
-            'class': 'dropdown'
-          });
-          tdDrop.append(state);
-          let ul = $('<ul/>', {
-            'class': 'dropdown-menu'
-          });
-          let li1 = $('<li/>');
-          let a1 = $('<a/>', { 'onclick': 'marcarComoPendiente("'+orden+'")'});
-          let span1 = $('<span/>', {
-            'style': 'color: #FF0000;',
-            'class': 'glyphicon glyphicon-exclamation-sign'
-          });
-          a1.append(span1).append(' Marcar como pendiente');
-          li1.append(a1);
-
-          let li2 = $('<li/>');
-          let a2 = $('<a/>', { 'onclick': 'marcarComoEnProceso("'+orden+'")'});
-          let span2 = $('<span/>', {
-            'style': 'color: #FFCC00;',
-            'class': 'glyphicon glyphicon-time'
-          });
-          a2.append(span2).append(' Marcar como en proceso');
-          li2.append(a2);
-
-          let li3 = $('<li/>');
-          let a3 = $('<a/>', { 'onclick': 'marcarComoLista("'+orden+'")'});
-          let span3 = $('<span/>', {
-            'style': 'color: #4CDD85;',
-            'class': 'glyphicon glyphicon-ok'
-          });
-          a3.append(span3).append(' Marcar como lista');
-          li3.append(a3);
-
-          let li4 = $('<li/>');
-          let a4 = $('<a/>', { 'onclick': 'eliminarOrden("'+orden+'")'});
-          let span4 = $('<span/>', {
-            'class': 'icons glyphicon glyphicon-minus-sign'
-          });
-          a4.append(span4).append(' Eliminar orden');
-          li4.append(a4);
-
-          ul.append(li1).append(li2).append(li3).append(li4);
-
-          tdDrop.append(ul);
-          tr.append(tdDrop);
-          tr.append('<td>' + ordenes[orden].encargado + '</td>');
-
-          $('#tablaordenes tbody').append(tr);
-
-          i++;
+          i = 1;
+          state = "";
         }
-
-        i = 1;
-        state = "";
-      }
-    }, function(errorObject) {
-      console.log("La lectura de las ordenes falló: " + errorObject.code);
-    })
+      }, function(errorObject) {
+        console.log("La lectura de las ordenes falló: " + errorObject.code);
+      })
+   });
 }
 
 function misOrdenes() {
@@ -193,7 +210,7 @@ function mostrarCategorias() {
     let categorias = snapshot.val();
 
     let lis="";
-    for(categoria in categorias) {
+    for(let categoria in categorias) {
       lis += '<li style="display:inline; padding:20px;"><span style="color:'+categorias[categoria].color+';" class="glyphicon glyphicon-asterisk"></span>'+categorias[categoria].nombre+'</li>';
     }
 
@@ -375,10 +392,19 @@ function guardarCambios() {
   //let puesto = $('#puestoUsuario').val();
   let sobremi = $('#sobremi').val();
 
-  let rutausuario = firebase.database().ref('usuarios/'+userID);
-  rutausuario.update({
-    nombre: nombre,
-    apellidos: apellidos,
-    sobremi: sobremi
-  });
+  let uid = firebase.auth().currentUser.uid;
+
+  if(nombre.length > 0 && apellidos.length > 0 && email.length > 0) {
+    let rutausuario = firebase.database().ref('usuarios/'+userID);
+    rutausuario.update({
+      nombre: nombre,
+      apellidos: apellidos,
+      sobremi: sobremi
+    });
+
+    $('#modalEditarPerfil').modal('hide');
+  }
+  else {
+
+  }
 }

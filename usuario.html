@@ -32,7 +32,7 @@
         </div>
         <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a style="height:55px; width:40px; margin-right:0px;" class="page-scroll"><span data-toggle="tooltip" data-placement="bottom" title="Notificaciones" onclick="leerNotificaciones()" title="Notificaciones" id="notificaciones" data-placement="bottom" style="font-size:20px; color:#CBCBCB; margin-top:7px;" class="glyphicon glyphicon-bell"><div id="spanNotificaciones" style="display:none; background-color:red; color:white; border-radius:5px; padding:10%;  font-size:10px; font-family: intelo-bold; transform:translate(10px, -22px);"></div></span></a></li>
+            <li><a style="height:55px; width:40px; margin-right:0px;" class="page-scroll"><span data-toggle="tooltip" data-placement="bottom" title="Notificaciones" onclick="leerNotificaciones()" title="Notificaciones" id="notificaciones" tabindex="0" data-trigger="focus" data-placement="bottom" style="font-size:20px; color:#CBCBCB; margin-top:7px;" class="glyphicon glyphicon-bell"><div id="spanNotificaciones" style="display:none; background-color:red; color:white; border-radius:5px; padding:10%;  font-size:10px; font-family: intelo-bold; transform:translate(10px, -22px);"></div></span></a></li>
             <li><a style="height:55px; width:40px;  margin-right:0px;" data-toggle="tooltip"  data-placement="bottom" title="" class="page-scroll"><span style="font-size:20px; color:#CBCBCB; margin-top:7px;" class="glyphicon glyphicon-cog"></span></a></li>
             <li><a style="height:55px; width:40px;  margin-right:0px;" class="page-scroll" onclick="logOut()"><span data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión" id="logout" style="font-size:20px; color:#CBCBCB; margin-top:7px;" class="glyphicon glyphicon-off"></span></a></li>
           </ul>
@@ -46,7 +46,7 @@
             <div class="col-lg-2 col-md-2">
               <div style="width:150px; overflow:hidden;" class="thumbnail no-padding">
                 <img src="assets/bg-panel.png" alt="...">
-                <img id="imgPerfil" style="display: none; margin-top:-40px;" width="80px" alt="..." class="img-circle">
+                <img id="imgPerfil" style="display: none; margin-top:-40px; min-height: 80px;" width="80px" height="80px" alt="..." class="img-circle">
                 <div class="caption">
                   <h4 class="nombreDeUsuario"></h4>
                   <hr>
@@ -114,7 +114,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" onclick="cerrarModalEditarPerfil()"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Mi perfil</h4>
           </div>
           <div class="modal-body">
@@ -138,34 +138,57 @@
                   <div class="col-md-6" style="margin-left:-15px; margin-bottom:15px;">
                     <input id="nombreUsuario" type="text" name="" class="form-control" required>
                     <span style="display: none;" id="helpblockNombre" class="help-block"></span>
+                    <span style="display: none;" id="helpblocknombreUsuario" class="help-block"></span>
                   </div>
                   <div class="col-md-6" style="transform:translate(30px, 0px);">
                     <input id="apellidosUsuario" type="text" name="" class="form-control" required>
                     <span style="display: none;" id="helpblockApellidos" class="help-block"></span>
+                    <span style="display: none;" id="helpblockapellidosUsuario" class="help-block"></span>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="emailUsuario">Username</label>
                 <input id="emailUsuario" name="emailUsuario" class="form-control" type="text" name="">
+                <span style="display: none;" id="helpblockemailUsuario" class="help-block"></span>
+              </div>
+              <div class="form-group">
+                <label for="Contraseña">Contraseña</label>
+                <button name="Contraseña" class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Expandir</button>
+              </div>
+              <div class="collapse" id="collapseExample">
+                <div class="well">
+                  <div class="form-group">
+                    <label for="contraseñaNuevaUsuario">Contraseña nueva</label>
+                    <input id="contraseñaNuevaUsuario" name="contraseñalUsuario" class="form-control" type="password" name="nuevaContraseñaUsuario">
+                    <span style="display: none;" id="helpblockcontraseñaNuevaUsuario" class="help-block"></span>
+                  </div>
+                  <div id="nuevaContraseñaAlertSuccess" style="display:none;" class="alert alert-success" role="alert">Contraseña actualizada con éxito</div>
+                  <div id="nuevaContraseñaAlertDanger" style="display:none;" class="alert alert-danger" role="alert">No se pudo cambiar, intenta más tarde</div>
+                  <div class="form-group">
+                    <button type="button" class="btns btn-success" onclick="guardarContraseña()">Guardar contraseña</button>
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="puestoUsuario">Puesto</label>
                 <input id="puestoUsuario" name="puestoUsuario" class="form-control" type="text" name="">
+                <span style="display: none;" id="helpblockpuestoUsuario" class="help-block"></span>
               </div>
               <div class="form-group">
                 <label for="sobremi">Sobre mi</label>
                 <textarea id="sobremi" class="form-control" name="sobremi"></textarea>
+                <span style="display: none;" id="helpblocksobremi" class="help-block"></span>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btns btn-siguiente" onclick="guardarCambios()" data-dismiss="modal">Guardar cambios</button>
+            <button type="button" class="btns btn-siguiente" onclick="guardarCambios()">Guardar cambios</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-      <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
       <script type="text/javascript" src="js/jquery.minicolors.min.js"></script>

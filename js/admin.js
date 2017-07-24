@@ -1,3 +1,12 @@
+
+/*var admin = require("firebase-admin");
+var serviceAccount = require("serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://daytoday-21c6d.firebaseio.com"
+});*/
+
 var usuarioLogeado;
 var userID;
 var auth = firebase.auth();
@@ -21,7 +30,7 @@ function obtenerUsuario(uid) {
   let rutahitos = firebase.database().ref('/tareas');
   rutahitos.on('value', function(snapshot) {
     let hitos = snapshot.val();
-    for(hito in hitos) {
+    for(let hito in hitos) {
       if(hitos[hito].categoria == "Hito") {
         let dia = hitos[hito].dia;
         let mes = hitos[hito].mes;
@@ -177,7 +186,7 @@ function llenarCategorias() {
     let categorias = snapshot.val();
 
     let options=""
-    for(categoria in categorias) {
+    for(let categoria in categorias) {
       options += '<option value="'+categorias[categoria].nombre+'">'+categorias[categoria].nombre+'</option>';
     }
     $('#select-categorias').empty().append(options);
@@ -192,7 +201,7 @@ function mostrarCategorias() {
     let categorias = snapshot.val();
 
     let lis="";
-    for(categoria in categorias) {
+    for(let categoria in categorias) {
       lis += '<li style="display:inline; padding:20px;"><span style="color:'+categorias[categoria].color+';" class="glyphicon glyphicon-asterisk"></span>'+categorias[categoria].nombre+'</li>';
     }
 
@@ -339,7 +348,7 @@ function mostrarNotificaciones(usuarioLogeado) {
       let row = "";
 
       let arrNotificaciones = [];
-      for(noti in notis) {
+      for(let noti in notis) {
         arrNotificaciones.push(notis[noti]);
       }
 
@@ -508,7 +517,7 @@ function actualizarOrden() {
         comentarios: comentarios
       });
 
-      let notificaciones = db.ref('notificaciones/'+asignadoAnterior+'/notificaciones');
+      let notificacionesAsignadoAnterior = db.ref('notificaciones/'+asignadoAnterior+'/notificaciones');
       moment.locale('es');
       let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
       let fecha = formato.toString();
@@ -518,7 +527,7 @@ function actualizarOrden() {
         leida: false,
         fecha: fecha
       }
-      notificaciones.push(datosNotificacion);
+      notificacionesAsignadoAnterior.push(datosNotificacion);
 
       let not = db.ref('notificaciones/'+asignadoAnterior);
       not.once('value', function(snapshot) {
@@ -528,24 +537,24 @@ function actualizarOrden() {
         not.update({cont: cont});
       });
 
-      let notificaciones = db.ref('notificaciones/'+asignado+'/notificaciones');
+      let notificacionesAsignado = db.ref('notificaciones/'+asignado+'/notificaciones');
       moment.locale('es');
-      let formato = moment().format("MMMM DD YYYY, HH:mm:ss");
-      let fecha = formato.toString();
-      let datosNotificacion = {
+      let formato2 = moment().format("MMMM DD YYYY, HH:mm:ss");
+      let fecha2 = formato2.toString();
+      let datosNotificacion2 = {
         mensaje: 'Se te ha asignado ahora la orden de: ' + descripcion,
         tipo: 'Orden',
         leida: false,
-        fecha: fecha
+        fecha: fecha2
       }
-      notificaciones.push(datosNotificacion);
+      notificacionesAsignado.push(datosNotificacion2);
 
-      let not = db.ref('notificaciones/'+asignado);
-      not.once('value', function(snapshot) {
+      let not2 = db.ref('notificaciones/'+asignado);
+      not2.once('value', function(snapshot) {
         let notusuario = snapshot.val();
         let cont = notusuario.cont + 1;
 
-        not.update({cont: cont});
+        not2.update({cont: cont});
       });
     }
   }
@@ -629,7 +638,7 @@ function mostrarOrdenes() {
       $('#tablaordenes tbody').empty();
 
       let i = 1;
-      for (orden in ordenes) {
+      for (let orden in ordenes) {
         var state;
         if(ordenes[orden].estado === "Pendiente"){
           state='<a class="dropdown-toggle" data-toggle="dropdown"><span style="background-color: #FF0000; width: 30px; height: 25px; border-radius: 15px;" class="badge"><span></a>';
@@ -792,7 +801,7 @@ function mostrarProyectos() {
       $('#ContenedorProyectos').empty();
       let row = "";
 
-      for (proyecto in proyectos) {
+      for (let proyecto in proyectos) {
         let fechaEntrega = proyectos[proyecto].fechaEntrega;
         let relativa = moment().endOf('day').fromNow();
 
@@ -1043,6 +1052,7 @@ function guardarOrden() {
     }
 
     let key = ordenes.push(Orden).getKey(); //inserta en firebase asignando un id autogenerado por la plataforma
+
     let misOrdenes = firebase.database().ref('misOrdenes/'+asignado+'/'+key);
     misOrdenes.set(Orden);
 
@@ -1201,10 +1211,14 @@ function guardarUsuario() {
   let nuevaContraseña = $('#nuevacontraseña').val()
   var confirmarContraseña = $('#confirmarcontraseña').val();
 
-  if(nombre.length > 0 && apellidos.length > 0 && agregarUsuarioEmail.length > 0 && agregarUsuarioPuesto.length > 0 && nuevaContrasena.length > 0 && confirmarContrasena.length > 0) {
-    if(nuevaContrasena == confirmarContrasena) {
+  if(nombre.length > 0 && apellidos.length > 0 && agregarUsuarioEmail.length > 0 && agregarUsuarioPuesto.length > 0 && nuevaContraseña.length > 0 && confirmarContraseña.length > 0) {
+    if(nuevaContraseña == confirmarContraseña) {
 
-      firebase.auth().createUserWithEmailAndPassword(agregarUsuarioEmail, nuevaContrasena)
+      var user = firebase.auth().currentUser;
+      console.log(user);
+      var credential;
+
+      firebase.auth().createUserWithEmailAndPassword(agregarUsuarioEmail, nuevaContraseña)
       .then(function(data) {
         console.log(data);
         let uid = data.uid;
@@ -1212,19 +1226,30 @@ function guardarUsuario() {
 
         let usuarios = firebase.database().ref('usuarios/'+uid);
         let Usuario = {
+          email: agregarUsuarioEmail,
           nombre: nombre,
           apellidos: apellidos,
-          puesto: agregarUsuarioPuesto
-        }
+          puesto: agregarUsuarioPuesto,
+          sobremi: ""
+        };
         usuarios.set(Usuario); //metodo set para insertar de Firebase
+        let notificaciones = firebase.database().ref('notificaciones/'+nombre + ' ' +apellidos);
+        let datosNot = {
+          cont: 0
+        };
+        notificaciones.set(datosNot);
+
+        cerrarModalUsuario();
+        user.reauthenticate(credential).then(function() {
+
+        }, function(error) {
+
+        });
 
       })
       .catch(function(error) {
         console.log(error);
       });
-      cerrarModalUsuario();
-
-      logOut();
     }
     else {
       console.log("Las contraseñas no coinciden");

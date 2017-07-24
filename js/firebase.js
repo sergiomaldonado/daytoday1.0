@@ -61,7 +61,8 @@
             $(location).attr("href", "usuario.html");
           }
         });
-      }else {
+      }
+      else {
         $('#body').attr('style', 'background-color: #E2ECFB;');
         $('#head-blog').show();
         $('#p').show();
@@ -70,6 +71,18 @@
   }
 
   getUser();
+
+  $('#email').keypress(function (e) {
+    if (e.which == 13) {
+      login();
+    }
+  });
+
+  $('#contrasena').keypress(function (e) {
+    if (e.which == 13) {
+      login();
+    }
+  });
 
   //cierra la sesión de firebase
   function logOut() {
